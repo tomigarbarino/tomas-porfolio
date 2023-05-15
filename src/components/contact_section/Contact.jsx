@@ -5,7 +5,7 @@ const Contact = () => {
     <section id="contact" className="px-5 max-w-[1560px] mx-auto mt-20 py-10">
       <header className="mb-10">
         <h2 className="text-white font-medium text-[32px] flex items-center gap-2">
-          <span className="text-[#C778DD]">#</span>contacts
+          <span className="text-[#C778DD]">#</span>contact
           <span className="line w-1/3 h-px bg-[#C778DD]"></span>
         </h2>
       </header>

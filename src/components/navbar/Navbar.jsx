@@ -37,7 +37,7 @@ const Navbar = () => {
               </a>
               <a href="#contact">
                 <li className="text-[#ABB2BF] text-[32px] my-4 md:my-auto md:text-base list-none mx-4">
-                  <span className="text-[#C778DD] font-medium">#</span>contacts
+                  <span className="text-[#C778DD] font-medium">#</span>contact
                 </li>
               </a>
               <div onClick={handleClick} className="close absolute block md:hidden right-3 top-3">
