@@ -1,35 +1,49 @@
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ProjectCard from "../project_card/ProjectCard";
-import first from "./imgs/Rectangle 22.jpg";
-import second from "./imgs/Rectangle 22.png";
+import first from "./imgs/to-do-list-veterinaria.png";
+import second from "./imgs/cifrador-cesar.png";
 import third from "./imgs/Rectangle 22 (1).png";
+import { useMemo } from "react";
 
 const Projects = () => {
   // data
   const projects = [
     {
       img: first,
-      langs: ["html", "css", "javascript", "react", "tailwind css"],
-      title: "ChertNodes",
-      description: "Minecraft servers hosting ",
+      langs: ["html", "css", "javascript", "react", "bootstrap","vite"],
+      title: "follow-up of veterinary patients",
+      description: "veterinary patient follow-up, you can add/edit/delete patients",
+      alt: "Veterinary patient follow-up project image",
     },
     {
       img: second,
-      langs: ["html", "css", "javascript", "Node.js"],
-      title: "ProtectX",
-      description: "Discord anti-crash bot ",
+      langs: ["html", "css", "javascript",],
+      title: "cesar cipher",
+      description: "Caesar encryption project: encryption/decryption tool based on character rotation, providing a basic level of information security.",
+      alt: "Caesar cipher project image",
     },
     {
       img: third,
       langs: ["html", "css", "javascript", "Node.js", "python"],
       title: "Kahoot Answers Viewer",
       description: "Get answers to your kahoot quiz ",
+      alt: "Kahoot answers viewer project image",
     },
   ];
 
+  const groupedProjects = useMemo(() => {
+    const groups = [];
+    for (let i = 0; i < projects.length; i += 3) {
+      groups.push(projects.slice(i, i + 3));
+    }
+    return groups;
+  }, [projects]);
+
   return (
-    <div id="work" className="px-5 max-w-[1560px] mx-auto mt-20 py-10">
+    <div id="work" className="px-5 pb-10 max-w-[1560px] mx-auto mt-20 py-10">
       {/* top */}
-      <div className="flex justify-between items-center gap-5">
+      <div className="flex justify-between items-center gap-5 mb-5">
         {/* left */}
         <div className="text-white w-2/3 font-medium text-[32px] flex items-center gap-2">
           <div>
@@ -37,28 +51,28 @@ const Projects = () => {
           </div>
           <div className="line w-2/3 h-px bg-[#C778DD]"></div>
         </div>
-        {/* right */}
-        {/* <div className="text-white font-medium">
-          <a href="">
-            <span>View all ~~&gt;</span>
-          </a>
-        </div> */}
       </div>
       {/* bottom */}
-      <div className="flex flex-wrap justify-between gap-4 my-12">
+      <Carousel showStatus={false} showThumbs={false} showIndicators={false}>
         {/* cards */}
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={index}
-            img={project.img}
-            langs={project.langs}
-            title={project.title}
-            description={project.description}
-          />
+        {groupedProjects.map((group, index) => (
+          <div key={index} className="flex justify-around">
+            {group.map((project) => (
+              <ProjectCard
+                key={project.title}
+                img={project.img}
+                langs={project.langs}
+                title={project.title}
+                description={project.description}
+                alt={project.alt}
+              />
+            ))}
+          </div>
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 };
 
 export default Projects;
+

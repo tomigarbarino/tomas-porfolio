@@ -26,7 +26,7 @@ const AboutSec = () => {
               the newest technologies and frameworks.
             </p>
             <a
-              href="https://www.linkedin.com/in/tomas-garbarino/" 
+              href="https://www.linkedin.com/in/tomas-garbarino/"
               target="_blank"
               className="inline-block duration-150 hover:bg-[#C778DD33] border border-[#C778DD] px-4 py-2 text-white"
             >

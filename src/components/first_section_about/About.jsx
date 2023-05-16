@@ -5,7 +5,7 @@ import "./about.css";
 const About = () => {
   const [displayWord, setDisplayWord] = useState("");
   const [quote, setQuote] = useState(null);
-  const wordList = ["front-end developer", "web designer", "Pixel perfect"];
+  const wordList = ["Front-end developer", "Web designer", "Pixel perfect"];
 
   const animateWord = async (word) => {
     for (let i = 0; i <= word.length; i++) {
@@ -80,7 +80,7 @@ const About = () => {
         <div className="border flex items-center gap-2 border-[#ABB2BF] p-2 text-[#ABB2BF] justify-center">
           <div className="w-4 h-4 bg-[#C778DD]"></div>
           <div className="">
-            Currently working on <span className="text-white">Hogarth WW (Client: Apple)</span>
+            Currently working on <span className="text-white">Hogarth WW (Client:<span className="text-[#C778DD]">Apple</span>)</span>
           </div>
         </div>
       </div>
