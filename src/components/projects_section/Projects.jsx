@@ -11,17 +11,19 @@ const Projects = () => {
   const projects = [
     {
       img: first,
-      langs: ["html", "css", "javascript", "react", "bootstrap","vite"],
+      langs: ["html", "css", "javascript", "react", "bootstrap", "vite"],
       title: "follow-up of veterinary patients",
       description: "veterinary patient follow-up, you can add/edit/delete patients",
       alt: "Veterinary patient follow-up project image",
+      href: "https://turnos-react.netlify.app/"
     },
     {
       img: second,
       langs: ["html", "css", "javascript",],
       title: "cesar cipher",
-      description: "Caesar encryption project: encryption/decryption tool based on character rotation, providing a basic level of information security.",
+      description: "Caesar encryption project: encryption tool based on character rotation, providing a basic level of information security.",
       alt: "Caesar cipher project image",
+      href: "https://tomigarbarino.github.io/cifrador-cesar.github.io/"
     },
     {
       img: third,
@@ -29,6 +31,7 @@ const Projects = () => {
       title: "Kahoot Answers Viewer",
       description: "Get answers to your kahoot quiz ",
       alt: "Kahoot answers viewer project image",
+      href: "https://example.com/project2"
     },
   ];
 
@@ -64,7 +67,7 @@ const Projects = () => {
                 langs={project.langs}
                 title={project.title}
                 description={project.description}
-                alt={project.alt}
+                href={project.href}
               />
             ))}
           </div>

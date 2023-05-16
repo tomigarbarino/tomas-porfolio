@@ -1,4 +1,4 @@
-const ProjectCard = ({ img, langs, title, description }) => {
+const ProjectCard = ({ img, langs, title, description,href }) => {
   return (
     <div className="border mx-auto w-[90%] md:w-[48%] lg:w-[30%] border-[#ABB2BF] p-0">
       {/* img */}
@@ -19,9 +19,9 @@ const ProjectCard = ({ img, langs, title, description }) => {
         <p className="py-4 text-[#ABB2BF]">{description}</p>
         {/* btns */}
         <div>
-          <button className="py-2 px-4 text-white border border-[#C778DD] hover:bg-[#C778DD33] duration-150">
-            Live {"<"}~{">"}
-          </button>
+        <a href={href} target="_blank" rel="noopener noreferrer" className="py-2 px-4 text-white border border-[#C778DD] hover:bg-[#C778DD33] duration-150 inline-block">
+          Live {"<"}~{">"}
+        </a>
         </div>
       </div>
     </div>
