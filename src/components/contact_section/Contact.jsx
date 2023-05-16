@@ -9,8 +9,8 @@ const Contact = () => {
           <span className="line w-1/3 h-px bg-[#C778DD]"></span>
         </h2>
       </header>
-      <div className="flex items-start flex-wrap gap-10 justify-between">
-        <div className="w-full md:w-1/2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div>
           <p className="text-[#ABB2BF]">
             I’m interested in freelance opportunities. However, if you have
             other request or question, don’t hesitate to contact me
@@ -20,7 +20,7 @@ const Contact = () => {
           <div className="border border-[#ABB2BF] p-4">
             <h3 className="mb-4 text-white font-semibold">Message me here</h3>
             <div>
-              <div className="flex gap-1 items-center">
+              <div className="flex gap-1 items-center center-position">
                 <img
                   src={require("./imgs/Linkedin.png")}
                   alt="LinkedIn icon"
@@ -40,7 +40,7 @@ const Contact = () => {
                   src={require("./imgs/Email.png")}
                   alt="Email icon"
                 />
-                <span className="text-[#ABB2BF]">
+                <span className="text-[#ABB2BF]" style={{wordBreak: 'break-word'}}> {/* Note the added style here */}
                   tomasgarbarino.dev@gmail.com
                 </span>
               </div>
