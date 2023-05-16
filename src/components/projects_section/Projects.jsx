@@ -56,10 +56,10 @@ const Projects = () => {
         </div>
       </div>
       {/* bottom */}
-      <Carousel showStatus={false} showThumbs={false} showIndicators={false}>
+      <Carousel className="space-x-4 sm:space-x-0" showStatus={false} showThumbs={false} showIndicators={false}>
         {/* cards */}
         {groupedProjects.map((group, index) => (
-          <div key={index} className="flex justify-around">
+          <div key={index} className="flex justify-around flex-wrap space-y-8">
             {group.map((project) => (
               <ProjectCard
                 key={project.title}
