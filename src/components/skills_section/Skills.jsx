@@ -13,7 +13,7 @@ const Skills = () => {
     },
     {
       title: "Other",
-      languages: ["HTML", "CSS", "Bootstrap", "Sass", "Less","Tailwind"],
+      languages: ["HTML", "CSS", "Bootstrap", "Sass", "Less", "Tailwind"],
     },
   ];
 
@@ -43,34 +43,34 @@ const Skills = () => {
           </div>
         </div>
         {/* bottom */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center text-white">
-            {/* left */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center text-white">
+          {/* left */}
+          <div className="w-full mx-auto">
+            <img className="w-full mx-auto" src={require("./imgs/shapes.png")} alt="" />
+          </div>
+          {/* center & mapping */}
+          <div className="w-full mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+            {skills.map(({ title, languages }, skillIndex) => {
+              return (
+                <div key={`skill-${skillIndex}`} className="w-full border border-[#ABB2BF] mb-4">
+                  <div className="p-2">
+                    <h2 className="font-semibold">{title}</h2>
+                  </div>
+                  <div className="flex gap-2 border-t border-[#ABB2BF] flex-wrap p-2 text-[#ABB2BF]">
+                    {languages.map((e, langIndex) => {
+                      return <span key={`lang-${skillIndex}-${langIndex}`}>{e}</span>;
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {/* right image on large screen */}
+          {isLargeScreen && (
             <div className="w-full mx-auto">
               <img className="w-full mx-auto" src={require("./imgs/shapes.png")} alt="" />
             </div>
-            {/* center & mapping */}
-            <div className="w-full mx-auto flex justify-around md:justify-center flex-wrap gap-4">
-              {skills.map(({ title, languages }, skillIndex) => {
-                return (
-                  <div key={`skill-${skillIndex}`} className="w-full sm:w-1/2 lg:w-1/3 border border-[#ABB2BF] mb-4">
-                    <div className="p-2">
-                      <h2 className="font-semibold">{title}</h2>
-                    </div>
-                    <div className="flex gap-2 border-t border-[#ABB2BF] flex-wrap p-2 text-[#ABB2BF]">
-                      {languages.map((e, langIndex) => {
-                        return <span key={`lang-${skillIndex}-${langIndex}`}>{e}</span>;
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            {/* right image on large screen */}
-            {isLargeScreen && (
-              <div className="w-full mx-auto">
-                <img className="w-full mx-auto" src={require("./imgs/shapes.png")} alt="" />
-              </div>
-            )}
+          )}
         </div>
       </div>
     </>

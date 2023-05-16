@@ -12,7 +12,7 @@ const Projects = () => {
     {
       img: first,
       langs: ["html", "css", "javascript", "react", "bootstrap", "vite"],
-      title: "follow-up of veterinary patients",
+      title: "follow-up of veterinary",
       description: "veterinary patient follow-up, you can add/edit/delete patients",
       alt: "Veterinary patient follow-up project image",
       href: "https://turnos-react.netlify.app/"
@@ -56,10 +56,9 @@ const Projects = () => {
         </div>
       </div>
       {/* bottom */}
-      <Carousel className="space-x-4 sm:space-x-0" showStatus={false} showThumbs={false} showIndicators={false}>
-        {/* cards */}
+      <Carousel showStatus={false} showThumbs={false} showIndicators={false}>
         {groupedProjects.map((group, index) => (
-          <div key={index} className="flex justify-around flex-wrap space-y-8">
+          <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {group.map((project) => (
               <ProjectCard
                 key={project.title}
