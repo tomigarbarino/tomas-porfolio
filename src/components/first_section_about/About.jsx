@@ -80,7 +80,7 @@ const About = () => {
         <div className="border flex items-center gap-2 border-[#ABB2BF] p-2 text-[#ABB2BF] justify-center">
           <div className="w-4 h-4 bg-[#C778DD]"></div>
           <div className="">
-            Currently working on <span className="text-white">Hogarth WW (Client:<span className="text-[#C778DD]">Apple</span>)</span>
+            Currently working on <span className="text-white">Hogarth WW {/*(Client:<span className="text-[#C778DD]">Apple</span>)*/}</span>
           </div>
         </div>
       </div>
