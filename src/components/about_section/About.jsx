@@ -13,7 +13,7 @@ const AboutSec = () => {
               </div>
             </div>
             <p className="text-[#ABB2BF] mb-7">
-              Hello, i’m Tomas!
+              Hello, I’m Tomas!
               <br />
               <br />
               I’m a self-taught front-end developer based in Buenos, Argentina. I
