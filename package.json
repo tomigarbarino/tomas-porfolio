@@ -40,6 +40,9 @@
     "type-check": "tsc --noEmit",
     "eject": "react-scripts eject"
   },
+  "engines": {
+    "node": ">=20.x"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
