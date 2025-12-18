@@ -1,0 +1,19 @@
+.experience-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C778DD, transparent);
+  transition: left 0.5s;
+}
+
+.experience-card:hover::before {
+  left: 100%;
+}

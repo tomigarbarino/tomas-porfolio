@@ -1,0 +1,16 @@
+/* App.css */
+.app {
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .horizontal-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .horizontal-container > * {
+    min-width: 100vw;
+    height: 100vh;
+  }
+  

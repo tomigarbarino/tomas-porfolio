@@ -1,80 +1,179 @@
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import ProjectCard from "../project_card/ProjectCard";
-import first from "./imgs/to-do-list-veterinaria.png";
-import second from "./imgs/cifrador-cesar.png";
-import third from "./imgs/Rectangle 22 (1).png";
-import { useMemo } from "react";
+// src/components/projects_section/Projects.jsx
+
+import React, { useRef, useEffect } from "react";
+import Console from "react-console-emulator";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "../../contexts/LanguageContext";
+import { getTranslation } from "../../translations";
+import "./style.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
-  // data
-  const projects = [
-    {
-      img: first,
-      langs: ["html", "css", "javascript", "react", "bootstrap", "vite"],
-      title: "follow-up of veterinary",
-      description: "veterinary patient follow-up, you can add/edit/delete patients",
-      alt: "Veterinary patient follow-up project image",
-      href: "https://turnos-react.netlify.app/"
-    },
-    {
-      img: second,
-      langs: ["html", "css", "javascript",],
-      title: "cesar cipher",
-      description: "Caesar encryption project: encryption tool based on character rotation, providing a basic level of information security.",
-      alt: "Caesar cipher project image",
-      href: "https://tomigarbarino.github.io/cifrador-cesar.github.io/"
-    },
-    {
-      img: third,
-      langs: ["html", "css", "javascript", "Node.js", "python"],
-      title: "Kahoot Answers Viewer",
-      description: "Get answers to your kahoot quiz ",
-      alt: "Kahoot answers viewer project image",
-      href: "https://example.com/project2"
-    },
-  ];
+  const consoleRef = useRef(null);
+  const projectsRef = useRef(null);
+  const titleRef = useRef(null);
+  const lineRef = useRef(null);
+  const consoleWrapperRef = useRef(null);
+  
+  const { language } = useLanguage();
+  const t = getTranslation(language);
 
-  const groupedProjects = useMemo(() => {
-    const groups = [];
-    for (let i = 0; i < projects.length; i += 3) {
-      groups.push(projects.slice(i, i + 3));
-    }
-    return groups;
-  }, [projects]);
+  const commands = {
+    help: {
+      description: t.terminal.commands.help,
+      fn: () => t.terminal.commands.help,
+    },
+    hire: {
+      description: "Why hire me",
+      fn: () => t.terminal.commands.hire,
+    },
+    skills: {
+      description: "View technical skills",
+      fn: () => t.terminal.commands.skills,
+    },
+    projects: {
+      description: "List featured projects",
+      fn: () => t.terminal.commands.projects,
+    },
+    experience: {
+      description: "Show work experience",
+      fn: () => t.terminal.commands.experience,
+    },
+    contact: {
+      description: "Get contact information",
+      fn: () => t.terminal.commands.contact,
+    },
+    linkedin: {
+      description: "Open LinkedIn profile",
+      fn: () => {
+        window.open("https://www.linkedin.com/in/tomas-garbarino/", "_blank");
+        return t.terminal.commands.linkedin;
+      },
+    },
+    github: {
+      description: "Open GitHub profile",
+      fn: () => {
+        window.open("https://github.com/tomasgarbarino", "_blank");
+        return t.terminal.commands.github;
+      },
+    },
+    clear: {
+      description: "Clear console",
+      fn: () => {
+        if (consoleRef.current) {
+          consoleRef.current.clearStdout();
+        }
+        return "";
+      },
+    },
+  };
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(titleRef.current, {
+        opacity: 0,
+        x: -100,
+        duration: 1.2,
+        ease: "power3.out",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: projectsRef.current,
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      gsap.from(lineRef.current, {
+        scaleX: 0,
+        transformOrigin: "left",
+        duration: 1.5,
+        delay: 0.3,
+        ease: "power3.out",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: projectsRef.current,
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      gsap.from(consoleWrapperRef.current, {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+        duration: 1.5,
+        ease: "back.out(1.2)",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: projectsRef.current,
+          start: "top 70%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    }, projectsRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div id="work" className="px-5 pb-10 max-w-[1560px] mx-auto mt-20 py-10">
-      {/* top */}
-      <div className="flex justify-between items-center gap-5 mb-5">
-        {/* left */}
-        <div className="text-white w-2/3 font-medium text-[32px] flex items-center gap-2">
-          <div>
-            <span className="text-[#C778DD]">#</span>projects
-          </div>
-          <div className="line w-2/3 h-px bg-[#C778DD]"></div>
+    <div id="interactive-terminal" className="px-5 pb-10 max-w-[1560px] mx-auto mt-20 py-10" ref={projectsRef}>
+      <div className="flex items-center mb-6">
+        <div
+          className="text-white font-medium text-[32px] flex items-center gap-2"
+          ref={titleRef}
+        >
+          <span className="text-[#C778DD]">#</span>{t.terminal.title}
+          <div className="line flex-1 h-px bg-[#C778DD] ml-4" ref={lineRef}></div>
         </div>
       </div>
-      {/* bottom */}
-      <Carousel showStatus={false} showThumbs={false} showIndicators={false}>
-        {groupedProjects.map((group, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {group.map((project) => (
-              <ProjectCard
-                key={project.title}
-                img={project.img}
-                langs={project.langs}
-                title={project.title}
-                description={project.description}
-                href={project.href}
-              />
-            ))}
-          </div>
-        ))}
-      </Carousel>
+
+      <p className="text-[#ABB2BF] text-center mb-8">
+        {t.terminal.subtitle}
+      </p>
+
+      <div
+        className="console-wrapper border-2 border-[#C778DD] rounded-lg shadow-xl shadow-[#C778DD]/20 hover:shadow-2xl hover:shadow-[#C778DD]/30 transition-shadow duration-300 overflow-hidden"
+        ref={consoleWrapperRef}
+      >
+        <Console
+          ref={consoleRef}
+          commands={commands}
+          noDefaults={true}
+          welcomeMessage={`
+╔══════════════════════════════════════════════╗
+║   Tomas Garbarino - Portfolio Terminal      ║
+║   Frontend Engineer | React + TypeScript    ║
+╚══════════════════════════════════════════════╝
+
+${t.terminal.subtitle}
+          `}
+          promptLabel="tomas@portfolio:~$"
+          style={{
+            backgroundColor: "#011627",
+            minHeight: "400px",
+            maxHeight: "600px",
+            overflow: "auto",
+          }}
+          styleEchoBack="userInput"
+          contentStyle={{
+            color: "#ABB2BF",
+            fontFamily: "'Courier New', Courier, monospace",
+            fontSize: "14px",
+            padding: "20px",
+          }}
+          promptLabelStyle={{
+            color: "#C778DD",
+            fontWeight: "bold",
+          }}
+          inputTextStyle={{
+            color: "#ABB2BF",
+          }}
+        />
+      </div>
     </div>
   );
 };
 
 export default Projects;
-
