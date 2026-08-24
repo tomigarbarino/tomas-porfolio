@@ -32,6 +32,20 @@ There are no backend, database, permission, or environment-variable changes.
 
 The motion system uses `gsap.matchMedia()` to keep desktop-only interaction and reduced-motion behavior scoped. All animations are limited to opacity and transforms. The horizontal mode is enabled through an enhancement class only after the matching GSAP context mounts, so the base layout remains readable if JavaScript, motion, or desktop conditions are unavailable. React Strict Mode and responsive media changes are handled through GSAP cleanup and event-listener teardown.
 
+## Color System
+
+The visual system now uses a warmer editorial palette grounded in award-winning dark portfolio references and adapted to the real Trainly product assets:
+
+- Ink background `#09090c` and layered surfaces `#111016` / `#181620`
+- Warm ivory text `#f5f0e8`
+- Coral primary accent `#fa8b67` for calls to action, movement, and highlighted copy
+- Mineral violet secondary accent `#8f86e8` for depth, project states, and technical diagrams
+- Mint success state `#83d8b8`
+
+The color roles are stored as reusable CSS custom properties with RGB companions for alpha compositing. Hero gradients, Proof Console states, the horizontal reel, travelling orb, project cards, contact panel, and mobile dock all reuse these roles. Trainly's existing orange product identity remains intact and now sits inside the same warm color family instead of competing with a generic blue palette.
+
+Measured contrast against the main ink background is 17.53:1 for primary text, 8.17:1 for secondary text, 5.17:1 for tertiary text, 8.48:1 for coral, 6.39:1 for violet, and 11.82:1 for success green. Dark CTA text reaches 7.95:1 against coral.
+
 ## Operational Notes
 
 - Public evidence links remain public.

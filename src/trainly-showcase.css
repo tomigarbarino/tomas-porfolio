@@ -14,7 +14,7 @@
   border: 1px solid rgba(245, 80, 14, 0.22);
   border-radius: 26px;
   overflow: hidden;
-  background: #0d1117;
+  background: var(--surface);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
 }
 
@@ -28,7 +28,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background:
     radial-gradient(circle at 88% 0%, rgba(245, 80, 14, 0.16), transparent 36%),
-    #0d1117;
+    var(--surface);
 }
 
 .trainly-real-header img {

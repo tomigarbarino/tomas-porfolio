@@ -11,7 +11,7 @@
 
 html {
   scroll-behavior: smooth;
-  background: #07090d;
+  background: #09090c;
 }
 
 body {
@@ -48,6 +48,6 @@ pre,
 }
 
 ::selection {
-  background: rgba(124, 92, 255, 0.35);
-  color: #fff;
+  background: rgba(250, 139, 103, .42);
+  color: #1a0e0b;
 }
