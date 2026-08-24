@@ -13,8 +13,10 @@ import {
   Workflow,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useRef } from "react";
 import "./App.css";
 import "./trainly-showcase.css";
+import { usePortfolioMotion } from "./hooks/usePortfolioMotion";
 
 type Project = {
   id: string;
@@ -221,8 +223,12 @@ const TrainlyShowcase = () => (
 );
 
 function App() {
+  const portfolioRef = useRef<HTMLDivElement>(null);
+
+  usePortfolioMotion(portfolioRef);
+
   return (
-    <div className="portfolio-shell">
+    <div className="portfolio-shell" ref={portfolioRef}>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Tomás Garbarino home">
           <span className="brand-mark">TG</span>
@@ -233,9 +239,9 @@ function App() {
         </a>
 
         <nav className="site-nav" aria-label="Primary navigation">
-          <a href="#work">Work</a>
-          <a href="#experience">Experience</a>
-          <a href="#about">About</a>
+          <a href="#work" data-section-link="work">Work</a>
+          <a href="#experience" data-section-link="experience">Experience</a>
+          <a href="#about" data-section-link="about">About</a>
         </nav>
 
         <a
@@ -251,22 +257,29 @@ function App() {
       <main>
         <section className="hero section-wrap" id="top">
           <div className="hero-copy">
-            <div className="eyebrow-pill">
+            <div className="eyebrow-pill" data-hero-reveal>
               <span className="status-dot" />
               Building AI products at Flock I+D
             </div>
 
-            <div className="hero-role">PRODUCT ENGINEER · AI PRODUCT BUILDER</div>
+            <div className="hero-role" data-hero-reveal>PRODUCT ENGINEER · AI PRODUCT BUILDER</div>
 
-            <h1>
-              I turn messy workflows into <span>AI products people can actually use.</span>
+            <h1 aria-label="I turn messy workflows into AI products people can actually use.">
+              <span className="hero-line-mask">
+                <span className="hero-line" data-hero-line>I turn messy workflows</span>
+              </span>
+              <span className="hero-line-mask">
+                <span className="hero-line hero-line-accent" data-hero-line>
+                  into AI products people can actually use.
+                </span>
+              </span>
             </h1>
 
-            <p className="hero-subtitle">
+            <p className="hero-subtitle" data-hero-reveal>
               Product Engineer working across product thinking, UX, frontend, AI integrations and rapid validation — from an ambiguous problem to a working system.
             </p>
 
-            <div className="hero-actions">
+            <div className="hero-actions" data-hero-reveal>
               <a className="btn btn-primary" href="#trainly">
                 View proof of work <ArrowRight size={17} />
               </a>
@@ -280,7 +293,7 @@ function App() {
               </a>
             </div>
 
-            <div className="proof-row" aria-label="Professional highlights">
+            <div className="proof-row" aria-label="Professional highlights" data-hero-reveal>
               <div>
                 <strong>Flock I+D</strong>
                 <span>Product Engineer · current</span>
@@ -530,8 +543,8 @@ function App() {
       </footer>
 
       <nav className="mobile-dock" aria-label="Mobile quick navigation">
-        <a href="#work"><Boxes size={16} /> Work</a>
-        <a href="#experience"><Code2 size={16} /> Experience</a>
+        <a href="#work" data-section-link="work"><Boxes size={16} /> Work</a>
+        <a href="#experience" data-section-link="experience"><Code2 size={16} /> Experience</a>
         <a href="mailto:tomasgarbarino.dev@gmail.com"><Mail size={16} /> Email</a>
       </nav>
     </div>

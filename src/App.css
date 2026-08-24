@@ -134,6 +134,7 @@ a {
 
 .site-nav a,
 .footer-links a {
+  position: relative;
   color: var(--muted);
   text-decoration: none;
   font-size: 12px;
@@ -143,6 +144,27 @@ a {
 .site-nav a:hover,
 .footer-links a:hover {
   color: var(--text);
+}
+
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .28s ease;
+}
+
+.site-nav a.is-active {
+  color: var(--text);
+}
+
+.site-nav a.is-active::after {
+  transform: scaleX(1);
 }
 
 a:focus-visible,
@@ -229,7 +251,18 @@ button:focus-visible {
   font-weight: 650;
 }
 
-.hero h1 span {
+.hero-line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .08em;
+  margin-bottom: -.08em;
+}
+
+.hero h1 .hero-line {
+  display: block;
+}
+
+.hero h1 .hero-line-accent {
   color: #a8b0ff;
   background: linear-gradient(90deg, #f2f4ff 0%, #9f93ff 48%, #76c6ff 100%);
   -webkit-background-clip: text;
@@ -1485,6 +1518,12 @@ button:focus-visible {
   .mobile-dock a:last-child {
     color: #fff;
     background: linear-gradient(135deg, rgba(110, 85, 255, .92), rgba(76, 128, 255, .92));
+  }
+
+  .mobile-dock a.is-active {
+    color: #fff;
+    background: rgba(124, 92, 255, .12);
+    box-shadow: inset 0 0 0 1px rgba(124, 92, 255, .2);
   }
 }
 
