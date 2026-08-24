@@ -136,6 +136,10 @@ Deployed on Vercel with automatic deployments from main branch.
 
 **Live URL**: https://tomas-garbarino.vercel.app/
 
+## 📚 Documentation
+
+- [Proof Console portfolio redesign](docs/portfolio-proof-console-redesign.md)
+
 ## 🔒 Production Considerations
 
 ### What I Would Add for Real Production

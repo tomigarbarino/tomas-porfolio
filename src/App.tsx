@@ -17,11 +17,16 @@ import "./App.css";
 import "./trainly-showcase.css";
 
 type Project = {
+  id: string;
   title: string;
   eyebrow: string;
+  status: string;
   description: string;
+  proof: string;
   tags: string[];
   icon: LucideIcon;
+  href: string;
+  linkLabel: string;
 };
 
 type Experience = {
@@ -55,28 +60,46 @@ const TRAINLY_ASSETS = {
 
 const projects: Project[] = [
   {
+    id: "insurance-workflow",
     title: "Multi-agent Insurance Workflow",
     eyebrow: "AI OPERATIONS",
+    status: "PROTOTYPE",
     description:
       "An operational prototype where AI agents help analyze a claim, consult policy and evidence, surface missing information and escalate decisions to a human operator.",
+    proof:
+      "Working flow: policy review, evidence checks, missing-data detection and human escalation.",
     tags: ["Agent orchestration", "Human-in-the-loop", "Operational UX"],
     icon: ShieldCheck,
+    href: "mailto:tomasgarbarino.dev@gmail.com?subject=Insurance%20workflow%20walkthrough",
+    linkLabel: "Request a walkthrough",
   },
   {
+    id: "immersive-ai",
     title: "Immersive & Conversational AI",
     eyebrow: "EXPERIMENTATION",
+    status: "EXPLORATION",
     description:
       "Real-time conversational AI, voice and immersive 3D interfaces explored as faster ways to create and iterate training experiences.",
+    proof:
+      "Interaction prototypes across realtime voice, 3D environments and training-content creation.",
     tags: ["Voice AI", "3D", "Real-time", "Rapid prototyping"],
     icon: AudioLines,
+    href: "mailto:tomasgarbarino.dev@gmail.com?subject=Conversational%20AI%20walkthrough",
+    linkLabel: "Request a walkthrough",
   },
   {
+    id: "prime-os",
     title: "Prime OS",
     eyebrow: "PERSONAL R&D",
+    status: "PRIVATE BUILD",
     description:
       "A personal operating system for turning fragmented context into better decisions, testable actions and measurable feedback loops.",
+    proof:
+      "Active private build exploring agent memory, tool use and decision feedback loops.",
     tags: ["Agents", "Memory", "Tool use", "Decision systems"],
     icon: BrainCircuit,
+    href: "mailto:tomasgarbarino.dev@gmail.com?subject=Prime%20OS%20walkthrough",
+    linkLabel: "Ask about the build",
   },
 ];
 
@@ -139,7 +162,7 @@ const toolkit = [
 const TrainlyShowcase = () => (
   <div className="trainly-real-product" aria-label="Trainly product visuals">
     <div className="trainly-real-header">
-      <img src="/trainly/trainly-logo.svg" alt="Trainly" />
+      <img src="/trainly-logo.svg" alt="Trainly" />
       <span>REAL PRODUCT ASSETS</span>
     </div>
 
@@ -233,6 +256,8 @@ function App() {
               Building AI products at Flock I+D
             </div>
 
+            <div className="hero-role">PRODUCT ENGINEER · AI PRODUCT BUILDER</div>
+
             <h1>
               I turn messy workflows into <span>AI products people can actually use.</span>
             </h1>
@@ -243,7 +268,7 @@ function App() {
 
             <div className="hero-actions">
               <a className="btn btn-primary" href="#trainly">
-                Explore current work <ArrowRight size={17} />
+                View proof of work <ArrowRight size={17} />
               </a>
               <a
                 className="btn btn-secondary"
@@ -257,62 +282,66 @@ function App() {
 
             <div className="proof-row" aria-label="Professional highlights">
               <div>
-                <strong>2022 → now</strong>
-                <span>Shipping digital products</span>
+                <strong>Flock I+D</strong>
+                <span>Product Engineer · current</span>
               </div>
               <div>
-                <strong>Product + AI</strong>
-                <span>Current operating space</span>
+                <strong>Batech</strong>
+                <span>Frontend Engineer → Lead</span>
               </div>
               <div>
-                <strong>Buenos Aires</strong>
-                <span>Open to global work</span>
+                <strong>Hogarth</strong>
+                <span>Global production work</span>
               </div>
             </div>
           </div>
 
-          <div className="hero-system" aria-label="AI product workflow visualization">
+          <div className="hero-system" aria-label="Selected product build log">
             <div className="system-glow system-glow-one" />
             <div className="system-glow system-glow-two" />
-            <div className="system-window">
+            <div className="system-window proof-console">
               <div className="window-topbar">
                 <div className="window-dots">
                   <span />
                   <span />
                   <span />
                 </div>
-                <span>product-system.ts</span>
+                <span>selected-build-log.json</span>
                 <span className="live-chip">LIVE</span>
               </div>
 
               <div className="system-body">
-                <div className="system-label">HOW I BUILD</div>
-                <div className="flow-node flow-node-active">
+                <div className="system-label-row">
+                  <div className="system-label">PROOF CONSOLE</div>
+                  <span>03 SELECTED BUILDS</span>
+                </div>
+                <a className="flow-node flow-node-active" href="#trainly">
                   <span className="node-icon"><Boxes size={16} /></span>
                   <div>
-                    <small>01 · FRAME</small>
-                    <strong>Understand the real workflow</strong>
+                    <small>01 · TRAINLY</small>
+                    <strong>Product flow · frontend · AI integration</strong>
                   </div>
-                  <span className="node-state">context</span>
-                </div>
+                  <span className="node-state current">CURRENT</span>
+                </a>
                 <div className="flow-line" />
-                <div className="flow-node">
-                  <span className="node-icon"><BrainCircuit size={16} /></span>
+                <a className="flow-node" href="#insurance-workflow">
+                  <span className="node-icon"><ShieldCheck size={16} /></span>
                   <div>
-                    <small>02 · BUILD</small>
-                    <strong>Prototype the AI interaction</strong>
+                    <small>02 · INSURANCE WORKFLOW</small>
+                    <strong>Multi-agent ops · human checkpoints</strong>
                   </div>
-                  <span className="node-state">system</span>
-                </div>
+                  <span className="node-state">PROTOTYPE</span>
+                </a>
                 <div className="flow-line" />
-                <div className="flow-node">
-                  <span className="node-icon"><Workflow size={16} /></span>
+                <a className="flow-node" href="#immersive-ai">
+                  <span className="node-icon"><AudioLines size={16} /></span>
                   <div>
-                    <small>03 · VALIDATE</small>
-                    <strong>Test in real context and iterate</strong>
+                    <small>03 · VOICE + 3D</small>
+                    <strong>Realtime training experience experiments</strong>
                   </div>
-                  <span className="node-state">signal</span>
-                </div>
+                  <span className="node-state">R&D</span>
+                </a>
+                <p className="console-footnote">Open any build to inspect its scope and evidence.</p>
               </div>
             </div>
           </div>
@@ -346,7 +375,7 @@ function App() {
                 <span>FLOCK · PRODUCTO · VALIDATION</span>
               </div>
 
-              <img className="trainly-copy-logo" src="/trainly/trainly-logo.svg" alt="Trainly" />
+              <img className="trainly-copy-logo" src="/trainly-logo.svg" alt="Trainly" />
 
               <p className="featured-lead">
                 An AI-assisted product focused on transforming operational knowledge into structured learning and competency validation.
@@ -357,17 +386,22 @@ function App() {
 
               <div className="role-grid">
                 <div>
-                  <span>MY LENS</span>
-                  <strong>Product engineering</strong>
+                  <span>WHAT I OWN</span>
+                  <strong>Product flow + frontend</strong>
                 </div>
                 <div>
-                  <span>STAGE</span>
-                  <strong>Validation</strong>
+                  <span>STATUS</span>
+                  <strong>Active validation</strong>
                 </div>
                 <div>
-                  <span>LOOP</span>
-                  <strong>Build → test → learn</strong>
+                  <span>EVIDENCE</span>
+                  <strong>Research + real product assets</strong>
                 </div>
+              </div>
+
+              <div className="featured-proof">
+                <span>VERIFIABLE PROOF</span>
+                <p>Public product research, real interface assets and a demo-ready product flow — with no invented outcome metrics.</p>
               </div>
 
               <a className="text-link" href={TRAINLY_URL} target="_blank" rel="noreferrer">
@@ -382,14 +416,24 @@ function App() {
             {projects.map((project) => {
               const Icon = project.icon;
               return (
-                <article className="project-card" key={project.title}>
-                  <div className="project-icon"><Icon size={20} /></div>
+                <article className="project-card" id={project.id} key={project.title}>
+                  <div className="project-card-top">
+                    <div className="project-icon"><Icon size={20} /></div>
+                    <span className="project-status">{project.status}</span>
+                  </div>
                   <span className="project-eyebrow">{project.eyebrow}</span>
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
+                  <div className="project-proof">
+                    <span>PROOF</span>
+                    <p>{project.proof}</p>
+                  </div>
                   <div className="tag-row">
                     {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
                   </div>
+                  <a className="project-link" href={project.href}>
+                    {project.linkLabel} <ArrowUpRight size={14} />
+                  </a>
                 </article>
               );
             })}
@@ -448,7 +492,7 @@ function App() {
           </div>
         </section>
 
-        <section className="section-wrap contact-section">
+        <section className="section-wrap contact-section" id="contact">
           <div className="contact-panel">
             <div>
               <span className="section-kicker">NEXT</span>
@@ -484,6 +528,12 @@ function App() {
           <a href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
       </footer>
+
+      <nav className="mobile-dock" aria-label="Mobile quick navigation">
+        <a href="#work"><Boxes size={16} /> Work</a>
+        <a href="#experience"><Code2 size={16} /> Experience</a>
+        <a href="mailto:tomasgarbarino.dev@gmail.com"><Mail size={16} /> Email</a>
+      </nav>
     </div>
   );
 }
