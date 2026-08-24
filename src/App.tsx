@@ -370,6 +370,15 @@ function App() {
           </div>
         </section>
 
+        <section className="motion-marquee" aria-hidden="true">
+          <div className="marquee-row marquee-row-primary" data-marquee="left">
+            <span>BUILD · VALIDATE · SHIP · BUILD · VALIDATE · SHIP ·</span>
+          </div>
+          <div className="marquee-row marquee-row-outline" data-marquee="right">
+            <span>PRODUCT · AI · EXPERIENCE · PRODUCT · AI · EXPERIENCE ·</span>
+          </div>
+        </section>
+
         <section className="section-wrap work-section" id="work">
           <div className="section-heading">
             <div>
@@ -425,31 +434,62 @@ function App() {
             <TrainlyShowcase />
           </article>
 
-          <div className="project-grid">
-            {projects.map((project) => {
-              const Icon = project.icon;
-              return (
-                <article className="project-card" id={project.id} key={project.title}>
-                  <div className="project-card-top">
-                    <div className="project-icon"><Icon size={20} /></div>
-                    <span className="project-status">{project.status}</span>
-                  </div>
-                  <span className="project-eyebrow">{project.eyebrow}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="project-proof">
-                    <span>PROOF</span>
-                    <p>{project.proof}</p>
-                  </div>
-                  <div className="tag-row">
-                    {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
-                  </div>
-                  <a className="project-link" href={project.href}>
-                    {project.linkLabel} <ArrowUpRight size={14} />
-                  </a>
-                </article>
-              );
-            })}
+          <div className="project-reel" data-horizontal-reel>
+            <div className="project-reel-heading">
+              <div>
+                <span className="section-kicker">SUPPORTING BUILDS</span>
+                <strong>Three experiments. One product mindset.</strong>
+              </div>
+              <span className="reel-instruction">SCROLL TO EXPLORE →</span>
+            </div>
+
+            <div className="reel-orb" aria-hidden="true">
+              <span />
+            </div>
+
+            <div className="project-track" data-horizontal-track>
+              {projects.map((project, index) => {
+                const Icon = project.icon;
+                return (
+                  <article
+                    className="project-card"
+                    data-project-panel
+                    data-index={`0${index + 1}`}
+                    id={project.id}
+                    key={project.title}
+                  >
+                    <div className="project-card-visual" aria-hidden="true">
+                      <span className="orbit-ring orbit-ring-outer" />
+                      <span className="orbit-ring orbit-ring-inner" />
+                      <span className="orbit-pulse" />
+                      <Icon size={30} />
+                      <span className="orbit-caption">{project.eyebrow}</span>
+                    </div>
+                    <div className="project-card-top">
+                      <div className="project-icon"><Icon size={20} /></div>
+                      <span className="project-status">{project.status}</span>
+                    </div>
+                    <span className="project-eyebrow">{project.eyebrow}</span>
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <div className="project-proof">
+                      <span>PROOF</span>
+                      <p>{project.proof}</p>
+                    </div>
+                    <div className="tag-row">
+                      {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                    </div>
+                    <a className="project-link" href={project.href}>
+                      {project.linkLabel} <ArrowUpRight size={14} />
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="reel-progress" aria-hidden="true">
+              <span data-reel-progress />
+            </div>
           </div>
         </section>
 

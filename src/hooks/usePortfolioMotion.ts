@@ -26,6 +26,34 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
 
         if (!motionAllowed) return;
 
+        const cleanups: Array<() => void> = [];
+
+        const marqueeLeft = gsap.to('[data-marquee="left"]', {
+          xPercent: -18,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".motion-marquee",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
+        const marqueeRight = gsap.fromTo(
+          '[data-marquee="right"]',
+          { xPercent: -12 },
+          {
+            xPercent: 7,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".motion-marquee",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          },
+        );
+
         const intro = gsap.timeline({
           defaults: { ease: "power3.out" },
         });
@@ -111,7 +139,86 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
           yoyo: true,
         });
 
+        gsap.to(".hero-copy", {
+          yPercent: -12,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
+        gsap.to(".hero-system", {
+          xPercent: 11,
+          yPercent: 18,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
         if (desktop) {
+          scope.classList.add("enhanced-motion");
+
+          const reel = scope.querySelector<HTMLElement>("[data-horizontal-reel]");
+          const track = scope.querySelector<HTMLElement>("[data-horizontal-track]");
+          const progress = scope.querySelector<HTMLElement>("[data-reel-progress]");
+          const orb = scope.querySelector<HTMLElement>(".reel-orb");
+
+          if (reel && track && progress && orb) {
+            const getDistance = () => Math.max(0, track.scrollWidth - reel.clientWidth + 120);
+
+            const reelTimeline = gsap.timeline({
+              scrollTrigger: {
+                trigger: reel,
+                start: "top top+=78",
+                end: () => `+=${getDistance()}`,
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              },
+            });
+
+            reelTimeline
+              .to(track, { x: () => -getDistance(), ease: "none" }, 0)
+              .to(progress, { scaleX: 1, ease: "none" }, 0)
+              .to(
+                orb,
+                {
+                  x: () => window.innerWidth + 220,
+                  y: 150,
+                  rotation: 300,
+                  ease: "none",
+                },
+                0,
+              );
+
+            gsap.utils.toArray<HTMLElement>("[data-project-panel]").forEach((panel) => {
+              gsap.fromTo(
+                panel,
+                { scale: 0.9, opacity: 0.4 },
+                {
+                  scale: 1,
+                  opacity: 1,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: panel,
+                    containerAnimation: reelTimeline,
+                    start: "left 88%",
+                    end: "center 58%",
+                    scrub: true,
+                  },
+                },
+              );
+            });
+          }
+
           const stage = scope.querySelector<HTMLElement>(".hero-system");
           const consoleWindow = scope.querySelector<HTMLElement>(".proof-console");
 
@@ -147,12 +254,21 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
             stage.addEventListener("pointermove", handlePointerMove);
             stage.addEventListener("pointerleave", resetTilt);
 
-            context.add(() => {
+            cleanups.push(() => {
               stage.removeEventListener("pointermove", handlePointerMove);
               stage.removeEventListener("pointerleave", resetTilt);
             });
           }
+
+          cleanups.push(() => scope.classList.remove("enhanced-motion"));
         }
+
+        cleanups.push(() => {
+          marqueeLeft.kill();
+          marqueeRight.kill();
+        });
+
+        return () => cleanups.forEach((cleanup) => cleanup());
       },
       scope,
     );
