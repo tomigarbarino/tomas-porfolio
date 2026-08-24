@@ -6,7 +6,6 @@ import {
   Boxes,
   Code2,
   Github,
-  GraduationCap,
   Linkedin,
   Mail,
   ShieldCheck,
@@ -15,6 +14,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import "./App.css";
+import "./trainly-showcase.css";
 
 type Project = {
   title: string;
@@ -33,6 +33,25 @@ type Experience = {
 
 const TRAINLY_URL =
   "https://www.flocklabs.ar/projects/trainly-la-herramienta-para-validar-competencias-2-2-2";
+
+const TRAINLY_ASSETS = {
+  upload:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-subir.svg",
+  process:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-procesar.svg",
+  create:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-crear.svg",
+  learn:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-aprendizaje.svg",
+  chapters:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-capitulos.svg",
+  quizzes:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-quizzes.svg",
+  evaluations:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-evaluaciones.svg",
+  flashcards:
+    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-flashcards.svg",
+};
 
 const projects: Project[] = [
   {
@@ -88,17 +107,20 @@ const experiences: Experience[] = [
 const capabilities = [
   {
     title: "AI product systems",
-    description: "LLMs, tool workflows, agents and human checkpoints designed around real product outcomes.",
+    description:
+      "LLMs, tool workflows, agents and human checkpoints designed around real product outcomes.",
     icon: Sparkles,
   },
   {
     title: "Product engineering",
-    description: "From ambiguous requirement to interaction model, frontend, integrations, data and deployment.",
+    description:
+      "From ambiguous requirement to interaction model, frontend, integrations, data and deployment.",
     icon: Code2,
   },
   {
     title: "Fast validation",
-    description: "Prototype the riskiest assumption first, put it in front of real context and iterate from evidence.",
+    description:
+      "Prototype the riskiest assumption first, put it in front of real context and iterate from evidence.",
     icon: Workflow,
   },
 ];
@@ -113,6 +135,67 @@ const toolkit = [
   "Vercel",
   "Three.js",
 ];
+
+const TrainlyShowcase = () => (
+  <div className="trainly-real-product" aria-label="Trainly product visuals">
+    <div className="trainly-real-header">
+      <img src="/trainly/trainly-logo.svg" alt="Trainly" />
+      <span>REAL PRODUCT ASSETS</span>
+    </div>
+
+    <div className="trainly-real-stage">
+      <div className="trainly-flow-title">
+        <span>KNOWLEDGE → LEARNING</span>
+        <strong>From source material to structured training</strong>
+      </div>
+
+      <div className="trainly-flow-assets">
+        <div className="trainly-flow-asset">
+          <span>01</span>
+          <img src={TRAINLY_ASSETS.upload} alt="Upload knowledge into Trainly" />
+        </div>
+        <i>→</i>
+        <div className="trainly-flow-asset">
+          <span>02</span>
+          <img src={TRAINLY_ASSETS.process} alt="Process knowledge with Trainly" />
+        </div>
+        <i>→</i>
+        <div className="trainly-flow-asset">
+          <span>03</span>
+          <img src={TRAINLY_ASSETS.create} alt="Create training content with Trainly" />
+        </div>
+        <i>→</i>
+        <div className="trainly-flow-asset">
+          <span>04</span>
+          <img src={TRAINLY_ASSETS.learn} alt="Learn with Trainly" />
+        </div>
+      </div>
+
+      <div className="trainly-module-grid">
+        <div className="trainly-module-card">
+          <img src={TRAINLY_ASSETS.chapters} alt="Trainly chapters" />
+          <span>Chapters</span>
+        </div>
+        <div className="trainly-module-card">
+          <img src={TRAINLY_ASSETS.quizzes} alt="Trainly quizzes" />
+          <span>Quizzes</span>
+        </div>
+        <div className="trainly-module-card">
+          <img src={TRAINLY_ASSETS.evaluations} alt="Trainly evaluations" />
+          <span>Evaluations</span>
+        </div>
+        <div className="trainly-module-card">
+          <img src={TRAINLY_ASSETS.flashcards} alt="Trainly flashcards" />
+          <span>Flashcards</span>
+        </div>
+      </div>
+
+      <div className="trainly-source-note">
+        Visual assets from the public Trainly demo · Flock I+D
+      </div>
+    </div>
+  </div>
+);
 
 function App() {
   return (
@@ -237,14 +320,10 @@ function App() {
 
         <section className="trust-strip" aria-label="Toolkit">
           <div className="trust-track">
-            <span>PRODUCT ENGINEERING</span>
-            <i />
-            <span>AI WORKFLOWS</span>
-            <i />
-            <span>RAPID PROTOTYPING</span>
-            <i />
-            <span>HUMAN-IN-THE-LOOP</span>
-            <i />
+            <span>PRODUCT ENGINEERING</span><i />
+            <span>AI WORKFLOWS</span><i />
+            <span>RAPID PROTOTYPING</span><i />
+            <span>HUMAN-IN-THE-LOOP</span><i />
             <span>REAL-TIME EXPERIENCES</span>
           </div>
         </section>
@@ -260,16 +339,17 @@ function App() {
             </p>
           </div>
 
-          <article className="featured-project" id="trainly">
+          <article className="featured-project trainly-featured" id="trainly">
             <div className="featured-copy">
               <div className="project-meta">
                 <span className="current-badge">CURRENT FOCUS</span>
                 <span>FLOCK · PRODUCTO · VALIDATION</span>
               </div>
 
-              <h3>Trainly</h3>
+              <img className="trainly-copy-logo" src="/trainly/trainly-logo.svg" alt="Trainly" />
+
               <p className="featured-lead">
-                An AI-assisted product focused on learning workflows and competency validation.
+                An AI-assisted product focused on transforming operational knowledge into structured learning and competency validation.
               </p>
               <p className="featured-description">
                 My current focus is helping turn the idea into a product that can be demonstrated, validated with real use cases and iterated from feedback — working across product flow, frontend, AI integrations and experimentation.
@@ -295,66 +375,7 @@ function App() {
               </a>
             </div>
 
-            <div className="trainly-product" aria-label="Trainly concept interface">
-              <div className="trainly-topbar">
-                <div className="trainly-brand">
-                  <span className="trainly-logo"><GraduationCap size={16} /></span>
-                  <div>
-                    <strong>Trainly</strong>
-                    <small>Learning workspace</small>
-                  </div>
-                </div>
-                <span className="validation-chip">Validation</span>
-              </div>
-
-              <div className="trainly-layout">
-                <aside className="trainly-sidebar">
-                  <span className="sidebar-item active">Overview</span>
-                  <span className="sidebar-item">Learning paths</span>
-                  <span className="sidebar-item">Knowledge</span>
-                  <span className="sidebar-item">Validation</span>
-                </aside>
-
-                <div className="trainly-main">
-                  <div className="trainly-heading-row">
-                    <div>
-                      <small>CURRENT LEARNING FLOW</small>
-                      <strong>Operational onboarding</strong>
-                    </div>
-                    <span className="mini-action">AI assisted</span>
-                  </div>
-
-                  <div className="trainly-cards">
-                    <div className="mini-card">
-                      <span>01</span>
-                      <strong>Capture knowledge</strong>
-                      <small>Turn operational context into structured learning.</small>
-                    </div>
-                    <div className="mini-card emphasized">
-                      <span>02</span>
-                      <strong>Guide & practice</strong>
-                      <small>Use AI to support learning through the workflow.</small>
-                    </div>
-                  </div>
-
-                  <div className="competency-card">
-                    <div className="competency-header">
-                      <div>
-                        <small>COMPETENCY</small>
-                        <strong>Process understanding</strong>
-                      </div>
-                      <span>In validation</span>
-                    </div>
-                    <div className="progress-track"><span /></div>
-                    <div className="competency-footer">
-                      <span>Context</span>
-                      <span>Practice</span>
-                      <span>Evidence</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TrainlyShowcase />
           </article>
 
           <div className="project-grid">
