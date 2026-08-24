@@ -58,8 +58,8 @@
     linear-gradient(145deg, rgba(255, 248, 237, 0.98), rgba(255, 236, 220, 0.98));
 }
 
-/* The original markup is intentionally reused as image slots so the
-   showcase stays lightweight while rendering the real Figma product shots. */
+/* Existing markup is reused as responsive image slots while rendering
+   the exact composed product shots exported from the Trainly Figma. */
 .trainly-flow-title,
 .trainly-flow-assets,
 .trainly-module-grid {
@@ -76,7 +76,7 @@
   grid-column: 1 / -1;
   min-height: 250px;
   margin: 0;
-  background-image: url('/trainly/campus-ai.png');
+  background-image: url('./assets/trainly/campus-ai.png');
   background-position: center center;
 }
 
@@ -84,14 +84,14 @@
   min-height: 190px;
   margin: 0;
   display: block;
-  background-image: url('/trainly/capacitar-equipos.png');
+  background-image: url('./assets/trainly/capacitar-equipos.png');
   background-position: center center;
 }
 
 .trainly-module-grid {
   min-height: 190px;
   display: block;
-  background-image: url('/trainly/metricas-accionables.png');
+  background-image: url('./assets/trainly/metricas-accionables.png');
   background-position: center center;
 }
 
@@ -116,9 +116,14 @@
   grid-column: 1 / -1;
   margin: 2px 4px 0;
   color: #785d4d;
-  font-size: 9px;
+  font-size: 0;
   line-height: 1.4;
   letter-spacing: 0.02em;
+}
+
+.trainly-source-note::before {
+  content: 'Product visuals from the Trainly Figma · Flock I+D';
+  font-size: 9px;
 }
 
 @media (max-width: 980px) {
