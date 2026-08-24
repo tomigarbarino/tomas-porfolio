@@ -40,16 +40,6 @@ pre,
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-.trainly-brand strong {
-  display: block;
-  width: 72px;
-  height: 18px;
-  overflow: hidden;
-  font-size: 0;
-  background: url('/trainly-logo.svg') left center / contain no-repeat;
-  opacity: 0.94;
-}
-
 ::selection {
   background: rgba(124, 92, 255, 0.35);
   color: #fff;
