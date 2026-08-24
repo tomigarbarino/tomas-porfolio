@@ -60,21 +60,6 @@ const TRAINLY_ASSETS = {
     "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-flashcards.svg",
 };
 
-function PersonalMark({ small = false }: { small?: boolean }) {
-  return (
-    <span className={`brand-mark${small ? " small" : ""}`} aria-hidden="true">
-      <svg viewBox="0 0 46 46" fill="none" focusable="false">
-        <path className="brand-mark-letter" d="M8.5 14.5h12M14.5 14.5V31" />
-        <path
-          className="brand-mark-letter"
-          d="M36.5 17.2A8.3 8.3 0 0 0 30.2 14c-5 0-8.8 3.8-8.8 8.6 0 4.9 3.7 8.7 8.7 8.7 2.6 0 4.8-.8 6.4-2.2v-5.4h-6.2"
-        />
-        <circle className="brand-mark-dot" cx="37.5" cy="9" r="2.3" />
-      </svg>
-    </span>
-  );
-}
-
 const projects: Project[] = [
   {
     id: "insurance-workflow",
@@ -246,7 +231,6 @@ function App() {
     <div className="portfolio-shell" ref={portfolioRef}>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Tomás Garbarino home">
-          <PersonalMark />
           <span className="brand-copy">
             <strong>Tomás Garbarino</strong>
             <small>Product Engineer / AI Builder</small>
@@ -589,7 +573,6 @@ function App() {
 
       <footer className="new-footer section-wrap">
         <div>
-          <PersonalMark small />
           <span>Tomás Garbarino · Product Engineer</span>
         </div>
         <div className="footer-links">

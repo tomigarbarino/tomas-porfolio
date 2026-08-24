@@ -17,14 +17,14 @@ The landing page now presents Tomas as a Product Engineer and AI Product Builder
 - On desktop, the supporting projects pin in place and travel horizontally in response to normal vertical scrolling. A progress line, panel scaling, and a luminous travelling orb make the transition visible.
 - Mobile and reduced-motion users receive the same projects as a normal vertical list without pinning or horizontal translation.
 - Desktop and mobile navigation identify the section currently being viewed. The state is exposed through both styling and `aria-current="location"`.
-- The personal identity now uses a reusable vector TG seal instead of a generic gradient app-style tile. The same mark appears in the header and footer.
+- The personal identity is presented as a restrained typographic wordmark; the rejected TG icon was removed from both header and footer.
 - The desktop header is a floating glass navigation surface with a compact indexed navigation capsule, stronger active states, and a dedicated contact pill. Mobile keeps a reduced brand/contact header above the persistent dock.
 - Reduced-motion preferences, visible keyboard focus, larger mobile copy, and responsive asset layouts improve accessibility and readability.
 
 ## Technical Overview
 
 - `src/App.tsx` defines the Proof Console, evidence metadata, project status labels, walkthrough links, and mobile quick navigation.
-- `src/App.tsx` also defines the inline `PersonalMark` vector component and the indexed primary navigation labels.
+- `src/App.tsx` also defines the typographic brand lockup and indexed primary navigation labels.
 - `src/App.css` provides the sticky navigation, console states, proof treatments, responsive layouts, focus styles, and reduced-motion behavior.
 - `src/hooks/usePortfolioMotion.ts` owns the GSAP timeline, ambient console motion, desktop pointer tilt, kinetic marquees, pinned horizontal reel, panel scaling, ScrollTrigger section tracking, and all teardown logic.
 - `src/trainly-showcase.css` compacts the Trainly gallery on narrow screens.
