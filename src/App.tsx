@@ -38,28 +38,6 @@ type Experience = {
   description: string;
 };
 
-const TRAINLY_URL =
-  "https://www.flocklabs.ar/projects/trainly-la-herramienta-para-validar-competencias-2-2-2";
-
-const TRAINLY_ASSETS = {
-  upload:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-subir.svg",
-  process:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-procesar.svg",
-  create:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-crear.svg",
-  learn:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide06-aprendizaje.svg",
-  chapters:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-capitulos.svg",
-  quizzes:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-quizzes.svg",
-  evaluations:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-evaluaciones.svg",
-  flashcards:
-    "https://raw.githubusercontent.com/tomigarbarino/trainly-demo/main/public/images/figma/slide07-flashcards.svg",
-};
-
 const projects: Project[] = [
   {
     id: "insurance-workflow",
@@ -169,51 +147,9 @@ const TrainlyShowcase = () => (
     </div>
 
     <div className="trainly-real-stage">
-      <div className="trainly-flow-title">
-        <span>KNOWLEDGE → LEARNING</span>
-        <strong>From source material to structured training</strong>
-      </div>
-
-      <div className="trainly-flow-assets">
-        <div className="trainly-flow-asset">
-          <span>01</span>
-          <img src={TRAINLY_ASSETS.upload} alt="Upload knowledge into Trainly" />
-        </div>
-        <i>→</i>
-        <div className="trainly-flow-asset">
-          <span>02</span>
-          <img src={TRAINLY_ASSETS.process} alt="Process knowledge with Trainly" />
-        </div>
-        <i>→</i>
-        <div className="trainly-flow-asset">
-          <span>03</span>
-          <img src={TRAINLY_ASSETS.create} alt="Create training content with Trainly" />
-        </div>
-        <i>→</i>
-        <div className="trainly-flow-asset">
-          <span>04</span>
-          <img src={TRAINLY_ASSETS.learn} alt="Learn with Trainly" />
-        </div>
-      </div>
-
-      <div className="trainly-module-grid">
-        <div className="trainly-module-card">
-          <img src={TRAINLY_ASSETS.chapters} alt="Trainly chapters" />
-          <span>Chapters</span>
-        </div>
-        <div className="trainly-module-card">
-          <img src={TRAINLY_ASSETS.quizzes} alt="Trainly quizzes" />
-          <span>Quizzes</span>
-        </div>
-        <div className="trainly-module-card">
-          <img src={TRAINLY_ASSETS.evaluations} alt="Trainly evaluations" />
-          <span>Evaluations</span>
-        </div>
-        <div className="trainly-module-card">
-          <img src={TRAINLY_ASSETS.flashcards} alt="Trainly flashcards" />
-          <span>Flashcards</span>
-        </div>
-      </div>
+      <div className="trainly-flow-title" role="img" aria-label="Trainly campus product interface" />
+      <div className="trainly-flow-assets" role="img" aria-label="Trainly team training interface" />
+      <div className="trainly-module-grid" role="img" aria-label="Trainly actionable metrics interface" />
 
       <div className="trainly-source-note">
         Visual assets from the public Trainly demo · Flock I+D
@@ -426,8 +362,8 @@ function App() {
                 <p>Public product research, real interface assets and a demo-ready product flow — with no invented outcome metrics.</p>
               </div>
 
-              <a className="text-link" href={TRAINLY_URL} target="_blank" rel="noreferrer">
-                Read the official Trainly research <ArrowUpRight size={16} />
+              <a className="text-link" href="/trainly">
+                Read the Trainly case study <ArrowRight size={16} />
               </a>
             </div>
 
