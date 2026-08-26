@@ -1,6 +1,6 @@
 import {
-  ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   BrainCircuit,
   CheckCircle2,
   FileStack,
@@ -39,10 +39,24 @@ function TrainlyCaseStudy() {
 
   return (
     <div className="trainly-case">
-      <header className="case-header">
-        <a className="case-back" href="/#trainly"><ArrowLeft size={16} /> Portfolio</a>
-        <img src="/trainly-logo.svg" alt="Trainly" />
-        <a className="case-contact" href="mailto:tomasgarbarino.dev@gmail.com">Let&apos;s talk <ArrowRight size={15} /></a>
+      <header className="site-header case-site-header">
+        <a className="brand" href="/#top" aria-label="Tomás Garbarino portfolio">
+          <span className="brand-copy">
+            <strong>Tomás Garbarino</strong>
+            <small>Product Engineer / AI Builder</small>
+          </span>
+        </a>
+
+        <nav className="site-nav case-site-nav" aria-label="Case study navigation">
+          <a href="#challenge"><span className="nav-index">01</span> Challenge</a>
+          <a href="#experience"><span className="nav-index">02</span> Experience</a>
+          <a href="#system"><span className="nav-index">03</span> System</a>
+        </nav>
+
+        <a className="header-cta" href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">
+          <span className="header-cta-label">Let&apos;s talk</span>
+          <span className="header-cta-icon"><ArrowUpRight size={14} /></span>
+        </a>
       </header>
 
       <main>
@@ -158,11 +172,11 @@ function TrainlyCaseStudy() {
         <section className="case-close">
           <img src="/trainly-logo.svg" alt="Trainly" />
           <h2>Build the system.<br />Validate the learning.</h2>
-          <a href="/#work">Explore more work <ArrowRight size={18} /></a>
+          <a className="btn btn-primary" href="/#work">Explore more work <ArrowRight size={18} /></a>
         </section>
       </main>
 
-      <footer className="case-footer"><span>Tomás Garbarino · Product Engineer</span><a href="/">Back to portfolio</a></footer>
+      <footer className="new-footer section-wrap case-footer"><span>Tomás Garbarino · Product Engineer</span><a href="/">Back to portfolio</a></footer>
     </div>
   );
 }
