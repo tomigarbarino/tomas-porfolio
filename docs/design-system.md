@@ -79,7 +79,7 @@ Required on the landing and every standalone case study:
 
 ```text
 ╭──────────────────────────────────────────────────────────╮
-│ Tomás Garbarino   [01 Section  02 Section  03 Section]  [Let's talk ↗] │
+│ Tomás Garbarino   [01 Section  02 Section  03 Section]  [ES EN] [Let's talk ↗] │
 │ Product Engineer / AI Builder                            │
 ╰──────────────────────────────────────────────────────────╯
 ```
@@ -87,8 +87,19 @@ Required on the landing and every standalone case study:
 - Left: typographic personal signature and role.
 - Center: a maximum of three context-relevant destinations.
 - Right: the shared contact CTA.
+- Language: a compact `ES / EN` segmented control immediately before the contact CTA.
 - Mobile: hide center navigation and keep the name plus CTA.
 - Do not place a project logo in the parent header.
+
+### Language and localization
+
+- Supported languages are Spanish (`es`, rendered as `es-AR`) and English (`en`).
+- Spanish is the default and its voice must be natural Rioplatense Spanish: use forms such as `tenés`, `subí`, `abrí`, `deslizá`, and `escribime`; avoid neutral-Spanish `tú` forms.
+- The active language is explicit through text and visual state. Do not use flags because language is not equivalent to nationality.
+- Persist the preference under `portfolio-language` and update the root document `lang` attribute.
+- Keep shared UI and page copy in `src/i18n/content.ts`; never duplicate translations inside route components.
+- Every standalone page must render `LanguageSwitch` in the same header position and translate visible copy, page title, navigation labels, ARIA labels, and meaningful image alternatives.
+- Do not animate the whole page when switching language. Copy should update immediately while existing scroll position and motion state remain stable.
 
 ### Buttons
 
@@ -181,6 +192,7 @@ Before publishing a future page:
 6. Scope at most one project accent.
 7. Check desktop and mobile overflow, broken media, console errors, and reduced motion.
 8. Separate verified outcomes from hypotheses, active validation, and future work.
+9. Add complete `es` and `en` copy, using Rioplatense Spanish and matching accessibility text.
 
 ## Operational notes
 

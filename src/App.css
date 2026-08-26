@@ -50,6 +50,7 @@ a {
 
 .brand,
 .brand-copy,
+.header-tools,
 .header-cta,
 .site-nav,
 .hero-actions,
@@ -97,6 +98,47 @@ a {
   font-size: 8px;
   letter-spacing: .035em;
   margin-top: 5px;
+}
+
+.header-tools {
+  justify-self: end;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.language-switch {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid rgba(245, 240, 232, .11);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, .025);
+}
+
+.language-switch button {
+  width: 29px;
+  height: 29px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--muted-2);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: .06em;
+  cursor: pointer;
+  background: transparent;
+  transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.language-switch button:hover {
+  color: var(--text);
+}
+
+.language-switch button.is-active {
+  color: #17100e;
+  background: var(--text);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
 }
 
 .site-nav {
@@ -1562,6 +1604,20 @@ button:focus-visible {
     gap: 9px;
     padding-left: 12px;
     font-size: 10px;
+  }
+
+  .header-tools {
+    gap: 6px;
+  }
+
+  .language-switch {
+    padding: 2px;
+  }
+
+  .language-switch button {
+    width: 25px;
+    height: 25px;
+    font-size: 7px;
   }
 
   .hero {
