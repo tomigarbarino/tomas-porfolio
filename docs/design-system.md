@@ -10,7 +10,7 @@ The canonical code tokens live in `src/styles/design-tokens.css`. This document 
 
 Visitors should experience one coherent portfolio rather than a collection of unrelated microsites:
 
-- The typographic Tomás Garbarino signature anchors every page. Do not add a monogram, icon, avatar mark, or favicon as a personal logo.
+- The typographic Tomás Garbarino signature anchors every page. Do not add a monogram, icon, avatar mark, or reuse the favicon as a personal logo.
 - A dark ink canvas and ivory text establish the parent identity.
 - Coral communicates primary emphasis and action; mineral violet adds technical depth; mint communicates verified or healthy states.
 - Project branding appears inside evidence frames, imagery, and one scoped accent—not by replacing the parent navigation or global canvas.
@@ -100,6 +100,16 @@ Required on the landing and every standalone case study:
 - Keep shared UI and page copy in `src/i18n/content.ts`; never duplicate translations inside route components.
 - Every standalone page must render `LanguageSwitch` in the same header position and translate visible copy, page title, navigation labels, ARIA labels, and meaningful image alternatives.
 - Do not animate the whole page when switching language. Copy should update immediately while existing scroll position and motion state remain stable.
+
+### Favicon and installed-app icon
+
+- The favicon is an abstract system marker, not a personal monogram and not a replacement for the typographic signature.
+- Its geometry is fixed: dark rounded-square canvas, coral orbital arc, violet inner ring, and mint core.
+- Use only the canonical `public/favicon.svg`; raster and ICO assets are generated from that source.
+- Maintain the semantic palette exactly: `--bg`, `--accent`, `--accent-2`, and `--success`.
+- Do not add letters, shadows, gradients, thin detail, or project-specific colors.
+- Verify at 16, 32, 180, 192, and 512 px. At 16 px the coral arc, violet ring, and mint center must remain visually distinct.
+- The mark may appear in browser tabs, bookmarks, shortcuts, and installed-app surfaces only. Do not place it in the site header or footer.
 
 ### Buttons
 
@@ -211,6 +221,7 @@ Research references:
 - Production bundle: `npm run build`.
 - Tests: `npm test -- --watchAll=false --runInBand --passWithNoTests`.
 - Browser QA: landing and `/trainly` on desktop and mobile, including overflow, broken images, console errors, and internal navigation.
+- Favicon QA: render the canonical SVG at 16 and 32 px; verify the ICO contains 16/24/32/48/64 px; verify SVG, ICO, Apple touch icon, 192 px, 512 px, and manifest responses in Chromium with zero console errors.
 
 ## Risks and follow-ups
 
