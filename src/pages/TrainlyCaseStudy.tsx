@@ -14,6 +14,7 @@ import { LanguageSwitch } from "../components/LanguageSwitch";
 import { useLanguage } from "../contexts/LanguageContext";
 import { trainlyContent } from "../i18n/content";
 import "../trainly-case-study.css";
+import { applySeoMetadata, getPagePath, getSeoMetadata } from "../lib/seo";
 
 const chapterIds = ["challenge", "loop", "experience", "validation", "system", "learnings"];
 const loopIcons = [FileStack, BrainCircuit, Sparkles, MessageCircleMore, Gauge];
@@ -21,18 +22,17 @@ const loopIcons = [FileStack, BrainCircuit, Sparkles, MessageCircleMore, Gauge];
 function TrainlyCaseStudy() {
   const { language } = useLanguage();
   const copy = trainlyContent[language];
+  const homePath = getPagePath("home", language);
 
   useEffect(() => {
-    const previousTitle = document.title;
-    document.title = copy.title;
+    applySeoMetadata(getSeoMetadata("trainly", language));
     window.scrollTo(0, 0);
-    return () => { document.title = previousTitle; };
-  }, [copy.title]);
+  }, [language]);
 
   return (
     <div className="trainly-case">
       <header className="site-header case-site-header">
-        <a className="brand" href="/#top" aria-label={copy.homeLabel}>
+        <a className="brand" href={`${homePath}#top`} aria-label={copy.homeLabel}>
           <span className="brand-copy">
             <strong>Tomás Garbarino</strong>
             <small>{copy.role}</small>
@@ -156,11 +156,11 @@ function TrainlyCaseStudy() {
         <section className="case-close">
           <img src="/trainly-logo.svg" alt="Trainly" />
           <h2>{copy.close[0]}<br />{copy.close[1]}</h2>
-          <a className="btn btn-primary" href="/#work">{copy.explore} <ArrowRight size={18} /></a>
+          <a className="btn btn-primary" href={`${homePath}#work`}>{copy.explore} <ArrowRight size={18} /></a>
         </section>
       </main>
 
-      <footer className="new-footer section-wrap case-footer"><span>Tomás Garbarino · {language === "es" ? "Ingeniero de Producto" : "Product Engineer"}</span><a href="/">{copy.back}</a></footer>
+      <footer className="new-footer section-wrap case-footer"><span>Tomás Garbarino · {language === "es" ? "Ingeniero de Producto" : "Product Engineer"}</span><a href={homePath}>{copy.back}</a></footer>
     </div>
   );
 }

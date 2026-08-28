@@ -20,6 +20,7 @@ import { portfolioContent } from "./i18n/content";
 import "./App.css";
 import "./trainly-showcase.css";
 import { usePortfolioMotion } from "./hooks/usePortfolioMotion";
+import { applySeoMetadata, getPagePath, getSeoMetadata } from "./lib/seo";
 
 type ProjectMeta = {
   id: string;
@@ -81,14 +82,13 @@ function App() {
   const portfolioRef = useRef<HTMLDivElement>(null);
   const { language } = useLanguage();
   const copy = portfolioContent[language];
+  const trainlyPath = getPagePath("trainly", language);
 
   usePortfolioMotion(portfolioRef);
 
   useEffect(() => {
-    document.title = copy.title;
-    document.querySelector('meta[name="description"]')?.setAttribute("content", copy.description);
-    document.querySelector('meta[name="language"]')?.setAttribute("content", language === "es" ? "Spanish (Argentina)" : "English");
-  }, [copy.description, copy.title, language]);
+    applySeoMetadata(getSeoMetadata("home", language));
+  }, [language]);
 
   return (
     <div className="portfolio-shell" ref={portfolioRef}>
@@ -269,7 +269,7 @@ function App() {
                 <p>{copy.work.verifiableText}</p>
               </div>
 
-              <a className="text-link" href="/trainly">
+              <a className="text-link" href={trainlyPath}>
                 {copy.work.readCase} <ArrowRight size={16} />
               </a>
             </div>

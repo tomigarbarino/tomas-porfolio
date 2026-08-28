@@ -111,6 +111,7 @@ export const portfolioContent = {
 export const trainlyContent = {
   es: {
     title: "Caso Trainly — Tomás Garbarino", homeLabel: "Portfolio de Tomás Garbarino", navLabel: "Navegación del caso", sidebarLabel: "Secciones del caso", jump: "IR A",
+    description: "Caso de producto de Trainly: una plataforma multiagente que transforma conocimiento operativo en capacitación estructurada y validación conversacional de competencias.",
     nav: ["Desafío", "Experiencia", "Sistema"], chapters: ["Desafío", "Ciclo de producto", "Experiencia", "Validación", "Sistema", "Aprendizajes"],
     role: "Ingeniero de Producto / Constructor con IA", talk: "Hablemos", kicker: "CASO DE PRODUCTO · 2026",
     hero: ["De documentos dispersos a ", "evidencia de competencia."],
@@ -127,6 +128,7 @@ export const trainlyContent = {
   },
   en: {
     title: "Trainly case study — Tomás Garbarino", homeLabel: "Tomás Garbarino portfolio", navLabel: "Case study navigation", sidebarLabel: "Case study sections", jump: "JUMP TO",
+    description: "Trainly product case study: a multi-agent platform that turns operational knowledge into structured learning and conversational competency validation.",
     nav: ["Challenge", "Experience", "System"], chapters: ["Challenge", "Product loop", "Experience", "Validation", "System", "Learnings"], role: "Product Engineer / AI Builder", talk: "Let's talk", kicker: "PRODUCT CASE STUDY · 2026",
     hero: ["From scattered documents to ", "evidence of competence."], intro: "Trainly is a multi-agent learning platform designed around one uncomfortable truth: course completion does not prove understanding.",
     meta: [["ROLE", "Product Engineer"], ["SCOPE", "Product flow · Frontend · AI"], ["STATUS", "Active validation"]], heroCaption: "TRAINLY · LEARNING VALIDATION SYSTEM", heroAlt: "Trainly visual identity on an orange background",

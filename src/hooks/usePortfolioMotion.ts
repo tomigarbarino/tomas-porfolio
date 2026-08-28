@@ -1,12 +1,14 @@
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import type { RefObject } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
+
 export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const scope = scopeRef.current;
 
     if (!scope) return;

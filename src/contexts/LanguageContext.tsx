@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
+import { getLanguageFromPathname } from "../lib/seo";
 
 export type Language = "es" | "en";
 
@@ -16,8 +17,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const getInitialLanguage = (): Language => {
   if (typeof window === "undefined") return "es";
-  const savedLanguage = window.localStorage.getItem(STORAGE_KEY);
-  return savedLanguage === "en" || savedLanguage === "es" ? savedLanguage : "es";
+  return getLanguageFromPathname(window.location.pathname);
 };
 
 export const useLanguage = () => {
@@ -26,13 +26,19 @@ export const useLanguage = () => {
   return context;
 };
 
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>(getInitialLanguage);
+export const LanguageProvider = ({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Language }) => {
+  const [language, setLanguage] = useState<Language>(() => initialLanguage ?? getInitialLanguage());
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, language);
     document.documentElement.lang = language === "es" ? "es-AR" : "en";
   }, [language]);
+
+  useEffect(() => {
+    const syncLanguageWithUrl = () => setLanguage(getLanguageFromPathname(window.location.pathname));
+    window.addEventListener("popstate", syncLanguageWithUrl);
+    return () => window.removeEventListener("popstate", syncLanguageWithUrl);
+  }, []);
 
   const value = useMemo<LanguageContextValue>(() => ({
     language,
