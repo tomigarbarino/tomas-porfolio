@@ -39,7 +39,7 @@ export const getSeoMetadata = (page: SeoPage, language: Language): SeoMetadata =
   return {
     canonical: `${SITE_URL}${pathname}`,
     description: copy.description,
-    image: page === "trainly" ? `${SITE_URL}/trainly/case-study/hero.png` : undefined,
+    image: page === "trainly" ? `${SITE_URL}/trainly/case-study/hero.png` : `${SITE_URL}/og.png`,
     language,
     locale: language === "es" ? "es_AR" : "en_US",
     page,
@@ -72,6 +72,15 @@ export const getStructuredData = ({ canonical, description, image, language, pag
       "Human-in-the-loop systems",
       "Rapid product validation",
     ],
+    makesOffer: portfolioContent[language].capabilitiesList.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+        provider: { "@id": PERSON_ID },
+      },
+    })),
     sameAs: [
       "https://www.linkedin.com/in/tomas-garbarino/",
       "https://github.com/tomigarbarino",

@@ -2,19 +2,14 @@ import {
   ArrowRight,
   ArrowUpRight,
   AudioLines,
-  BrainCircuit,
   Boxes,
-  ChevronLeft,
-  ChevronRight,
   Code2,
-  Github,
   Linkedin,
   Mail,
   ShieldCheck,
   Sparkles,
   Workflow,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { Fragment, useEffect, useRef } from "react";
 import { LanguageSwitch } from "./components/LanguageSwitch";
 import { useLanguage } from "./contexts/LanguageContext";
@@ -24,31 +19,7 @@ import "./trainly-showcase.css";
 import { usePortfolioMotion } from "./hooks/usePortfolioMotion";
 import { applySeoMetadata, getPagePath, getSeoMetadata } from "./lib/seo";
 
-type ProjectMeta = {
-  id: string;
-  icon: LucideIcon;
-  href: string;
-};
-
-const projectMeta: ProjectMeta[] = [
-  {
-    id: "insurance-workflow",
-    icon: ShieldCheck,
-    href: "mailto:tomasgarbarino.dev@gmail.com?subject=Insurance%20workflow%20walkthrough",
-  },
-  {
-    id: "immersive-ai",
-    icon: AudioLines,
-    href: "mailto:tomasgarbarino.dev@gmail.com?subject=Conversational%20AI%20walkthrough",
-  },
-  {
-    id: "prime-os",
-    icon: BrainCircuit,
-    href: "mailto:tomasgarbarino.dev@gmail.com?subject=Prime%20OS%20walkthrough",
-  },
-];
-
-const capabilityIcons = [Sparkles, Code2, Workflow];
+const capabilityIcons = [Sparkles, Workflow, Code2];
 
 const toolkit = [
   "Next.js",
@@ -60,6 +31,13 @@ const toolkit = [
   "Vercel",
   "Three.js",
 ];
+
+const batechSources = [
+  "https://batech.ai/",
+  "https://forbes.com.mx/30-promesas-2024-las-camaras-salvan-vidas-y-aumentan-la-productividad-demuestra-batech/",
+  "https://www.bloomberglinea.com/100-innovadores-america-latina-2024/",
+  "https://www.enter.co/startups/batech-la-plataforma-que-convierte-las-camaras-de-videovigilancia-en-dispositivos-impulsados-con-ia/",
+] as const;
 
 const TrainlyShowcase = ({
   sourceNote,
@@ -97,15 +75,39 @@ const TrainlyShowcase = ({
 
 function App() {
   const portfolioRef = useRef<HTMLDivElement>(null);
+  const batechVideoRef = useRef<HTMLVideoElement>(null);
   const { language } = useLanguage();
   const copy = portfolioContent[language];
   const trainlyPath = getPagePath("trainly", language);
+  const projectInquiryHref = `mailto:tomasgarbarino.dev@gmail.com?subject=${encodeURIComponent(copy.contact.mailSubject)}&body=${encodeURIComponent(copy.contact.mailBody)}`;
+  const solutionInquiryHref = (solutionTitle: string) => `mailto:tomasgarbarino.dev@gmail.com?subject=${encodeURIComponent(`${copy.contact.mailSubject}: ${solutionTitle}`)}&body=${encodeURIComponent(copy.contact.mailBody)}`;
 
   usePortfolioMotion(portfolioRef);
 
   useEffect(() => {
     applySeoMetadata(getSeoMetadata("home", language));
   }, [language]);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncBatechVideo = () => {
+      const video = batechVideoRef.current;
+      if (!video) return;
+
+      if (reducedMotion.matches) {
+        video.pause();
+        video.currentTime = 0;
+        return;
+      }
+
+      void video.play().catch(() => undefined);
+    };
+
+    syncBatechVideo();
+    reducedMotion.addEventListener("change", syncBatechVideo);
+
+    return () => reducedMotion.removeEventListener("change", syncBatechVideo);
+  }, []);
 
   return (
     <div className="portfolio-shell" ref={portfolioRef}>
@@ -119,13 +121,13 @@ function App() {
 
         <nav className="site-nav" aria-label={copy.primaryNav}>
           <a href="#work" data-section-link="work"><span className="nav-index">01</span> {copy.nav.work}</a>
-          <a href="#experience" data-section-link="experience"><span className="nav-index">02</span> {copy.nav.experience}</a>
-          <a href="#about" data-section-link="about"><span className="nav-index">03</span> {copy.nav.about}</a>
+          <a href="#about" data-section-link="about"><span className="nav-index">02</span> {copy.nav.about}</a>
+          <a href="#experience" data-section-link="experience"><span className="nav-index">03</span> {copy.nav.experience}</a>
         </nav>
 
         <div className="header-tools">
           <LanguageSwitch />
-          <a className="header-cta" href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">
+          <a className="header-cta" href={projectInquiryHref} data-cta="header-project-inquiry">
             <span className="header-cta-label">{copy.talk}</span>
             <span className="header-cta-icon"><ArrowUpRight size={14} /></span>
           </a>
@@ -177,24 +179,14 @@ function App() {
             </p>
 
             <div className="hero-actions" data-hero-reveal>
-              <a className="btn btn-primary" href="#trainly">
-                {copy.viewWork} <ArrowRight size={17} />
+              <a className="btn btn-primary" href={projectInquiryHref} data-cta="hero-project-inquiry">
+                {copy.startProject} <ArrowUpRight size={17} />
               </a>
-              <a
-                className="btn btn-secondary"
-                href="https://github.com/tomigarbarino"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Github size={17} /> GitHub
+              <a className="btn btn-secondary" href="#trainly" data-cta="hero-proof">
+                {copy.viewWork} <ArrowRight size={17} />
               </a>
             </div>
 
-            <div className="proof-row" aria-label={copy.highlights} data-hero-reveal>
-              {copy.proof.map(([company, detail]) => (
-                <div key={company}><strong>{company}</strong><span>{detail}</span></div>
-              ))}
-            </div>
           </div>
 
           <div className="hero-system" aria-label={copy.buildLogAria}>
@@ -340,102 +332,118 @@ function App() {
             />
           </article>
 
-          <div className="project-reel" data-horizontal-reel>
-            <div className="project-reel-heading">
+          <article className="career-proof batech-proof" id="batech" aria-labelledby="batech-proof-title">
+            <div className="career-proof-head">
+              <span>{copy.batechProof.kicker}</span>
+              <strong>{copy.batechProof.role}</strong>
+            </div>
+
+            <div className="career-proof-grid">
+              <div className="career-proof-story">
+                <h3 id="batech-proof-title">{copy.batechProof.title}</h3>
+                <p>{copy.batechProof.intro}</p>
+
+                <div className="career-contribution">
+                  <span>{copy.batechProof.contributionLabel}</span>
+                  <ol>
+                    {copy.batechProof.contributions.map((contribution, index) => (
+                      <li key={contribution}>
+                        <small>0{index + 1}</small>
+                        <p>{contribution}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+
+              <aside className="career-public-context">
+                <figure className="career-media">
+                  <div className="career-video-frame">
+                    <video
+                      ref={batechVideoRef}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                      poster="/batech/batech-product-21s.jpg"
+                      aria-label={copy.batechProof.mediaAlt}
+                    >
+                      <source src="/batech/batech-product-21s.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                  <figcaption>
+                    <strong>{copy.batechProof.mediaLabel}</strong>
+                    <span>{copy.batechProof.mediaCaption}</span>
+                  </figcaption>
+                </figure>
+
+                <span>{copy.batechProof.contextLabel}</span>
+                <p>{copy.batechProof.context}</p>
+
+                <div className="career-sources">
+                  <strong>{copy.batechProof.sourcesLabel}</strong>
+                  <div>
+                    {batechSources.map((href, index) => (
+                      <a href={href} target="_blank" rel="noreferrer" key={href}>
+                        {copy.batechProof.sourceLabels[index]} <ArrowUpRight size={12} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <small className="career-disclaimer">{copy.batechProof.disclaimer}</small>
+              </aside>
+            </div>
+          </article>
+
+          <section className="solution-offer" id="about" aria-labelledby="solution-offer-title">
+            <div className="solution-offer-heading">
               <div>
-                <span className="section-kicker">{copy.work.supporting}</span>
-                <strong>{copy.work.mindset}</strong>
+                <span className="section-kicker">{copy.capabilities.kicker}</span>
+                <h3 id="solution-offer-title">{copy.capabilities.title}</h3>
               </div>
-              <div className="reel-controls">
-                <span className="reel-counter" aria-live="polite"><strong data-reel-current>01</strong> / 03</span>
-                <button type="button" data-reel-prev aria-label={copy.work.previousProject}>
-                  <ChevronLeft size={16} />
-                </button>
-                <button type="button" data-reel-next aria-label={copy.work.nextProject}>
-                  <ChevronRight size={16} />
-                </button>
-                <span className="reel-instruction">{copy.work.explore}</span>
+              <div className="solution-offer-intro">
+                <p>{copy.capabilities.intro}</p>
               </div>
             </div>
 
-            <div className="reel-orb" aria-hidden="true">
-              <span />
-            </div>
-
-            <div className="project-track" data-horizontal-track>
-              {projectMeta.map((meta, index) => {
-                const project = copy.projects[index];
-                const Icon = meta.icon;
+            <div className="solution-grid">
+              {copy.capabilitiesList.map((solution, index) => {
+                const Icon = capabilityIcons[index];
                 return (
-                  <article
-                    className="project-card"
-                    data-project-panel
-                    data-index={`0${index + 1}`}
-                    id={meta.id}
-                    key={project.title}
-                  >
-                    <div className="project-card-visual" aria-hidden="true">
-                      <span className="orbit-ring orbit-ring-outer" />
-                      <span className="orbit-ring orbit-ring-inner" />
-                      <span className="orbit-pulse" />
-                      <Icon size={30} />
-                      <span className="orbit-caption">{project.eyebrow}</span>
+                  <article className="solution-card" key={solution.title}>
+                    <div className="solution-card-top">
+                      <span>0{index + 1}</span>
+                      <Icon size={22} />
                     </div>
-                    <div className="project-card-top">
-                      <div className="project-icon"><Icon size={20} /></div>
-                      <span className="project-status">{project.status}</span>
+                    <h3>{solution.title}</h3>
+                    <div className="solution-fit">
+                      <span>{copy.capabilities.fit}</span>
+                      <p>{solution.description}</p>
                     </div>
-                    <span className="project-eyebrow">{project.eyebrow}</span>
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <div className="project-proof">
-                      <span>{copy.work.proof}</span>
-                      <p>{project.proof}</p>
+                    <div className="solution-deliverable">
+                      <span>{copy.capabilities.deliverable}</span>
+                      <strong>{solution.deliverable}</strong>
                     </div>
-                    <div className="tag-row">
-                      {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                    <div className="solution-tags">
+                      {solution.tags.map((tag) => <span key={tag}>{tag}</span>)}
                     </div>
-                    <a className="project-link" href={meta.href}>
-                      {project.linkLabel} <ArrowUpRight size={14} />
+                    <a className="solution-link" href={solutionInquiryHref(solution.title)} data-cta={`solution-${index + 1}`}>
+                      {copy.capabilities.cta} <ArrowUpRight size={14} />
                     </a>
                   </article>
                 );
               })}
             </div>
 
-            <div className="reel-progress" aria-hidden="true">
-              <span data-reel-progress />
+            <div className="toolkit-row solution-toolkit">
+              <span>{copy.capabilities.toolkit}</span>
+              <div>
+                {toolkit.map((tool) => <strong key={tool}>{tool}</strong>)}
+              </div>
             </div>
-          </div>
-        </section>
-
-        <section className="section-wrap capability-section" id="about">
-          <div className="section-heading compact-heading">
-            <div>
-              <span className="section-kicker">{copy.capabilities.kicker}</span>
-              <h2>{copy.capabilities.title}</h2>
-            </div>
-          </div>
-
-          <div className="capability-grid">
-            {copy.capabilitiesList.map((capability, index) => {
-              const Icon = capabilityIcons[index];
-              return (
-                <div className="capability-card" key={capability.title}>
-                  <Icon size={21} />
-                  <h3>{capability.title}</h3>
-                  <p>{capability.description}</p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="toolkit-row">
-            <span>{copy.capabilities.toolkit}</span>
-            <div>
-              {toolkit.map((tool) => <strong key={tool}>{tool}</strong>)}
-            </div>
-          </div>
+          </section>
         </section>
 
         <section className="section-wrap experience-section" id="experience">
@@ -444,6 +452,7 @@ function App() {
               <span className="section-kicker">{copy.experience.kicker}</span>
               <h2>{copy.experience.title}</h2>
             </div>
+            <p>{copy.experience.intro}</p>
           </div>
 
           <div className="experience-list">
@@ -459,6 +468,7 @@ function App() {
               </article>
             ))}
           </div>
+
         </section>
 
         <section className="section-wrap contact-section" id="contact">
@@ -469,18 +479,20 @@ function App() {
               <p>
                 {copy.contact.body}
               </p>
+              <small className="contact-note">{copy.contact.note}</small>
             </div>
             <div className="contact-actions">
+              <a className="btn btn-primary" href={projectInquiryHref} data-cta="contact-project-inquiry">
+                <Mail size={17} /> {copy.contact.email}
+              </a>
               <a
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 href="https://www.linkedin.com/in/tomas-garbarino/"
                 target="_blank"
                 rel="noreferrer"
+                data-cta="contact-linkedin"
               >
                 <Linkedin size={17} /> {copy.contact.linkedin}
-              </a>
-              <a className="btn btn-secondary" href="mailto:tomasgarbarino.dev@gmail.com">
-                <Mail size={17} /> {copy.contact.email}
               </a>
             </div>
           </div>
@@ -500,7 +512,7 @@ function App() {
       <nav className="mobile-dock" aria-label={copy.mobileNav}>
         <a href="#work" data-section-link="work"><Boxes size={16} /> {copy.mobile.work}</a>
         <a href="#experience" data-section-link="experience"><Code2 size={16} /> {copy.mobile.experience}</a>
-        <a href="mailto:tomasgarbarino.dev@gmail.com"><Mail size={16} /> {copy.mobile.email}</a>
+        <a href={projectInquiryHref} data-cta="mobile-project-inquiry"><Mail size={16} /> {copy.mobile.email}</a>
       </nav>
     </div>
   );

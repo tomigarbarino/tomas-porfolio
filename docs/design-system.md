@@ -16,6 +16,18 @@ Visitors should experience one coherent portfolio rather than a collection of un
 - Project branding appears inside evidence frames, imagery, and one scoped accent—not by replacing the parent navigation or global canvas.
 - Claims must distinguish implemented work, active validation, prototypes, and future intent.
 
+### Personal brand and conversion hierarchy
+
+The portfolio is the home of Tomás's personal brand. Client acquisition is its primary commercial outcome, but the experience must never collapse into a generic agency landing page.
+
+1. **Promise:** lead with the complex workflow or ambiguous idea Tomás can turn into a usable, verifiable AI product.
+2. **Point of view:** explain the product reasoning, human checkpoints, and validation discipline that make his approach distinctive.
+3. **Evidence:** use Trainly, prototypes, and professional experience to support the promise without inventing outcomes.
+4. **Offer:** describe concrete ways to start working together in terms of the useful artifact or decision the client receives.
+5. **Action:** route primary calls to action to the same short, qualified project inquiry. LinkedIn and GitHub remain secondary trust channels.
+
+Recruiting outcomes may remain possible, but job-seeking language must not compete with the client path in the hero, offer section, or closing panel.
+
 ## Foundations
 
 ### Color roles
@@ -138,6 +150,17 @@ Use these meanings consistently:
 
 Never use color alone: pair it with explicit text such as `CURRENT`, `PROTOTYPE`, `ACTIVE VALIDATION`, or `NEXT`.
 
+### Career evidence
+
+When professional work uses public company sources, separate the evidence into two labeled layers:
+
+- `MY CONTRIBUTION` contains only Tomás's role, responsibilities, and attributable work.
+- `PUBLIC COMPANY CONTEXT` explains the product category, company recognition, or later evolution and links to the original sources.
+
+Public company metrics, customers, and present-day capabilities must not be presented as personal outcomes unless a source explicitly attributes them to Tomás. Add a short transparency note whenever the distinction could otherwise be ambiguous.
+
+Public company media may illustrate the product category when it is limited, locally cached, and visibly labeled as company material. Keep it inside `PUBLIC COMPANY CONTEXT`; if used as an ambient autoplay loop, it must be muted, inline, and free of native controls. Never imply that Tomás created the media itself.
+
 ## Project theming
 
 A project page can define:
@@ -172,7 +195,7 @@ Not allowed:
 
 ### Landing motion patterns
 
-The landing has five reusable motion patterns. They are part of the portfolio system, not permission to add ambient animation everywhere.
+The landing has five reusable layout and motion patterns. They are part of the portfolio system, not permission to add ambient animation everywhere.
 
 | Pattern | Purpose | Implementation | Static fallback |
 | --- | --- | --- | --- |
@@ -180,7 +203,9 @@ The landing has five reusable motion patterns. They are part of the portfolio sy
 | Connected proof object | Show how separate product systems relate | SVG paths, small status satellites, console depth and pointer parallax inside `.hero-system` | Console and statuses remain readable; decorative paths can disappear on small screens |
 | Evidence collage | Reveal multiple real product surfaces without a repetitive gallery | Three bounded Trainly image layers animated with transforms through `data-trainly-layer` | The same images render as an overlapping responsive composition |
 | Spatial typography | Give a project section editorial depth | One low-contrast wordmark behind evidence, never over primary body copy | Wordmark remains a restrained background layer |
-| Controlled reel | Connect vertical reading with a bounded horizontal project sequence | GSAP `ScrollTrigger`, visible previous/next controls, live `01 / 03` counter and progress track | Cards become a normal vertical grid; horizontal controls are hidden |
+| Career-proof reveal | Give Batech the same narrative energy as the preceding work without obscuring its evidence | Card entrance, staggered contribution rows, contextual panel reveal, and a restrained video parallax tied to scroll | The full card and video remain static when reduced motion is requested |
+| Solution-offer grid | Turn proof into a clear commercial next step without repeating secondary projects | Short first-person heading, page-level background, problem-fit statement, initial deliverable, relevant tags, and a qualified inquiry link; cards reveal individually on scroll | Two columns at tablet widths and one column on small screens; every solution remains actionable and static under reduced motion |
+| Experience timeline reveal | Turn the career list into a visible progression rather than a static résumé block | Heading reveal followed by directional, row-by-row entrances for dates, roles, companies, and evidence | Rows keep their document order and remain fully static under reduced motion |
 
 Rules:
 
@@ -195,8 +220,8 @@ Rules:
 Primary implementation:
 
 - `src/App.tsx`: semantic structure, localized controls and evidence layers.
-- `src/hooks/usePortfolioMotion.ts`: GSAP timelines, pointer response and reel navigation.
-- `src/App.css`: portfolio-level spatial layers, satellites and controls.
+- `src/hooks/usePortfolioMotion.ts`: GSAP timelines and pointer response for the primary storytelling surfaces.
+- `src/App.css`: portfolio-level spatial layers, satellites, responsive solution grid, and controls.
 - `src/trainly-showcase.css`: Trainly-specific evidence collage.
 
 ## Technical overview
@@ -259,8 +284,8 @@ Research references:
 - `npm run build`: passed; `/`, `/en`, `/trainly`, and `/en/trainly` were prerendered.
 - `npm run seo:verify`: passed for all four prerendered routes.
 - Local production-build QA: desktop and 390 px mobile rendered meaningful content with zero horizontal overflow and no framework error overlay.
-- Interaction QA: the reel next control moved from `01` to `02`, retained keyboard focus, and updated its live counter; mobile hides the desktop-only controls and renders the cards in document order.
-- Localization QA: switching to English updated the document language, title, reel control labels, and Trainly image labels without horizontal overflow.
+- Interaction QA: every solution stays in document order and its inquiry link preserves the selected solution in the email subject.
+- Localization QA: switching to English updates the document language, title, commercial offer, and Trainly image labels without horizontal overflow.
 - Reduced-motion implementation review: the GSAP storytelling branch exits for `prefers-reduced-motion`, while the static CSS composition preserves every link, label, project card, and product image.
 
 ## Risks and follow-ups

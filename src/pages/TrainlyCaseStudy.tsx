@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react";
 import { LanguageSwitch } from "../components/LanguageSwitch";
 import { useLanguage } from "../contexts/LanguageContext";
-import { trainlyContent } from "../i18n/content";
+import { portfolioContent, trainlyContent } from "../i18n/content";
 import "../trainly-case-study.css";
 import { applySeoMetadata, getPagePath, getSeoMetadata } from "../lib/seo";
 
@@ -22,7 +22,9 @@ const loopIcons = [FileStack, BrainCircuit, Sparkles, MessageCircleMore, Gauge];
 function TrainlyCaseStudy() {
   const { language } = useLanguage();
   const copy = trainlyContent[language];
+  const portfolioCopy = portfolioContent[language];
   const homePath = getPagePath("home", language);
+  const projectInquiryHref = `mailto:tomasgarbarino.dev@gmail.com?subject=${encodeURIComponent(portfolioCopy.contact.mailSubject)}&body=${encodeURIComponent(portfolioCopy.contact.mailBody)}`;
 
   useEffect(() => {
     applySeoMetadata(getSeoMetadata("trainly", language));
@@ -47,7 +49,7 @@ function TrainlyCaseStudy() {
 
         <div className="header-tools">
           <LanguageSwitch />
-          <a className="header-cta" href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">
+          <a className="header-cta" href={projectInquiryHref} data-cta="case-header-project-inquiry">
             <span className="header-cta-label">{copy.talk}</span>
             <span className="header-cta-icon"><ArrowUpRight size={14} /></span>
           </a>

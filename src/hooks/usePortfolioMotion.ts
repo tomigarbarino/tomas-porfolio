@@ -267,6 +267,230 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
             0,
           );
 
+        const batechReveal = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          scrollTrigger: {
+            trigger: ".batech-proof",
+            start: "top 82%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        batechReveal
+          .from(".batech-proof", {
+            autoAlpha: 0,
+            y: 64,
+            scale: 0.985,
+            duration: 0.82,
+          })
+          .from(
+            ".batech-proof .career-proof-head > *",
+            {
+              autoAlpha: 0,
+              y: 14,
+              duration: 0.45,
+              stagger: 0.08,
+            },
+            0.24,
+          )
+          .from(
+            ".batech-proof .career-proof-story h3, .batech-proof .career-proof-story > p",
+            {
+              autoAlpha: 0,
+              y: 24,
+              duration: 0.58,
+              stagger: 0.1,
+            },
+            0.34,
+          )
+          .from(
+            ".batech-proof .career-contribution li",
+            {
+              autoAlpha: 0,
+              x: -26,
+              duration: 0.52,
+              stagger: 0.1,
+            },
+            0.48,
+          )
+          .from(
+            ".batech-proof .career-public-context",
+            {
+              autoAlpha: 0,
+              x: 34,
+              duration: 0.72,
+            },
+            0.38,
+          )
+          .from(
+            ".batech-proof .career-sources a",
+            {
+              autoAlpha: 0,
+              y: 10,
+              duration: 0.35,
+              stagger: 0.06,
+            },
+            0.8,
+          );
+
+        const batechMediaMotion = gsap.fromTo(
+          ".batech-proof .career-media video",
+          { yPercent: -4, scale: 1.08 },
+          {
+            yPercent: 4,
+            scale: 1.02,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".batech-proof",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.15,
+            },
+          },
+        );
+
+        cleanups.push(() => {
+          batechReveal.scrollTrigger?.kill();
+          batechReveal.kill();
+          batechMediaMotion.scrollTrigger?.kill();
+          batechMediaMotion.kill();
+        });
+
+        const solutionHeading = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          scrollTrigger: {
+            trigger: ".solution-offer-heading",
+            start: "top 86%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        solutionHeading
+          .from(".solution-offer-heading .section-kicker", {
+            autoAlpha: 0,
+            y: 14,
+            duration: 0.42,
+          })
+          .from(
+            ".solution-offer-heading h3, .solution-offer-intro",
+            {
+              autoAlpha: 0,
+              y: 28,
+              duration: 0.62,
+              stagger: 0.1,
+            },
+            0.12,
+          );
+
+        const solutionCardTweens = gsap.utils
+          .toArray<HTMLElement>(".solution-card")
+          .map((card) => gsap.from(card, {
+            autoAlpha: 0,
+            y: 54,
+            scale: 0.985,
+            duration: 0.72,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          }));
+
+        const solutionToolkit = gsap.from(".solution-toolkit", {
+          autoAlpha: 0,
+          y: 24,
+          duration: 0.58,
+          ease: "power3.out",
+          clearProps: "transform,opacity,visibility",
+          scrollTrigger: {
+            trigger: ".solution-toolkit",
+            start: "top 92%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        cleanups.push(() => {
+          solutionHeading.scrollTrigger?.kill();
+          solutionHeading.kill();
+          solutionCardTweens.forEach((tween) => {
+            tween.scrollTrigger?.kill();
+            tween.kill();
+          });
+          solutionToolkit.scrollTrigger?.kill();
+          solutionToolkit.kill();
+        });
+
+        const experienceHeading = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          scrollTrigger: {
+            trigger: ".experience-section .section-heading",
+            start: "top 86%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        experienceHeading
+          .from(".experience-section .section-kicker", {
+            autoAlpha: 0,
+            y: 12,
+            duration: 0.4,
+          })
+          .from(
+            ".experience-section .section-heading h2, .experience-section .section-heading > p",
+            {
+              autoAlpha: 0,
+              y: 28,
+              duration: 0.62,
+              stagger: 0.1,
+            },
+            0.1,
+          );
+
+        const experienceRowTimelines = gsap.utils
+          .toArray<HTMLElement>(".experience-row")
+          .map((row) => {
+            const rowTimeline = gsap.timeline({
+              scrollTrigger: {
+                trigger: row,
+                start: "top 88%",
+                toggleActions: "play none none none",
+              },
+            });
+
+            rowTimeline
+              .from(row.querySelectorAll(".experience-index, .experience-period"), {
+                autoAlpha: 0,
+                x: -18,
+                duration: 0.48,
+                stagger: 0.06,
+                ease: "power3.out",
+              })
+              .from(
+                row.querySelectorAll(".experience-title, p"),
+                {
+                  autoAlpha: 0,
+                  x: 28,
+                  duration: 0.58,
+                  stagger: 0.08,
+                  ease: "power3.out",
+                },
+                0.08,
+              );
+
+            return rowTimeline;
+          });
+
+        cleanups.push(() => {
+          experienceHeading.scrollTrigger?.kill();
+          experienceHeading.kill();
+          experienceRowTimelines.forEach((timeline) => {
+            timeline.scrollTrigger?.kill();
+            timeline.kill();
+          });
+        });
+
         if (desktop) {
           scope.classList.add("enhanced-motion");
 
@@ -286,94 +510,6 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
             scope.style.removeProperty("--pointer-x");
             scope.style.removeProperty("--pointer-y");
           });
-
-          const reel = scope.querySelector<HTMLElement>("[data-horizontal-reel]");
-          const track = scope.querySelector<HTMLElement>("[data-horizontal-track]");
-          const progress = scope.querySelector<HTMLElement>("[data-reel-progress]");
-          const orb = scope.querySelector<HTMLElement>(".reel-orb");
-          const current = scope.querySelector<HTMLElement>("[data-reel-current]");
-          const previous = scope.querySelector<HTMLButtonElement>("[data-reel-prev]");
-          const next = scope.querySelector<HTMLButtonElement>("[data-reel-next]");
-
-          if (reel && track && progress && orb) {
-            const panels = Array.from(track.querySelectorAll<HTMLElement>("[data-project-panel]"));
-            let activeIndex = 0;
-            const getDistance = () => Math.max(0, track.scrollWidth - reel.clientWidth + 120);
-            const setActiveIndex = (index: number) => {
-              activeIndex = Math.max(0, Math.min(panels.length - 1, index));
-              if (current) current.textContent = String(activeIndex + 1).padStart(2, "0");
-            };
-
-            const reelTimeline = gsap.timeline({
-              scrollTrigger: {
-                trigger: reel,
-                start: "top top+=78",
-                end: () => `+=${getDistance()}`,
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-                onUpdate: (self) => {
-                  setActiveIndex(Math.round(self.progress * Math.max(0, panels.length - 1)));
-                },
-              },
-            });
-
-            reelTimeline
-              .to(track, { x: () => -getDistance(), ease: "none" }, 0)
-              .to(progress, { scaleX: 1, ease: "none" }, 0)
-              .to(
-                orb,
-                {
-                  x: () => window.innerWidth + 220,
-                  y: 150,
-                  rotation: 300,
-                  ease: "none",
-                },
-                0,
-              );
-
-            panels.forEach((panel) => {
-              gsap.fromTo(
-                panel,
-                { scale: 0.9, opacity: 0.4 },
-                {
-                  scale: 1,
-                  opacity: 1,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: panel,
-                    containerAnimation: reelTimeline,
-                    start: "left 88%",
-                    end: "center 58%",
-                    scrub: true,
-                  },
-                },
-              );
-            });
-
-            const goToPanel = (index: number) => {
-              const trigger = reelTimeline.scrollTrigger;
-              if (!trigger || panels.length < 2) return;
-
-              const safeIndex = Math.max(0, Math.min(panels.length - 1, index));
-              const progressToPanel = safeIndex / (panels.length - 1);
-              const top = trigger.start + (trigger.end - trigger.start) * progressToPanel;
-              window.scrollTo({ top, behavior: "smooth" });
-            };
-
-            const handlePrevious = () => goToPanel(activeIndex - 1);
-            const handleNext = () => goToPanel(activeIndex + 1);
-
-            previous?.addEventListener("click", handlePrevious);
-            next?.addEventListener("click", handleNext);
-            setActiveIndex(0);
-
-            cleanups.push(() => {
-              previous?.removeEventListener("click", handlePrevious);
-              next?.removeEventListener("click", handleNext);
-            });
-          }
 
           const stage = scope.querySelector<HTMLElement>(".hero-system");
           const consoleWindow = scope.querySelector<HTMLElement>(".proof-console");

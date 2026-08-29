@@ -3,8 +3,8 @@ const path = require("path");
 
 const buildDirectory = path.resolve(__dirname, "..", "build");
 const routes = [
-  { file: "index.html", lang: "es-AR", canonical: "https://tomas-garbarino.vercel.app/", schema: "ProfilePage", phrase: "Convierto flujos desordenados" },
-  { file: "en/index.html", lang: "en", canonical: "https://tomas-garbarino.vercel.app/en", schema: "ProfilePage", phrase: "I turn messy workflows" },
+  { file: "index.html", lang: "es-AR", canonical: "https://tomas-garbarino.vercel.app/", schema: "ProfilePage", phrase: "Procesos complejos." },
+  { file: "en/index.html", lang: "en", canonical: "https://tomas-garbarino.vercel.app/en", schema: "ProfilePage", phrase: "Complex workflows." },
   { file: "trainly/index.html", lang: "es-AR", canonical: "https://tomas-garbarino.vercel.app/trainly", schema: "WebPage", phrase: "De documentos dispersos" },
   { file: "en/trainly/index.html", lang: "en", canonical: "https://tomas-garbarino.vercel.app/en/trainly", schema: "WebPage", phrase: "From scattered documents" },
 ];
