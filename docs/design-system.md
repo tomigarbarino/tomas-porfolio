@@ -170,6 +170,35 @@ Not allowed:
 - Scroll-linked movement belongs to the landing or a clearly bounded storytelling section—not every paragraph.
 - Respect `prefers-reduced-motion` and provide a complete static experience.
 
+### Landing motion patterns
+
+The landing has five reusable motion patterns. They are part of the portfolio system, not permission to add ambient animation everywhere.
+
+| Pattern | Purpose | Implementation | Static fallback |
+| --- | --- | --- | --- |
+| Reactive signal field | Create one cinematic first impression while reinforcing the system-building narrative | Full-width SVG paths, one orbital core behind the proof console, and CSS pointer coordinates for a restrained light field | Waves and core remain as a static composition; the spotlight is removed and no GSAP storytelling is required |
+| Connected proof object | Show how separate product systems relate | SVG paths, small status satellites, console depth and pointer parallax inside `.hero-system` | Console and statuses remain readable; decorative paths can disappear on small screens |
+| Evidence collage | Reveal multiple real product surfaces without a repetitive gallery | Three bounded Trainly image layers animated with transforms through `data-trainly-layer` | The same images render as an overlapping responsive composition |
+| Spatial typography | Give a project section editorial depth | One low-contrast wordmark behind evidence, never over primary body copy | Wordmark remains a restrained background layer |
+| Controlled reel | Connect vertical reading with a bounded horizontal project sequence | GSAP `ScrollTrigger`, visible previous/next controls, live `01 / 03` counter and progress track | Cards become a normal vertical grid; horizontal controls are hidden |
+
+Rules:
+
+- Use the reactive signal field only in the landing hero. Do not repeat its waves, spotlight, or orbital core elsewhere on the page.
+- Animate only `transform`, `opacity`, SVG stroke offset, or the existing progress scale.
+- Status satellites must contain explicit state text and use the system status colors; they are decorative duplicates and stay out of the accessibility tree.
+- Product screenshots keep their original brand palette and meaningful localized `aria-label` values.
+- Horizontal movement must have visible controls and a complete document-order fallback.
+- Pointer parallax is desktop-only and may never be required to reveal content or activate navigation.
+- The `prefers-reduced-motion` branch skips all GSAP storytelling while preserving content, links, focus order, and evidence.
+
+Primary implementation:
+
+- `src/App.tsx`: semantic structure, localized controls and evidence layers.
+- `src/hooks/usePortfolioMotion.ts`: GSAP timelines, pointer response and reel navigation.
+- `src/App.css`: portfolio-level spatial layers, satellites and controls.
+- `src/trainly-showcase.css`: Trainly-specific evidence collage.
+
 ## Technical overview
 
 ```mermaid
@@ -222,6 +251,17 @@ Research references:
 - Tests: `npm test -- --watchAll=false --runInBand --passWithNoTests`.
 - Browser QA: landing and `/trainly` on desktop and mobile, including overflow, broken images, console errors, and internal navigation.
 - Favicon QA: render the canonical SVG at 16 and 32 px; verify the ICO contains 16/24/32/48/64 px; verify SVG, ICO, Apple touch icon, 192 px, 512 px, and manifest responses in Chromium with zero console errors.
+
+### Motion iteration · 2026-08-28
+
+- `npm run type-check`: passed.
+- `npm test -- --watchAll=false --runInBand --passWithNoTests`: passed with no test files present.
+- `npm run build`: passed; `/`, `/en`, `/trainly`, and `/en/trainly` were prerendered.
+- `npm run seo:verify`: passed for all four prerendered routes.
+- Local production-build QA: desktop and 390 px mobile rendered meaningful content with zero horizontal overflow and no framework error overlay.
+- Interaction QA: the reel next control moved from `01` to `02`, retained keyboard focus, and updated its live counter; mobile hides the desktop-only controls and renders the cards in document order.
+- Localization QA: switching to English updated the document language, title, reel control labels, and Trainly image labels without horizontal overflow.
+- Reduced-motion implementation review: the GSAP storytelling branch exits for `prefers-reduced-motion`, while the static CSS composition preserves every link, label, project card, and product image.
 
 ## Risks and follow-ups
 

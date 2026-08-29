@@ -88,6 +88,26 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
             0.32,
           )
           .from(
+            "[data-signal-core]",
+            {
+              autoAlpha: 0,
+              scale: 0.54,
+              rotation: -42,
+              duration: 1.2,
+            },
+            0.18,
+          )
+          .from(
+            "[data-field-line]",
+            {
+              autoAlpha: 0,
+              xPercent: -8,
+              duration: 1.15,
+              stagger: 0.06,
+            },
+            0.06,
+          )
+          .from(
             ".proof-console .window-topbar, .proof-console .system-label-row",
             {
               autoAlpha: 0,
@@ -121,7 +141,31 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
             ".proof-console .console-footnote",
             { autoAlpha: 0, duration: 0.4 },
             1.28,
+          )
+          .from(
+            "[data-system-satellite]",
+            {
+              autoAlpha: 0,
+              scale: 0.82,
+              duration: 0.55,
+              stagger: 0.1,
+            },
+            0.96,
           );
+
+        gsap.to("[data-system-path]", {
+          strokeDashoffset: -120,
+          duration: 12,
+          ease: "none",
+          repeat: -1,
+        });
+
+        gsap.to("[data-field-line]", {
+          strokeDashoffset: -180,
+          duration: 18,
+          ease: "none",
+          repeat: -1,
+        });
 
         gsap.to(".system-glow-one", {
           x: 18,
@@ -164,16 +208,101 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
           },
         });
 
+        gsap.to(".hero-field-lines", {
+          xPercent: -5,
+          scaleX: 1.07,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
+        gsap.to("[data-signal-core]", {
+          scale: 1.18,
+          rotation: 38,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
+        const trainlyStory = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".trainly-featured",
+            start: "top 82%",
+            end: "bottom 26%",
+            scrub: 1,
+          },
+        });
+
+        trainlyStory
+          .fromTo(
+            '[data-trainly-layer="primary"]',
+            { y: 42, rotation: -1.4, scale: 0.96 },
+            { y: -8, rotation: 0, scale: 1, ease: "none" },
+            0,
+          )
+          .fromTo(
+            '[data-trainly-layer="secondary"]',
+            { x: 34, y: 34, rotation: -5 },
+            { x: -5, y: -15, rotation: -1.5, ease: "none" },
+            0,
+          )
+          .fromTo(
+            '[data-trainly-layer="tertiary"]',
+            { x: -28, y: 42, rotation: 5 },
+            { x: 6, y: -4, rotation: 1.4, ease: "none" },
+            0,
+          )
+          .fromTo(
+            "[data-featured-wordmark]",
+            { xPercent: -8, autoAlpha: 0.25 },
+            { xPercent: 7, autoAlpha: 0.72, ease: "none" },
+            0,
+          );
+
         if (desktop) {
           scope.classList.add("enhanced-motion");
+
+          let pointerFrame = 0;
+          const handleGlobalPointer = (event: PointerEvent) => {
+            window.cancelAnimationFrame(pointerFrame);
+            pointerFrame = window.requestAnimationFrame(() => {
+              scope.style.setProperty("--pointer-x", `${event.clientX}px`);
+              scope.style.setProperty("--pointer-y", `${event.clientY}px`);
+            });
+          };
+
+          scope.addEventListener("pointermove", handleGlobalPointer);
+          cleanups.push(() => {
+            window.cancelAnimationFrame(pointerFrame);
+            scope.removeEventListener("pointermove", handleGlobalPointer);
+            scope.style.removeProperty("--pointer-x");
+            scope.style.removeProperty("--pointer-y");
+          });
 
           const reel = scope.querySelector<HTMLElement>("[data-horizontal-reel]");
           const track = scope.querySelector<HTMLElement>("[data-horizontal-track]");
           const progress = scope.querySelector<HTMLElement>("[data-reel-progress]");
           const orb = scope.querySelector<HTMLElement>(".reel-orb");
+          const current = scope.querySelector<HTMLElement>("[data-reel-current]");
+          const previous = scope.querySelector<HTMLButtonElement>("[data-reel-prev]");
+          const next = scope.querySelector<HTMLButtonElement>("[data-reel-next]");
 
           if (reel && track && progress && orb) {
+            const panels = Array.from(track.querySelectorAll<HTMLElement>("[data-project-panel]"));
+            let activeIndex = 0;
             const getDistance = () => Math.max(0, track.scrollWidth - reel.clientWidth + 120);
+            const setActiveIndex = (index: number) => {
+              activeIndex = Math.max(0, Math.min(panels.length - 1, index));
+              if (current) current.textContent = String(activeIndex + 1).padStart(2, "0");
+            };
 
             const reelTimeline = gsap.timeline({
               scrollTrigger: {
@@ -184,6 +313,9 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
                 pin: true,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                  setActiveIndex(Math.round(self.progress * Math.max(0, panels.length - 1)));
+                },
               },
             });
 
@@ -201,7 +333,7 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
                 0,
               );
 
-            gsap.utils.toArray<HTMLElement>("[data-project-panel]").forEach((panel) => {
+            panels.forEach((panel) => {
               gsap.fromTo(
                 panel,
                 { scale: 0.9, opacity: 0.4 },
@@ -219,10 +351,33 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
                 },
               );
             });
+
+            const goToPanel = (index: number) => {
+              const trigger = reelTimeline.scrollTrigger;
+              if (!trigger || panels.length < 2) return;
+
+              const safeIndex = Math.max(0, Math.min(panels.length - 1, index));
+              const progressToPanel = safeIndex / (panels.length - 1);
+              const top = trigger.start + (trigger.end - trigger.start) * progressToPanel;
+              window.scrollTo({ top, behavior: "smooth" });
+            };
+
+            const handlePrevious = () => goToPanel(activeIndex - 1);
+            const handleNext = () => goToPanel(activeIndex + 1);
+
+            previous?.addEventListener("click", handlePrevious);
+            next?.addEventListener("click", handleNext);
+            setActiveIndex(0);
+
+            cleanups.push(() => {
+              previous?.removeEventListener("click", handlePrevious);
+              next?.removeEventListener("click", handleNext);
+            });
           }
 
           const stage = scope.querySelector<HTMLElement>(".hero-system");
           const consoleWindow = scope.querySelector<HTMLElement>(".proof-console");
+          const signalCore = scope.querySelector<HTMLElement>("[data-signal-core]");
 
           if (stage && consoleWindow) {
             gsap.set(consoleWindow, {
@@ -238,6 +393,21 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
               duration: 0.75,
               ease: "power3.out",
             });
+            const satellites = Array.from(
+              stage.querySelectorAll<HTMLElement>("[data-system-satellite]"),
+            );
+            const satelliteX = satellites.map((satellite) =>
+              gsap.quickTo(satellite, "x", { duration: 0.9, ease: "power3.out" }),
+            );
+            const satelliteY = satellites.map((satellite) =>
+              gsap.quickTo(satellite, "y", { duration: 0.9, ease: "power3.out" }),
+            );
+            const coreX = signalCore
+              ? gsap.quickTo(signalCore, "x", { duration: 1.05, ease: "power3.out" })
+              : null;
+            const coreY = signalCore
+              ? gsap.quickTo(signalCore, "y", { duration: 1.05, ease: "power3.out" })
+              : null;
 
             const handlePointerMove = (event: PointerEvent) => {
               const bounds = stage.getBoundingClientRect();
@@ -246,11 +416,19 @@ export const usePortfolioMotion = (scopeRef: RefObject<HTMLElement | null>) => {
 
               rotateX(1 - y * 5);
               rotateY(-4 + x * 7);
+              satelliteX.forEach((move, index) => move(x * (12 + index * 6)));
+              satelliteY.forEach((move, index) => move(y * (10 + index * 5)));
+              coreX?.(-x * 18);
+              coreY?.(-y * 15);
             };
 
             const resetTilt = () => {
               rotateX(1);
               rotateY(-4);
+              satelliteX.forEach((move) => move(0));
+              satelliteY.forEach((move) => move(0));
+              coreX?.(0);
+              coreY?.(0);
             };
 
             stage.addEventListener("pointermove", handlePointerMove);

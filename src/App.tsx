@@ -4,6 +4,8 @@ import {
   AudioLines,
   BrainCircuit,
   Boxes,
+  ChevronLeft,
+  ChevronRight,
   Code2,
   Github,
   Linkedin,
@@ -59,7 +61,15 @@ const toolkit = [
   "Three.js",
 ];
 
-const TrainlyShowcase = ({ sourceNote, assetsLabel }: { sourceNote: string; assetsLabel: string }) => (
+const TrainlyShowcase = ({
+  sourceNote,
+  assetsLabel,
+  visualLabels,
+}: {
+  sourceNote: string;
+  assetsLabel: string;
+  visualLabels: readonly [string, string, string];
+}) => (
   <div className="trainly-real-product" aria-label="Trainly product visuals">
     <div className="trainly-real-header">
       <img src="/trainly-logo.svg" alt="Trainly" />
@@ -67,9 +77,16 @@ const TrainlyShowcase = ({ sourceNote, assetsLabel }: { sourceNote: string; asse
     </div>
 
     <div className="trainly-real-stage">
-      <div className="trainly-flow-title" role="img" aria-label="Trainly campus product interface" />
-      <div className="trainly-flow-assets" role="img" aria-label="Trainly team training interface" />
-      <div className="trainly-module-grid" role="img" aria-label="Trainly actionable metrics interface" />
+      <span className="trainly-collage-word" aria-hidden="true">TRAINLY</span>
+      <div className="trainly-flow-title" data-trainly-layer="primary" role="img" aria-label={visualLabels[0]}>
+        <span className="trainly-frame-index" aria-hidden="true">01</span>
+      </div>
+      <div className="trainly-flow-assets" data-trainly-layer="secondary" role="img" aria-label={visualLabels[1]}>
+        <span className="trainly-frame-index" aria-hidden="true">02</span>
+      </div>
+      <div className="trainly-module-grid" data-trainly-layer="tertiary" role="img" aria-label={visualLabels[2]}>
+        <span className="trainly-frame-index" aria-hidden="true">03</span>
+      </div>
 
       <div className="trainly-source-note">
         {sourceNote}
@@ -117,6 +134,25 @@ function App() {
 
       <main>
         <section className="hero section-wrap" id="top">
+          <div className="hero-field" aria-hidden="true">
+            <svg className="hero-field-lines" viewBox="0 0 1600 820" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="hero-signal-gradient" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="var(--accent)" stopOpacity="0" />
+                  <stop offset=".28" stopColor="var(--accent)" stopOpacity=".58" />
+                  <stop offset=".62" stopColor="var(--accent-2)" stopOpacity=".66" />
+                  <stop offset="1" stopColor="var(--success)" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path data-field-line d="M-100 158 C180 20 362 286 654 150 S1130 22 1700 180" />
+              <path data-field-line d="M-120 270 C200 116 390 390 704 252 S1180 122 1720 278" />
+              <path data-field-line d="M-80 392 C220 238 430 526 748 378 S1200 250 1680 412" />
+              <path data-field-line d="M-120 520 C180 374 422 654 736 506 S1180 382 1710 550" />
+              <path data-field-line d="M-100 654 C196 514 420 776 728 642 S1180 520 1690 678" />
+            </svg>
+            <span className="hero-field-index">SIGNAL / 01</span>
+            <span className="hero-field-caption">PROBLEM → SYSTEM → PROOF</span>
+          </div>
           <div className="hero-copy">
             <div className="eyebrow-pill" data-hero-reveal>
               <span className="status-dot" />
@@ -164,6 +200,28 @@ function App() {
           <div className="hero-system" aria-label={copy.buildLogAria}>
             <div className="system-glow system-glow-one" />
             <div className="system-glow system-glow-two" />
+            <div className="signal-core" data-signal-core aria-hidden="true">
+              <span className="signal-ring signal-ring-outer" />
+              <span className="signal-ring signal-ring-middle" />
+              <span className="signal-ring signal-ring-inner" />
+              <span className="signal-core-dot" />
+              <span className="signal-core-node signal-core-node-one" />
+              <span className="signal-core-node signal-core-node-two" />
+            </div>
+            <svg className="system-map" viewBox="0 0 560 520" aria-hidden="true">
+              <path data-system-path d="M30 122 C126 122 116 52 222 52 C330 52 336 142 530 142" />
+              <path data-system-path d="M12 392 C126 392 116 470 242 470 C360 470 386 384 548 384" />
+              <path data-system-path d="M82 34 C82 172 16 214 16 290 C16 362 94 360 116 480" />
+            </svg>
+            <div className="system-satellite satellite-shipped" data-system-satellite aria-hidden="true">
+              <span>01</span><strong>{copy.motion.shipped}</strong>
+            </div>
+            <div className="system-satellite satellite-validated" data-system-satellite aria-hidden="true">
+              <span>02</span><strong>{copy.motion.validated}</strong>
+            </div>
+            <div className="system-satellite satellite-production" data-system-satellite aria-hidden="true">
+              <span>03</span><strong>{copy.motion.production}</strong>
+            </div>
             <div className="system-window proof-console">
               <div className="window-topbar">
                 <div className="window-dots">
@@ -243,6 +301,7 @@ function App() {
           </div>
 
           <article className="featured-project trainly-featured" id="trainly">
+            <span className="featured-wordmark" data-featured-wordmark aria-hidden="true">TRAINLY</span>
             <div className="featured-copy">
               <div className="project-meta">
                 <span className="current-badge">{copy.work.current}</span>
@@ -274,7 +333,11 @@ function App() {
               </a>
             </div>
 
-            <TrainlyShowcase sourceNote={copy.trainlyAssets} assetsLabel={copy.realAssets} />
+            <TrainlyShowcase
+              sourceNote={copy.trainlyAssets}
+              assetsLabel={copy.realAssets}
+              visualLabels={copy.work.visualLabels}
+            />
           </article>
 
           <div className="project-reel" data-horizontal-reel>
@@ -283,7 +346,16 @@ function App() {
                 <span className="section-kicker">{copy.work.supporting}</span>
                 <strong>{copy.work.mindset}</strong>
               </div>
-              <span className="reel-instruction">{copy.work.explore}</span>
+              <div className="reel-controls">
+                <span className="reel-counter" aria-live="polite"><strong data-reel-current>01</strong> / 03</span>
+                <button type="button" data-reel-prev aria-label={copy.work.previousProject}>
+                  <ChevronLeft size={16} />
+                </button>
+                <button type="button" data-reel-next aria-label={copy.work.nextProject}>
+                  <ChevronRight size={16} />
+                </button>
+                <span className="reel-instruction">{copy.work.explore}</span>
+              </div>
             </div>
 
             <div className="reel-orb" aria-hidden="true">

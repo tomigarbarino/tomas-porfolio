@@ -10,6 +10,7 @@
 }
 
 .trainly-real-product {
+  position: relative;
   min-width: 0;
   border: 1px solid rgba(245, 80, 14, 0.22);
   border-radius: 26px;
@@ -50,6 +51,8 @@
 }
 
 .trainly-real-stage {
+  position: relative;
+  isolation: isolate;
   padding: 14px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -58,12 +61,26 @@
     linear-gradient(145deg, rgba(255, 248, 237, 0.98), rgba(255, 236, 220, 0.98));
 }
 
+.trainly-collage-word {
+  position: absolute;
+  top: 43%;
+  left: -4%;
+  z-index: 0;
+  color: rgba(98, 47, 17, .075);
+  font-size: clamp(78px, 9vw, 138px);
+  font-weight: 750;
+  line-height: .8;
+  letter-spacing: -.09em;
+  pointer-events: none;
+}
+
 /* Existing markup is reused as responsive image slots while rendering
    the exact composed product shots exported from the Trainly Figma. */
 .trainly-flow-title,
 .trainly-flow-assets,
 .trainly-module-grid {
   position: relative;
+  z-index: 1;
   overflow: hidden;
   border: 1px solid rgba(85, 45, 20, 0.12);
   border-radius: 20px;
@@ -82,23 +99,41 @@
 
 .trainly-flow-assets {
   min-height: 190px;
-  margin: 0;
+  z-index: 2;
+  margin: -48px 0 0 20px;
   display: block;
+  transform: rotate(-1.8deg);
   background-image: url('./assets/trainly/capacitar-equipos.png');
   background-position: center center;
 }
 
 .trainly-module-grid {
   min-height: 190px;
+  z-index: 3;
   display: block;
+  margin: -24px 20px 0 0;
+  transform: rotate(1.6deg);
   background-image: url('./assets/trainly/metricas-accionables.png');
   background-position: center center;
 }
 
-.trainly-flow-title > *,
-.trainly-flow-assets > *,
-.trainly-module-grid > * {
-  display: none !important;
+.trainly-frame-index {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 4;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 50%;
+  color: #fffaf4;
+  background: rgba(25, 18, 14, .58);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+  font: 8px var(--font-mono);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .trainly-flow-title::after,
@@ -114,6 +149,8 @@
 
 .trainly-source-note {
   grid-column: 1 / -1;
+  position: relative;
+  z-index: 4;
   margin: 2px 4px 0;
   color: #785d4d;
   font-size: 0;
@@ -169,5 +206,26 @@
   .trainly-module-grid {
     min-height: 112px;
     background-position: center;
+  }
+
+  .trainly-flow-assets {
+    margin: -20px 0 0 7px;
+    transform: rotate(-1deg);
+  }
+
+  .trainly-module-grid {
+    margin: -9px 7px 0 0;
+    transform: rotate(1deg);
+  }
+
+  .trainly-collage-word {
+    top: 48%;
+    font-size: 70px;
+  }
+
+  .trainly-frame-index {
+    width: 23px;
+    height: 23px;
+    font-size: 7px;
   }
 }
