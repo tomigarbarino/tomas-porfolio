@@ -1362,6 +1362,23 @@ button:focus-visible {
   background: rgba(255,255,255,.027);
 }
 
+.solution-card-featured {
+  border-color: rgba(var(--accent-rgb), .55);
+  background: rgba(var(--accent-rgb), .04);
+}
+
+.solution-card .solution-limits {
+  margin: 18px 0 0;
+}
+
+.contact-address {
+  overflow-wrap: anywhere;
+  color: var(--text);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .solution-card-top {
   display: flex;
   align-items: center;

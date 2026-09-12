@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   ArrowUpRight,
-  AudioLines,
   Boxes,
   Code2,
   Linkedin,
@@ -19,7 +18,7 @@ import "./trainly-showcase.css";
 import { usePortfolioMotion } from "./hooks/usePortfolioMotion";
 import { applySeoMetadata, getPagePath, getSeoMetadata } from "./lib/seo";
 
-const capabilityIcons = [Sparkles, Workflow, Code2];
+const capabilityIcons = [Workflow, Code2, Sparkles];
 
 const toolkit = [
   "Next.js",
@@ -182,7 +181,7 @@ function App() {
               <a className="btn btn-primary" href={projectInquiryHref} data-cta="hero-project-inquiry">
                 {copy.startProject} <ArrowUpRight size={17} />
               </a>
-              <a className="btn btn-secondary" href="#trainly" data-cta="hero-proof">
+              <a className="btn btn-secondary" href="#about" data-cta="hero-pilot">
                 {copy.viewWork} <ArrowRight size={17} />
               </a>
             </div>
@@ -239,22 +238,22 @@ function App() {
                   <span className="node-state current">{copy.console.current}</span>
                 </a>
                 <div className="flow-line" />
-                <a className="flow-node" href="#insurance-workflow">
+                <a className="flow-node" href="#batech">
                   <span className="node-icon"><ShieldCheck size={16} /></span>
                   <div>
-                    <small>02 · INSURANCE WORKFLOW</small>
-                    <strong>{copy.console.insurance}</strong>
+                    <small>02 · BATECH</small>
+                    <strong>{copy.console.experience}</strong>
                   </div>
-                  <span className="node-state">{copy.console.prototype}</span>
+                  <span className="node-state">{copy.console.career}</span>
                 </a>
                 <div className="flow-line" />
-                <a className="flow-node" href="#immersive-ai">
-                  <span className="node-icon"><AudioLines size={16} /></span>
+                <a className="flow-node" href="#about">
+                  <span className="node-icon"><Workflow size={16} /></span>
                   <div>
-                    <small>03 · VOICE + 3D</small>
-                    <strong>{copy.console.voice}</strong>
+                    <small>03 · {copy.console.pilotLabel}</small>
+                    <strong>{copy.console.pilot}</strong>
                   </div>
-                  <span className="node-state">R&D</span>
+                  <span className="node-state">{copy.console.proposed}</span>
                 </a>
                 <p className="console-footnote">{copy.console.footnote}</p>
               </div>
@@ -318,6 +317,7 @@ function App() {
               <div className="featured-proof">
                 <span>{copy.work.verifiable}</span>
                 <p>{copy.work.verifiableText}</p>
+                <p>{copy.work.relevance}</p>
               </div>
 
               <a className="text-link" href={trainlyPath}>
@@ -412,9 +412,9 @@ function App() {
               {copy.capabilitiesList.map((solution, index) => {
                 const Icon = capabilityIcons[index];
                 return (
-                  <article className="solution-card" key={solution.title}>
+                  <article className={`solution-card${index === 0 ? " solution-card-featured" : ""}`} key={solution.title}>
                     <div className="solution-card-top">
-                      <span>0{index + 1}</span>
+                      <span>{index === 0 ? copy.capabilities.recommended : `0${index + 1}`}</span>
                       <Icon size={22} />
                     </div>
                     <h3>{solution.title}</h3>
@@ -426,6 +426,7 @@ function App() {
                       <span>{copy.capabilities.deliverable}</span>
                       <strong>{solution.deliverable}</strong>
                     </div>
+                    <p className="solution-limits"><strong>{copy.capabilities.limits}: </strong>{solution.limits}</p>
                     <div className="solution-tags">
                       {solution.tags.map((tag) => <span key={tag}>{tag}</span>)}
                     </div>
@@ -482,6 +483,7 @@ function App() {
               <small className="contact-note">{copy.contact.note}</small>
             </div>
             <div className="contact-actions">
+              <a className="contact-address" href={projectInquiryHref}>tomasgarbarino.dev@gmail.com</a>
               <a className="btn btn-primary" href={projectInquiryHref} data-cta="contact-project-inquiry">
                 <Mail size={17} /> {copy.contact.email}
               </a>
