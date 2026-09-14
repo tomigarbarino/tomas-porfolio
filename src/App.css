@@ -1346,6 +1346,7 @@ button:focus-visible {
 
 .solution-card {
   position: relative;
+  scroll-margin-top: 100px;
   min-height: 410px;
   display: flex;
   flex-direction: column;
@@ -1470,6 +1471,25 @@ button:focus-visible {
 
 .solution-link:hover {
   color: var(--text);
+}
+
+.solution-card:target {
+  border-color: var(--line-strong);
+}
+
+html:has(#frontend:target) {
+  scroll-behavior: auto;
+}
+
+.solution-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.5;
+  text-underline-offset: 4px;
 }
 
 .toolkit-row {

@@ -80,11 +80,35 @@ function App() {
   const trainlyPath = getPagePath("trainly", language);
   const projectInquiryHref = `mailto:tomasgarbarino.dev@gmail.com?subject=${encodeURIComponent(copy.contact.mailSubject)}&body=${encodeURIComponent(copy.contact.mailBody)}`;
   const solutionInquiryHref = (solutionTitle: string) => `mailto:tomasgarbarino.dev@gmail.com?subject=${encodeURIComponent(`${copy.contact.mailSubject}: ${solutionTitle}`)}&body=${encodeURIComponent(copy.contact.mailBody)}`;
+  const frontendInquiryHref = `mailto:tomasgarbarino.dev@gmail.com?subject=${encodeURIComponent(copy.frontendInquiry.subject)}&body=${encodeURIComponent(copy.frontendInquiry.body)}`;
 
   usePortfolioMotion(portfolioRef);
 
   useEffect(() => {
     applySeoMetadata(getSeoMetadata("home", language));
+  }, [language]);
+
+  useEffect(() => {
+    if (window.location.hash !== "#frontend") return;
+    let cancelled = false;
+    let frame = 0;
+    const alignOffer = () => {
+      void document.fonts.ready.then(() => {
+        if (cancelled) return;
+        frame = window.requestAnimationFrame(() => {
+          if (window.location.hash === "#frontend") {
+            document.getElementById("frontend")?.scrollIntoView({ block: "start", behavior: "instant" });
+          }
+        });
+      });
+    };
+    if (document.readyState === "complete") alignOffer();
+    else window.addEventListener("load", alignOffer, { once: true });
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("load", alignOffer);
+    };
   }, [language]);
 
   useEffect(() => {
@@ -411,8 +435,9 @@ function App() {
             <div className="solution-grid">
               {copy.capabilitiesList.map((solution, index) => {
                 const Icon = capabilityIcons[index];
+                const isFrontend = solution.id === "frontend";
                 return (
-                  <article className={`solution-card${index === 0 ? " solution-card-featured" : ""}`} key={solution.title}>
+                  <article id={solution.id} className={`solution-card${index === 0 ? " solution-card-featured" : ""}`} key={solution.id}>
                     <div className="solution-card-top">
                       <span>{index === 0 ? copy.capabilities.recommended : `0${index + 1}`}</span>
                       <Icon size={22} />
@@ -430,8 +455,9 @@ function App() {
                     <div className="solution-tags">
                       {solution.tags.map((tag) => <span key={tag}>{tag}</span>)}
                     </div>
-                    <a className="solution-link" href={solutionInquiryHref(solution.title)} data-cta={`solution-${index + 1}`}>
-                      {copy.capabilities.cta} <ArrowUpRight size={14} />
+                    {isFrontend && <a className="solution-proof" href="#batech">{copy.frontendInquiry.proof} <ArrowRight size={14} /></a>}
+                    <a className="solution-link" href={isFrontend ? frontendInquiryHref : solutionInquiryHref(solution.title)} data-cta={isFrontend ? "frontend-inquiry" : `solution-${index + 1}`}>
+                      {isFrontend ? copy.frontendInquiry.cta : copy.capabilities.cta} <ArrowUpRight size={14} />
                     </a>
                   </article>
                 );

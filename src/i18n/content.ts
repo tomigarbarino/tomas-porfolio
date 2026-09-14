@@ -86,10 +86,16 @@ export const portfolioContent = {
     },
     mobileNav: "Navegación rápida para celular",
     mobile: { work: "Trabajo", experience: "Experiencia", email: "Email" },
+    frontendInquiry: {
+      subject: "Consulta por una entrega React/TypeScript",
+      body: "Hola Tomás,\n\nProducto o agencia:\nFlujo o pantallas que necesitamos resolver:\nDiseño o referencia disponible:\nAPI existente:\nRango de presupuesto:\nFecha objetivo:\n\nMe gustaría definir una primera entrega.\nGracias.",
+      cta: "Definamos la primera entrega",
+      proof: "Ver mi aporte frontend en Batech",
+    },
     capabilitiesList: [
-      { title: "Pedidos por WhatsApp, ordenados", description: "Recibís pedidos por chat y después los pasás a una planilla o al equipo que prepara las entregas.", deliverable: "Carga con datos obligatorios + revisión de pendientes + lista de preparación exportable", limits: "Un negocio y un flujo. Carga asistida por una persona; conexiones a WhatsApp, stock y facturación se cotizan aparte.", tags: ["Piloto acotado", "Control humano", "Medición antes y después"] },
-      { title: "Tablero de tareas y seguimiento", description: "El estado de los trabajos está repartido entre planillas y mensajes, y cuesta saber qué falta o quién sigue.", deliverable: "Tablero con responsables, estados y filtros sobre un proceso acordado", limits: "Un equipo y una fuente de datos. Alcance, acceso y mantenimiento definidos antes de empezar.", tags: ["Visibilidad", "Responsables", "Seguimiento"] },
-      { title: "Prototipo de capacitación con IA", description: "Tenés procedimientos escritos y querés probar una forma de explicarlos y revisar su comprensión.", deliverable: "Demo sobre un procedimiento + revisión de fuentes + plan de validación", limits: "Material autorizado y revisión humana. Integraciones y despliegue para toda la empresa se evalúan después.", tags: ["Documentos", "Prototipo", "Validación"] },
+      { id: "orders-pilot", title: "Pedidos por WhatsApp, ordenados", description: "Recibís pedidos por chat y después los pasás a una planilla o al equipo que prepara las entregas.", deliverable: "Carga con datos obligatorios + revisión de pendientes + lista de preparación exportable", limits: "Un negocio y un flujo. Carga asistida por una persona; conexiones a WhatsApp, stock y facturación se cotizan aparte.", tags: ["Piloto acotado", "Control humano", "Medición antes y después"] },
+      { id: "frontend", title: "Una entrega de React/TypeScript", description: "Tu agencia o equipo tiene un producto en marcha y necesita implementar un flujo o corregir una interfaz, incluso si parte de un prototipo con IA.", deliverable: "Un flujo o hasta dos pantallas acordadas, API existente, estados de carga y error, revisión móvil y escritorio, PR documentado.", limits: "Reviso código y diseño antes de presupuestar. Backend nuevo, app nativa, otras funciones y mantenimiento se acuerdan aparte.", tags: ["Producto existente", "Alcance acordado", "Entrega revisable"] },
+      { id: "training-pilot", title: "Prototipo de capacitación con IA", description: "Tenés procedimientos escritos y querés probar una forma de explicarlos y revisar su comprensión.", deliverable: "Demo sobre un procedimiento + revisión de fuentes + plan de validación", limits: "Material autorizado y revisión humana. Integraciones y despliegue para toda la empresa se evalúan después.", tags: ["Documentos", "Prototipo", "Validación"] },
     ],
     experiences: [
       { period: "2026 — actualidad", role: "Ingeniero de Producto", company: "Flock I+D", description: "Construcción y validación integral de iniciativas de producto con IA, entre estrategia, frontend, integraciones y experimentación rápida. Foco principal actual: Trainly." },
@@ -142,10 +148,16 @@ export const portfolioContent = {
     },
     contact: { kicker: "START A PROJECT", title: "Tell me what process you want to improve.", body: "Tell me about your business, how an order or task comes in and where it gets difficult. We'll check whether a pilot makes sense and what to measure.", note: "First step: a short conversation. Then, a written scope and quote.", linkedin: "Also on LinkedIn", email: "Tell me about the problem", mailSubject: "Pilot inquiry for my business", mailBody: "Hi Tomás,\n\nMy business and location:\nHow we receive orders or tasks today:\nWhere it gets difficult:\n\nI'd like to explore a first pilot.\nThanks." },
     mobileNav: "Mobile quick navigation", mobile: { work: "Work", experience: "Experience", email: "Email" },
+    frontendInquiry: {
+      subject: "React/TypeScript delivery inquiry",
+      body: "Hi Tomás,\n\nProduct or agency:\nFlow or screens we need help with:\nAvailable design or reference:\nExisting API:\nBudget range:\nTarget date:\n\nI'd like to define a first delivery.\nThanks.",
+      cta: "Define a first delivery",
+      proof: "See my frontend contribution at Batech",
+    },
     capabilitiesList: [
-      { title: "WhatsApp orders, organized", description: "You receive orders in chat, then copy them to a spreadsheet or pass them to the team preparing deliveries.", deliverable: "Required order fields + pending order review + exportable preparation list", limits: "One business and one workflow. A person handles order entry; WhatsApp, stock and invoicing connections are scoped separately.", tags: ["Focused pilot", "Human review", "Before and after measurement"] },
-      { title: "Task and follow-up dashboard", description: "Work status is spread across spreadsheets and messages, making it hard to see what is missing or who acts next.", deliverable: "Dashboard with owners, statuses and filters for one agreed process", limits: "One team and one data source. Scope, access and maintenance agreed before starting.", tags: ["Visibility", "Ownership", "Follow-up"] },
-      { title: "AI training prototype", description: "You have written procedures and want to test a way to explain them and review understanding.", deliverable: "Demo for one procedure + source review + validation plan", limits: "Authorized material and human review. Integrations and company-wide rollout are evaluated later.", tags: ["Documents", "Prototype", "Validation"] },
+      { id: "orders-pilot", title: "WhatsApp orders, organized", description: "You receive orders in chat, then copy them to a spreadsheet or pass them to the team preparing deliveries.", deliverable: "Required order fields + pending order review + exportable preparation list", limits: "One business and one workflow. A person handles order entry; WhatsApp, stock and invoicing connections are scoped separately.", tags: ["Focused pilot", "Human review", "Before and after measurement"] },
+      { id: "frontend", title: "One React/TypeScript delivery", description: "Your agency or team has a working product and needs a new flow or an interface fix, including work that starts from an AI-generated prototype.", deliverable: "One flow or up to two agreed screens, an existing API, loading and error states, mobile and desktop checks, a documented PR.", limits: "I review code and design before quoting. New backend work, native apps, additional features and maintenance are scoped separately.", tags: ["Existing product", "Agreed scope", "Reviewable delivery"] },
+      { id: "training-pilot", title: "AI training prototype", description: "You have written procedures and want to test a way to explain them and review understanding.", deliverable: "Demo for one procedure + source review + validation plan", limits: "Authorized material and human review. Integrations and company-wide rollout are evaluated later.", tags: ["Documents", "Prototype", "Validation"] },
     ],
     experiences: [
       { period: "2026 — now", role: "Product Engineer", company: "Flock I+D", description: "Building and validating AI product initiatives end-to-end across product thinking, frontend, integrations and rapid experimentation. Current main focus: Trainly." },
