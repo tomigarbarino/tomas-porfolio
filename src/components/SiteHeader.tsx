@@ -5,6 +5,7 @@ import "./site-header.css";
 
 type SiteHeaderProps = {
   context?: "home" | "case";
+  backHref?: string;
 };
 
 const navigation = [
@@ -13,7 +14,7 @@ const navigation = [
   { label: "Contact", hash: "contact" },
 ] as const;
 
-export function SiteHeader({ context = "home" }: SiteHeaderProps) {
+export function SiteHeader({ context = "home", backHref = "/#trainly" }: SiteHeaderProps) {
   const { paused, setPaused, reducedMotion } = useMotionPreference();
 
   return (
@@ -41,8 +42,7 @@ export function SiteHeader({ context = "home" }: SiteHeaderProps) {
         </button>
       </div>
       {context === "case" && (
-        // eslint-disable-next-line @next/next/no-html-link-for-pages -- Keep the return-to-section link on the same native fragment path.
-        <a className="site-header__back" href="/#trainly">
+        <a className="site-header__back" href={backHref}>
           ← Back to portfolio
         </a>
       )}

@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       { source: "/trainly", destination: "/en/trainly", permanent: true },
       { source: "/es/trainly", destination: "/en/trainly", permanent: true },
       { source: "/trainyl", destination: "/en/trainly", permanent: true },
+      { source: "/agora", destination: "/en/agora", permanent: true },
     ];
   },
 };

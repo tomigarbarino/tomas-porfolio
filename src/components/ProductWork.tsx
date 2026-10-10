@@ -16,9 +16,9 @@ export function ProductWork() {
     <section id="work" className="pw" aria-labelledby="work-title">
       <nav className="pw-case-directory" aria-label="Selected cases">
         <p className="pw-detail-label">Three ways I contribute</p>
-        <a href="#agora"><span>01 / Agora</span><strong>Product decisions. Applied AI.</strong><small>Product Owner · Hands-on implementation · Ongoing</small><b aria-hidden="true">↗</b></a>
-        <Link href={trainlyCase.href} prefetch={false}><span>02 / Trainly</span><strong>From source material to learning.</strong><small>Product flow · Frontend · AI integration · Active validation</small><b aria-hidden="true">↗</b></Link>
-        <a href="#batech"><span>03 / Batech</span><strong>The frontend behind the product.</strong><small>Frontend engineering &amp; leadership · Company context</small><b aria-hidden="true">↗</b></a>
+        <Link href="/en/agora" prefetch={false}><span>Agora</span><strong>Product decisions. Applied AI.</strong><small>Flock I+D · Product Owner · Ongoing</small><b aria-hidden="true">↗</b></Link>
+        <Link href={trainlyCase.href} prefetch={false}><span>Trainly</span><strong>From source material to learning.</strong><small>Product flow · Frontend · AI integration · Active validation</small><b aria-hidden="true">↗</b></Link>
+        <a href="#batech"><span>Batech</span><strong>The frontend behind the product.</strong><small>Frontend engineering &amp; leadership · Company context</small><b aria-hidden="true">↗</b></a>
       </nav>
       <div className="pw-process">
         <div className="pw-process-intro" data-scroll-depth="14">

@@ -41,11 +41,11 @@ def main():
         connection.close()
         return result
 
-    for route, target in {'/en': '/', '/es': '/', '/trainly': '/en/trainly', '/es/trainly': '/en/trainly', '/trainyl': '/en/trainly'}.items():
+    for route, target in {'/en': '/', '/es': '/', '/trainly': '/en/trainly', '/es/trainly': '/en/trainly', '/trainyl': '/en/trainly', '/agora': '/en/agora'}.items():
         status, headers, _ = get(route)
         location = headers.get('Location', headers.get('location'))
         checks.append({'check': route, 'passed': status == 308 and location == target, 'status': status, 'location': location})
-    for route in ('/', '/en/trainly'):
+    for route in ('/', '/en/trainly', '/en/agora'):
         status, _, html = get(route)
         head = Head()
         head.feed(html)
@@ -54,7 +54,10 @@ def main():
         checks.append({'check': route + ' metadata', 'passed': status == 200 and head.lang == 'en' and head.h1 == 1 and bool(head.description) and canonical_matches, 'status': status, 'canonical': head.canonical, 'lang': head.lang, 'h1': head.h1})
     for route in ('/robots.txt', '/sitemap.xml'):
         status, _, body = get(route)
-        checks.append({'check': route, 'passed': status == 200 and 'https://tomas-garbarino.vercel.app' in body, 'status': status})
+        valid_content = 'https://tomas-garbarino.vercel.app' in body
+        if route == '/sitemap.xml':
+            valid_content = all(f'<loc>https://tomas-garbarino.vercel.app{path}</loc>' in body for path in ('/', '/en/trainly', '/en/agora')) and body.count('<url>') == 3
+        checks.append({'check': route, 'passed': status == 200 and valid_content, 'status': status})
     status, _, _ = get('/route-that-does-not-exist')
     checks.append({'check': 'unknown route', 'passed': status == 404, 'status': status})
     report = {'base_url': args.base_url, 'checks': checks, 'passed': sum(item['passed'] for item in checks), 'failed': sum(not item['passed'] for item in checks)}

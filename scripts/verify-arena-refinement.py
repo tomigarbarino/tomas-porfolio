@@ -16,6 +16,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urljoin
 
 from playwright.sync_api import sync_playwright
 
@@ -286,8 +287,10 @@ class Suite:
 
     def selection(self):
         page = self.page
+        page.goto(urljoin(page.url, '/en/agora'), wait_until='networkidle')
+        page.evaluate('document.fonts.ready')
         self.pause()
-        paragraph = page.locator(".agora-decision__cards > section").first.locator("p").last
+        paragraph = page.locator('[data-agora-decision-step="missing-skills"]').locator('p').last
         paragraph.scroll_into_view_if_needed()
         settle(page)
         frame = paragraph.locator("xpath=..")

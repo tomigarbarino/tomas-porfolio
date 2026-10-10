@@ -1,6 +1,6 @@
 # Tomás Garbarino — Observatory
 
-Personal portfolio built with Next.js and React. The experience connects a cinematic ASCII environment, a three-chapter origin story and selected work at Agora, Trainly and Batech. Content is in English.
+Personal portfolio built with Next.js and React. The experience connects a cinematic ASCII environment, a five-step career story and selected work at Agora, Trainly and Batech. Agora and Trainly have dedicated case pages. Content is in English.
 
 ## Run
 
@@ -18,15 +18,15 @@ npm run build
 npm start
 ```
 
-Open http://localhost:3000. The build uses Webpack explicitly. Vercel is configured for Next.js; legacy `/en`, `/es`, `/trainly`, `/es/trainly` and `/trainyl` entry points redirect to the current pages.
+Open http://localhost:3000. The build uses Webpack explicitly. Vercel is configured for Next.js; legacy `/en`, `/es`, `/trainly`, `/es/trainly` and `/trainyl` and `/agora` entry points redirect to the current pages.
 
 ## Experience
 
-- A continuous ASCII video scene, original pop collage, pink cursor and layered paper artifacts connect the home and case study.
-- Story chapters keep a stable layout. Discovery objects preview on hover or keyboard focus and can be pinned on tap. Links and side quests select the corresponding chapter.
+- A continuous ASCII video scene, original pop collage, pink cursor and layered paper artifacts connect the home and case pages.
+- Three art chapters keep a stable layout; five visible career steps explain Minecraft, digital menus, Hogarth Worldwide, Batech and Flock I+D. Agora and Trainly are projects within the Flock step. Discovery objects preview on hover or keyboard focus and can be pinned on tap.
 - Artifacts can be moved from their surface, with keyboard controls on their focusable grips. Native double-click selection and Alt-drag allow copying text. Interactive controls retain their own actions; touch keeps vertical scrolling.
 - A case index and shared Quick profile dialog provide a short route through roles, contributions and contact.
-- Agora presents an anonymized product decision, candidate-experience Figma designs and an illustrative flow with connectors that follow its movable nodes. Trainly has a separate dossier with artifact links. Batech distinguishes frontend contribution from company footage.
+- Agora has its own dossier at `/en/agora`: role, product flow, an anonymized decision, candidate-experience Figma designs and product responsibilities. The home preserves an interactive preview. Trainly has a separate dossier with artifact links; both cases connect to each other. Batech distinguishes frontend contribution from company footage.
 - Global pause persists across pages. Reduced motion, hidden-tab and offscreen handling stop decorative motion and silent autoplay. Native video controls remain hidden.
 
 ## Content boundaries
@@ -48,8 +48,9 @@ Native interaction QA uses Python, Playwright and an existing Chromium executabl
 ```sh
 python scripts/verify-arena-refinement.py --base-url http://localhost:3000
 python scripts/verify-portfolio-routes.py --base-url http://localhost:3000
+python scripts/verify-agora-story.py --app-root . --build-id YOUR_BUILD_ID
 ```
 
 The interaction script reuses an installed Chromium; `--browser-path` selects a specific executable. Reports and screenshots are written under the ignored `output/` directory. Real mobile OS selection handles need device verification beyond touch emulation.
 
-See [implementation and validation](docs/observatory-portfolio.md), [asset provenance](docs/observatory-assets.md), and the [documentation index](docs/README.md).
+See [Agora case and career story](docs/agora-case-and-story.md), [implementation and validation](docs/observatory-portfolio.md), [asset provenance](docs/observatory-assets.md), and the [documentation index](docs/README.md).

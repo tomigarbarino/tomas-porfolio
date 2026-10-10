@@ -10,7 +10,7 @@ import "./origin-story.css";
 const chapters = [
   {
     id: "files",
-    label: "Minecraft files",
+    label: "Minecraft",
     eyebrow: "01 / The same curiosity",
     title: ["Before I knew", "it was code."],
     copy: "I changed Minecraft game files to make things happen, before I knew what programming was.",
@@ -30,20 +30,26 @@ const chapters = [
   },
   {
     id: "interfaces",
-    label: "Interfaces → AI",
-    eyebrow: "03 / Connecting systems",
+    label: "Product teams",
+    eyebrow: "03 / Product teams",
     title: ["Interfaces.", "Into AI products."],
-    copy: "Frontend engineering and leadership became my way into AI product engineering. Today at Agora, I work across product priorities, customer discovery, architecture and AI features.",
+    copy: "Hogarth Worldwide: frontend for Apple-related projects. Batech: building and leading the frontend. Flock I+D: product work on Agora and Trainly.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
     mediaNote: "Batech company footage / my role: frontend leadership",
   },
 ] as const;
 
-const experience = [
-  ["Hogarth Worldwide", "Frontend engineering for Apple-related projects."],
-  ["Batech", "Frontend engineering and leadership on AI and computer-vision products."],
-  ["Flock", "Product Engineer, AI R&D."],
+// Company order and the two Flock projects were confirmed by the author.
+const journey = [
+  { kind: "Origin", name: "Minecraft files", role: "Curiosity, before code", action: "I changed Minecraft game files to make things happen, before I knew what programming was." },
+  { kind: "Origin", name: "Digital menus", role: "Taking an idea to people", action: "Then I went to restaurants on my own to offer digital menus. Making something also meant talking to the people who might use it." },
+  { kind: "Company", name: "Hogarth Worldwide", role: "Frontend Developer", action: "At Hogarth Worldwide, I worked on frontend engineering for Apple-related projects." },
+  { kind: "Company", name: "Batech", role: "Frontend Engineer → Frontend Lead", action: "I built the SaaS frontend from the ground up with React and TypeScript and organized it by domain. I grew from the only frontend engineer into frontend leadership while continuing to deliver product features.", href: "#batech", link: "See the Batech work" },
+  { kind: "Company / AI R&D", name: "Flock I+D", role: "Product Engineer", action: "At Flock I+D, I work on AI products across product flow, frontend and AI integration. Agora and Trainly are two projects within that work.", projects: [
+    { name: "Agora", scope: "My role / Product Owner", action: "I work across customer discovery, product priorities, architecture decisions and hands-on AI implementation. I also work on candidate UX and UI alongside recruiter workflows.", href: "/en/agora", link: "Open the Agora case" },
+    { name: "Trainly", scope: "My scope / Product flow · Frontend · AI", action: "I work on the product flow and frontend that connect learning, conversational assessment and manager visibility, together with the AI integration.", href: "/en/trainly", link: "Open the Trainly case" },
+  ] },
 ] as const;
 
 const curiosityFacts = [
@@ -348,10 +354,10 @@ export function OriginStory() {
     <section id="story" className="origin-story" data-chapter={chapter.id} data-art-active={artVisible && !paused} aria-labelledby={headingId}>
       <header className="origin-story__header" data-scroll-depth="14">
         <div className="origin-story__intro">
-          <p className="origin-story__kicker">Story / three chapters</p>
+          <p className="origin-story__kicker">Story / from files to product teams</p>
           <h2 id={headingId}>The same curiosity.</h2>
-          <p className="origin-story__summary">Changing game files. Taking digital menus to restaurants. Building interfaces and AI products.</p>
-          <p className="origin-story__contribution">Today, I connect customer discovery, product decisions and hands-on AI implementation.</p>
+          <p className="origin-story__summary">I started by changing Minecraft files, then took digital menus to restaurants. Frontend work at Hogarth Worldwide and Batech led me to AI products at Flock I+D.</p>
+          <p className="origin-story__contribution"><strong>Current work / Flock I+D</strong> Agora: Product Owner. Trainly: product flow, frontend and AI integration.</p>
           <a className="origin-story__fast-track" href="#work">Selected work <span aria-hidden="true">↗</span></a>
         </div>
         <div className="origin-story__tabs" role="tablist" aria-label="Story chapters">
@@ -409,8 +415,8 @@ export function OriginStory() {
               <p className="origin-story__copy">{item.copy}</p>
               {item.id === "interfaces" ? (
                 <nav className="origin-story__case-links" aria-label="Explore project cases">
-                  <a href="#agora">Agora <span aria-hidden="true">↗</span></a>
-                  <a href="#trainly">Trainly <span aria-hidden="true">↗</span></a>
+                  <a href="/en/agora">Agora <span aria-hidden="true">↗</span></a>
+                  <a href="/en/trainly">Trainly <span aria-hidden="true">↗</span></a>
                   <a href="#batech">Batech <span aria-hidden="true">↗</span></a>
                 </nav>
               ) : null}
@@ -437,9 +443,36 @@ export function OriginStory() {
         <p className="origin-story__media-note">{chapter.mediaNote}</p>
       </div>
 
-      <dl className="origin-story__career" aria-label="Experience behind the work">
-        {experience.map(([company, scope]) => <div key={company}><dt>{company}</dt><dd>{scope}</dd></div>)}
-      </dl>
+      <section className="origin-story__journey" aria-labelledby={`${id}-journey-heading`}>
+        <header className="origin-story__journey-heading" data-scroll-depth="10">
+          <p>Five steps / companies and projects</p>
+          <h3 id={`${id}-journey-heading`}>How the work grew.</h3>
+        </header>
+        <ol className="origin-story__journey-list">
+          {journey.map((episode, index) => <li key={episode.name}>
+            <span className="origin-story__step-number" aria-hidden="true">0{index + 1}</span>
+            <header className="origin-story__episode-heading">
+              <p className="origin-story__episode-kind">{episode.kind}</p>
+              <h4>{episode.name}</h4>
+              <p className="origin-story__episode-role">{episode.role}</p>
+            </header>
+            <div className="origin-story__episode-reading">
+              <p>{episode.action}</p>
+              {"href" in episode ? <a className="origin-story__episode-link" href={episode.href}>{episode.link} <span aria-hidden="true">↗</span></a> : null}
+              {"projects" in episode ? <div className="origin-story__projects" data-drag-boundary>
+                {episode.projects.map(project => <article key={project.name} data-drag-frame>
+                  <ArtifactDrag label={`Move the ${project.name} career card`} />
+                  <p className="origin-story__episode-kind">Project / Flock I+D</p>
+                  <h5>{project.name}</h5>
+                  <p className="origin-story__project-scope">{project.scope}</p>
+                  <p>{project.action}</p>
+                  <a className="origin-story__episode-link" href={project.href}>{project.link} <span aria-hidden="true">↗</span></a>
+                </article>)}
+              </div> : null}
+            </div>
+          </li>)}
+        </ol>
+      </section>
 
       <footer className="origin-story__footer">
         <a className="origin-story__work-link" href="#work">Skip to selected work <span aria-hidden="true">→</span></a>

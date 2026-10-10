@@ -238,3 +238,10 @@ html[data-motion="paused"] .agora-case__footer a { transition: none; }
   .agora-case__footer a { transition: none; }
   html:not([data-motion="paused"]) .agora-case__footer a:is(:hover, :focus-visible) { transform: none; }
 }
+
+/* Home is an entry to the dedicated case, with one concrete decision hook. */
+.agora-preview__link { display: inline-flex; align-items: center; gap: 28px; min-height: 48px; margin-top: 26px; padding: 12px 18px; color: var(--agora-bg); background: var(--agora-acid); border: 1px solid var(--agora-bg); font-size: 12px; text-decoration: none; }
+.agora-preview__link:is(:hover,:focus-visible) { background: var(--agora-pink); text-decoration: underline; text-underline-offset: 4px; }
+.agora-preview__decision { max-width: 900px; margin-bottom: 48px; }
+.agora-preview__decision > p:not(.agora-case__label) { max-width: 72ch; margin-top: 24px; font-size: 14px; line-height: 1.85; }
+.agora-preview__decision > a { display: inline-flex; align-items: center; gap: 18px; margin-top: 20px; padding-block: 12px; color: var(--agora-acid); font-size: 12px; line-height: 1.7; }

@@ -6,7 +6,7 @@ The portfolio connects a distinctive visual entrance to evidence of product judg
 
 ## User experience
 
-The home follows entrance → origin story → case index → Trainly summary → Batech → Agora → contact. The case index provides direct paths to all three cases without requiring the full sequence. The Trainly dossier preserves the longer product narrative.
+The home follows entrance → origin story → case index → Trainly summary → Batech → Agora preview → contact. The case index provides direct paths without requiring the full sequence. Agora and Trainly have dedicated dossiers. Five visible career steps name the companies and place both projects within Flock I+D; see [Agora case and career story](agora-case-and-story.md).
 
 Three Story panels share a natural CSS grid footprint, so selecting a chapter does not move the sections below. Artwork stays mounted and only the selected chapter is interactive. Discovery objects maintain separate hover, focus, panel focus and pin state. Keyboard focus inside a detail remains available when the pointer explores another object.
 
@@ -16,7 +16,7 @@ Agora's illustrative flow measures node rectangles and reconnects edges after dr
 
 ## Technical overview
 
-`src/app/page.tsx` composes the home. `Observatory`, `OriginStory`, `ProductWork` and `AgoraCase` hold the narrative; `TrainlyDossier` supplies `/en/trainly`. Product content stays in source files; the site does not call live candidate systems, databases or AI services.
+`src/app/page.tsx` composes the home. `Observatory`, `OriginStory`, `ProductWork` and `AgoraCase` hold the narrative; `TrainlyDossier` supplies `/en/trainly` and `AgoraDossier` supplies `/en/agora`. Product content stays in source files; the site does not call live candidate systems, databases or AI services.
 
 `ArtifactDrag` applies CSS translation and emits bubbling `tg-artifact-move` with `{ x, y }` after applying offsets. `AgoraFlow` coalesces these events with resize/font observations into one measurement frame. It does not run an idle animation loop. Scroll movement of the whole flow shares coordinates with its SVG.
 
@@ -28,9 +28,13 @@ Agora's illustrative flow measures node rectangles and reconnects edges after dr
 
 Install with Node.js 24.x and `npm ci`. The `engines.node` entry in `package.json` overrides the previous Vercel project's discontinued Node 18 setting. Production uses `npm run build` and `npm start`; `vercel.json` selects the Next.js framework and `.next` output. No environment variables or external credentials are required. Static assets and font licenses live under `public/`.
 
-Legacy entries redirect permanently: `/en` and `/es` to `/`; `/trainly`, `/es/trainly` and `/trainyl` to `/en/trainly`. Canonical metadata and the two-entry sitemap retain the existing public domain. There is currently one English edition, so Spanish language alternates are not advertised. Previous CRA SEO/prerender documentation remains historical in the docs index.
+Legacy entries redirect permanently: `/en` and `/es` to `/`; `/trainly`, `/es/trainly` and `/trainyl` to `/en/trainly`; `/agora` to `/en/agora`. Canonical metadata and the three-entry sitemap retain the existing public domain. There is currently one English edition, so Spanish language alternates are not advertised. Previous CRA SEO/prerender documentation remains historical in the docs index.
 
-## Validation
+## Agora dossier and career-story validation
+
+The current feature adds `/en/agora`, the explicit five-step career story and case-to-case navigation. Lint, typecheck and build passed. Eighteen browser journeys passed before the final CSS adjustments; six targeted journeys and twelve HTTP checks passed on final build `o5LjCKYCVrlICAP9zvgQe`. See [the feature record](agora-case-and-story.md) for build identities, coverage and limits.
+
+## Arena milestone validation
 
 Validated on production build `APml2lnGUPQzOpeJnJlJT`, using the curated PR checkout, with Node.js 24.19.0 and Chromium 149.0.7827.55. All 41 active source files matched the local implementation by SHA-256.
 
