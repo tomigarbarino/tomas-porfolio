@@ -1,5 +1,10 @@
 # Portfolio documentation
 
+- [Observatory portfolio](observatory-portfolio.md): current Next.js experience, interactions, content boundaries, migration and validation.
+- [Observatory asset provenance](observatory-assets.md): current media sources and evidence labels.
+
+The documents below describe the preceding React/CRA portfolio. Their product context remains useful; route, build and prerender instructions are historical and superseded by Observatory.
+
 - [Design system](design-system.md): visual foundations, tokens, components, project theming, responsive rules, motion, and implementation checklist.
 - [Trainly case study](trainly-case-study.md): product-case narrative, route architecture, assets, and validation.
 - [Proof console redesign](portfolio-proof-console-redesign.md): landing-page structure and motion-oriented portfolio presentation.

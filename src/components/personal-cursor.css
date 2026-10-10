@@ -1,0 +1,19 @@
+.personal-cursor { display: none; position: fixed; z-index: 2147483646; top: 0; left: 0; width: 0; height: 0; pointer-events: none; }
+.personal-cursor > span { position: absolute; left: -12px; top: -12px; width: 24px; height: 24px; border: 1px solid #ff76b9; border-radius: 50%; opacity: 0; transform: scale(.65); transition: opacity var(--motion-response,380ms) ease, transform var(--motion-response,380ms) var(--motion-ease,ease), border-radius var(--motion-response,380ms) ease; }
+.personal-cursor > span::after { content: ""; position: absolute; top: -3px; right: -3px; width: 5px; height: 5px; background: #ff76b9; border: 1px solid #181a19; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html[data-personal-cursor="true"], html[data-personal-cursor="true"] body { cursor: url('/cursors/tg-pink.svg') 3 3, auto; }
+  html[data-personal-cursor="true"] :is(a,button,summary,[data-drag-surface]) { cursor: url('/cursors/tg-pink.svg') 3 3, pointer; }
+  html[data-personal-cursor="true"] :is(input,textarea,[contenteditable="true"]) { cursor: text; }
+  html[data-personal-cursor="true"] [data-drag-surface] :is(p,dt,dd,figcaption,h1,h2,h3,h4,h5,h6,pre,code,blockquote) { cursor: url('/cursors/tg-pink.svg') 3 3, grab; }
+  html[data-personal-cursor="true"] [data-drag-surface] :is(button,a) :is(p,h1,h2,h3,h4,h5,h6) { cursor: inherit; }
+  html[data-personal-cursor="true"] :is(select,button:disabled) { cursor: auto; }
+  html[data-personal-cursor="true"] .personal-cursor { display: block; }
+  .personal-cursor[data-visible="true"] > span { opacity: .35; transform: scale(1); }
+  .personal-cursor[data-visible="true"][data-mode="action"] > span { opacity: .8; transform: scale(1.45); }
+  .personal-cursor[data-visible="true"][data-mode="surface"] > span { opacity: .8; transform: scale(1.3) rotate(-8deg); border-radius: 4px; }
+  .personal-cursor[data-visible="true"][data-mode="drag"] > span { opacity: 1; transform: scale(1.1) rotate(45deg); border-radius: 3px; }
+}
+html[data-motion="paused"] .personal-cursor > span { transition: none; }
+html[data-artifact-selecting="true"] [data-drag-surface],
+html[data-artifact-selecting="true"] [data-drag-surface] * { cursor: text !important; }

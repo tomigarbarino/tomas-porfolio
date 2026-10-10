@@ -1,13 +1,6 @@
 {
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/es", "destination": "/", "permanent": true },
-    { "source": "/es/trainly", "destination": "/trainly", "permanent": true },
-    { "source": "/trainyl", "destination": "/trainly", "permanent": true }
-  ],
-  "rewrites": [
-    { "source": "/en", "destination": "/en/index.html" },
-    { "source": "/trainly", "destination": "/trainly/index.html" },
-    { "source": "/en/trainly", "destination": "/en/trainly/index.html" }
-  ]
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
+  "outputDirectory": ".next"
 }
