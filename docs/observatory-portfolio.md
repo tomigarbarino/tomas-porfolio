@@ -26,7 +26,7 @@ Agora's illustrative flow measures node rectangles and reconnects edges after dr
 
 ## Operational notes
 
-Install with `npm ci`. Production uses `npm run build` and `npm start`; `vercel.json` selects the Next.js framework and `.next` output. No environment variables or external credentials are required. Static assets and font licenses live under `public/`.
+Install with Node.js 24.x and `npm ci`. The `engines.node` entry in `package.json` overrides the previous Vercel project's discontinued Node 18 setting. Production uses `npm run build` and `npm start`; `vercel.json` selects the Next.js framework and `.next` output. No environment variables or external credentials are required. Static assets and font licenses live under `public/`.
 
 Legacy entries redirect permanently: `/en` and `/es` to `/`; `/trainly`, `/es/trainly` and `/trainyl` to `/en/trainly`. Canonical metadata and the two-entry sitemap retain the existing public domain. There is currently one English edition, so Spanish language alternates are not advertised. Previous CRA SEO/prerender documentation remains historical in the docs index.
 

@@ -4,7 +4,7 @@ Personal portfolio built with Next.js and React. The experience connects a cinem
 
 ## Run
 
-Node.js 22.13+ and npm. No environment variables, accounts or service credentials are required.
+Node.js 24.x and npm. The Node major is declared in `package.json` for local and Vercel builds. No environment variables, accounts or service credentials are required.
 
 ```sh
 npm ci
