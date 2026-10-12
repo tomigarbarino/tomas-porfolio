@@ -1,5 +1,6 @@
 # Portfolio documentation
 
+- [Scroll-led career story](scroll-story.md): five-stage reading path, sticky artwork, interaction contracts and current validation.
 - [Agora case and career story](agora-case-and-story.md): dedicated case, named career sequence and validation.
 
 - [Observatory portfolio](observatory-portfolio.md): current Next.js experience, interactions, content boundaries, migration and validation.

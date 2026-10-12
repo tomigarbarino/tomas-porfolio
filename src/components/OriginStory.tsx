@@ -1,19 +1,21 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { AsciiVideo } from "@/components/AsciiVideo";
 import { useMotionPreference } from "@/components/MotionPreference";
 import { ArtifactDrag } from "@/components/ArtifactDrag";
 import { ConceptualProductFlow } from "@/components/ConceptualProductFlow";
+import { BatechVideo } from "@/components/BatechVideo";
 import "./origin-story.css";
 
 const chapters = [
   {
     id: "files",
     label: "Minecraft",
-    eyebrow: "01 / The same curiosity",
+    eyebrow: "01 / Minecraft files",
     title: ["Before I knew", "it was code."],
     copy: "I changed Minecraft game files to make things happen, before I knew what programming was.",
+    role: "Curiosity, before code",
     src: "/media/minecraft-ascii.mp4",
     poster: "/media/minecraft-ascii.png",
     mediaNote: "Animated photo reference / not a personal artefact",
@@ -21,41 +23,53 @@ const chapters = [
   {
     id: "conversations",
     label: "Digital menus",
-    eyebrow: "02 / Outside the screen",
+    eyebrow: "02 / Digital menus",
     title: ["An idea became", "a conversation."],
     copy: "I went to restaurants on my own to offer digital menus. Making something also meant starting the conversation.",
+    role: "Taking an idea to people",
     src: "/media/cafe-ascii.mp4",
     poster: "/media/cafe-ascii.png",
     mediaNote: "Animated photo reference / not a client or personal artefact",
   },
   {
-    id: "interfaces",
-    label: "Product teams",
-    eyebrow: "03 / Product teams",
-    title: ["Interfaces.", "Into AI products."],
-    copy: "Hogarth Worldwide: frontend for Apple-related projects. Batech: building and leading the frontend. Flock I+D: product work on Agora and Trainly.",
+    id: "hogarth",
+    label: "Hogarth Worldwide",
+    eyebrow: "03 / Hogarth Worldwide",
+    title: ["Hogarth Worldwide.", "Into product teams."],
+    role: "Frontend Developer",
+    copy: "At Hogarth Worldwide, I worked on frontend engineering for Apple-related projects. The curiosity that started in game files had become professional work on interfaces.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
-    mediaNote: "Batech company footage / my role: frontend leadership",
+    mediaNote: "Role note / no Hogarth or Apple project imagery shown",
   },
-] as const;
-
-// Company order and the two Flock projects were confirmed by the author.
-const journey = [
-  { kind: "Origin", name: "Minecraft files", role: "Curiosity, before code", action: "I changed Minecraft game files to make things happen, before I knew what programming was." },
-  { kind: "Origin", name: "Digital menus", role: "Taking an idea to people", action: "Then I went to restaurants on my own to offer digital menus. Making something also meant talking to the people who might use it." },
-  { kind: "Company", name: "Hogarth Worldwide", role: "Frontend Developer", action: "At Hogarth Worldwide, I worked on frontend engineering for Apple-related projects." },
-  { kind: "Company", name: "Batech", role: "Frontend Engineer → Frontend Lead", action: "I built the SaaS frontend from the ground up with React and TypeScript and organized it by domain. I grew from the only frontend engineer into frontend leadership while continuing to deliver product features.", href: "#batech", link: "See the Batech work" },
-  { kind: "Company / AI R&D", name: "Flock I+D", role: "Product Engineer", action: "At Flock I+D, I work on AI products across product flow, frontend and AI integration. Agora and Trainly are two projects within that work.", projects: [
-    { name: "Agora", scope: "My role / Product Owner", action: "I work across customer discovery, product priorities, architecture decisions and hands-on AI implementation. I also work on candidate UX and UI alongside recruiter workflows.", href: "/en/agora", link: "Open the Agora case" },
-    { name: "Trainly", scope: "My scope / Product flow · Frontend · AI", action: "I work on the product flow and frontend that connect learning, conversational assessment and manager visibility, together with the AI integration.", href: "/en/trainly", link: "Open the Trainly case" },
-  ] },
-] as const;
-
-const curiosityFacts = [
-  ["Files", "My first experiments were changes to Minecraft game files."],
-  ["Places", "I went to restaurants on my own to offer digital menus."],
-  ["Work", "My work moved from frontend engineering into AI product engineering."],
+  {
+    id: "batech",
+    label: "Batech",
+    eyebrow: "04 / Batech",
+    title: ["Batech.", "From builder to lead."],
+    role: "Frontend Engineer → Frontend Lead",
+    copy: "I built the SaaS frontend from the ground up with React and TypeScript and organized it by domain. I grew from the only frontend engineer into frontend leadership while continuing to deliver product features.",
+    src: "/media/hero-ascii.mp4",
+    poster: "/media/hero-ascii.png",
+    mediaNote: "Batech company footage / my contribution: frontend engineering and leadership",
+    href: "#batech",
+    link: "See the Batech work",
+  },
+  {
+    id: "interfaces",
+    label: "Flock I+D",
+    eyebrow: "05 / Flock I+D",
+    title: ["Flock I+D.", "Product meets AI."],
+    role: "Product Engineer / AI R&D",
+    copy: "At Flock I+D, I work on AI products across product flow, frontend and AI integration. Agora and Trainly are two projects within that work.",
+    src: "/media/hero-ascii.mp4",
+    poster: "/media/hero-ascii.png",
+    mediaNote: "Agora Figma design + Trainly product interface / conceptual flow",
+    projects: [
+      { name: "Agora", scope: "My role / Product Owner", action: "I work across customer discovery, product priorities, architecture decisions and hands-on AI implementation. I also work on candidate UX and UI alongside recruiter workflows.", href: "/en/agora", link: "Open the Agora case" },
+      { name: "Trainly", scope: "My scope / Product flow · Frontend · AI", action: "I work on the product flow and frontend that connect learning, conversational assessment and manager visibility, together with the AI integration.", href: "/en/trainly", link: "Open the Trainly case" },
+    ],
+  },
 ] as const;
 
 function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number]; paused: boolean; active: boolean }) {
@@ -240,14 +254,28 @@ function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number
     );
   }
 
+  if (chapter.id === "hogarth") {
+    return <div className="origin-story__art origin-story__art--hogarth" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+      <div className="origin-story__company-note" data-drag-frame><ArtifactDrag label="Move the Hogarth story note" /><p>Hogarth Worldwide</p><strong>Frontend.<br />Real projects.</strong><span>Apple-related projects / my scope: frontend engineering</span></div>
+    </div>;
+  }
+
+  if (chapter.id === "batech") {
+    return <div className="origin-story__art origin-story__art--batech" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+      <figure className="origin-story__company-film" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechVideo active={active} describedBy={`${lensFilterId}-caption`} /><figcaption id={`${lensFilterId}-caption`}>Company product context / my role: frontend engineering</figcaption></figure>
+      <div className="origin-story__company-note" data-drag-frame><ArtifactDrag label="Move the Batech frontend note" /><p>React + TypeScript</p><strong>Build.<br />Organize. Lead.</strong><span>Frontend foundation → domain architecture → frontend leadership</span></div>
+    </div>;
+  }
+
   return (
     <div className="origin-story__art origin-story__art--interfaces" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
       <figure className="origin-story__system-film" data-drag-frame>
-        <ArtifactDrag label="Move the Batech story film" />
+        <ArtifactDrag label="Move the Agora story design" />
         <div className="origin-story__system-film-media" aria-hidden="true">
-          <AsciiVideo src={chapter.src} poster={chapter.poster} paused={paused} className="origin-story__video" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/media/agora-candidate-upload.png" alt="Empty Agora CV upload Figma design" width="1440" height="900" loading="lazy" decoding="async" />
         </div>
-        <figcaption>Batech / frontend leadership</figcaption>
+        <figcaption>Agora / candidate UX · Figma design</figcaption>
       </figure>
       <figure className="origin-story__product-plane origin-story__bridge" data-drag-frame>
         <ArtifactDrag label="Move the Trainly product image" />
@@ -263,243 +291,148 @@ function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number
 
 export function OriginStory() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [curiosityOpen, setCuriosityOpen] = useState(false);
+  const [artIndex, setArtIndex] = useState(0);
   const [artVisible, setArtVisible] = useState(false);
   const { paused, setPaused, reducedMotion } = useMotionPreference();
-  const stageRef = useRef<HTMLDivElement | null>(null);
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const sceneRefs = useRef<Array<HTMLElement | null>>([]);
   const id = useId();
-  const chapter = chapters[activeIndex];
   const headingId = `${id}-heading`;
-  const curiosityId = `${id}-curiosity`;
-
-  function cancelPreview() {
-    if (hoverTimer.current !== null) clearTimeout(hoverTimer.current);
-    hoverTimer.current = null;
-  }
-  useEffect(() => () => { if (hoverTimer.current !== null) clearTimeout(hoverTimer.current); }, []);
+  const artChapter = chapters[artIndex];
 
   useEffect(() => {
     const stage = stageRef.current;
-    if (!stage) return;
-
+    const scenes = sceneRefs.current.filter((scene): scene is HTMLElement => scene !== null);
+    if (!stage || !scenes.length) return;
+    let frame = 0;
+    let navigationFrame = 0;
+    let heldPointer: number | null = null;
     let inViewport = false;
-    function syncArtVisibility() {
-      setArtVisible(inViewport && !document.hidden);
-    }
-    const observer = new IntersectionObserver(([entry]) => {
-      inViewport = entry.isIntersecting;
-      syncArtVisibility();
-    }, { threshold: 0.03 });
 
-    observer.observe(stage);
-    document.addEventListener("visibilitychange", syncArtVisibility);
+    function sync() {
+      frame = 0;
+      if (document.hidden) return;
+      const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
+      const positions = scenes.map(scene => scene.getBoundingClientRect());
+      const reading = positions.findIndex(box => box.top <= line && box.bottom > line);
+      const preceding = positions.findLastIndex(box => box.top <= line);
+      const next = reading >= 0 ? reading : Math.max(0, preceding);
+      setActiveIndex(current => current === next ? current : next);
+      // A scroll never hides the surface whose control or gesture owns focus.
+      if (heldPointer === null && !stage!.contains(document.activeElement) && !stage!.querySelector("[data-artifact-dragging]")) {
+        setArtIndex(current => current === next ? current : next);
+      }
+    }
+    function schedule() {
+      if (!frame && !document.hidden) frame = requestAnimationFrame(sync);
+    }
+    function visibility() {
+      setArtVisible(inViewport && !document.hidden);
+      if (document.hidden) { cancelAnimationFrame(frame); frame = 0; heldPointer = null; }
+      else schedule();
+    }
+    const artObserver = new IntersectionObserver(([entry]) => {
+      inViewport = entry.isIntersecting;
+      visibility();
+    }, { threshold: .03 });
+    const readingObserver = new IntersectionObserver(schedule, { rootMargin: "-25% 0px -45% 0px", threshold: 0 });
+    const resize = new ResizeObserver(schedule);
+    artObserver.observe(stage);
+    scenes.forEach(scene => { readingObserver.observe(scene); resize.observe(scene); });
+
+    function down(event: PointerEvent) {
+      if (event.isPrimary && event.button === 0) heldPointer = event.pointerId;
+    }
+    function release(event: PointerEvent) {
+      if (heldPointer === event.pointerId) heldPointer = null;
+      schedule();
+    }
+    function blur() { heldPointer = null; schedule(); }
+    function legacyChapter(event: Event) {
+      if (!(event instanceof CustomEvent) || !Number.isInteger(event.detail)) return;
+      const target = scenes[event.detail];
+      if (target) {
+        cancelAnimationFrame(navigationFrame);
+        navigationFrame = requestAnimationFrame(() => target.scrollIntoView({ block: "start", behavior: "instant" }));
+      }
+    }
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("pointerup", release, true);
+    window.addEventListener("pointercancel", release, true);
+    window.addEventListener("blur", blur);
+    window.addEventListener("tg-story-chapter", legacyChapter);
+    stage.addEventListener("pointerdown", down, true);
+    stage.addEventListener("focusout", schedule);
+    document.addEventListener("visibilitychange", visibility);
+    schedule();
     return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", syncArtVisibility);
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(navigationFrame);
+      artObserver.disconnect(); readingObserver.disconnect(); resize.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("pointerup", release, true);
+      window.removeEventListener("pointercancel", release, true);
+      window.removeEventListener("blur", blur);
+      window.removeEventListener("tg-story-chapter", legacyChapter);
+      stage.removeEventListener("pointerdown", down, true);
+      stage.removeEventListener("focusout", schedule);
+      document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
 
-  useEffect(() => {
-    function handleStoryChapter(event: Event) {
-      if (!(event instanceof CustomEvent)) return;
-
-      const index: unknown = event.detail;
-      if (
-        typeof index !== "number" ||
-        !Number.isInteger(index) ||
-        index < 0 ||
-        index >= chapters.length
-      ) return;
-
-      setActiveIndex(index);
-    }
-
-    window.addEventListener("tg-story-chapter", handleStoryChapter);
-    return () => window.removeEventListener("tg-story-chapter", handleStoryChapter);
-  }, []);
-
-  function selectChapter(index: number, focusTab = false) {
-    cancelPreview();
-    setActiveIndex(index);
-    if (focusTab) tabRefs.current[index]?.focus({ preventScroll: true });
-  }
-
-  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    let nextIndex: number;
-
-    switch (event.key) {
-      case "ArrowRight":
-        nextIndex = (index + 1) % chapters.length;
-        break;
-      case "ArrowLeft":
-        nextIndex = (index - 1 + chapters.length) % chapters.length;
-        break;
-      case "Home":
-        nextIndex = 0;
-        break;
-      case "End":
-        nextIndex = chapters.length - 1;
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-    selectChapter(nextIndex, true);
-  }
-
   return (
-    <section id="story" className="origin-story" data-chapter={chapter.id} data-art-active={artVisible && !paused} aria-labelledby={headingId}>
-      <header className="origin-story__header" data-scroll-depth="14">
+    <section id="story" className="origin-story origin-story--scroll" data-chapter={artChapter.id} data-step={chapters[activeIndex].id} data-art-active={artVisible && !paused} aria-labelledby={headingId}>
+      <header className="origin-story__header">
         <div className="origin-story__intro">
           <p className="origin-story__kicker">Story / from files to product teams</p>
           <h2 id={headingId}>The same curiosity.</h2>
-          <p className="origin-story__summary">I started by changing Minecraft files, then took digital menus to restaurants. Frontend work at Hogarth Worldwide and Batech led me to AI products at Flock I+D.</p>
-          <p className="origin-story__contribution"><strong>Current work / Flock I+D</strong> Agora: Product Owner. Trainly: product flow, frontend and AI integration.</p>
+          <p className="origin-story__summary">Different problems. The same instinct: make something, take it to people, and keep learning.</p>
           <a className="origin-story__fast-track" href="#work">Selected work <span aria-hidden="true">↗</span></a>
         </div>
-        <div className="origin-story__tabs" role="tablist" aria-label="Story chapters">
-          {chapters.map((item, index) => (
-            <button
-              key={item.id}
-              ref={(element) => { tabRefs.current[index] = element; }}
-              id={`${id}-tab-${item.id}`}
-              type="button"
-              role="tab"
-              aria-selected={activeIndex === index}
-              aria-controls={`${id}-panel-${item.id}`}
-              tabIndex={activeIndex === index ? 0 : -1}
-              onClick={() => selectChapter(index)}
-              onPointerEnter={event => {
-                if (event.pointerType !== "mouse") return;
-                cancelPreview();
-                hoverTimer.current = setTimeout(() => selectChapter(index), 200);
-              }}
-              onPointerLeave={cancelPreview}
-              onPointerCancel={cancelPreview}
-              onFocus={event => { if (event.currentTarget.matches(":focus-visible")) selectChapter(index); }}
-              onKeyDown={(event) => handleTabKeyDown(event, index)}
-            >
-              <span className="origin-story__tab-number" aria-hidden="true">0{index + 1}</span>
-              {item.label}
-            </button>
-          ))}
-        </div>
+        <nav className="origin-story__timeline" aria-label="Career stages">
+          {chapters.map((chapter, index) => <a key={chapter.id} href={`#story-${chapter.id}`} aria-current={activeIndex === index ? "step" : undefined}><span aria-hidden="true">0{index + 1}</span>{chapter.label}<i aria-hidden="true">↘</i></a>)}
+        </nav>
       </header>
 
-      <div className="origin-story__stage" data-scroll-depth="-36" data-drag-boundary ref={stageRef}>
-        {chapters.map((item,index) => <StoryArt key={item.id} chapter={item} active={activeIndex === index} paused={paused || !artVisible || activeIndex !== index} />)}
-        <span className="origin-story__art-index" aria-hidden="true">0{activeIndex + 1}</span>
+      <div className="origin-story__scroll-layout">
+        <aside className="origin-story__visual" aria-label="Story artifacts">
+          <div className="origin-story__stage" data-drag-boundary ref={stageRef}>
+            {chapters.map((chapter, index) => <StoryArt key={chapter.id} chapter={chapter} active={artIndex === index} paused={paused || !artVisible || artIndex !== index} />)}
+            <span className="origin-story__art-index" aria-hidden="true">0{artIndex + 1}</span>
+          </div>
+          <p className="origin-story__media-note">{artChapter.mediaNote}</p>
+          <div className="origin-story__progress" aria-hidden="true"><span>0{activeIndex + 1} / 05</span><div>{chapters.map((chapter, index) => <i key={chapter.id} data-current={activeIndex === index} data-complete={activeIndex > index} />)}</div></div>
+        </aside>
 
-        {chapters.map((item, index) => (
-          <article
-            key={item.id}
-            id={`${id}-panel-${item.id}`}
-            className="origin-story__panel"
-            role="tabpanel"
-            aria-labelledby={`${id}-tab-${item.id}`}
-            aria-hidden={activeIndex !== index}
-            inert={activeIndex !== index}
-            data-selected={activeIndex === index}
-            data-story-panel={item.id}
-            tabIndex={activeIndex === index ? 0 : -1}
-          >
-            <p className="origin-story__eyebrow">{item.eyebrow}</p>
-            <h3 className="origin-story__title">
-              {item.title.map((line) => <span key={line}>{line}</span>)}
-            </h3>
+        <div className="origin-story__scene-list">
+          {chapters.map((chapter, index) => <article key={chapter.id} id={`story-${chapter.id}`} ref={node => { sceneRefs.current[index] = node; }} className="origin-story__scene" data-story-step={chapter.id} data-selected={activeIndex === index} aria-labelledby={`${id}-${chapter.id}-title`} tabIndex={-1} data-drag-boundary>
+            <p className="origin-story__scene-kicker">{chapter.eyebrow}</p>
+            <h3 className="origin-story__title" id={`${id}-${chapter.id}-title`}>{chapter.title.map(line => <span key={line}>{line}</span>)}</h3>
+            <p className="origin-story__scene-role">{chapter.role}</p>
             <div className="origin-story__reading" data-drag-frame>
-              <ArtifactDrag label={`Move the ${item.label} story card`} />
-              <p className="origin-story__copy">{item.copy}</p>
-              {item.id === "interfaces" ? (
-                <nav className="origin-story__case-links" aria-label="Explore project cases">
-                  <a href="/en/agora">Agora <span aria-hidden="true">↗</span></a>
-                  <a href="/en/trainly">Trainly <span aria-hidden="true">↗</span></a>
-                  <a href="#batech">Batech <span aria-hidden="true">↗</span></a>
-                </nav>
-              ) : null}
+              <ArtifactDrag label={`Move the ${chapter.label} story card`} />
+              <p className="origin-story__copy">{chapter.copy}</p>
+              {"href" in chapter ? <a className="origin-story__episode-link" href={chapter.href}>{chapter.link} <span aria-hidden="true">↗</span></a> : null}
             </div>
-            <div className="origin-story__chapter-actions">
-              {index < chapters.length - 1 ? (
-                <button type="button" className="origin-story__next" onClick={() => selectChapter(index + 1, true)}>
-                  Next chapter <span aria-hidden="true">→</span>
-                </button>
-              ) : (
-                <a className="origin-story__next" href="#work">Explore the work <span aria-hidden="true">→</span></a>
-              )}
-              <button
-                type="button"
-                className="origin-story__previous"
-                disabled={index === 0}
-                onClick={() => selectChapter(index - 1, true)}
-              >
-                <span aria-hidden="true">←</span> Previous
-              </button>
-            </div>
-          </article>
-        ))}
-        <p className="origin-story__media-note">{chapter.mediaNote}</p>
+            {"projects" in chapter ? <div className="origin-story__projects" data-drag-boundary>{chapter.projects.map(project => <article key={project.name} data-drag-frame>
+              <ArtifactDrag label={`Move the ${project.name} career card`} />
+              <p className="origin-story__episode-kind">Project / Flock I+D</p>
+              <h4>{project.name}</h4>
+              <p className="origin-story__project-scope">{project.scope}</p>
+              <p>{project.action}</p>
+              <a className="origin-story__episode-link" href={project.href}>{project.link} <span aria-hidden="true">↗</span></a>
+            </article>)}</div> : null}
+          </article>)}
+        </div>
       </div>
 
-      <section className="origin-story__journey" aria-labelledby={`${id}-journey-heading`}>
-        <header className="origin-story__journey-heading" data-scroll-depth="10">
-          <p>Five steps / companies and projects</p>
-          <h3 id={`${id}-journey-heading`}>How the work grew.</h3>
-        </header>
-        <ol className="origin-story__journey-list">
-          {journey.map((episode, index) => <li key={episode.name}>
-            <span className="origin-story__step-number" aria-hidden="true">0{index + 1}</span>
-            <header className="origin-story__episode-heading">
-              <p className="origin-story__episode-kind">{episode.kind}</p>
-              <h4>{episode.name}</h4>
-              <p className="origin-story__episode-role">{episode.role}</p>
-            </header>
-            <div className="origin-story__episode-reading">
-              <p>{episode.action}</p>
-              {"href" in episode ? <a className="origin-story__episode-link" href={episode.href}>{episode.link} <span aria-hidden="true">↗</span></a> : null}
-              {"projects" in episode ? <div className="origin-story__projects" data-drag-boundary>
-                {episode.projects.map(project => <article key={project.name} data-drag-frame>
-                  <ArtifactDrag label={`Move the ${project.name} career card`} />
-                  <p className="origin-story__episode-kind">Project / Flock I+D</p>
-                  <h5>{project.name}</h5>
-                  <p className="origin-story__project-scope">{project.scope}</p>
-                  <p>{project.action}</p>
-                  <a className="origin-story__episode-link" href={project.href}>{project.link} <span aria-hidden="true">↗</span></a>
-                </article>)}
-              </div> : null}
-            </div>
-          </li>)}
-        </ol>
-      </section>
-
       <footer className="origin-story__footer">
-        <a className="origin-story__work-link" href="#work">Skip to selected work <span aria-hidden="true">→</span></a>
-        <p className="origin-story__status" role="status" aria-live="polite" aria-atomic="true">
-          Chapter {activeIndex + 1} of {chapters.length}
-        </p>
-        <div className="origin-story__utilities">
-          <button type="button" aria-expanded={curiosityOpen} aria-controls={curiosityId} onClick={() => setCuriosityOpen((open) => !open)}>
-            Curiosity file <span aria-hidden="true">{curiosityOpen ? "−" : "+"}</span>
-          </button>
-          <button
-            type="button"
-            disabled={reducedMotion}
-            title={reducedMotion ? "Your device is set to reduced motion." : undefined}
-            onClick={() => setPaused(!paused)}
-          >
-            {reducedMotion ? "Reduced motion" : paused ? "Play motion" : "Pause motion"}
-          </button>
-        </div>
+        <a className="origin-story__work-link" href="#work">Explore the work <span aria-hidden="true">→</span></a>
+        <p className="origin-story__status">Five stages. One continuing story.</p>
+        <div className="origin-story__utilities"><button type="button" disabled={reducedMotion} title={reducedMotion ? "Your device is set to reduced motion." : undefined} onClick={() => setPaused(!paused)}>{reducedMotion ? "Reduced motion" : paused ? "Play motion" : "Pause motion"}</button></div>
       </footer>
-
-      <aside id={curiosityId} className="origin-story__curiosity" aria-label="Curiosity file" hidden={!curiosityOpen}>
-        <h3>A few things behind the work.</h3>
-        <ul>
-          {curiosityFacts.map(([label, fact]) => <li key={label}><span>{label}</span>{fact}</li>)}
-        </ul>
-      </aside>
     </section>
   );
 }

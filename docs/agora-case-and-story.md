@@ -8,7 +8,7 @@ Agora has a dedicated case at `/en/agora`. Its short home preview leads into per
 
 The author confirmed this sequence: Minecraft experiments → offering digital menus → frontend at Hogarth Worldwide → frontend engineering and leadership at Batech → AI product engineering at Flock I+D. Agora and Trainly are projects within the Flock stage. No dates, clients or results were inferred from that sequence.
 
-Five visible entries explain actions, roles and scope. The existing three art chapters remain available with stable geometry, chromatic lens and keyboard controls. The two Flock project cards link to their respective cases and can be moved from their surfaces.
+The career story now uses five complete scenes that advance with the reading position, replacing the earlier three-chapter summary plus separate chronology. Its chromatic lens and keyboard controls remain available. The two Flock project cards stay inside that stage, link to their respective cases and can be moved from their surfaces.
 
 The Agora dossier has a section rail and direct links to the incident decision. A search without structured skills had produced an automatic rejection; the case explains the separate education-catalog gap, alternatives considered, bounded human-review guardrail and team-reported replay/control check. Personal contribution stays distinct from reported team validation. The case does not claim overall model accuracy or business impact.
 

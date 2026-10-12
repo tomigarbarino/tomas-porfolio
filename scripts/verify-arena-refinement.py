@@ -22,6 +22,7 @@ from playwright.sync_api import sync_playwright
 
 
 ROOT = Path(__file__).resolve().parents[1]
+STORY_STEPS = ("files", "conversations", "hogarth", "batech", "interfaces")
 
 
 def existing_chromium(playwright, requested):
@@ -66,6 +67,25 @@ def document_box(locator):
       const r=el.getBoundingClientRect();
       return {x:r.left+scrollX,y:r.top+scrollY,width:r.width,height:r.height,scrollY};
     }""")
+
+
+def scroll_story_step(page, step):
+    """Read a normal-flow scene with native scrolling, without selecting its art."""
+    require(step in STORY_STEPS, f"Unknown story step: {step}")
+    scene = page.locator(f"#story-{step}")
+    scene.scroll_into_view_if_needed()
+    delta = scene.evaluate("""el => {
+      const line=innerWidth<=800?Math.min(innerHeight*.65,380):innerHeight*.4;
+      return el.getBoundingClientRect().top-(line-80);
+    }""")
+    page.mouse.move(page.viewport_size["width"] - 8, page.viewport_size["height"] / 2)
+    page.mouse.wheel(0, delta)
+    page.wait_for_function("""step => {
+      const story=document.querySelector('#story');
+      const current=story?.querySelector('.origin-story__timeline a[aria-current="step"]');
+      return story?.dataset.step===step && current?.getAttribute('href')==='#story-'+step;
+    }""", arg=step)
+    return scene
 
 
 def offset(locator):
@@ -251,23 +271,40 @@ class Suite:
     def story(self):
         page = self.page
         self.pause()
-        tabs = page.get_by_role("tablist", name="Story chapters").get_by_role("tab")
-        require(tabs.count() == 3, "Expected three story chapters")
-        tabs.first.scroll_into_view_if_needed()
-        settle(page)
+        scenes = page.locator(".origin-story__scene-list > .origin-story__scene")
+        steps = scenes.evaluate_all("nodes=>nodes.map(node=>node.dataset.storyStep)")
+        require(steps == list(STORY_STEPS), f"Wrong five-scene story order: {steps}")
+        timeline = page.get_by_role("navigation", name="Career stages", exact=True)
+        require(timeline.get_by_role("link").count() == 5, "Expected five native career anchors")
+        require(page.get_by_role("tablist", name="Story chapters").count() == 0, "Legacy story tabs remain")
+        baseline_scenes = [document_box(scene) for scene in scenes.all()]
+        for index, scene in enumerate(scenes.all()):
+            require(scene.is_visible(), f"Scene {steps[index]} is hidden")
+            require(scene.evaluate("el=>!['absolute','fixed'].includes(getComputedStyle(el).position)"), f"Scene {steps[index]} is outside normal flow")
+            require(timeline.locator(f'a[href="#story-{steps[index]}"]').count() == 1, f"Missing anchor for {steps[index]}")
+            if index:
+                previous = baseline_scenes[index - 1]
+                require(baseline_scenes[index]["y"] >= previous["y"] + previous["height"] - 1, "Story scenes overlap instead of reading sequentially")
+        baseline_work = document_box(page.locator("#work"))
         measurements = []
-        for index in range(3):
-            tabs.nth(index).click()
-            settle(page)
-            require(tabs.nth(index).get_attribute("aria-selected") == "true", f"Chapter {index} not selected")
-            measurements.append({"chapter": page.locator("#story").get_attribute("data-chapter"), "stage": document_box(page.locator(".origin-story__stage")), "work": document_box(page.locator("#work"))})
+        for step in STORY_STEPS:
+            scene = scroll_story_step(page, step)
+            page.wait_for_function("step=>document.querySelector('#story')?.dataset.chapter===step", arg=step)
+            selected_art = page.locator(".origin-story__art[data-selected='true']")
+            require(selected_art.count() == 1 and selected_art.is_visible(), f"No unique visible artwork for {step}")
+            measurements.append({"step": step, "scene": document_box(scene), "stage": document_box(page.locator(".origin-story__stage")), "visual": page.locator(".origin-story__visual").bounding_box(), "work": document_box(page.locator("#work"))})
+            for index, current_scene in enumerate(scenes.all()):
+                current = document_box(current_scene)
+                for axis in ("x", "y", "width", "height"):
+                    require(near(baseline_scenes[index][axis], current[axis]), f"Artwork switch changes scene {steps[index]}.{axis}")
         baseline = measurements[0]
         for measure in measurements[1:]:
-            for section in ("stage", "work"):
-                for axis in ("x", "y", "width", "height"):
-                    require(near(baseline[section][axis], measure[section][axis]), f"Chapter changes {section}.{axis}: {baseline[section][axis]} -> {measure[section][axis]}")
+            for axis in ("width", "height"):
+                require(near(baseline["stage"][axis], measure["stage"][axis]), f"Artwork switch changes canvas {axis}")
+            for axis in ("x", "y", "width", "height"):
+                require(near(baseline_work[axis], measure["work"][axis]), f"Artwork switch changes work.{axis}")
         screenshot = self.shot("story-interfaces")
-        return {"mode": "global pause, fixed tab-row scroll", "measurements": measurements, "tolerance_px": 1, "screenshot": screenshot}
+        return {"mode": "global pause, five normal-flow scenes, native wheel reading", "measurements": measurements, "tolerance_px": 1, "screenshot": screenshot}
 
     def discovery_focus(self):
         page = self.page
@@ -502,7 +539,7 @@ class Suite:
         screenshot = self.shot("quick-profile")
         activate(dialog.get_by_role("button", name="Close dialog"))
         chapters = []
-        for index, expected in enumerate(("files", "conversations", "interfaces")):
+        for index, expected in enumerate(("files", "conversations", "hogarth")):
             activate(page.get_by_role("button", name="Explore side quests", exact=True))
             dialog.wait_for(state="visible")
             all_quests = dialog.get_by_role("button", name="All quests", exact=False)
@@ -512,11 +549,11 @@ class Suite:
             activate(dialog.get_by_role("link", name="Explore the story", exact=False))
             page.mouse.move(4, 4)
             page.wait_for_selector("dialog[open]", state="hidden")
-            settle(page)
-            chapter = page.locator("#story").get_attribute("data-chapter")
-            require(chapter == expected, f"Quest {index+1} opened {chapter}, expected {expected}")
-            require(page.evaluate("document.activeElement.id==='story'"), "Quest did not hand focus to Story")
-            chapters.append(chapter)
+            page.wait_for_function("step=>document.querySelector('#story')?.dataset.step===step", arg=expected)
+            target_id = f"story-{expected}"
+            page.wait_for_function("id=>document.activeElement?.id===id", arg=target_id)
+            require(page.locator(f"#{target_id}").is_visible(), f"Quest {index+1} destination is hidden")
+            chapters.append(expected)
         return {"quick_profile_equal": True, "content": work_text, "quest_destinations": chapters, "screenshot": screenshot}
 
     def media(self):
@@ -528,10 +565,10 @@ class Suite:
             toggle.click()
         toggle.click()
         require(normal(toggle.inner_text()) == "Pause motion", "Global play was not enabled")
-        video = page.get_by_label("Batech product video", exact=True)
+        video = page.locator("#batech").get_by_label("Batech product video", exact=True)
         video.scroll_into_view_if_needed()
         settle(page, 500)
-        page.wait_for_function("(() => {const v=document.querySelector('video[aria-label=\"Batech product video\"]');return v.readyState>=2&&!v.paused;})()", timeout=12000)
+        page.wait_for_function("(() => {const v=document.querySelector('#batech video[aria-label=\"Batech product video\"]');return v.readyState>=2&&!v.paused;})()", timeout=12000)
         before = video.evaluate("v=>v.currentTime")
         settle(page, 800)
         after = video.evaluate("v=>v.currentTime")
@@ -561,8 +598,10 @@ class Suite:
         page.wait_for_function("document.documentElement.dataset.motion==='paused'", timeout=5000)
         require(toggle.is_disabled(), "Reduced-motion toggle must report device preference")
         require(page.locator("video").evaluate_all("videos=>videos.every(v=>v.paused)"), "A video plays under reduced motion")
-        page.get_by_role("tablist", name="Story chapters").get_by_role("tab").last.click()
-        require(page.locator("#story").get_attribute("data-chapter") == "interfaces", "Story inaccessible in reduced motion")
+        page.get_by_role("navigation", name="Career stages", exact=True).get_by_role("link", name="Flock I+D", exact=False).click()
+        page.wait_for_function("document.querySelector('#story')?.dataset.step==='interfaces'")
+        require(all(scene.is_visible() for scene in page.locator(".origin-story__scene").all()), "Story scenes inaccessible in reduced motion")
+        require(page.locator("video").evaluate_all("videos=>videos.every(v=>v.paused)"), "Story scrolling resumed video under reduced motion")
         reduced_shot = self.shot("story-reduced")
         page.emulate_media(reduced_motion="no-preference")
         settle(page, 250)
@@ -589,16 +628,14 @@ class Suite:
         for _ in range(3):
             page.mouse.wheel(0, 480)
             settle(page, 800)
-        tabs = page.get_by_role("tablist", name="Story chapters").get_by_role("tab")
-        tabs.last.click()
-        page.mouse.move(4, 4)
-        settle(page, 1300)
-        tabs.first.click()
-        page.mouse.move(4, 4)
-        settle(page, 1300)
+        for step in STORY_STEPS:
+            scene = page.locator(f"#story-{step}")
+            delta = scene.evaluate("el=>el.getBoundingClientRect().top-innerHeight*.4+80")
+            page.mouse.wheel(0, delta)
+            settle(page, 520)
         page.mouse.wheel(0, 700)
         settle(page, 1600)
-        return {"purpose": "Qualitative actual-speed motion review only; no FPS/performance/hiring inference", "actions": "Native wheel scroll; Interfaces then Minecraft chapter clicks; scroll toward work", "page_errors": self.errors}
+        return {"purpose": "Qualitative actual-speed motion review only; no FPS/performance/hiring inference", "actions": "Native wheel scroll through Minecraft, digital menus, Hogarth, Batech and Flock; scroll toward work", "page_errors": self.errors}
 
 
 def main():

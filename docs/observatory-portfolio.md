@@ -8,7 +8,7 @@ The portfolio connects a distinctive visual entrance to evidence of product judg
 
 The home follows entrance → origin story → case index → Trainly summary → Batech → Agora preview → contact. The case index provides direct paths without requiring the full sequence. Agora and Trainly have dedicated dossiers. Five visible career steps name the companies and place both projects within Flock I+D; see [Agora case and career story](agora-case-and-story.md).
 
-Three Story panels share a natural CSS grid footprint, so selecting a chapter does not move the sections below. Artwork stays mounted and only the selected chapter is interactive. Discovery objects maintain separate hover, focus, panel focus and pin state. Keyboard focus inside a detail remains available when the pointer explores another object.
+The Story is one five-stage reading path, without a separate summary carousel and repeated chronology. Its articles stay in normal document flow and grow with their content. A persistent artistic canvas follows the reading position; optional native anchors provide direct entry to each stage. The scroll does not move focus or intercept wheel/touch. Focus or an active gesture holds the current artwork until it can change safely. Discovery objects maintain separate hover, focus, panel focus and pin state.
 
 Whole-surface drag yields to controls, native text selection, touch scrolling and long presses. The keyboard grip supports arrows, Shift for larger steps, Home to restore and Escape to cancel movement. Text can be selected with native double-click then drag or Alt-drag; selections persist after releasing Alt. Mobile OS selection handles still require real-device verification.
 

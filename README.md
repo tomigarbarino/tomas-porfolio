@@ -23,7 +23,7 @@ Open http://localhost:3000. The build uses Webpack explicitly. Vercel is configu
 ## Experience
 
 - A continuous ASCII video scene, original pop collage, pink cursor and layered paper artifacts connect the home and case pages.
-- Three art chapters keep a stable layout; five visible career steps explain Minecraft, digital menus, Hogarth Worldwide, Batech and Flock I+D. Agora and Trainly are projects within the Flock step. Discovery objects preview on hover or keyboard focus and can be pinned on tap.
+- One scroll-led story connects five complete stages: Minecraft, digital menus, Hogarth Worldwide, Batech and Flock I+D. The artwork changes with the reading position; every stage stays in the document without requiring clicks. Agora and Trainly are projects within Flock. Discovery objects preview on hover or keyboard focus and can be pinned on tap.
 - Artifacts can be moved from their surface, with keyboard controls on their focusable grips. Native double-click selection and Alt-drag allow copying text. Interactive controls retain their own actions; touch keeps vertical scrolling.
 - A case index and shared Quick profile dialog provide a short route through roles, contributions and contact.
 - Agora has its own dossier at `/en/agora`: personal responsibilities, an anonymized decision with a hover/focus before-and-after replay, product flow, candidate-experience Figma designs and the declared stack. The home preserves an interactive preview. Trainly has a separate dossier with artifact links; both cases connect to each other. Batech distinguishes frontend contribution from company footage.

@@ -30,12 +30,12 @@ def healthy(page):
 def story(suite):
     page = suite.page
     geometry = suite.story()
-    episodes = page.locator('.origin-story__journey-list > li')
+    episodes = page.locator('.origin-story__scene-list > .origin-story__scene')
     require(episodes.count() == 5, 'Expected five visible career steps')
-    names = episodes.locator('h4').all_text_contents()
-    require(names == ['Minecraft files', 'Digital menus', 'Hogarth Worldwide', 'Batech', 'Flock I+D'], f'Wrong career order: {names}')
+    steps = episodes.evaluate_all('nodes => nodes.map(node => node.dataset.storyStep)')
+    require(steps == list(arena_qa.STORY_STEPS), f'Wrong career order: {steps}')
+    names = episodes.locator('h3').all_text_contents()
     for episode in episodes.all():
-        episode.scroll_into_view_if_needed()
         require(episode.is_visible(), 'Career step is hidden')
     projects = episodes.last.locator('.origin-story__projects article')
     require(projects.count() == 2, 'Agora and Trainly must be inside the Flock step')
@@ -55,14 +55,13 @@ def story(suite):
     page.keyboard.press('Home')
     restored = arena_qa.offset(card)
     require(abs(restored['x']) + abs(restored['y']) < .5, 'Career card keyboard reset failed')
-    tabs = page.get_by_role('tablist', name='Story chapters').get_by_role('tab')
-    tabs.last.click()
-    page.keyboard.press('Home')
-    require(tabs.first.get_attribute('aria-selected') == 'true', 'Home did not select first chapter')
-    page.keyboard.press('ArrowRight')
-    require(tabs.nth(1).get_attribute('aria-selected') == 'true', 'ArrowRight did not select second chapter')
+    timeline = page.get_by_role('navigation', name='Career stages', exact=True)
+    for step in arena_qa.STORY_STEPS:
+        timeline.locator(f'a[href="#story-{step}"]').click()
+        page.wait_for_function('step => location.hash === "#story-" + step && document.querySelector("#story")?.dataset.step === step', arg=step)
+        require(timeline.locator(f'a[href="#story-{step}"]').get_attribute('aria-current') == 'step', f'Career anchor did not select {step}')
     healthy(page)
-    return {'names': names, 'stage_geometry': geometry, 'career_card_surface_move': moved, 'career_card_reset': restored, 'keyboard': 'Home / ArrowRight passed', 'screenshot': screenshot}
+    return {'steps': steps, 'names': names, 'stage_geometry': geometry, 'career_card_surface_move': moved, 'career_card_reset': restored, 'navigation': 'Five native career anchors and scroll-driven reading passed', 'screenshot': screenshot}
 
 
 def case_reading(suite):

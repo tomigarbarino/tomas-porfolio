@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { portfolioMedia } from "@/data/portfolio";
 import { useMotionPreference } from "./MotionPreference";
 
-export function BatechVideo() {
+export function BatechVideo({ active = true, describedBy = "batech-media-caption" }: { active?: boolean; describedBy?: string }) {
   const video = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(false);
   const { paused } = useMotionPreference();
@@ -22,24 +22,24 @@ export function BatechVideo() {
     if (!node) return;
     function sync() {
       if (!node) return;
-      if (paused || !visible || document.hidden) { node.pause(); return; }
+      if (paused || !active || !visible || document.hidden) { node.pause(); return; }
       void node.play().catch(() => { /* Keep the poster when autoplay is unavailable. */ });
     }
     sync();
     document.addEventListener("visibilitychange", sync);
     return () => { document.removeEventListener("visibilitychange", sync); node.pause(); };
-  }, [paused, visible]);
+  }, [paused, active, visible]);
 
   return (
     <video
       ref={video}
-      autoPlay={visible && !paused}
+      autoPlay={active && visible && !paused}
       muted loop playsInline preload="none"
       poster={portfolioMedia.batech.src}
       width={portfolioMedia.batech.width}
       height={portfolioMedia.batech.height}
       aria-label="Batech product video"
-      aria-describedby="batech-media-caption"
+      aria-describedby={describedBy}
     >
       <source src={portfolioMedia.batech.videoSrc} type="video/mp4" />
       <a href={portfolioMedia.batech.videoSrc}>Open the Batech product video</a>

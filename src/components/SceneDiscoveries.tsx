@@ -72,10 +72,9 @@ export function SceneDiscoveries({ onPlay }: { onPlay: () => void }) {
           <div className="discovery-panel" id={`discovery-${item.id}`} role="region" aria-label={item.subtitle} aria-hidden={!open} inert={!open}>
             <div className="discovery-panel-top"><span>FOUND / {item.number}</span><button type="button" aria-label={`Close ${item.subtitle} detail`} onClick={() => close(index)}>×</button></div>
             <p>{item.detail}</p>
-            <a href="#story" onClick={() => {
-              window.dispatchEvent(new CustomEvent("tg-story-chapter", { detail: item.chapter }));
+            <a href={item.chapter === 0 ? "#story-files" : "#story-conversations"} onClick={() => {
               setHovered(null); setPinned(null); setFocused(null); setFocusedPanel(null);
-              const story = document.getElementById("story");
+              const story = document.getElementById(item.chapter === 0 ? "story-files" : "story-conversations");
               if (story) { story.tabIndex = -1; story.focus({ preventScroll: true }); }
             }}>{item.action} <span aria-hidden="true">↗</span></a>
           </div>
