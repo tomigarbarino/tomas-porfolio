@@ -337,13 +337,16 @@ html[data-motion="paused"] .origin-story__art :is(.origin-story__file-piece, .or
 .origin-story--scroll .origin-story__scene-role { max-width: 48ch; margin-top: 20px !important; color: var(--story-lavender); font-size: 12px; line-height: 1.8; }
 .origin-story--scroll .origin-story__scene .origin-story__reading { width: calc(100% - 32px); max-width: none; margin: 28px 16px 0; padding: 54px 24px 26px; border: 1px solid var(--story-ink); box-shadow: 5px 6px 0 var(--story-ink),6px 7px 0 var(--story-accent); }
 .origin-story--scroll .origin-story__scene .origin-story__copy { max-width: 52ch; font-size: 15px; line-height: 1.85; }
-.origin-story--scroll .origin-story__apple-slot { display: flex; justify-content: flex-end; width: 100%; min-height: 132px; margin-top: 24px; padding-inline: 16px; }
+.origin-story--scroll .origin-story__apple-slot { position: absolute; z-index: 6; top: -48px; right: -8px; width: 88px; height: 88px; }
+.origin-story--scroll .origin-story__reading--hogarth > .artifact-drag { left: 8px; right: auto; }
 .origin-story--scroll .origin-story__reading .origin-story__episode-link { color: var(--story-ink); }
 .origin-story--scroll .origin-story__reading .origin-story__episode-link:hover { color: var(--story-ink); text-decoration-thickness: 2px; }
 .origin-story--scroll .origin-story__reading .origin-story__episode-link:focus-visible { color: var(--story-ink); outline-color: var(--story-ink); }
 .origin-story--scroll .origin-story__scene .origin-story__projects { width: 100%; grid-template-columns: minmax(0,1fr); gap: 24px; margin: 28px 0 0; padding-inline: 16px; }
 .origin-story--scroll .origin-story__scene .origin-story__projects > article { padding: 54px 24px 24px; }
 .origin-story--scroll .origin-story__projects h4 { margin-top: 12px; font-family: var(--font-display),Impact,sans-serif; font-size: 38px; font-weight: 900; line-height: 1; }
+.origin-story--scroll .origin-story__project-brand { display: inline-block; max-width: 100%; padding: 10px 14px; border: 1px solid var(--story-lavender); background: var(--story-ink); box-shadow: 3px 3px 0 var(--story-lavender); }
+.origin-story--scroll .origin-story__project-brand img { display: block; width: auto; max-width: 100%; height: 30px; object-fit: contain; }
 .origin-story--scroll .origin-story__footer { margin-top: 40px; }
 .origin-story--scroll .origin-story__utilities { display: flex; width: auto; margin-left: auto; }
 .origin-story--scroll .origin-story__minecraft-image { inset: 0; }
@@ -378,7 +381,7 @@ html[data-motion="paused"] .origin-story__art :is(.origin-story__file-piece, .or
   .origin-story--scroll .origin-story__company-note { right: 14px; width: 75%; padding-inline: 20px; }
 }
 @media (max-width: 800px) {
-  .origin-story.origin-story--scroll { --story-canvas-height: 250px; padding-bottom: 40px; }
+  .origin-story.origin-story--scroll { --story-canvas-height: 300px; padding-bottom: 40px; }
   .origin-story--scroll .origin-story__header { grid-template-columns: minmax(0,1fr); gap: 24px; }
   .origin-story--scroll .origin-story__timeline { display: flex; flex-wrap: wrap; gap: 8px; }
   .origin-story--scroll .origin-story__timeline a { flex: 1 1 130px; gap: 8px; min-height: 44px; padding: 8px 10px; font-size: 10px; }

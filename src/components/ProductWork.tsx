@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { BatechVideo } from "./BatechVideo";
 import { ArtifactDrag } from "./ArtifactDrag";
@@ -14,85 +13,21 @@ import "./product-work.css";
 export function ProductWork() {
   return (
     <section id="work" className="pw" aria-labelledby="work-title">
+      <header className="pw-work-header">
+        <div className="pw-work-topline">
+          <p className="pw-detail-label">Work / Product, frontend &amp; AI</p>
+          <nav className="pw-direct" aria-label="Profile and contact">
+            <QuickProfileButton />
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+        <h2 id="work-title">Selected work.</h2>
+      </header>
       <nav className="pw-case-directory" aria-label="Selected cases">
-        <p className="pw-detail-label">Three ways I contribute</p>
         <Link href="/en/agora" prefetch={false}><span>Agora</span><strong>Product decisions. Applied AI.</strong><small>Flock I+D · Product Owner · Ongoing</small><b aria-hidden="true">↗</b></Link>
         <Link href={trainlyCase.href} prefetch={false}><span>Trainly</span><strong>From source material to learning.</strong><small>Product flow · Frontend · AI integration · Active validation</small><b aria-hidden="true">↗</b></Link>
         <a href="#batech"><span>Batech</span><strong>The frontend behind the product.</strong><small>Frontend engineering &amp; leadership · Company context</small><b aria-hidden="true">↗</b></a>
       </nav>
-      <div className="pw-process">
-        <div className="pw-process-intro" data-scroll-depth="14">
-          <div className="pw-process-topline">
-            <p className="pw-eyebrow">Selected work / Trainly</p>
-            <nav className="pw-direct" aria-label="Profile and contact">
-              <QuickProfileButton />
-              <a href="#contact">Contact</a>
-            </nav>
-          </div>
-          <h2 id="work-title">Open the product.<br />See the thinking.</h2>
-          <p className="pw-process-description">Trainly / AI-powered training and assessment.</p>
-        </div>
-
-        <div className="pw-world" data-scroll-depth="-36" data-drag-boundary aria-label="Conceptual views of Trainly, followed by a real product image">
-          <div className="pw-plane-position pw-plane-position--context" data-drag-frame tabIndex={0} role="group" aria-label="Trainly context, bring this view forward">
-            <ArtifactDrag label="Move the context plane" />
-            <div className="pw-plane pw-plane--context">
-              <p className="pw-plane-label">Context</p>
-              <ul className="pw-context-list">
-                <li>People</li>
-                <li>Goals</li>
-                <li>Constraints</li>
-              </ul>
-              <p className="pw-concept-label">Conceptual view</p>
-            </div>
-          </div>
-          <div className="pw-plane-position pw-plane-position--flow" data-drag-frame tabIndex={0} role="group" aria-label="Trainly learning flow, bring this view forward">
-            <ArtifactDrag label="Move the learning flow plane" />
-            <div className="pw-plane pw-plane--flow">
-              <p className="pw-plane-label">Learning flow</p>
-              <ol className="pw-flow-list">
-                {trainlyCase.loop.map((step) => <li key={step.name}>{step.name}</li>)}
-              </ol>
-              <p className="pw-concept-label">Conceptual view</p>
-            </div>
-          </div>
-          <div className="pw-plane-position pw-plane-position--product" data-drag-frame tabIndex={0} role="group" aria-label="Trainly product experience, bring this view forward">
-            <ArtifactDrag label="Move the Trainly product plane" />
-            <figure className="pw-plane pw-plane--product">
-              <p className="pw-product-label">Trainly / Product experience</p>
-              <Image
-                className="pw-product-image"
-                src={portfolioMedia.trainly.src}
-                alt={portfolioMedia.trainly.alt}
-                width={portfolioMedia.trainly.width}
-                height={portfolioMedia.trainly.height}
-                sizes="(max-width: 1179px) 90vw, 600px"
-              />
-              <figcaption className="pw-product-scope">
-                My scope / Product flow · Frontend<br />
-                AI integration / Active validation
-              </figcaption>
-            </figure>
-          </div>
-          <p className="pw-scene-label pw-scene-label--context">01 / Context</p>
-          <span className="pw-leader pw-leader--context" aria-hidden="true">
-            {/* Preserve the exported SVG's intrinsic dimensions inside its Figma slot. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/media/context-leader.svg" alt="" />
-          </span>
-          <p className="pw-scene-label pw-scene-label--flow">02 / Process</p>
-          <span className="pw-leader pw-leader--flow" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/media/process-leader.svg" alt="" />
-          </span>
-        </div>
-
-        <div className="pw-process-footer">
-          <p>Trainly / Public demo asset</p>
-          <Link className="pw-process-cta" href={trainlyCase.href} prefetch={false}>Read the Trainly case <span aria-hidden="true">→</span></Link>
-        </div>
-      </div>
-
       <div className="pw-reading">
         <article id="trainly" className="pw-case pw-case--trainly" data-scroll-depth="-20" data-drag-boundary aria-labelledby="trainly-title">
           <header className="pw-case-header" data-scroll-depth="10">

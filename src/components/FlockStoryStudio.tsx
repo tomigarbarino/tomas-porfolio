@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState, type PointerEvent } from "react";
+import { useState, type PointerEvent } from "react";
+import Image from "next/image";
 import { ArtifactDrag } from "@/components/ArtifactDrag";
 import { ConceptualProductFlow } from "@/components/ConceptualProductFlow";
 import "./flock-story-studio.css";
@@ -8,19 +9,10 @@ import "./flock-story-studio.css";
 type Product = "agora" | "trainly";
 
 export function FlockStoryStudio({ active, paused }: { active: boolean; paused: boolean }) {
-  const id = useId();
   const [hovered, setHovered] = useState<Product | null>(null);
   const [focused, setFocused] = useState<Product | null>(null);
   const [pinned, setPinned] = useState<Product | null>(null);
   const selected = hovered ?? focused ?? pinned;
-
-  function scan(event: PointerEvent<HTMLButtonElement>) {
-    if (!active || paused || event.pointerType !== "mouse" || event.buttons) return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    if (!bounds.width || !bounds.height) return;
-    event.currentTarget.style.setProperty("--flock-scan-x", `${Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))}%`);
-    event.currentTarget.style.setProperty("--flock-scan-y", `${Math.max(0, Math.min(100, (event.clientY - bounds.top) / bounds.height * 100))}%`);
-  }
 
   function preview(product: Product) {
     return {
@@ -38,58 +30,37 @@ export function FlockStoryStudio({ active, paused }: { active: boolean; paused: 
       setPinned(null); setHovered(null); setFocused(null);
       event.preventDefault(); event.stopPropagation();
     }}>
-      <figure className="origin-story__system-film" data-drag-frame data-product="agora" data-preview={selected === "agora"} {...preview("agora")} onBlurCapture={event => {
+      <figure className="flock-story-studio__product flock-story-studio__product--agora" aria-label="Agora / project at Flock I+D" data-drag-frame data-product="agora" data-preview={selected === "agora"} {...preview("agora")} onBlurCapture={event => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(current => current === "agora" ? null : current);
       }}>
-        <ArtifactDrag label="Move the Agora story design" />
-        <div className="origin-story__system-film-media">
-          <button
-            type="button"
-            className="flock-story-studio__surface"
-            data-drag-enabled
-            aria-label="Explore my Agora contribution"
-            aria-pressed={pinned === "agora"}
-            aria-describedby={`${id}-agora-scope`}
-            onPointerMove={scan}
-            onClick={() => setPinned(current => current === "agora" ? null : "agora")}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/media/agora-candidate-upload.png" alt="Empty Agora CV upload Figma design" width="1440" height="900" loading="lazy" decoding="async" />
-            <span className="flock-story-studio__scan" aria-hidden="true" />
-            <span className="flock-story-studio__scope" id={`${id}-agora-scope`}>
-              <strong>Agora / Product Owner</strong>
-              <span>Candidate UX · AI</span>
-            </span>
-          </button>
-        </div>
-        <figcaption>Agora / candidate UX · Figma design</figcaption>
+        <ArtifactDrag label="Move the Agora product logo" />
+        <button
+          type="button"
+          className="flock-story-studio__surface"
+          data-drag-enabled
+          aria-label="Explore my Agora contribution"
+          aria-pressed={pinned === "agora"}
+          onClick={() => setPinned(current => current === "agora" ? null : "agora")}
+        >
+          <Image className="flock-story-studio__logo" src="/media/agora-logo.svg" alt="Agora" width={126} height={37} draggable={false} />
+        </button>
       </figure>
-      <figure className="origin-story__product-plane origin-story__bridge" data-drag-frame data-product="trainly" data-preview={selected === "trainly"} {...preview("trainly")} onBlurCapture={event => {
+      <figure className="flock-story-studio__product flock-story-studio__product--trainly" aria-label="Trainly / project at Flock I+D" data-drag-frame data-product="trainly" data-preview={selected === "trainly"} {...preview("trainly")} onBlurCapture={event => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(current => current === "trainly" ? null : current);
       }}>
-        <ArtifactDrag label="Move the Trainly product image" />
+        <ArtifactDrag label="Move the Trainly product logo" />
         <button
           type="button"
           className="flock-story-studio__surface"
           data-drag-enabled
           aria-label="Explore my Trainly contribution"
           aria-pressed={pinned === "trainly"}
-          aria-describedby={`${id}-trainly-scope`}
-          onPointerMove={scan}
           onClick={() => setPinned(current => current === "trainly" ? null : "trainly")}
         >
-          {/* The source keeps its complete aspect ratio; the tint never crops it. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/media/trainly-product.png" alt="Trainly product interface" width="1350" height="652" loading="lazy" decoding="async" />
-          <span className="flock-story-studio__scan" aria-hidden="true" />
-          <span className="flock-story-studio__scope" id={`${id}-trainly-scope`}>
-            <strong>Trainly / Product flow</strong>
-            <span>Frontend · AI</span>
-          </span>
+          <Image className="flock-story-studio__logo" src="/media/trainly/trainly-logo.svg" alt="Trainly" width={328} height={80} draggable={false} />
         </button>
-        <figcaption>Trainly / Product flow · Frontend · AI</figcaption>
       </figure>
-      <ConceptualProductFlow />
+      <ConceptualProductFlow active={active} paused={paused} />
     </div>
   );
 }

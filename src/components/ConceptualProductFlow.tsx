@@ -1,23 +1,84 @@
 "use client";
 
-import { Fragment, useId, useRef, useState, type KeyboardEvent } from "react";
+import { Fragment, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import ArtifactDrag from "./ArtifactDrag";
 import "./conceptual-product-flow.css";
 
 const stages = [
-  { label: "Experience", copy: "Frontend work: the screens, states and feedback people use." },
-  { label: "Product flow", copy: "Product work: connecting learning, assessment and team visibility." },
-  { label: "Integration", copy: "AI work: connecting the interface to agents and their results." },
+  { label: "Problem & hypothesis", copy: "Frame the real problem, the people affected and a testable product hypothesis." },
+  { label: "Research", copy: "Talk to users, inspect the context and constraints, and turn findings into requirements." },
+  { label: "Implementation", copy: "Prioritize a bounded solution and connect the product experience, frontend and AI." },
+  { label: "Validation", copy: "Check actual behavior against the hypothesis and the expected requirements." },
+  { label: "Insights", copy: "Turn what we learn into the next iteration: refine priorities, risks and the product hypothesis." },
 ] as const;
 
-export function ConceptualProductFlow() {
+export function ConceptualProductFlow({ active: visible, paused }: { active: boolean; paused: boolean }) {
   const id = useId();
+  const frameRef = useRef<HTMLDivElement>(null);
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
+  const [scrollStage, setScrollStage] = useState(0);
+  const scrollStageRef = useRef(0);
   const [hovered, setHovered] = useState<number | null>(null);
   const [focused, setFocused] = useState<number | null>(null);
   const [pinned, setPinned] = useState<number | null>(null);
   const [dismissed, setDismissed] = useState(false);
-  const active = dismissed ? null : hovered ?? focused ?? pinned;
+  const inspected = dismissed ? null : focused ?? hovered ?? pinned;
+  const active = inspected ?? scrollStage;
+
+  useEffect(() => {
+    const chapter = document.getElementById("story-interfaces");
+    const surface = frameRef.current;
+    if (!visible || paused || !chapter || !surface) return;
+    let raf = 0;
+    let heldPointer: number | null = null;
+    function sync() {
+      raf = 0;
+      if (document.hidden || heldPointer !== null || surface!.querySelector('[data-artifact-dragging="true"]') || surface!.hasAttribute("data-artifact-dragging")) return;
+      const box = chapter!.getBoundingClientRect();
+      if (!box.height) return;
+      const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
+      const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
+      const next = Math.min(stages.length - 1, Math.floor(progress * stages.length));
+      if (scrollStageRef.current === next) return;
+      scrollStageRef.current = next;
+      setScrollStage(next);
+      // A new reading stage returns manual previews to the native scroll story.
+      // Focus itself stays on the user's control.
+      setHovered(null);
+      setFocused(null);
+      setPinned(null);
+      setDismissed(false);
+    }
+    function schedule() { if (!raf && !document.hidden) raf = requestAnimationFrame(sync); }
+    function down(event: PointerEvent) { if (event.isPrimary && event.button === 0) heldPointer = event.pointerId; }
+    function release(event: PointerEvent) { if (heldPointer === event.pointerId) heldPointer = null; schedule(); }
+    function blur() { heldPointer = null; schedule(); }
+    function visibility() {
+      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; heldPointer = null; }
+      else schedule();
+    }
+    const resize = new ResizeObserver(schedule);
+    resize.observe(chapter);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("pointerup", release, true);
+    window.addEventListener("pointercancel", release, true);
+    window.addEventListener("blur", blur);
+    document.addEventListener("visibilitychange", visibility);
+    surface.addEventListener("pointerdown", down, true);
+    schedule();
+    return () => {
+      cancelAnimationFrame(raf);
+      resize.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("pointerup", release, true);
+      window.removeEventListener("pointercancel", release, true);
+      window.removeEventListener("blur", blur);
+      document.removeEventListener("visibilitychange", visibility);
+      surface.removeEventListener("pointerdown", down, true);
+    };
+  }, [visible, paused]);
 
   function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     const next = event.key === "ArrowRight" ? (index + 1) % stages.length
@@ -31,11 +92,13 @@ export function ConceptualProductFlow() {
 
   return (
     <div
-      className="origin-story__system-map conceptual-flow"
+      ref={frameRef}
+      className="origin-story__system-map conceptual-flow conceptual-flow--process"
       data-drag-frame
       data-drag-boundary
-      data-open={active !== null}
-      data-stage={active ?? "none"}
+      data-open="true"
+      data-stage={active}
+      data-scroll-stage={scrollStage}
       onPointerLeave={() => {
         setHovered(null);
         if (focused === null) setDismissed(false);
@@ -46,19 +109,19 @@ export function ConceptualProductFlow() {
         if (hovered === null) setDismissed(false);
       }}
       onKeyDown={event => {
-        if (event.key !== "Escape" || event.defaultPrevented || active === null) return;
+        if (event.key !== "Escape" || event.defaultPrevented || inspected === null) return;
         setPinned(null);
         setDismissed(true);
         event.preventDefault();
         event.stopPropagation();
       }}
     >
-      <ArtifactDrag label="Move the conceptual product flow" />
-      <p className="conceptual-flow__heading">Conceptual product flow</p>
-      <div className="conceptual-flow__rail" role="group" aria-label="Conceptual product flow">
+      <ArtifactDrag label="Move the product process" />
+      <p className="conceptual-flow__heading">Product process <span className="conceptual-flow__current">0{active + 1} / current</span></p>
+      <div className="conceptual-flow__rail" role="group" aria-label="Product process">
         {stages.map((stage, index) => (
           <Fragment key={stage.label}>
-            {index > 0 ? <i className="conceptual-flow__connection" data-lit={active !== null && active >= index} aria-hidden="true">→</i> : null}
+            {index > 0 ? <i className="conceptual-flow__connection" data-lit={active >= index} aria-hidden="true">→</i> : null}
             <div className="conceptual-flow__item" data-drag-frame data-flow-node={index}>
               <ArtifactDrag label={`Move ${stage.label} node`} />
               <button
@@ -68,6 +131,7 @@ export function ConceptualProductFlow() {
               data-drag-enabled
               id={`${id}-node-${index}`}
               aria-expanded={active === index}
+              aria-current={index === active ? "step" : undefined}
               aria-controls={`${id}-note-${index}`}
               onPointerEnter={event => {
                 if (event.pointerType !== "mouse") return;

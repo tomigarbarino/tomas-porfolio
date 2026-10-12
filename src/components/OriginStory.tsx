@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import Image from "next/image";
 import { AsciiVideo } from "@/components/AsciiVideo";
 import { useMotionPreference } from "@/components/MotionPreference";
 import { ArtifactDrag } from "@/components/ArtifactDrag";
@@ -63,13 +64,13 @@ const chapters = [
     eyebrow: "05 / Flock I+D",
     title: ["Flock I+D.", "Product meets AI."],
     role: "Product Engineer / AI R&D",
-    copy: "At Flock I+D, I work on AI products across product flow, frontend and AI integration. Agora and Trainly are two projects within that work.",
+    copy: "At Flock I+D, I work as a Product Engineer, taking features from discovery to delivery: understanding user needs, defining requirements, prioritizing, making architecture decisions, implementing and validating the result. I’m currently working on two products: Agora and Trainly.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
-    mediaNote: "Agora Figma design + Trainly product interface / conceptual flow",
+    mediaNote: "Agora + Trainly / product brands · conceptual flow",
     projects: [
-      { name: "Agora", scope: "My role / Product Owner", action: "I work across customer discovery, product priorities, architecture decisions and hands-on AI implementation. I also work on candidate UX and UI alongside recruiter workflows.", href: "/en/agora", link: "Open the Agora case" },
-      { name: "Trainly", scope: "My scope / Product flow · Frontend · AI", action: "I work on the product flow and frontend that connect learning, conversational assessment and manager visibility, together with the AI integration.", href: "/en/trainly", link: "Open the Trainly case" },
+      { name: "Agora", logo: "/media/agora-logo.svg", logoWidth: 126, logoHeight: 37, scope: "My role / Product Owner", action: "I work across customer discovery, product priorities, architecture decisions and hands-on AI implementation. I also work on candidate UX and UI alongside recruiter workflows.", href: "/en/agora", link: "Open the Agora case" },
+      { name: "Trainly", logo: "/media/trainly/trainly-logo.svg", logoWidth: 328, logoHeight: 80, scope: "My scope / Product flow · Frontend · AI", action: "I work on the product flow and frontend that connect learning, conversational assessment and manager visibility, together with the AI integration.", href: "/en/trainly", link: "Open the Trainly case" },
     ],
   },
 ] as const;
@@ -398,16 +399,16 @@ export function OriginStory() {
             <p className="origin-story__scene-kicker">{chapter.eyebrow}</p>
             <h3 className="origin-story__title" id={`${id}-${chapter.id}-title`}>{chapter.title.map(line => <span key={line}>{line}</span>)}</h3>
             <p className="origin-story__scene-role">{chapter.role}</p>
-            <div className="origin-story__reading" data-drag-frame>
+            <div className={`origin-story__reading${chapter.id === "hogarth" ? " origin-story__reading--hogarth" : ""}`} data-drag-frame>
               <ArtifactDrag label={`Move the ${chapter.label} story card`} />
+              {chapter.id === "hogarth" ? <div className="origin-story__apple-slot"><HogarthAppleSticker /></div> : null}
               <p className="origin-story__copy">{chapter.copy}</p>
               {"href" in chapter ? <a className="origin-story__episode-link" href={chapter.href}>{chapter.link} <span aria-hidden="true">↗</span></a> : null}
             </div>
-            {chapter.id === "hogarth" ? <div className="origin-story__apple-slot"><HogarthAppleSticker /></div> : null}
             {"projects" in chapter ? <div className="origin-story__projects" data-drag-boundary>{chapter.projects.map(project => <article key={project.name} data-drag-frame>
               <ArtifactDrag label={`Move the ${project.name} career card`} />
               <p className="origin-story__episode-kind">Project / Flock I+D</p>
-              <h4>{project.name}</h4>
+              <h4><span className="origin-story__project-brand"><Image src={project.logo} alt={project.name} width={project.logoWidth} height={project.logoHeight} /></span></h4>
               <p className="origin-story__project-scope">{project.scope}</p>
               <p>{project.action}</p>
               <a className="origin-story__episode-link" href={project.href}>{project.link} <span aria-hidden="true">↗</span></a>
