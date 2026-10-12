@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import ArtifactDrag from "./ArtifactDrag";
 import "./conceptual-product-flow.css";
+import { storyReadingLine } from "./story-scroll";
 
 const stages = [
   { label: "Problem & hypothesis", copy: "Frame the real problem, the people affected and a testable product hypothesis." },
@@ -37,7 +38,7 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
       if (document.hidden || heldPointer !== null || surface!.querySelector('[data-artifact-dragging="true"]') || surface!.hasAttribute("data-artifact-dragging")) return;
       const box = chapter!.getBoundingClientRect();
       if (!box.height) return;
-      const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
+      const line = storyReadingLine(chapter!.closest(".origin-story"));
       const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
       const next = Math.min(stages.length - 1, Math.floor(progress * stages.length));
       if (window.scrollY !== lastScrollY || scrollStageRef.current !== next) {

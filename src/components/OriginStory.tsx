@@ -10,6 +10,7 @@ import "./origin-story.css";
 import { BatechDomainMap, HogarthWorkbench } from "./StoryWorkbenches";
 import { FlockStoryStudio } from "./FlockStoryStudio";
 import { HogarthAppleSticker } from "./HogarthAppleSticker";
+import { storyReadingLine } from "./story-scroll";
 
 const chapters = [
   {
@@ -75,7 +76,7 @@ const chapters = [
   },
 ] as const;
 
-function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number]; paused: boolean; active: boolean }) {
+function StoryArt({ chapter, index, paused, active }: { chapter: typeof chapters[number]; index: number; paused: boolean; active: boolean }) {
   const lensFilterId = `story-lens-${useId()}`;
   const artRef = useRef<HTMLDivElement>(null);
   const lensRef = useRef<HTMLDivElement>(null);
@@ -212,6 +213,7 @@ function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number
   if (chapter.id === "files") {
     return (
       <div ref={artRef} className="origin-story__art origin-story__art--files" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+        <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
         <div className="origin-story__minecraft-image" aria-hidden="true">
           <AsciiVideo src={chapter.src} poster={chapter.poster} paused={paused} className="origin-story__video" />
         </div>
@@ -242,6 +244,7 @@ function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number
   if (chapter.id === "conversations") {
     return (
       <div className="origin-story__art origin-story__art--conversations" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+        <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
         <div className="origin-story__cafe-print" aria-hidden="true">
           <AsciiVideo src={chapter.src} poster={chapter.poster} paused={paused} className="origin-story__video" />
         </div>
@@ -259,12 +262,14 @@ function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number
 
   if (chapter.id === "hogarth") {
     return <div className="origin-story__art origin-story__art--hogarth" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+      <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
       <HogarthWorkbench active={active} paused={paused} />
     </div>;
   }
 
   if (chapter.id === "batech") {
     return <div className="origin-story__art origin-story__art--batech" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+      <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
       <figure className="origin-story__company-film" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechVideo active={active} describedBy={`${lensFilterId}-caption`} /><figcaption id={`${lensFilterId}-caption`}>Company footage / my role: frontend</figcaption></figure>
       <BatechDomainMap active={active} paused={paused} />
     </div>;
@@ -272,6 +277,7 @@ function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number
 
   return (
     <div className="origin-story__art origin-story__art--interfaces" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+      <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
       <FlockStoryStudio active={active} paused={paused} />
     </div>
   );
@@ -290,6 +296,8 @@ export function OriginStory() {
 
   useEffect(() => {
     const stage = stageRef.current;
+    const story = stage?.closest<HTMLElement>(".origin-story");
+    const visual = stage?.closest<HTMLElement>(".origin-story__visual");
     const scenes = sceneRefs.current.filter((scene): scene is HTMLElement => scene !== null);
     if (!stage || !scenes.length) return;
     let frame = 0;
@@ -301,7 +309,7 @@ export function OriginStory() {
     function sync() {
       frame = 0;
       if (document.hidden) return;
-      const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
+      const line = storyReadingLine(story ?? null);
       const positions = scenes.map(scene => scene.getBoundingClientRect());
       const reading = positions.findIndex(box => box.top <= line && box.bottom > line);
       const preceding = positions.findLastIndex(box => box.top <= line);
@@ -328,7 +336,12 @@ export function OriginStory() {
     }, { threshold: .03 });
     const readingObserver = new IntersectionObserver(schedule, { rootMargin: "-25% 0px -45% 0px", threshold: 0 });
     const resize = new ResizeObserver(schedule);
+    const visualResize = new ResizeObserver(() => {
+      if (story && visual) story.style.setProperty("--story-sticky-height", `${visual.offsetHeight}px`);
+      schedule();
+    });
     artObserver.observe(stage);
+    if (visual) visualResize.observe(visual);
     scenes.forEach(scene => { readingObserver.observe(scene); resize.observe(scene); });
 
     function down(event: PointerEvent) {
@@ -337,7 +350,15 @@ export function OriginStory() {
         heldPointer = event.pointerId;
       }
     }
-    function keyboard() { pointerFocus = false; }
+    function keyboard(event: KeyboardEvent) {
+      // Canceling a pointer drag does not begin keyboard exploration.
+      if (heldPointer === null && event.key !== "Escape") pointerFocus = false;
+    }
+    function readingIntent() {
+      // Explicit native scrolling resumes reading even after keyboard exploration.
+      // Focus-induced scrolling still keeps its keyboard surface available.
+      pointerFocus = true;
+    }
     function release(event: PointerEvent) {
       if (heldPointer === event.pointerId) heldPointer = null;
       schedule();
@@ -357,6 +378,8 @@ export function OriginStory() {
     window.addEventListener("pointercancel", release, true);
     window.addEventListener("blur", blur);
     window.addEventListener("keydown", keyboard, true);
+    window.addEventListener("wheel", readingIntent, { passive: true });
+    window.addEventListener("touchmove", readingIntent, { passive: true });
     window.addEventListener("tg-story-chapter", legacyChapter);
     stage.addEventListener("pointerdown", down, true);
     stage.addEventListener("focusout", schedule);
@@ -365,13 +388,15 @@ export function OriginStory() {
     return () => {
       cancelAnimationFrame(frame);
       cancelAnimationFrame(navigationFrame);
-      artObserver.disconnect(); readingObserver.disconnect(); resize.disconnect();
+      artObserver.disconnect(); readingObserver.disconnect(); resize.disconnect(); visualResize.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       window.removeEventListener("pointerup", release, true);
       window.removeEventListener("pointercancel", release, true);
       window.removeEventListener("blur", blur);
       window.removeEventListener("keydown", keyboard, true);
+      window.removeEventListener("wheel", readingIntent);
+      window.removeEventListener("touchmove", readingIntent);
       window.removeEventListener("tg-story-chapter", legacyChapter);
       stage.removeEventListener("pointerdown", down, true);
       stage.removeEventListener("focusout", schedule);
@@ -396,10 +421,9 @@ export function OriginStory() {
       <div className="origin-story__scroll-layout">
         <aside className="origin-story__visual" aria-label="Story artifacts">
           <div className="origin-story__stage" data-drag-boundary ref={stageRef}>
-            {chapters.map((chapter, index) => <StoryArt key={chapter.id} chapter={chapter} active={artIndex === index} paused={paused || !artVisible || artIndex !== index} />)}
-            <span className="origin-story__art-index" aria-hidden="true">0{artIndex + 1}</span>
+            {chapters.map((chapter, index) => <StoryArt key={chapter.id} chapter={chapter} index={index} active={artIndex === index} paused={paused || !artVisible || artIndex !== index} />)}
           </div>
-          <p className="origin-story__media-note">{artChapter.mediaNote}</p>
+          <p className="origin-story__media-note">{chapters.map((chapter, index) => <span key={chapter.id} data-selected={artIndex === index} aria-hidden={artIndex !== index}>{chapter.mediaNote}</span>)}</p>
           <div className="origin-story__progress" aria-hidden="true"><span>0{activeIndex + 1} / 05</span><div>{chapters.map((chapter, index) => <i key={chapter.id} data-current={activeIndex === index} data-complete={activeIndex > index} />)}</div></div>
         </aside>
 

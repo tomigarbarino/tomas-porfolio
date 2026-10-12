@@ -1,0 +1,13 @@
+# Coherent chapter transitions after exploration
+
+User authorization: review all five chapter transitions in both scroll directions, including after buttons and drag. Existing implementation and PR updates are authorized in this thread.
+
+Observed: Escape during a mouse drag makes the grip appear keyboard-focused and leaves the previous artwork pinned after release and scroll. Chapter art fades, but its number and attribution switch immediately. Mobile uses a 300px canvas plus caption/progress while its reading line and anchor offset still assume a smaller sticky visual.
+
+Plan: keep active gestures protected; Escape must not change input modality. Explicit wheel/touch reading intent releases keyboard protection without intercepting scrolling or forcibly blurring controls. Share a geometry-aware reading line among OriginStory, Hogarth/Batech and Flock. Measure the mobile visual for anchor clearance. Crossfade chapter number and attribution with the artwork, reserving the tallest caption's space. Keep timing and native scroll consistent, pause/reduced motion immediate, and drag offsets independent from chapter opacity.
+
+Files: src/components/OriginStory.tsx, origin-story.css, StoryWorkbenches.tsx, ConceptualProductFlow.tsx; a small shared story-scroll geometry helper; docs/scroll-story.md and scoped evidence. Medium interaction risk; bounded changes, no backend, API, dependencies, environment, deployment configuration or chronology/case-copy changes. Do not change ArtifactDrag's shared gesture contract or preexisting next-env.d.ts.
+
+Validation: native all-four chapter boundaries forward/reverse, clicks then scroll, mouse drag/release, Escape during/after drag, keyboard focus then explicit wheel, held-pointer protection, rapid reversal, stable caption/stage geometry and inactive controls; 320/390px sticky band and anchor clearance; pause/reduced motion; lint, TypeScript, curated production build and public route smoke. Save browser JSON/screenshots. Rollback: revert these scoped files. Update existing PR, no merge or production promotion.
+
+Completed: 26 accepted native checks, no unresolved accepted-check failures. Same art/caption opacity samples and 520ms easing verified; caption height stays stable. Escape before-fix mismatch reproduced, held/release and post-drag retests passed. Full lint, TypeScript and production build 9Pqzn1Ib58pBGdeVh0hbz passed in the curated checkout. Development lint hit an unrelated untracked Arena scratch CJS file; no unrelated file was edited. Home, Agora and Trainly returned 200 with titles against the build. Native viewport/media overrides and test offsets restored. No physical touch, browser zoom/text scaling or standalone browser suite. Existing PR updated without production promotion.

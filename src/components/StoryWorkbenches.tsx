@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type RefObject } from "react";
 import { ArtifactDrag } from "./ArtifactDrag";
 import "./story-workbenches.css";
+import { storyReadingLine } from "./story-scroll";
 
 type Props = { active: boolean; paused: boolean };
 
@@ -98,7 +99,7 @@ function useChapterScrollView(chapterId: string, count: number, { active, paused
       const box = chapter!.getBoundingClientRect();
       if (!box.height) return;
       // Same reading band as OriginStory; no added scroll distance or wheel capture.
-      const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
+      const line = storyReadingLine(chapter!.closest(".origin-story"));
       const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
       const next = Math.min(count - 1, Math.floor(progress * count));
       if (window.scrollY !== lastScrollY || next !== scrollViewRef.current) {
