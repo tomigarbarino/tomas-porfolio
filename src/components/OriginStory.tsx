@@ -8,6 +8,7 @@ import { BatechVideo } from "@/components/BatechVideo";
 import "./origin-story.css";
 import { BatechDomainMap, HogarthWorkbench } from "./StoryWorkbenches";
 import { FlockStoryStudio } from "./FlockStoryStudio";
+import { HogarthAppleSticker } from "./HogarthAppleSticker";
 
 const chapters = [
   {
@@ -402,6 +403,7 @@ export function OriginStory() {
               <p className="origin-story__copy">{chapter.copy}</p>
               {"href" in chapter ? <a className="origin-story__episode-link" href={chapter.href}>{chapter.link} <span aria-hidden="true">↗</span></a> : null}
             </div>
+            {chapter.id === "hogarth" ? <div className="origin-story__apple-slot"><HogarthAppleSticker /></div> : null}
             {"projects" in chapter ? <div className="origin-story__projects" data-drag-boundary>{chapter.projects.map(project => <article key={project.name} data-drag-frame>
               <ArtifactDrag label={`Move the ${project.name} career card`} />
               <p className="origin-story__episode-kind">Project / Flock I+D</p>

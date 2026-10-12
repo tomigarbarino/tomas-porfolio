@@ -43,7 +43,9 @@ Global pause and reduced motion stop decorative motion and silent autoplay witho
 
 ## Chapter 03–05 interactions
 
-Hogarth has a draggable conceptual interface study. Hover, focus or activation of Compact, Editorial and Wide recomposes the same visual pieces and updates a reserved explanation. A bounded pointer halo interpolates at 150ms and stops at rest, pointer exit, drag, document hiding, pause or unmount. This study is not a Hogarth or Apple project screenshot.
+Hogarth has a draggable conceptual interface study. The chapter's native scroll progress advances Compact → Editorial → Wide and reverses when scrolling up. It uses the same reading band as the story, with three discrete state changes and no extra scroll space. Hover or keyboard focus temporarily takes precedence; leaving the control returns to the scroll composition. Dragging, global pause, reduced motion and document hiding suspend automatic changes. Manual controls still work while paused. A bounded pointer halo interpolates at 150ms and stops at rest, pointer exit, drag, document hiding, pause or unmount. This study is not a Hogarth or Apple project screenshot.
+
+An Apple-themed laptop sticker sits after the Hogarth reading card in normal flow, outside the compact artwork canvas. Its visible label says “VIA HOGARTH”; the note describes frontend engineering for Apple-related projects through Hogarth Worldwide. Hover/focus previews the note, activation pins it and Escape dismisses it. The whole face supports dragging, with the shared keyboard grip and Home restoration. The note adjusts within the viewport when moved. It is a career annotation, not an Apple employment claim or a project artefact.
 
 Batech has a draggable responsibility map. Build, Organize and Lead highlight a different conceptual route and show the corresponding personal contribution. These are responsibilities, not a reconstructed production architecture. The original company video and its source/role caption remain separate and visible above the map.
 
@@ -80,6 +82,8 @@ Status recorded on 2026-10-11 for this scroll-story change:
 Evidence is recorded in `output/story-scroll-2026-10-11/browser-checks.json` and `production-routes.json`. The final native screenshot is `13-final-minecraft.png`. Browser checks used the in-app browser with native wheel, mouse and keyboard input, plus read-only DOM measurements. Temporary viewport and motion emulation were restored after verification.
 
 The chapter 03–05 refinement has separate native evidence in `output/story-interactions-2026-10-11/browser-checks.json`: 17 accepted checks, no unresolved failures. Desktop hover without clicks, halo response, frame drag/Home, workbench arrow navigation, Flock pin/Escape, native reading progression, 390/320px bounds/targets, caption separation, pause and reduced motion were checked. Mobile Flock spacing and the Batech caption were tightened after initial geometry findings and retested. Full lint/typecheck and production build `BmHm9K9uCBXWJckh91xj5` passed with Node 24.19.0; 12 production HTTP checks passed. No physical touch hardware test or standalone Playwright suite was run for this refinement.
+
+The Hogarth follow-up is recorded in `output/hogarth-scroll-2026-10-11/browser-checks.json`: native forward/reverse composition changes, stable workbench height, hover and keyboard precedence, pause/manual exploration, 390px scroll progression, 320px bounds and 44px controls, whole-face sticker drag, Home/Escape, note clamping at the opposite edge and reduced-motion behavior. Full lint, TypeScript and the production build passed again. Browser checks used mouse/wheel input with emulated mobile dimensions; no physical touch test was run.
 
 ## Risks and follow-ups
 

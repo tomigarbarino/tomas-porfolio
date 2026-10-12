@@ -1,0 +1,275 @@
+{
+  "date": "2026-10-11",
+  "accepted": 18,
+  "unresolvedFailures": 0,
+  "checks": [
+    {
+      "check": "desktop compact",
+      "focus": "Skip to selected workTomás GarbarinoProduct Engine",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "playing",
+      "scrollView": "0",
+      "step": "hogarth",
+      "top": 206.8000030517578,
+      "view": "0",
+      "y": 2123.199951171875,
+      "passed": true
+    },
+    {
+      "check": "desktop editorial",
+      "focus": "Skip to selected workTomás GarbarinoProduct Engine",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "playing",
+      "scrollView": "1",
+      "step": "hogarth",
+      "top": -33.20000076293945,
+      "view": "1",
+      "y": 2363.199951171875,
+      "passed": true
+    },
+    {
+      "check": "desktop wide",
+      "focus": "Skip to selected workTomás GarbarinoProduct Engine",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "playing",
+      "scrollView": "2",
+      "step": "hogarth",
+      "top": -283.6000061035156,
+      "view": "2",
+      "y": 2613.60009765625,
+      "passed": true
+    },
+    {
+      "check": "desktop reverse editorial",
+      "focus": "Skip to selected workTomás GarbarinoProduct Engine",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "playing",
+      "scrollView": "1",
+      "step": "hogarth",
+      "top": -33.20000076293945,
+      "view": "1",
+      "y": 2363.199951171875,
+      "passed": true
+    },
+    {
+      "check": "desktop reverse compact",
+      "focus": "Skip to selected workTomás GarbarinoProduct Engine",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "playing",
+      "scrollView": "0",
+      "step": "hogarth",
+      "top": 206.8000030517578,
+      "view": "0",
+      "y": 2123.199951171875,
+      "passed": true
+    },
+    {
+      "check": "hover overrides scroll",
+      "focus": "Skip to selected workTomás GarbarinoProduct Engine",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "playing",
+      "scrollView": "0",
+      "step": "hogarth",
+      "top": 206.8000030517578,
+      "view": "2",
+      "y": 2123.199951171875,
+      "passed": true
+    },
+    {
+      "check": "keyboard Compact overrides advancing scroll",
+      "focus": "Compact",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "playing",
+      "scrollView": "1",
+      "step": "hogarth",
+      "top": -163.60000610351562,
+      "view": "0",
+      "y": 2493.60009765625,
+      "passed": true
+    },
+    {
+      "check": "sticker pin and bounded note",
+      "note": {
+        "bottom": 263.8000030517578,
+        "height": 123.3000030517578,
+        "left": 212.5124969482422,
+        "right": 432.5124969482422,
+        "top": 140.5,
+        "width": 220,
+        "x": 212.5124969482422,
+        "y": 140.5
+      },
+      "open": "true",
+      "pinned": "true",
+      "passed": true
+    },
+    {
+      "check": "sticker surface drag",
+      "pinned": "true",
+      "x": "-40px",
+      "y": "15px",
+      "passed": true
+    },
+    {
+      "check": "sticker Home and Escape",
+      "open": "false",
+      "pinned": "false",
+      "x": "0px",
+      "y": "0px",
+      "passed": true
+    },
+    {
+      "check": "pause freezes scroll, keyboard remains functional",
+      "focus": "Wide",
+      "frameHeight": 364.875,
+      "height": 724.6000366210938,
+      "motion": "paused",
+      "scrollView": "0",
+      "step": "hogarth",
+      "top": -93.20000457763672,
+      "view": "2",
+      "y": 2423.199951171875,
+      "passed": true
+    },
+    {
+      "check": "390 compact and canvas fit",
+      "focus": "03 / Hogarth WorldwideHogarth Worldwide.Into produ",
+      "frameHeight": 233.1999969482422,
+      "height": 691.1000366210938,
+      "motion": "playing",
+      "scrollView": "0",
+      "step": "hogarth",
+      "top": 339.9250183105469,
+      "view": "0",
+      "y": 2660,
+      "passed": true
+    },
+    {
+      "check": "390 editorial",
+      "focus": "03 / Hogarth WorldwideHogarth Worldwide.Into produ",
+      "frameHeight": 233.1999969482422,
+      "height": 691.1000366210938,
+      "motion": "playing",
+      "scrollView": "1",
+      "step": "hogarth",
+      "top": 99.9250030517578,
+      "view": "1",
+      "y": 2900,
+      "passed": true
+    },
+    {
+      "check": "390 wide",
+      "focus": "03 / Hogarth WorldwideHogarth Worldwide.Into produ",
+      "frameHeight": 233.1999969482422,
+      "height": 691.1000366210938,
+      "motion": "playing",
+      "scrollView": "2",
+      "step": "hogarth",
+      "top": -140.0749969482422,
+      "view": "2",
+      "y": 3140,
+      "passed": true
+    },
+    {
+      "check": "390 sticker note and loaded asset",
+      "note": {
+        "bottom": 352.2250061035156,
+        "height": 123.3000030517578,
+        "left": 134.40000915527344,
+        "right": 354.40000915527344,
+        "top": 228.9250030517578,
+        "width": 220,
+        "x": 134.40000915527344,
+        "y": 228.9250030517578
+      },
+      "open": "true",
+      "overflow": false,
+      "sticker": {
+        "bottom": 494.2250061035156,
+        "height": 132,
+        "left": 234.40000915527344,
+        "right": 354.40000915527344,
+        "top": 362.2250061035156,
+        "width": 120,
+        "x": 234.40000915527344,
+        "y": 362.2250061035156
+      },
+      "passed": true
+    },
+    {
+      "check": "320 controls and sticker fit",
+      "frameHeight": 233.1999969482422,
+      "note": {
+        "bottom": 432.00001525878906,
+        "height": 123.3000030517578,
+        "left": 68,
+        "right": 288,
+        "top": 308.70001220703125,
+        "width": 220,
+        "x": 68,
+        "y": 308.70001220703125
+      },
+      "overflow": false,
+      "width": 320,
+      "passed": true
+    },
+    {
+      "check": "320 left-edge drag keeps note inside viewport",
+      "note": {
+        "bottom": 432.00001525878906,
+        "height": 123.3000030517578,
+        "left": 16,
+        "right": 236,
+        "top": 308.70001220703125,
+        "width": 220,
+        "x": 16,
+        "y": 308.70001220703125
+      },
+      "overflow": false,
+      "sticker": {
+        "bottom": 574,
+        "height": 132,
+        "left": 16,
+        "right": 136,
+        "top": 442,
+        "width": 120,
+        "x": 16,
+        "y": 442
+      },
+      "x": "-152px",
+      "passed": true
+    },
+    {
+      "check": "reduced motion freezes decorative changes",
+      "motion": "paused",
+      "stickerMotion": "false",
+      "transition": "0s",
+      "visualPosition": "relative",
+      "workbenchMotion": "false",
+      "passed": true
+    }
+  ],
+  "build": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "productionBuild": "2URzgrzaEQjynIzGVcobH",
+    "node": "24.19.0"
+  },
+  "limitations": [
+    "Responsive dimensions emulate mobile with native mouse/wheel, no physical touch test.",
+    "No remote preview or production verification for this revision."
+  ],
+  "restored": {
+    "viewport": true,
+    "reducedMotionOverride": true,
+    "motionPreference": "playing"
+  },
+  "consoleErrors": []
+}

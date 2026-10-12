@@ -81,17 +81,76 @@ function useInspectionHalo(surface: RefObject<HTMLDivElement | null>, enabled: b
 }
 
 export function HogarthWorkbench({ active, paused }: Props) {
-  const [view, setView] = useState(1);
+  const [scrollView, setScrollView] = useState(0);
+  const [hoveredView, setHoveredView] = useState<number | null>(null);
+  const [focusedView, setFocusedView] = useState<number | null>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
   const preview = useRef<HTMLDivElement>(null);
   const id = useId();
+  const view = focusedView ?? hoveredView ?? scrollView;
   useInspectionHalo(preview, active && !paused);
 
-  return <div className="story-workbench story-workbench--hogarth" data-drag-frame data-view={view} data-motion={active && !paused}>
+  useEffect(() => {
+    const chapter = document.getElementById("story-hogarth");
+    const surface = frameRef.current;
+    if (!active || paused || !chapter || !surface) return;
+    let raf = 0;
+    let heldPointer: number | null = null;
+    function sync() {
+      raf = 0;
+      if (document.hidden || heldPointer !== null || surface!.hasAttribute("data-artifact-dragging")) return;
+      const box = chapter!.getBoundingClientRect();
+      if (!box.height) return;
+      // Same reading band as OriginStory; no added scroll distance or wheel capture.
+      const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
+      const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
+      const next = Math.min(layouts.length - 1, Math.floor(progress * layouts.length));
+      setScrollView(current => current === next ? current : next);
+    }
+    function schedule() {
+      if (!raf && !document.hidden) raf = requestAnimationFrame(sync);
+    }
+    function down(event: PointerEvent) {
+      if (event.isPrimary && event.button === 0) heldPointer = event.pointerId;
+    }
+    function release(event: PointerEvent) {
+      if (heldPointer === event.pointerId) heldPointer = null;
+      schedule();
+    }
+    function blur() { heldPointer = null; schedule(); }
+    function visibility() {
+      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; heldPointer = null; }
+      else schedule();
+    }
+    const resize = new ResizeObserver(schedule);
+    resize.observe(chapter);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("pointerup", release, true);
+    window.addEventListener("pointercancel", release, true);
+    window.addEventListener("blur", blur);
+    surface.addEventListener("pointerdown", down, true);
+    document.addEventListener("visibilitychange", visibility);
+    schedule();
+    return () => {
+      cancelAnimationFrame(raf);
+      resize.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("pointerup", release, true);
+      window.removeEventListener("pointercancel", release, true);
+      window.removeEventListener("blur", blur);
+      surface.removeEventListener("pointerdown", down, true);
+      document.removeEventListener("visibilitychange", visibility);
+    };
+  }, [active, paused]);
+
+  return <div ref={frameRef} className="story-workbench story-workbench--hogarth" data-drag-frame data-view={view} data-scroll-view={scrollView} data-motion={active && !paused}>
     <ArtifactDrag label="Move the Hogarth interface study" />
     <header className="story-workbench__bar"><p>Hogarth / frontend<span>Conceptual interface study</span></p></header>
     <div className="story-workbench__controls" role="group" aria-label="Interface composition">
-      {layouts.map((layout, index) => <button key={layout.label} type="button" ref={node => { buttons.current[index] = node; }} aria-pressed={view === index} aria-controls={`${id}-preview ${id}-detail`} onPointerEnter={event => { if (event.pointerType === "mouse" && !event.buttons) setView(index); }} onFocus={() => setView(index)} onClick={() => setView(index)} onKeyDown={event => moveFocus(event, index, buttons)}>{layout.label}</button>)}
+      {layouts.map((layout, index) => <button key={layout.label} type="button" ref={node => { buttons.current[index] = node; }} aria-pressed={view === index} aria-controls={`${id}-preview ${id}-detail`} onPointerEnter={event => { if (event.pointerType === "mouse" && !event.buttons) setHoveredView(index); }} onPointerLeave={() => setHoveredView(null)} onPointerCancel={() => setHoveredView(null)} onFocus={() => setFocusedView(index)} onBlur={() => setFocusedView(null)} onClick={() => setFocusedView(index)} onKeyDown={event => moveFocus(event, index, buttons)}>{layout.label}</button>)}
     </div>
     <div id={`${id}-preview`} ref={preview} className="story-workbench__preview" data-layout={view} aria-hidden="true">
       <div className="story-workbench__halo" />

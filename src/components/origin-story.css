@@ -337,6 +337,7 @@ html[data-motion="paused"] .origin-story__art :is(.origin-story__file-piece, .or
 .origin-story--scroll .origin-story__scene-role { max-width: 48ch; margin-top: 20px !important; color: var(--story-lavender); font-size: 12px; line-height: 1.8; }
 .origin-story--scroll .origin-story__scene .origin-story__reading { width: calc(100% - 32px); max-width: none; margin: 28px 16px 0; padding: 54px 24px 26px; border: 1px solid var(--story-ink); box-shadow: 5px 6px 0 var(--story-ink),6px 7px 0 var(--story-accent); }
 .origin-story--scroll .origin-story__scene .origin-story__copy { max-width: 52ch; font-size: 15px; line-height: 1.85; }
+.origin-story--scroll .origin-story__apple-slot { display: flex; justify-content: flex-end; width: 100%; min-height: 132px; margin-top: 24px; padding-inline: 16px; }
 .origin-story--scroll .origin-story__reading .origin-story__episode-link { color: var(--story-ink); }
 .origin-story--scroll .origin-story__reading .origin-story__episode-link:hover { color: var(--story-ink); text-decoration-thickness: 2px; }
 .origin-story--scroll .origin-story__reading .origin-story__episode-link:focus-visible { color: var(--story-ink); outline-color: var(--story-ink); }
