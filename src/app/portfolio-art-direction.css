@@ -108,6 +108,11 @@
 .contact-section[data-art-direction] h2 { width: fit-content; max-width: 86%; padding: 10px 18px 14px 0; background: transparent; }
 .contact-section[data-art-direction] h2 span { display: inline-block; margin-top: 9px; padding: 5px 14px 10px; background: var(--acid); color: var(--bg); transform: rotate(-2deg); }
 .contact-section[data-art-direction] .contact-email { position: relative; padding: 13px 18px; background: var(--fg); color: var(--bg); border: 1px solid var(--bg); box-shadow: 5px 6px 0 var(--bg),6px 7px 0 var(--fg); }
+.contact-cv { position: relative; display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 44px; margin-top: 24px; padding: 12px 16px; border: 1px solid var(--pop-pink); color: var(--pop-pink); font-family: var(--font-mono), monospace; font-size: 13px; transition: color var(--motion-response) var(--motion-ease), background-color var(--motion-response) var(--motion-ease); }
+.contact-cv:is(:hover, :focus-visible) { background: var(--pop-pink); color: var(--bg); text-decoration: none; }
+.contact-cv:focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
+html[data-motion="paused"] .contact-cv { transition: none; }
+@media (prefers-reduced-motion: reduce) { .contact-cv { transition: none; } }
 .contact-section[data-art-direction] .contact-annotation { max-width: 640px; margin-top: 35px; }
 .contact-section[data-art-direction] .contact-bottom { background: transparent; border-top: 1px dashed var(--pop-pink); }
 .contact-section[data-art-direction] .contact-signature { padding: 16px 10px; border-bottom: 4px solid var(--pop-pink); color: var(--fg); }
