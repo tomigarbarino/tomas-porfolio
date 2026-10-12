@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AsciiVideo } from "@/components/AsciiVideo";
 import { useMotionPreference } from "@/components/MotionPreference";
 import { ArtifactDrag } from "@/components/ArtifactDrag";
@@ -443,7 +444,7 @@ export function OriginStory() {
               <h4><span className="origin-story__project-brand"><Image src={project.logo} alt={project.name} width={project.logoWidth} height={project.logoHeight} /></span></h4>
               <p className="origin-story__project-scope">{project.scope}</p>
               <p>{project.action}</p>
-              <a className="origin-story__episode-link" href={project.href}>{project.link} <span aria-hidden="true">↗</span></a>
+              <Link className="origin-story__episode-link" href={project.href} prefetch={true}>{project.link} <span aria-hidden="true">↗</span></Link>
             </article>)}</div> : null}
           </article>)}
         </div>

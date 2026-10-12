@@ -86,7 +86,7 @@ export function TrainlyDossier() {
           </section>
         </div>
       </div>
-      <footer className="td-footer"><Image src="/media/trainly/trainly-logo.svg" alt="Trainly" width={328} height={80} /><h2 data-scroll-depth="-20">Build the system.<br /><span>Validate the learning.</span></h2><div><Link className="td-link td-link--primary" href="/en/agora" prefetch={false}>Next case / Agora <span aria-hidden="true">↗</span></Link><Link className="td-link" href="/#work" prefetch={false}>Explore more work →</Link><Link className="td-link" href="/#contact" prefetch={false}>Let’s work together ↗</Link></div><p>Tomás Garbarino / Product Engineer · Applied AI</p></footer>
+      <footer className="td-footer"><Image src="/media/trainly/trainly-logo.svg" alt="Trainly" width={328} height={80} /><h2 data-scroll-depth="-20">Build the system.<br /><span>Validate the learning.</span></h2><div><Link className="td-link td-link--primary" href="/en/agora" prefetch={true}>Next case / Agora <span aria-hidden="true">↗</span></Link><Link className="td-link" href="/#work" prefetch={true}>Explore more work →</Link><Link className="td-link" href="/#contact" prefetch={true}>Let’s work together ↗</Link></div><p>Tomás Garbarino / Product Engineer · Applied AI</p></footer>
     </main>
   </MotionPreference>;
 }

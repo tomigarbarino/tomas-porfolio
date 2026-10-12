@@ -142,7 +142,7 @@ export function CaseStudyDirectory() {
       <nav className="pw-case-directory" aria-label="Case studies">
         {cases.map((item) => (
           <Link key={item.id} ref={(node) => { if (node) linksRef.current[item.id] = node; }}
-            href={item.href} prefetch={false} data-case-preview={item.id}
+            href={item.href} prefetch={true} data-case-preview={item.id}
             onPointerEnter={(event) => enter(event, item.id)}
             onPointerMove={(event) => {
               if (event.pointerType !== "mouse") return;

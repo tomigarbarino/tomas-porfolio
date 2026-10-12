@@ -54,7 +54,7 @@ export function ProductWork() {
               <div><p className="pw-detail-label">Current state</p><h4 id="trainly-evidence">{trainlyCase.statusHeadline}</h4></div>
               <div><p>The implemented flow, interface and architecture are available to inspect in the full case.</p><p className="pw-evidence-limit">Learning outcomes have not been quantitatively validated. Demo values are illustrative, not customer results.</p></div>
             </section>
-            <div className="pw-case-actions"><Link className="pw-case-cta" href={trainlyCase.href} prefetch={false}>Read the Trainly case <span aria-hidden="true">→</span></Link><a className="pw-text-link" href="#contact">Let’s talk <span aria-hidden="true">↓</span></a></div>
+            <div className="pw-case-actions"><Link className="pw-case-cta" href={trainlyCase.href} prefetch={true}>Read the Trainly case <span aria-hidden="true">→</span></Link><a className="pw-text-link" href="#contact">Let’s talk <span aria-hidden="true">↓</span></a></div>
           </div>
         </article>
       </div>

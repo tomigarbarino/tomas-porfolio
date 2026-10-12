@@ -53,7 +53,7 @@ export function Observatory() {
           </div>
           <p>Recruiting workflows. AI with context.</p>
           <p className="window-scope">Flock I+D / Product Owner</p>
-          <Link className="button-primary" href="/en/agora" prefetch={false}>Read the Agora case →</Link>
+          <Link className="button-primary" href="/en/agora" prefetch={true}>Read the Agora case →</Link>
         </Window>}
         <footer className="hero-footer"><a href="#trainly">Trainly / learning &amp; assessment →</a><button type="button" onClick={() => setSelected("profile")}>Quick profile →</button><button type="button" onClick={() => setSelected("quests")}>Side quests +</button><button ref={restore} type="button" className="restore-window" hidden={windowState === "open"} onClick={openWindow}>{windowState === "minimized" ? "Restore Agora ↑" : "Open Agora window +"}</button></footer>
       </div>

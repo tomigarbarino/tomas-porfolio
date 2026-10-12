@@ -1,0 +1,8 @@
+.case-loading { min-height: 100svh; padding: clamp(28px, 6vw, 80px); display: flex; flex-direction: column; justify-content: center; gap: 24px; background: radial-gradient(ellipse at 80% 30%, #c6a7ff18, transparent 60%), radial-gradient(#c6a7ff25 .7px, transparent .7px) 0 0 / 7px 7px, var(--bg, #080909); }
+.case-loading__label { color: var(--pop-violet, #c6a7ff); font: 11px/1.7 var(--font-mono), monospace; text-transform: uppercase; letter-spacing: .06em; }
+.case-loading__title { font-family: var(--font-display), sans-serif; font-size: clamp(64px, 10vw, 140px); font-weight: 900; line-height: .93; letter-spacing: -.025em; }
+.case-loading__title span { color: var(--pop-pink, #ff76b9); }
+.case-loading__status { display: flex; align-items: center; gap: 12px; font-size: 12px; line-height: 1.7; }
+.case-loading__status > span { width: 8px; height: 8px; background: var(--acid, #f4ff54); animation: case-loading-signal 1s ease-in-out infinite alternate; }
+@keyframes case-loading-signal { to { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .case-loading__status > span { animation: none; } }
