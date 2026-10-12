@@ -1,0 +1,78 @@
+.flock-story-studio {
+  --flock-tone: var(--story-lavender);
+  position: absolute;
+  inset: 0;
+  min-width: 0;
+}
+.flock-story-studio[data-product="trainly"] { --flock-tone: var(--story-pink); }
+.flock-story-studio[data-product="agora"] { --flock-tone: var(--story-lavender); }
+.flock-story-studio .conceptual-flow { --story-accent: var(--flock-tone); border-color: var(--flock-tone); }
+.flock-story-studio :is(.origin-story__system-film,.origin-story__product-plane) { --flock-frame-tone: var(--story-lavender); }
+.flock-story-studio .origin-story__product-plane { --flock-frame-tone: var(--story-pink); }
+.flock-story-studio [data-preview="true"] { border-color: var(--flock-frame-tone); box-shadow: 0 0 0 2px var(--flock-frame-tone), 6px 7px 0 var(--story-ink); }
+.flock-story-studio__surface {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: var(--story-paper);
+  color: var(--story-ink);
+  text-align: left;
+  isolation: isolate;
+  touch-action: pan-y;
+}
+.flock-story-studio__surface > img { display: block; width: 100%; height: auto; object-fit: contain; }
+.flock-story-studio__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at var(--flock-scan-x,50%) var(--flock-scan-y,50%),transparent 10%,var(--flock-frame-tone) 100%);
+  mix-blend-mode: multiply;
+  opacity: .05;
+  transition: opacity 260ms var(--motion-ease,ease);
+}
+.flock-story-studio [data-preview="true"] .flock-story-studio__scan { opacity: .32; }
+.flock-story-studio__scope {
+  position: absolute;
+  z-index: 1;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  display: grid;
+  gap: 3px;
+  padding: 7px 9px;
+  border: 1px solid var(--story-ink);
+  background: var(--story-paper);
+  color: var(--story-ink);
+  font-size: 10px;
+  line-height: 1.45;
+  pointer-events: none;
+  box-shadow: inset 3px 0 0 var(--flock-frame-tone);
+  transition: background-color 260ms var(--motion-ease,ease),box-shadow 260ms var(--motion-ease,ease);
+}
+.flock-story-studio__scope strong { font-weight: 500; }
+.flock-story-studio__scope > span { font-size: 9px; }
+.flock-story-studio [data-preview="true"] .flock-story-studio__scope { background: var(--flock-frame-tone); box-shadow: inset 3px 0 0 var(--story-ink); }
+.origin-story .flock-story-studio__surface:focus-visible { outline: 3px solid var(--story-highlight); outline-offset: 3px; }
+/* Scoped overrides preserve the actual image ratio, including in the 250px canvas. */
+.origin-story--scroll .flock-story-studio .origin-story__system-film-media { height: auto; }
+.origin-story--scroll .flock-story-studio .origin-story__system-film-media img { width: 100%; height: auto; object-fit: contain; }
+.origin-story--scroll .flock-story-studio .origin-story__system-film { top: 8%; left: 8px; right: auto; width: 47%; }
+.origin-story--scroll .flock-story-studio .origin-story__product-plane { top: 22%; right: 12px; width: 45%; }
+.flock-story-studio[data-animated="false"] :is(.flock-story-studio__scope,.flock-story-studio__scan),
+html[data-motion="paused"] .flock-story-studio :is(.flock-story-studio__scope,.flock-story-studio__scan) { transition: none; }
+.flock-story-studio[data-animated="false"] .flock-story-studio__scan,
+html[data-motion="paused"] .flock-story-studio__scan { background: linear-gradient(var(--flock-frame-tone),var(--flock-frame-tone)); }
+@media (max-width: 800px) {
+  .origin-story--scroll .flock-story-studio .origin-story__system-film { top: 4px; left: 6px; right: auto; width: min(44%,112px); }
+  .origin-story--scroll .flock-story-studio .origin-story__product-plane { top: 4px; right: 8px; width: min(46%,140px); }
+  .origin-story--scroll .flock-story-studio :is(.origin-story__system-film,.origin-story__product-plane) figcaption { padding-block: 4px; }
+  .flock-story-studio__scope { right: 4px; bottom: 4px; left: 4px; gap: 0; padding: 3px 5px; font-size: 8px; line-height: 1.4; }
+  .flock-story-studio__scope > span { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flock-story-studio :is(.flock-story-studio__scope,.flock-story-studio__scan) { transition: none; }
+  .flock-story-studio__scan { background: linear-gradient(var(--flock-frame-tone),var(--flock-frame-tone)); }
+}

@@ -4,9 +4,10 @@ import { useEffect, useId, useRef, useState } from "react";
 import { AsciiVideo } from "@/components/AsciiVideo";
 import { useMotionPreference } from "@/components/MotionPreference";
 import { ArtifactDrag } from "@/components/ArtifactDrag";
-import { ConceptualProductFlow } from "@/components/ConceptualProductFlow";
 import { BatechVideo } from "@/components/BatechVideo";
 import "./origin-story.css";
+import { BatechDomainMap, HogarthWorkbench } from "./StoryWorkbenches";
+import { FlockStoryStudio } from "./FlockStoryStudio";
 
 const chapters = [
   {
@@ -40,7 +41,7 @@ const chapters = [
     copy: "At Hogarth Worldwide, I worked on frontend engineering for Apple-related projects. The curiosity that started in game files had become professional work on interfaces.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
-    mediaNote: "Role note / no Hogarth or Apple project imagery shown",
+    mediaNote: "Conceptual interface study / no Hogarth or Apple project imagery shown",
   },
   {
     id: "batech",
@@ -256,35 +257,20 @@ function StoryArt({ chapter, paused, active }: { chapter: typeof chapters[number
 
   if (chapter.id === "hogarth") {
     return <div className="origin-story__art origin-story__art--hogarth" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
-      <div className="origin-story__company-note" data-drag-frame><ArtifactDrag label="Move the Hogarth story note" /><p>Hogarth Worldwide</p><strong>Frontend.<br />Real projects.</strong><span>Apple-related projects / my scope: frontend engineering</span></div>
+      <HogarthWorkbench active={active} paused={paused} />
     </div>;
   }
 
   if (chapter.id === "batech") {
     return <div className="origin-story__art origin-story__art--batech" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
-      <figure className="origin-story__company-film" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechVideo active={active} describedBy={`${lensFilterId}-caption`} /><figcaption id={`${lensFilterId}-caption`}>Company product context / my role: frontend engineering</figcaption></figure>
-      <div className="origin-story__company-note" data-drag-frame><ArtifactDrag label="Move the Batech frontend note" /><p>React + TypeScript</p><strong>Build.<br />Organize. Lead.</strong><span>Frontend foundation → domain architecture → frontend leadership</span></div>
+      <figure className="origin-story__company-film" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechVideo active={active} describedBy={`${lensFilterId}-caption`} /><figcaption id={`${lensFilterId}-caption`}>Company footage / my role: frontend</figcaption></figure>
+      <BatechDomainMap active={active} paused={paused} />
     </div>;
   }
 
   return (
     <div className="origin-story__art origin-story__art--interfaces" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
-      <figure className="origin-story__system-film" data-drag-frame>
-        <ArtifactDrag label="Move the Agora story design" />
-        <div className="origin-story__system-film-media" aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/media/agora-candidate-upload.png" alt="Empty Agora CV upload Figma design" width="1440" height="900" loading="lazy" decoding="async" />
-        </div>
-        <figcaption>Agora / candidate UX · Figma design</figcaption>
-      </figure>
-      <figure className="origin-story__product-plane origin-story__bridge" data-drag-frame>
-        <ArtifactDrag label="Move the Trainly product image" />
-        {/* The real product image preserves its full frame and carries its scope. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/media/trainly-product.png" alt="Trainly product interface" width="1350" height="652" loading="lazy" decoding="async" />
-        <figcaption>Trainly / Product flow · Frontend · AI</figcaption>
-      </figure>
-      <ConceptualProductFlow />
+      <FlockStoryStudio active={active} paused={paused} />
     </div>
   );
 }

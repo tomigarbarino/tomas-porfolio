@@ -1,0 +1,82 @@
+{
+  "base_url": "http://127.0.0.1:3001",
+  "checks": [
+    {
+      "check": "/en",
+      "passed": true,
+      "status": 308,
+      "location": "/"
+    },
+    {
+      "check": "/es",
+      "passed": true,
+      "status": 308,
+      "location": "/"
+    },
+    {
+      "check": "/trainly",
+      "passed": true,
+      "status": 308,
+      "location": "/en/trainly"
+    },
+    {
+      "check": "/es/trainly",
+      "passed": true,
+      "status": 308,
+      "location": "/en/trainly"
+    },
+    {
+      "check": "/trainyl",
+      "passed": true,
+      "status": 308,
+      "location": "/en/trainly"
+    },
+    {
+      "check": "/agora",
+      "passed": true,
+      "status": 308,
+      "location": "/en/agora"
+    },
+    {
+      "check": "/ metadata",
+      "passed": true,
+      "status": 200,
+      "canonical": "https://tomas-garbarino.vercel.app",
+      "lang": "en",
+      "h1": 1
+    },
+    {
+      "check": "/en/trainly metadata",
+      "passed": true,
+      "status": 200,
+      "canonical": "https://tomas-garbarino.vercel.app/en/trainly",
+      "lang": "en",
+      "h1": 1
+    },
+    {
+      "check": "/en/agora metadata",
+      "passed": true,
+      "status": 200,
+      "canonical": "https://tomas-garbarino.vercel.app/en/agora",
+      "lang": "en",
+      "h1": 1
+    },
+    {
+      "check": "/robots.txt",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "check": "/sitemap.xml",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "check": "unknown route",
+      "passed": true,
+      "status": 404
+    }
+  ],
+  "passed": 12,
+  "failed": 0
+}
