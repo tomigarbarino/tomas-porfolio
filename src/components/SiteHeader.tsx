@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useMotionPreference } from "./MotionPreference";
+import { CVDownloadLink } from "./CVDownloadLink";
 import "./site-header.css";
 
 type SiteHeaderProps = {
@@ -37,6 +38,7 @@ export function SiteHeader({ context = "home", backHref = "/#trainly" }: SiteHea
               {item.hash === "work" ? <><span className="site-header__case-label--full">Case studies</span><span className="site-header__case-label--short">Cases</span></> : item.label}
             </HeaderLink>
           ))}
+          <CVDownloadLink className="site-header__cv">CV <span aria-hidden="true">↓</span></CVDownloadLink>
         </nav>
         <button
           className="site-header__motion motion-toggle"
