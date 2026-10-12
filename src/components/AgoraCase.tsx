@@ -31,7 +31,7 @@ export function AgoraCase() {
           <div className="agora-preview__decision" data-scroll-depth="-16">
             <p className="agora-case__label">Inside the case / a real decision</p>
             <h3 id="agora-decision-title">Missing requirements.<br />An automatic rejection.</h3>
-            <p>A search had no structured skills. The matcher turned that absence into a 0% match and a rejection. I helped define a guardrail: send the case to human review and fix the missing catalog context while the structural solution stayed on the roadmap.</p>
+            <p>A search without structured skills became a 0% match and an automatic rejection. The education catalog also missed English degree names. I helped define a bounded fix: human review for searches with no structured skills and an expanded catalog, while the structural search-creation work stayed on the roadmap.</p>
             <Link href="/en/agora#decision" prefetch={false}>Follow the diagnosis, trade-offs and team-reported check <span aria-hidden="true">→</span></Link>
           </div>
           <AgoraFlow />

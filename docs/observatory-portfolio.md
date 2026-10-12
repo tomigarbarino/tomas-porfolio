@@ -32,7 +32,7 @@ Legacy entries redirect permanently: `/en` and `/es` to `/`; `/trainly`, `/es/tr
 
 ## Agora dossier and career-story validation
 
-The current feature adds `/en/agora`, the explicit five-step career story and case-to-case navigation. Lint, typecheck and build passed. Eighteen browser journeys passed before the final CSS adjustments; six targeted journeys and twelve HTTP checks passed on final build `o5LjCKYCVrlICAP9zvgQe`. See [the feature record](agora-case-and-story.md) for build identities, coverage and limits.
+The feature adds `/en/agora`, the explicit five-step career story and case-to-case navigation. The 2026-10-11 refinement leads with personal responsibilities and a real decision before the product diagram, adds an illustrative hover/focus replay and aligns stickers, drag space and scroll depth with the portfolio. Twenty accepted in-app browser checks passed at 1440, 390 and 320 px against the development server. Lint, typecheck, build and twelve HTTP checks passed on production build `WMpEIhMlsktMLcCo2mytn`. The earlier eighteen-plus-six Chromium journeys on build `o5LjCKYCVrlICAP9zvgQe` belong to the initial dossier milestone and were not rerun. See [the feature record](agora-case-and-story.md) for distinct environments, coverage and limits.
 
 ## Arena milestone validation
 

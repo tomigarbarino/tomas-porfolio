@@ -73,6 +73,9 @@ def case_reading(suite):
     require(page.locator('link[rel="canonical"]').get_attribute('href') == 'https://tomas-garbarino.vercel.app/en/agora', 'Wrong canonical')
     require(page.locator('.site-header__back').get_attribute('href') == '/#agora', 'Wrong return section')
     require('Product Owner' in page.locator('main').inner_text(), 'Personal role missing')
+    order = page.locator('.ad-content > .ad-section').evaluate_all('sections => sections.map(section => section.id)')
+    require(order == ['overview', 'decision', 'flow', 'experience', 'system', 'next'], f'Wrong case reading order: {order}')
+    require(page.locator('.ad-contributions a').count() == 4, 'Personal contributions need four supporting links')
     suite.shot('agora-hero')
     source = page.locator('.ad-design--hero a')
     source.scroll_into_view_if_needed()
@@ -80,10 +83,19 @@ def case_reading(suite):
       const r = link.getBoundingClientRect();
       return link.contains(document.elementFromPoint(r.x + r.width/2, r.y + r.height/2));
     }'''), 'Hero source link is covered by decoration')
+    hero_note = page.get_by_role('button', name='Read note: It depends.', exact=True)
+    hero_note.click()
+    require(hero_note.get_attribute('aria-expanded') == 'true', 'Hero note did not open')
+    source.scroll_into_view_if_needed()
+    require(source.evaluate('''link => {
+      const r = link.getBoundingClientRect();
+      return link.contains(document.elementFromPoint(r.x + r.width/2, r.y + r.height/2));
+    }'''), 'Open hero note covers the source link')
+    hero_note.press('Escape')
     rail = page.locator('nav').filter(has=page.locator('a[href="#decision"]'))
     require(rail.count() == 1, 'Case section navigation missing/ambiguous')
     visited = []
-    for target in ('overview', 'flow', 'decision', 'experience', 'system', 'next'):
+    for target in ('overview', 'decision', 'flow', 'experience', 'system', 'next'):
         link = rail.locator(f'a[href="#{target}"]')
         link.click()
         page.wait_for_function('(target) => location.hash === "#" + target', arg=target)
@@ -105,6 +117,38 @@ def case_reading(suite):
         require(disclosure.get_attribute('open') is not None, 'Decision disclosure did not open')
         summary.click()
         require(disclosure.get_attribute('open') is None, 'Decision disclosure did not close')
+    replay = page.get_by_role('group', name='Compare the reported guardrail', exact=True)
+    arena_qa.native_focus(page, '.agora-decision-replay button:nth-child(2)')
+    page.keyboard.press('Enter')
+    with_height = replay.bounding_box()['height']
+    page.keyboard.press('Shift+Tab')
+    require(replay.get_attribute('data-state') == 'before', 'Keyboard did not preview the before state')
+    before_height = replay.bounding_box()['height']
+    require(abs(with_height - before_height) < .5, 'Replay changed height between states')
+    page.keyboard.press('Enter')
+    require(page.get_by_role('button', name='Before guardrail', exact=True).get_attribute('aria-pressed') == 'true', 'Replay did not pin the before state')
+    page.keyboard.press('Escape')
+    require(replay.get_attribute('data-state') == 'with', 'Escape did not restore the guardrail')
+    if suite.width >= 768:
+        page.get_by_role('button', name='Before guardrail', exact=True).hover()
+        require(replay.get_attribute('data-state') == 'before', 'Replay did not preview on hover')
+        require(page.get_by_role('button', name='With guardrail', exact=True).get_attribute('aria-pressed') == 'true', 'Hover changed the pinned state')
+        page.mouse.move(8, 8)
+        require(replay.get_attribute('data-state') == 'with', 'Hover exit did not restore the pinned state')
+    mobile_travel = []
+    if suite.width < 768:
+        for label in ('Move the product direction contribution', 'Move the missing skills diagnosis', 'Move the bounded Agora fix', 'Move the complete Agora flow', 'Move the Agora application responsibility'):
+            arena_qa.native_focus(page, f'button[aria-label="{label}"]')
+            frame = page.get_by_role('button', name=label, exact=True).locator('xpath=ancestor::*[@data-drag-frame][1]')
+            page.keyboard.press('Home')
+            page.keyboard.press('ArrowRight')
+            moved = arena_qa.offset(frame)
+            require(moved['x'] > .5, f'No mobile horizontal travel: {label}')
+            page.keyboard.press('Home')
+            restored = arena_qa.offset(frame)
+            require(abs(restored['x']) + abs(restored['y']) < .5, f'Mobile restore failed: {label}')
+            mobile_travel.append({'label': label, 'moved': moved, 'restored': restored})
+    page.locator('#decision').scroll_into_view_if_needed()
     suite.shot('agora-decision')
     images = []
     for name in ('agora-candidate-upload', 'agora-device-check'):
@@ -115,7 +159,7 @@ def case_reading(suite):
         images.append(image.get_attribute('alt'))
     suite.shot('agora-experience')
     healthy(page)
-    return {'anchors': visited, 'native_wheel_current_section': 'system', 'hero_source_link_uncovered': True, 'design_images': images, 'disclosures_checked': page.locator('#decision details').count()}
+    return {'anchors': visited, 'reading_order': order, 'native_wheel_current_section': 'system', 'hero_source_link_uncovered_closed_and_open': True, 'replay_height': {'with': with_height, 'before': before_height}, 'mobile_keyboard_travel': mobile_travel, 'design_images': images, 'disclosures_checked': page.locator('#decision details').count()}
 
 
 def cross_case_motion(suite):
