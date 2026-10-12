@@ -295,6 +295,7 @@ export function OriginStory() {
     let frame = 0;
     let navigationFrame = 0;
     let heldPointer: number | null = null;
+    let pointerFocus = false;
     let inViewport = false;
 
     function sync() {
@@ -306,8 +307,10 @@ export function OriginStory() {
       const preceding = positions.findLastIndex(box => box.top <= line);
       const next = reading >= 0 ? reading : Math.max(0, preceding);
       setActiveIndex(current => current === next ? current : next);
-      // A scroll never hides the surface whose control or gesture owns focus.
-      if (heldPointer === null && !stage!.contains(document.activeElement) && !stage!.querySelector("[data-artifact-dragging]")) {
+      // Keyboard exploration and active gestures keep their surface available.
+      // Mouse-click focus must not pin an earlier chapter after reading resumes.
+      const keyboardFocus = !pointerFocus && stage!.contains(document.activeElement) && document.activeElement?.matches(":focus-visible");
+      if (heldPointer === null && !keyboardFocus && !stage!.querySelector("[data-artifact-dragging]")) {
         setArtIndex(current => current === next ? current : next);
       }
     }
@@ -329,8 +332,12 @@ export function OriginStory() {
     scenes.forEach(scene => { readingObserver.observe(scene); resize.observe(scene); });
 
     function down(event: PointerEvent) {
-      if (event.isPrimary && event.button === 0) heldPointer = event.pointerId;
+      if (event.isPrimary && event.button === 0) {
+        pointerFocus = true;
+        heldPointer = event.pointerId;
+      }
     }
+    function keyboard() { pointerFocus = false; }
     function release(event: PointerEvent) {
       if (heldPointer === event.pointerId) heldPointer = null;
       schedule();
@@ -349,6 +356,7 @@ export function OriginStory() {
     window.addEventListener("pointerup", release, true);
     window.addEventListener("pointercancel", release, true);
     window.addEventListener("blur", blur);
+    window.addEventListener("keydown", keyboard, true);
     window.addEventListener("tg-story-chapter", legacyChapter);
     stage.addEventListener("pointerdown", down, true);
     stage.addEventListener("focusout", schedule);
@@ -363,6 +371,7 @@ export function OriginStory() {
       window.removeEventListener("pointerup", release, true);
       window.removeEventListener("pointercancel", release, true);
       window.removeEventListener("blur", blur);
+      window.removeEventListener("keydown", keyboard, true);
       window.removeEventListener("tg-story-chapter", legacyChapter);
       stage.removeEventListener("pointerdown", down, true);
       stage.removeEventListener("focusout", schedule);

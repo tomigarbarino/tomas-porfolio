@@ -1,0 +1,962 @@
+{
+  "date": "2026-10-12",
+  "target": "http://localhost:3000/",
+  "method": "Codex in-app browser; native wheel, mouse and keyboard; read-only DOM measurements",
+  "build": "ORUCxnCbPI60vefqcDGI9",
+  "checks": [
+    {
+      "name": "pause freezes auto states and permits native keyboard exploration",
+      "passed": true,
+      "evidence": {
+        "pausedB": {
+          "buttons": [
+            {
+              "background": "rgb(255, 118, 185)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "true",
+              "text": "Build",
+              "w": 136.5124969482422,
+              "x": 505.2625122070313,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Organize",
+              "w": 136.5124969482422,
+              "x": 647.7750244140625,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Lead",
+              "w": 136.5124969482422,
+              "x": 790.2875366210938,
+              "y": 392.3999938964844
+            }
+          ],
+          "chapter": "batech",
+          "detail": "I built the SaaS frontend from the ground up with React and TypeScript.",
+          "focus": "04 / BatechBatech.From builder to lead.Fronte",
+          "keyboardFocus": false,
+          "map": {
+            "bottom": 540.0000305175781,
+            "h": 275.20001220703125,
+            "w": 440.75,
+            "x": 495.6625061035156,
+            "y": 264.8000183105469
+          },
+          "motion": "paused",
+          "scene": {
+            "bottom": 739.3000144958496,
+            "h": 703.7000122070312,
+            "w": 408.0750122070313,
+            "x": 40.4375,
+            "y": 35.60000228881836
+          },
+          "scrollView": "0",
+          "view": "0",
+          "viewport": {
+            "h": 668,
+            "w": 1011
+          }
+        },
+        "pausedB2": {
+          "buttons": [
+            {
+              "background": "rgb(255, 118, 185)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "true",
+              "text": "Build",
+              "w": 136.5124969482422,
+              "x": 505.2625122070313,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Organize",
+              "w": 136.5124969482422,
+              "x": 647.7750244140625,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Lead",
+              "w": 136.5124969482422,
+              "x": 790.2875366210938,
+              "y": 392.3999938964844
+            }
+          ],
+          "chapter": "batech",
+          "detail": "I built the SaaS frontend from the ground up with React and TypeScript.",
+          "focus": "04 / BatechBatech.From builder to lead.Fronte",
+          "keyboardFocus": false,
+          "map": {
+            "bottom": 540.0000305175781,
+            "h": 275.20001220703125,
+            "w": 440.75,
+            "x": 495.6625061035156,
+            "y": 264.8000183105469
+          },
+          "motion": "paused",
+          "scene": {
+            "bottom": 539.3000030517578,
+            "h": 703.7000122070312,
+            "w": 408.0750122070313,
+            "x": 40.4375,
+            "y": -164.40000915527344
+          },
+          "scrollView": "0",
+          "view": "0",
+          "viewport": {
+            "h": 668,
+            "w": 1011
+          }
+        },
+        "pausedKey": {
+          "buttons": [
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Build",
+              "w": 136.5124969482422,
+              "x": 505.2625122070313,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Organize",
+              "w": 136.5124969482422,
+              "x": 647.7750244140625,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(255, 118, 185)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "true",
+              "text": "Lead",
+              "w": 136.5124969482422,
+              "x": 790.2875366210938,
+              "y": 392.3999938964844
+            }
+          ],
+          "chapter": "batech",
+          "detail": "I grew into frontend leadership while continuing to deliver product features.",
+          "focus": "Lead",
+          "keyboardFocus": true,
+          "map": {
+            "bottom": 540.0000305175781,
+            "h": 275.20001220703125,
+            "w": 440.75,
+            "x": 495.6625061035156,
+            "y": 264.8000183105469
+          },
+          "motion": "paused",
+          "scene": {
+            "bottom": 539.3000030517578,
+            "h": 703.7000122070312,
+            "w": 408.0750122070313,
+            "x": 40.4375,
+            "y": -164.40000915527344
+          },
+          "scrollView": "0",
+          "view": "2",
+          "viewport": {
+            "h": 668,
+            "w": 1011
+          }
+        }
+      }
+    },
+    {
+      "name": "Batech native scroll Build 1",
+      "passed": true,
+      "evidence": {
+        "buttons": [
+          {
+            "background": "rgb(255, 118, 185)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "true",
+            "text": "Build",
+            "w": 136.5124969482422,
+            "x": 505.2625122070313,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(8, 9, 9)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Organize",
+            "w": 136.5124969482422,
+            "x": 647.7750244140625,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(8, 9, 9)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Lead",
+            "w": 136.5124969482422,
+            "x": 790.2875366210938,
+            "y": 392.3999938964844
+          }
+        ],
+        "chapter": "batech",
+        "detail": "I built the SaaS frontend from the ground up with React and TypeScript.",
+        "focus": "04 / BatechBatech.From builder to lead.Fronte",
+        "keyboardFocus": false,
+        "map": {
+          "bottom": 540.0000305175781,
+          "h": 275.20001220703125,
+          "w": 440.75,
+          "x": 495.6625061035156,
+          "y": 264.8000183105469
+        },
+        "motion": "playing",
+        "scene": {
+          "bottom": 865.7000122070312,
+          "h": 703.7000122070312,
+          "w": 408.0750122070313,
+          "x": 40.4375,
+          "y": 162
+        },
+        "scrollView": "0",
+        "view": "0",
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "Batech native scroll Organize 2",
+      "passed": true,
+      "evidence": {
+        "buttons": [
+          {
+            "background": "rgb(8, 9, 9)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Build",
+            "w": 136.5124969482422,
+            "x": 505.2625122070313,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(255, 118, 185)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "true",
+            "text": "Organize",
+            "w": 136.5124969482422,
+            "x": 647.7750244140625,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(8, 9, 9)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Lead",
+            "w": 136.5124969482422,
+            "x": 790.2875366210938,
+            "y": 392.3999938964844
+          }
+        ],
+        "chapter": "batech",
+        "detail": "I organized the frontend by domain, giving product features a clearer structure.",
+        "focus": "04 / BatechBatech.From builder to lead.Fronte",
+        "keyboardFocus": false,
+        "map": {
+          "bottom": 540.0000305175781,
+          "h": 275.20001220703125,
+          "w": 440.75,
+          "x": 495.6625061035156,
+          "y": 264.8000183105469
+        },
+        "motion": "playing",
+        "scene": {
+          "bottom": 630.5000076293945,
+          "h": 703.7000122070312,
+          "w": 408.0750122070313,
+          "x": 40.4375,
+          "y": -73.20000457763672
+        },
+        "scrollView": "1",
+        "view": "1",
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "Batech native scroll Lead 3",
+      "passed": true,
+      "evidence": {
+        "buttons": [
+          {
+            "background": "rgb(8, 9, 9)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Build",
+            "w": 136.5124969482422,
+            "x": 505.2625122070313,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(15, 12, 14)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Organize",
+            "w": 136.5124969482422,
+            "x": 647.7750244140625,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(248, 115, 180)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "true",
+            "text": "Lead",
+            "w": 136.5124969482422,
+            "x": 790.2875366210938,
+            "y": 392.3999938964844
+          }
+        ],
+        "chapter": "batech",
+        "detail": "I grew into frontend leadership while continuing to deliver product features.",
+        "focus": "04 / BatechBatech.From builder to lead.Fronte",
+        "keyboardFocus": false,
+        "map": {
+          "bottom": 540.0000305175781,
+          "h": 275.20001220703125,
+          "w": 440.75,
+          "x": 495.6625061035156,
+          "y": 264.8000183105469
+        },
+        "motion": "playing",
+        "scene": {
+          "bottom": 396.1000061035156,
+          "h": 703.7000122070312,
+          "w": 408.0750122070313,
+          "x": 40.4375,
+          "y": -307.6000061035156
+        },
+        "scrollView": "2",
+        "view": "2",
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "Batech native scroll Organize 4",
+      "passed": true,
+      "evidence": {
+        "buttons": [
+          {
+            "background": "rgb(8, 9, 9)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Build",
+            "w": 136.5124969482422,
+            "x": 505.2625122070313,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(243, 113, 177)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "true",
+            "text": "Organize",
+            "w": 136.5124969482422,
+            "x": 647.7750244140625,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(20, 14, 17)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Lead",
+            "w": 136.5124969482422,
+            "x": 790.2875366210938,
+            "y": 392.3999938964844
+          }
+        ],
+        "chapter": "batech",
+        "detail": "I organized the frontend by domain, giving product features a clearer structure.",
+        "focus": "04 / BatechBatech.From builder to lead.Fronte",
+        "keyboardFocus": false,
+        "map": {
+          "bottom": 540.0000305175781,
+          "h": 275.20001220703125,
+          "w": 440.75,
+          "x": 495.6625061035156,
+          "y": 264.8000183105469
+        },
+        "motion": "playing",
+        "scene": {
+          "bottom": 630.5000076293945,
+          "h": 703.7000122070312,
+          "w": 408.0750122070313,
+          "x": 40.4375,
+          "y": -73.20000457763672
+        },
+        "scrollView": "1",
+        "view": "1",
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "Batech native scroll Build 5",
+      "passed": true,
+      "evidence": {
+        "buttons": [
+          {
+            "background": "rgb(250, 116, 182)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "true",
+            "text": "Build",
+            "w": 136.5124969482422,
+            "x": 505.2625122070313,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(13, 11, 12)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Organize",
+            "w": 136.5124969482422,
+            "x": 647.7750244140625,
+            "y": 392.3999938964844
+          },
+          {
+            "background": "rgb(8, 9, 9)",
+            "bottom": 436.3999938964844,
+            "h": 44,
+            "pressed": "false",
+            "text": "Lead",
+            "w": 136.5124969482422,
+            "x": 790.2875366210938,
+            "y": 392.3999938964844
+          }
+        ],
+        "chapter": "batech",
+        "detail": "I built the SaaS frontend from the ground up with React and TypeScript.",
+        "focus": "04 / BatechBatech.From builder to lead.Fronte",
+        "keyboardFocus": false,
+        "map": {
+          "bottom": 540.0000305175781,
+          "h": 275.20001220703125,
+          "w": 440.75,
+          "x": 495.6625061035156,
+          "y": 264.8000183105469
+        },
+        "motion": "playing",
+        "scene": {
+          "bottom": 865.7000122070312,
+          "h": 703.7000122070312,
+          "w": 408.0750122070313,
+          "x": 40.4375,
+          "y": 162
+        },
+        "scrollView": "0",
+        "view": "0",
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "native keyboard preview then scroll preserves focus and resumes auto state",
+      "passed": true,
+      "evidence": {
+        "keyPreview": {
+          "buttons": [
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Build",
+              "w": 136.5124969482422,
+              "x": 505.2625122070313,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Organize",
+              "w": 136.5124969482422,
+              "x": 647.7750244140625,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(255, 118, 185)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "true",
+              "text": "Lead",
+              "w": 136.5124969482422,
+              "x": 790.2875366210938,
+              "y": 392.3999938964844
+            }
+          ],
+          "chapter": "batech",
+          "detail": "I grew into frontend leadership while continuing to deliver product features.",
+          "focus": "Lead",
+          "keyboardFocus": true,
+          "map": {
+            "bottom": 540.0000305175781,
+            "h": 275.20001220703125,
+            "w": 440.75,
+            "x": 495.6625061035156,
+            "y": 264.8000183105469
+          },
+          "motion": "playing",
+          "scene": {
+            "bottom": 865.7000122070312,
+            "h": 703.7000122070312,
+            "w": 408.0750122070313,
+            "x": 40.4375,
+            "y": 162
+          },
+          "scrollView": "0",
+          "view": "2",
+          "viewport": {
+            "h": 668,
+            "w": 1011
+          }
+        },
+        "keyReset": {
+          "buttons": [
+            {
+              "background": "rgb(255, 118, 185)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "true",
+              "text": "Build",
+              "w": 136.5124969482422,
+              "x": 505.2625122070313,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Organize",
+              "w": 136.5124969482422,
+              "x": 647.7750244140625,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Lead",
+              "w": 136.5124969482422,
+              "x": 790.2875366210938,
+              "y": 392.3999938964844
+            }
+          ],
+          "chapter": "batech",
+          "detail": "I built the SaaS frontend from the ground up with React and TypeScript.",
+          "focus": "Lead",
+          "keyboardFocus": true,
+          "map": {
+            "bottom": 540.0000305175781,
+            "h": 275.20001220703125,
+            "w": 440.75,
+            "x": 495.6625061035156,
+            "y": 264.8000183105469
+          },
+          "motion": "playing",
+          "scene": {
+            "bottom": 845.7000122070312,
+            "h": 703.7000122070312,
+            "w": 408.0750122070313,
+            "x": 40.4375,
+            "y": 142
+          },
+          "scrollView": "0",
+          "view": "0",
+          "viewport": {
+            "h": 668,
+            "w": 1011
+          }
+        }
+      }
+    },
+    {
+      "name": "Batech clicked and hovered Lead resumes Build within same scroll band with one selected fill",
+      "passed": true,
+      "evidence": {
+        "clickAfterKey": {
+          "buttons": [
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Build",
+              "w": 136.5124969482422,
+              "x": 505.2625122070313,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Organize",
+              "w": 136.5124969482422,
+              "x": 647.7750244140625,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(255, 118, 185)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "true",
+              "text": "Lead",
+              "w": 136.5124969482422,
+              "x": 790.2875366210938,
+              "y": 392.3999938964844
+            }
+          ],
+          "chapter": "batech",
+          "detail": "I grew into frontend leadership while continuing to deliver product features.",
+          "focus": "Lead",
+          "keyboardFocus": true,
+          "map": {
+            "bottom": 540.0000305175781,
+            "h": 275.20001220703125,
+            "w": 440.75,
+            "x": 495.6625061035156,
+            "y": 264.8000183105469
+          },
+          "motion": "playing",
+          "scene": {
+            "bottom": 845.7000122070312,
+            "h": 703.7000122070312,
+            "w": 408.0750122070313,
+            "x": 40.4375,
+            "y": 142
+          },
+          "scrollView": "0",
+          "view": "2",
+          "viewport": {
+            "h": 668,
+            "w": 1011
+          }
+        },
+        "hoverScroll": {
+          "buttons": [
+            {
+              "background": "rgb(228, 106, 166)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "true",
+              "text": "Build",
+              "w": 136.5124969482422,
+              "x": 505.2625122070313,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(8, 9, 9)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Organize",
+              "w": 136.5124969482422,
+              "x": 647.7750244140625,
+              "y": 392.3999938964844
+            },
+            {
+              "background": "rgb(35, 21, 28)",
+              "bottom": 436.3999938964844,
+              "h": 44,
+              "pressed": "false",
+              "text": "Lead",
+              "w": 136.5124969482422,
+              "x": 790.2875366210938,
+              "y": 392.3999938964844
+            }
+          ],
+          "chapter": "batech",
+          "detail": "I built the SaaS frontend from the ground up with React and TypeScript.",
+          "focus": "Lead",
+          "keyboardFocus": true,
+          "map": {
+            "bottom": 540.0000305175781,
+            "h": 275.20001220703125,
+            "w": 440.75,
+            "x": 495.6625061035156,
+            "y": 264.8000183105469
+          },
+          "motion": "playing",
+          "scene": {
+            "bottom": 830.5000152587891,
+            "h": 703.7000122070312,
+            "w": 408.0750122070313,
+            "x": 40.4375,
+            "y": 126.8000030517578
+          },
+          "scrollView": "0",
+          "view": "0",
+          "viewport": {
+            "h": 668,
+            "w": 1011
+          }
+        }
+      }
+    },
+    {
+      "name": "click on previously keyboard-focused control no longer pins earlier chapter",
+      "passed": true,
+      "evidence": {
+        "art": "origin-story__art origin-story__art--interfaces",
+        "reading": "interfaces"
+      }
+    },
+    {
+      "name": "Flock clicked Insights resumes its native stage within the same scroll band",
+      "passed": true,
+      "observed": {
+        "selected": "0",
+        "scroll": "0"
+      }
+    },
+    {
+      "name": "Hogarth shared scroll hook retains all three compositions forward and reverse",
+      "passed": true,
+      "observed": [
+        {
+          "progress": 0.15,
+          "chapter": "hogarth",
+          "view": "0",
+          "scrollView": "0"
+        },
+        {
+          "progress": 0.5,
+          "chapter": "hogarth",
+          "view": "1",
+          "scrollView": "1"
+        },
+        {
+          "progress": 0.85,
+          "chapter": "hogarth",
+          "view": "2",
+          "scrollView": "2"
+        },
+        {
+          "progress": 0.5,
+          "chapter": "hogarth",
+          "view": "1",
+          "scrollView": "1"
+        },
+        {
+          "progress": 0.15,
+          "chapter": "hogarth",
+          "view": "0",
+          "scrollView": "0"
+        }
+      ]
+    },
+    {
+      "name": "Hogarth clicked Wide resumes Compact within the same scroll band",
+      "passed": true,
+      "observed": {
+        "chapter": "hogarth",
+        "view": "0",
+        "scrollView": "0"
+      }
+    },
+    {
+      "name": "Batech whole-surface drag still moves the map",
+      "passed": true,
+      "observed": {
+        "dx": "19.1500244140625px",
+        "dy": "11.99993896484375px"
+      }
+    },
+    {
+      "name": "Batech keyboard Home restores the dragged map",
+      "passed": true,
+      "observed": {
+        "dx": "0px",
+        "dy": "0px"
+      }
+    },
+    {
+      "name": "Batech held gesture freezes automatic state then catches up on release",
+      "passed": true,
+      "observed": {
+        "held": "1",
+        "released": "2"
+      }
+    },
+    {
+      "name": "390px Batech advances all stages with separated caption, stable map and 44px controls",
+      "passed": true,
+      "observed": [
+        {
+          "width": 390,
+          "progress": 0.15,
+          "view": "0",
+          "scrollView": "0",
+          "chapter": "batech",
+          "targetMin": 44,
+          "captionGap": 4.799997329711914,
+          "mapLeft": 28,
+          "mapRight": 362.3999938964844,
+          "mapHeight": 145.1999969482422,
+          "detail": "I built the SaaS frontend from the ground up with React and TypeScript."
+        },
+        {
+          "width": 390,
+          "progress": 0.5,
+          "view": "1",
+          "scrollView": "1",
+          "chapter": "batech",
+          "targetMin": 44,
+          "captionGap": 4.799997329711914,
+          "mapLeft": 28,
+          "mapRight": 362.3999938964844,
+          "mapHeight": 145.1999969482422,
+          "detail": "I organized the frontend by domain, giving product features a clearer structure."
+        },
+        {
+          "width": 390,
+          "progress": 0.85,
+          "view": "2",
+          "scrollView": "2",
+          "chapter": "batech",
+          "targetMin": 44,
+          "captionGap": 4.799997329711914,
+          "mapLeft": 28,
+          "mapRight": 362.3999938964844,
+          "mapHeight": 145.1999969482422,
+          "detail": "I grew into frontend leadership while continuing to deliver product features."
+        }
+      ]
+    },
+    {
+      "name": "320px Batech advances all stages with separated caption, stable map and 44px controls",
+      "passed": true,
+      "observed": [
+        {
+          "width": 320,
+          "progress": 0.15,
+          "view": "0",
+          "scrollView": "0",
+          "chapter": "batech",
+          "targetMin": 44,
+          "captionGap": 4.799997329711914,
+          "mapLeft": 24,
+          "mapRight": 296,
+          "mapHeight": 145.1999969482422,
+          "detail": "I built the SaaS frontend from the ground up with React and TypeScript."
+        },
+        {
+          "width": 320,
+          "progress": 0.5,
+          "view": "1",
+          "scrollView": "1",
+          "chapter": "batech",
+          "targetMin": 44,
+          "captionGap": 4.799997329711914,
+          "mapLeft": 24,
+          "mapRight": 296,
+          "mapHeight": 145.1999969482422,
+          "detail": "I organized the frontend by domain, giving product features a clearer structure."
+        },
+        {
+          "width": 320,
+          "progress": 0.85,
+          "view": "2",
+          "scrollView": "2",
+          "chapter": "batech",
+          "targetMin": 44,
+          "captionGap": 4.799997329711914,
+          "mapLeft": 24,
+          "mapRight": 296,
+          "mapHeight": 145.1999969482422,
+          "detail": "I grew into frontend leadership while continuing to deliver product features."
+        }
+      ]
+    },
+    {
+      "name": "Reduced motion freezes automatic Batech changes while chapter reading continues",
+      "passed": true,
+      "observed": {
+        "before": "2",
+        "after": "2",
+        "chapter": "batech",
+        "motion": "paused"
+      }
+    },
+    {
+      "name": "Final native browser has no captured console errors",
+      "passed": true,
+      "observed": []
+    }
+  ],
+  "summary": {
+    "accepted": 19,
+    "failed": 0
+  },
+  "diagnostics": [
+    "Initial locator key input scrolled the focused element into view; keyboard regression was repeated with native key input.",
+    "A real keyboard-then-click focus-visible lock was reproduced and fixed with pointer/keyboard modality tracking; final cross-chapter retest passed.",
+    "Reduced-motion layout removes sticky artwork. Offscreen manual-click attempts were not accepted as proof. The final reduced-motion check covers frozen automatic state and continuing chapter reading; manual controls were verified under global pause."
+  ],
+  "restored": {
+    "viewport": true,
+    "motionEmulation": true,
+    "motion": "playing"
+  },
+  "limits": [
+    "Emulated 320px and 390px dimensions; no physical touch hardware test.",
+    "No standalone browser test suite was run for this bounded follow-up."
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "hasTitle": true,
+    "hasStory": true,
+    "hasBatechStates": true
+  },
+  {
+    "path": "/en/agora",
+    "status": 200,
+    "hasTitle": true,
+    "hasStory": false,
+    "hasBatechStates": false
+  },
+  {
+    "path": "/en/trainly",
+    "status": 200,
+    "hasTitle": true,
+    "hasStory": false,
+    "hasBatechStates": false
+  }
+]

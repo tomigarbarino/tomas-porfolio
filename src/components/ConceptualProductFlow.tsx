@@ -31,6 +31,7 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
     if (!visible || paused || !chapter || !surface) return;
     let raf = 0;
     let heldPointer: number | null = null;
+    let lastScrollY = window.scrollY;
     function sync() {
       raf = 0;
       if (document.hidden || heldPointer !== null || surface!.querySelector('[data-artifact-dragging="true"]') || surface!.hasAttribute("data-artifact-dragging")) return;
@@ -39,15 +40,19 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
       const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
       const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
       const next = Math.min(stages.length - 1, Math.floor(progress * stages.length));
-      if (scrollStageRef.current === next) return;
-      scrollStageRef.current = next;
-      setScrollStage(next);
-      // A new reading stage returns manual previews to the native scroll story.
-      // Focus itself stays on the user's control.
-      setHovered(null);
-      setFocused(null);
-      setPinned(null);
-      setDismissed(false);
+      if (window.scrollY !== lastScrollY || scrollStageRef.current !== next) {
+        // Reading resumes after any real scroll, even within the same stage.
+        // DOM focus and manual drag offsets remain with the user's controls.
+        setHovered(null);
+        setFocused(null);
+        setPinned(null);
+        setDismissed(false);
+      }
+      lastScrollY = window.scrollY;
+      if (scrollStageRef.current !== next) {
+        scrollStageRef.current = next;
+        setScrollStage(next);
+      }
     }
     function schedule() { if (!raf && !document.hidden) raf = requestAnimationFrame(sync); }
     function down(event: PointerEvent) { if (event.isPrimary && event.button === 0) heldPointer = event.pointerId; }

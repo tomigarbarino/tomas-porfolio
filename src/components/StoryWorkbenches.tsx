@@ -80,23 +80,18 @@ function useInspectionHalo(surface: RefObject<HTMLDivElement | null>, enabled: b
   }, [surface, enabled]);
 }
 
-export function HogarthWorkbench({ active, paused }: Props) {
+function useChapterScrollView(chapterId: string, count: number, { active, paused }: Props, frameRef: RefObject<HTMLDivElement | null>) {
   const [scrollView, setScrollView] = useState(0);
+  const scrollViewRef = useRef(0);
   const [hoveredView, setHoveredView] = useState<number | null>(null);
   const [focusedView, setFocusedView] = useState<number | null>(null);
-  const frameRef = useRef<HTMLDivElement>(null);
-  const buttons = useRef<Array<HTMLButtonElement | null>>([]);
-  const preview = useRef<HTMLDivElement>(null);
-  const id = useId();
-  const view = focusedView ?? hoveredView ?? scrollView;
-  useInspectionHalo(preview, active && !paused);
-
   useEffect(() => {
-    const chapter = document.getElementById("story-hogarth");
+    const chapter = document.getElementById(chapterId);
     const surface = frameRef.current;
     if (!active || paused || !chapter || !surface) return;
     let raf = 0;
     let heldPointer: number | null = null;
+    let lastScrollY = window.scrollY;
     function sync() {
       raf = 0;
       if (document.hidden || heldPointer !== null || surface!.hasAttribute("data-artifact-dragging")) return;
@@ -105,8 +100,17 @@ export function HogarthWorkbench({ active, paused }: Props) {
       // Same reading band as OriginStory; no added scroll distance or wheel capture.
       const line = window.innerWidth <= 800 ? Math.min(window.innerHeight * .65, 380) : window.innerHeight * .4;
       const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
-      const next = Math.min(layouts.length - 1, Math.floor(progress * layouts.length));
-      setScrollView(current => current === next ? current : next);
+      const next = Math.min(count - 1, Math.floor(progress * count));
+      if (window.scrollY !== lastScrollY || next !== scrollViewRef.current) {
+        // Manual exploration lasts until reading resumes, without blurring controls.
+        setHoveredView(null);
+        setFocusedView(null);
+      }
+      lastScrollY = window.scrollY;
+      if (next !== scrollViewRef.current) {
+        scrollViewRef.current = next;
+        setScrollView(next);
+      }
     }
     function schedule() {
       if (!raf && !document.hidden) raf = requestAnimationFrame(sync);
@@ -144,7 +148,17 @@ export function HogarthWorkbench({ active, paused }: Props) {
       surface.removeEventListener("pointerdown", down, true);
       document.removeEventListener("visibilitychange", visibility);
     };
-  }, [active, paused]);
+  }, [chapterId, count, active, paused, frameRef]);
+  return { scrollView, view: focusedView ?? hoveredView ?? scrollView, setHoveredView, setFocusedView };
+}
+
+export function HogarthWorkbench({ active, paused }: Props) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const buttons = useRef<Array<HTMLButtonElement | null>>([]);
+  const preview = useRef<HTMLDivElement>(null);
+  const id = useId();
+  const { scrollView, view, setHoveredView, setFocusedView } = useChapterScrollView("story-hogarth", layouts.length, { active, paused }, frameRef);
+  useInspectionHalo(preview, active && !paused);
 
   return <div ref={frameRef} className="story-workbench story-workbench--hogarth" data-drag-frame data-view={view} data-scroll-view={scrollView} data-motion={active && !paused}>
     <ArtifactDrag label="Move the Hogarth interface study" />
@@ -165,10 +179,11 @@ export function HogarthWorkbench({ active, paused }: Props) {
 }
 
 export function BatechDomainMap({ active, paused }: Props) {
-  const [view, setView] = useState(0);
+  const frameRef = useRef<HTMLDivElement>(null);
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
   const id = useId();
-  return <div className="story-workbench story-workbench--batech" data-drag-frame data-view={view} data-motion={active && !paused}>
+  const { scrollView, view, setHoveredView, setFocusedView } = useChapterScrollView("story-batech", responsibilities.length, { active, paused }, frameRef);
+  return <div ref={frameRef} className="story-workbench story-workbench--batech" data-drag-frame data-view={view} data-scroll-view={scrollView} data-motion={active && !paused}>
     <ArtifactDrag label="Move the Batech responsibility map" />
     <header className="story-workbench__bar"><p>Build / organize / lead<span>Conceptual responsibility map</span></p></header>
     <div className="story-workbench__routes" aria-hidden="true">
@@ -176,7 +191,7 @@ export function BatechDomainMap({ active, paused }: Props) {
       <span className="story-workbench__endpoint">UI</span><span className="story-workbench__endpoint">DOMAIN</span><span className="story-workbench__endpoint">TEAM</span>
     </div>
     <div className="story-workbench__controls" role="group" aria-label="Batech responsibilities">
-      {responsibilities.map((responsibility, index) => <button key={responsibility.label} type="button" ref={node => { buttons.current[index] = node; }} aria-pressed={view === index} aria-controls={`${id}-detail`} onPointerEnter={event => { if (event.pointerType === "mouse" && !event.buttons) setView(index); }} onFocus={() => setView(index)} onClick={() => setView(index)} onKeyDown={event => moveFocus(event, index, buttons)}>{responsibility.label}</button>)}
+      {responsibilities.map((responsibility, index) => <button key={responsibility.label} type="button" ref={node => { buttons.current[index] = node; }} aria-pressed={view === index} aria-controls={`${id}-detail`} onPointerEnter={event => { if (event.pointerType === "mouse" && !event.buttons) setHoveredView(index); }} onPointerLeave={() => setHoveredView(null)} onPointerCancel={() => setHoveredView(null)} onFocus={() => setFocusedView(index)} onBlur={() => setFocusedView(null)} onClick={() => setFocusedView(index)} onKeyDown={event => moveFocus(event, index, buttons)}>{responsibility.label}</button>)}
     </div>
     <div className="story-workbench__detail" id={`${id}-detail`}><p>{responsibilities[view].copy}</p></div>
   </div>;

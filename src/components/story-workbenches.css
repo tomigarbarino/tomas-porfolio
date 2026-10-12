@@ -23,7 +23,6 @@
 .origin-story .story-workbench__controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 8px; }
 .origin-story .story-workbench__controls button { position: relative; display: flex; justify-content: center; align-items: center; gap: 5px; min-width: 44px; min-height: 44px; padding: 8px 5px; border: 1px solid var(--story-ink); background: var(--story-paper); color: var(--story-ink); font-size: 11px; line-height: 1.4; overflow-wrap: anywhere; }
 .origin-story .story-workbench__controls button[aria-pressed="true"] { background: var(--workbench-accent); box-shadow: inset 0 -3px 0 var(--story-ink); }
-.origin-story .story-workbench__controls button:hover { background: var(--story-highlight); color: var(--story-ink); }
 .origin-story .story-workbench__controls button:focus-visible { z-index: 2; outline: 3px solid var(--story-ink); outline-offset: 3px; }
 .origin-story .story-workbench__preview { --inspect-x: 50%; --inspect-y: 50%; position: relative; display: grid; place-items: center; height: clamp(130px, calc(var(--story-canvas-height) * .31), 210px); overflow: hidden; border-block: 1px solid var(--story-ink); background: var(--story-ink); isolation: isolate; }
 .origin-story .story-workbench__preview::before { content: ""; position: absolute; z-index: -2; inset: 0; background: radial-gradient(var(--story-lavender) .7px, transparent 1px) 0 0 / 9px 9px; opacity: .3; }
@@ -55,7 +54,7 @@
 .origin-story .story-workbench--batech { background: var(--story-ink); color: var(--story-paper); border-color: var(--story-pink); box-shadow: 5px 6px 0 var(--story-ink), 7px 8px 0 var(--story-pink); }
 .origin-story .story-workbench--batech .story-workbench__bar { border-color: var(--story-pink); color: var(--story-ink); }
 .origin-story .story-workbench--batech .story-workbench__controls button { background: var(--story-ink); color: var(--story-paper); border-color: var(--story-lavender); }
-.origin-story .story-workbench--batech .story-workbench__controls button:is([aria-pressed="true"], :hover) { background: var(--workbench-accent); color: var(--story-ink); border-color: var(--workbench-accent); }
+.origin-story .story-workbench--batech .story-workbench__controls button[aria-pressed="true"] { background: var(--workbench-accent); color: var(--story-ink); border-color: var(--workbench-accent); }
 .origin-story .story-workbench--batech .story-workbench__controls button:focus-visible { outline-color: var(--story-highlight); }
 .origin-story .story-workbench--batech .story-workbench__detail { border-color: #c6a7ff80; }
 .origin-story .story-workbench__routes { position: relative; height: 74px; margin: 0 12px; }
