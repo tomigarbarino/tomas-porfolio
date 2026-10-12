@@ -39,7 +39,7 @@ export function AgoraCase() {
             <p className="agora-case__kicker">Product ownership · Applied AI</p>
             <h3 id="agora-title" className="agora-preview__title">Hiring decisions<br />need context.</h3>
             <p className="agora-case__summary">Agora connects role requirements, CV evidence and technical interviews with the recruiter workflow.</p>
-            <div className="agora-case__meta"><span>My role / Product Owner + AI implementation</span><span className="agora-case__status"><i aria-hidden="true" />Ongoing product work</span></div>
+            <div className="agora-case__meta"><span>My role / Product Owner + AI implementation</span><span className="agora-case__status"><i aria-hidden="true" />Live with clients · Growing</span></div>
           </div>
         </header>
         <div className="agora-case__content">

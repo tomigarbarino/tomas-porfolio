@@ -14,7 +14,7 @@ const cases = [
     description: "Read the product decision and its scoped check",
     logo: "/media/agora-logo.svg", logoWidth: 126, logoHeight: 37,
     image: "/media/agora-interview-ready.png", width: 1440, height: 900,
-    caption: "Interview readiness / Figma design",
+    caption: "Interview readiness / Candidate experience",
   },
   {
     id: "trainly", number: "02", name: "Trainly", href: "/en/trainly",
@@ -22,7 +22,7 @@ const cases = [
     description: "Explore the learning experience and implementation",
     logo: "/media/trainly/trainly-logo.svg", logoWidth: 148, logoHeight: 36,
     image: "/media/trainly/campus-ai.png", width: 1350, height: 652,
-    caption: "AI campus / Published demo",
+    caption: "AI campus / Learning experience",
   },
 ] as const;
 

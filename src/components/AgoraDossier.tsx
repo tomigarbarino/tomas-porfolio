@@ -34,13 +34,13 @@ const contributions = [
 const designs = [
   {
     id: "candidate-upload", src: "/media/agora-candidate-upload.png", title: "Candidate CV upload",
-    alt: "Agora candidate CV upload Figma design with an empty upload area",
+    alt: "Agora candidate CV upload interface reference with an empty upload area",
     caption: "An empty upload state in the candidate application.",
     source: "https://www.figma.com/design/gKp8MoVlJ2vdftqeyqmyht/Agora---Design-file?node-id=4672-8410",
   },
   {
     id: "interview-preparation", src: "/media/agora-device-check.png", title: "Interview preparation",
-    alt: "Agora candidate interview device-check Figma design, before an interview starts",
+    alt: "Agora candidate interview device-check interface reference, before an interview starts",
     caption: "Device preparation before the AI interview begins.",
     source: "https://www.figma.com/design/gKp8MoVlJ2vdftqeyqmyht/Agora---Design-file?node-id=5822-10016",
   },
@@ -113,7 +113,7 @@ function CandidateFrame({ design, hero = false }: { design: typeof designs[numbe
     {/* These are existing, empty Figma states, not a live candidate record. */}
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img src={design.src} alt={design.alt} width="1440" height="900" loading={hero ? "eager" : "lazy"} decoding="async" />
-    <figcaption><div><span className="ad-design-kind">Figma design</span><p>{design.caption}</p></div><a href={design.source} target="_blank" rel="noreferrer">View source ↗</a></figcaption>
+    <figcaption><div><span className="ad-design-kind">Candidate experience</span><p>{design.caption}</p></div><a href={design.source} target="_blank" rel="noreferrer">View source ↗</a></figcaption>
   </figure>;
 }
 
@@ -130,7 +130,7 @@ export function AgoraDossier() {
           <h1 id="agora-case-title">Agora.<br /><span>Keep the<br />context.</span></h1>
           <p className="ad-hero-deck">A trainee was rejected. The problem was missing context.</p>
           <p className="ad-hero-scope">On Agora at Flock I+D, I’m the Product Owner. My work spans customer discovery, product priorities, architecture decisions, hands-on AI implementation and candidate UX/UI.</p>
-          <dl className="ad-role"><div><dt>My role</dt><dd>Product Owner</dd></div><div><dt>Product</dt><dd>Recruiting + applied AI</dd></div><div><dt>Status</dt><dd>Ongoing product work</dd></div></dl>
+          <dl className="ad-role"><div><dt>My role</dt><dd>Product Owner</dd></div><div><dt>Product</dt><dd>Recruiting + applied AI</dd></div><div><dt>Status</dt><dd>Live with clients · Growing</dd></div></dl>
           <a className="ad-link ad-link--primary" href="#decision">Read the decision <span aria-hidden="true">↓</span></a>
         </div>
         <div className="ad-hero-art" data-scroll-depth="-18">
@@ -182,7 +182,7 @@ export function AgoraDossier() {
             <SectionHeading number="04" label="Candidate experience" title={<span id="agora-experience-title">Candidate UX is<br />part of the product.</span>}><p>My scope also includes candidate UX/UI. These product designs show two moments in that journey: uploading a CV and preparing devices for an AI interview.</p></SectionHeading>
             <aside className="ad-section-sticker ad-section-sticker--human" data-scroll-depth="14"><PeelSticker art="human" title="Human in the loop." fact="A CV upload and a device check are part of the same candidate journey as the interview." tone="pink" /></aside>
             <div className="ad-art-group" data-scroll-depth="-12"><div className="ad-design-gallery">{designs.map(design => <CandidateFrame key={design.id} design={design} />)}</div></div>
-            <p className="ad-note">Design evidence / selected Figma frames. These images are not live production captures or records of a real application.</p>
+            <p className="ad-note">Interface references / CV upload and interview preparation.</p>
           </section>
 
           <section className="ad-section" id="system" data-drag-boundary aria-labelledby="agora-system-title">
@@ -193,7 +193,7 @@ export function AgoraDossier() {
           </section>
 
           <section className="ad-section ad-next" id="next" aria-labelledby="agora-next-title">
-            <SectionHeading number="06" label="Current status / ongoing product work" title={<span id="agora-next-title">The next iteration:<br />better inputs.</span>}><p>The immediate guardrail addressed searches with no structured skills. Structured templates, imports and AI prefill remain the next structural direction, alongside continued work on the candidate and recruiter experience.</p></SectionHeading>
+            <SectionHeading number="06" label="Current status / in use and growing" title={<span id="agora-next-title">The next iteration:<br />better inputs.</span>}><p>Agora is used by clients and continues to grow. The immediate guardrail addressed searches with no structured skills. Structured templates, imports and AI prefill remain the next structural direction, alongside continued work on the candidate and recruiter experience.</p></SectionHeading>
             <div className="ad-next-grid"><Link className="ad-related" href="/en/trainly" prefetch={true}><span className="ad-label">Another case / Trainly</span><strong>Learning,<br />in a loop.</strong><span>Product flow · Frontend · AI integration <i aria-hidden="true">↗</i></span></Link><div className="ad-contact"><p className="ad-label">Bring the context.</p><h3>Building an<br />AI product?</h3><Link className="ad-link ad-link--primary" href="/#contact" prefetch={true}>Let’s talk product engineering <span aria-hidden="true">↗</span></Link><Link className="ad-link" href="/#work" prefetch={true}>Back to selected work <span aria-hidden="true">←</span></Link></div></div>
             <footer className="ad-footer"><span>Tomás Garbarino / Product Engineer · Applied AI</span><a href="#top">Back to top ↑</a><span aria-hidden="true">TG_</span></footer>
           </section>

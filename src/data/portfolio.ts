@@ -81,8 +81,8 @@ export const trainlyCase = {
   category: "AI-powered training & assessment",
   title: "Learning is a product loop.",
   scope: ["Product flow", "Frontend", "AI integration"],
-  status: "Active validation",
-  statusHeadline: "Demo-ready. Active validation.",
+  status: "Live with clients · Growing",
+  statusHeadline: "In use. Growing.",
   problem: {
     title: "Completion does not show understanding.",
     body: "Teams can deliver a document, a session or a course and still lack evidence that people can explain or apply the knowledge.",
@@ -107,9 +107,9 @@ export const trainlyCase = {
     { name: "OpenAI + Gemini", purpose: "Text and visual generation" },
   ],
   evidence:
-    "The published case presents the product flow, interface and technical architecture as implemented and demo-ready. Real interface assets make the product experience inspectable.",
+    "Clients use Trainly, and the product continues to grow. This case presents the implemented product flow, interface and technical architecture.",
   limits:
-    "Learning outcomes have not been quantitatively validated. Demo values are illustrative; they are not customer results. The system overview does not attribute model training to my work.",
+    "This case does not report quantified learning outcomes. Demo values are illustrative; they are not customer results. The system overview does not attribute model training to my work.",
   source: "https://tomas-garbarino.vercel.app/en/trainly",
 } as const;
 

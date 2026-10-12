@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Agora — Hiring decisions need context",
     description: "Product ownership, customer discovery and hands-on AI implementation. A recruiting case by Tomás Garbarino.",
     type: "article",
-    images: [{ url: "/media/agora-candidate-upload.png", width: 1440, height: 900, alt: "Agora candidate upload — Figma design" }],
+    images: [{ url: "/media/agora-candidate-upload.png", width: 1440, height: 900, alt: "Agora candidate upload — interface reference" }],
   },
 };
 
