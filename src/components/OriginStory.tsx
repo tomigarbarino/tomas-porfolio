@@ -23,7 +23,6 @@ const chapters = [
     role: "Curiosity, before code",
     src: "/media/minecraft-ascii.mp4",
     poster: "/media/minecraft-ascii.png",
-    mediaNote: "Animated photo reference / not a personal artefact",
   },
   {
     id: "conversations",
@@ -34,7 +33,6 @@ const chapters = [
     role: "Taking an idea to people",
     src: "/media/cafe-ascii.mp4",
     poster: "/media/cafe-ascii.png",
-    mediaNote: "Animated photo reference / not a client or personal artefact",
   },
   {
     id: "hogarth",
@@ -45,7 +43,6 @@ const chapters = [
     copy: "At Hogarth Worldwide, I worked on frontend engineering for Apple-related projects. The curiosity that started in game files had become professional work on interfaces.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
-    mediaNote: "Conceptual interface study / no Hogarth or Apple project imagery shown",
   },
   {
     id: "batech",
@@ -54,10 +51,8 @@ const chapters = [
     title: ["Batech.", "From builder to lead."],
     role: "Frontend Engineer → Frontend Lead",
     copy: "At Batech, I was the only frontend engineer on a SaaS product using AI and computer vision to turn existing cameras into operational information, alerts and reports. My responsibility grew into frontend leadership while I continued delivering product features.",
-    note: "The video is company footage. It provides product context; it does not attribute computer vision models or company metrics to my work.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
-    mediaNote: "Batech company footage / my contribution: frontend engineering and leadership",
   },
   {
     id: "interfaces",
@@ -68,7 +63,6 @@ const chapters = [
     copy: "At Flock I+D, my work extends from the interface to the whole feature: discovery, product and architecture decisions, implementation and validation. I work as a Product Engineer in AI R&D on Agora and Trainly, two products within Flock.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
-    mediaNote: "Agora + Trainly / product brands · conceptual flow",
     projects: [
       { name: "Agora", logo: "/media/agora-logo.svg", logoWidth: 126, logoHeight: 37, scope: "My role / Product Owner", action: "I help define the recruiting product, implement AI features and shape the candidate UX/UI.", href: "/en/agora", link: "Open the Agora case" },
       { name: "Trainly", logo: "/media/trainly/trainly-logo.svg", logoWidth: 328, logoHeight: 80, scope: "My work / Learning experience", action: "I work on the frontend and AI integration connecting learning, conversational assessment and manager visibility.", href: "/en/trainly", link: "Open the Trainly case" },
@@ -270,7 +264,7 @@ function StoryArt({ chapter, index, paused, active }: { chapter: typeof chapters
   if (chapter.id === "batech") {
     return <div className="origin-story__art origin-story__art--batech" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
       <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
-      <figure className="origin-story__company-film" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechVideo active={active} describedBy={`${lensFilterId}-caption`} /><figcaption id={`${lensFilterId}-caption`}>Company footage / my role: frontend</figcaption></figure>
+      <figure className="origin-story__company-film" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechVideo active={active} /></figure>
       <BatechDomainMap active={active} paused={paused} />
     </div>;
   }
@@ -423,7 +417,6 @@ export function OriginStory() {
           <div className="origin-story__stage" data-drag-boundary ref={stageRef}>
             {chapters.map((chapter, index) => <StoryArt key={chapter.id} chapter={chapter} index={index} active={artIndex === index} paused={paused || !artVisible || artIndex !== index} />)}
           </div>
-          <p className="origin-story__media-note">{chapters.map((chapter, index) => <span key={chapter.id} data-selected={artIndex === index} aria-hidden={artIndex !== index}>{chapter.mediaNote}</span>)}</p>
           <div className="origin-story__progress" aria-hidden="true"><span>0{activeIndex + 1} / 05</span><div>{chapters.map((chapter, index) => <i key={chapter.id} data-current={activeIndex === index} data-complete={activeIndex > index} />)}</div></div>
         </aside>
 
@@ -436,7 +429,6 @@ export function OriginStory() {
               <ArtifactDrag label={`Move the ${chapter.label} story card`} />
               {chapter.id === "hogarth" ? <div className="origin-story__apple-slot"><HogarthAppleSticker /></div> : null}
               <p className="origin-story__copy">{chapter.copy}</p>
-              {"note" in chapter ? <p className="origin-story__scope-note">{chapter.note}</p> : null}
             </div>
             {"projects" in chapter ? <div className="origin-story__projects" data-drag-boundary>{chapter.projects.map(project => <article key={project.name} data-drag-frame>
               <ArtifactDrag label={`Move the ${project.name} career card`} />
