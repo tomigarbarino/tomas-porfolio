@@ -1,0 +1,702 @@
+{
+  "date": "2026-10-12",
+  "target": "http://localhost:3000/",
+  "build": "9Pqzn1Ib58pBGdeVh0hbz",
+  "method": "Native wheel, mouse and keyboard through Codex in-app browser; read-only DOM measurements",
+  "checks": [
+    {
+      "name": "All five chapters and four boundaries verified forward and reverse",
+      "passed": true,
+      "observed": [
+        "files",
+        "conversations",
+        "hogarth",
+        "batech",
+        "interfaces",
+        "batech",
+        "hogarth",
+        "conversations",
+        "files"
+      ]
+    },
+    {
+      "name": "Stable desktop stage and caption height across all chapters",
+      "passed": true,
+      "observed": {
+        "stageHeight": 528,
+        "captionHeight": 57.60000228881836
+      }
+    },
+    {
+      "name": "Measured synchronized opacity crossfade for art and caption",
+      "passed": true,
+      "observed": {
+        "duration": "0.52s, 0s",
+        "samples": [
+          {
+            "art": [
+              0.32507,
+              0.67493,
+              0,
+              0,
+              0
+            ],
+            "caption": [
+              0.32507,
+              0.67493,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "art": [
+              0.109973,
+              0.890027,
+              0,
+              0,
+              0
+            ],
+            "caption": [
+              0.109973,
+              0.890027,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "files surface drag permits chapter change and preserves offset on return",
+      "passed": true,
+      "observed": {
+        "moved": {
+          "dx": "25.04083251953125px",
+          "dy": "8.796966552734375px"
+        },
+        "chapterAfterScroll": "conversations",
+        "returned": {
+          "dx": "25.04083251953125px",
+          "dy": "8.796966552734375px"
+        }
+      }
+    },
+    {
+      "name": "conversations surface drag permits chapter change and preserves offset on return",
+      "passed": true,
+      "observed": {
+        "moved": {
+          "dx": "18px",
+          "dy": "10px"
+        },
+        "chapterAfterScroll": "hogarth",
+        "returned": {
+          "dx": "18px",
+          "dy": "10px"
+        }
+      },
+      "diagnostic": "Initial top-left bounding-box drag missed the rotated menu face; native retest targeted its interior."
+    },
+    {
+      "name": "hogarth surface drag permits chapter change and preserves offset on return",
+      "passed": true,
+      "observed": {
+        "moved": {
+          "dx": "19.150054931640625px",
+          "dy": "20px"
+        },
+        "chapterAfterScroll": "batech",
+        "returned": {
+          "dx": "19.150054931640625px",
+          "dy": "20px"
+        }
+      }
+    },
+    {
+      "name": "batech surface drag permits chapter change and preserves offset on return",
+      "passed": true,
+      "observed": {
+        "moved": {
+          "dx": "19.150054931640625px",
+          "dy": "11.99993896484375px"
+        },
+        "chapterAfterScroll": "interfaces",
+        "returned": {
+          "dx": "19.150054931640625px",
+          "dy": "11.99993896484375px"
+        }
+      }
+    },
+    {
+      "name": "interfaces surface drag permits chapter change and preserves offset on return",
+      "passed": true,
+      "observed": {
+        "moved": {
+          "dx": "18px",
+          "dy": "10px"
+        },
+        "chapterAfterScroll": "batech",
+        "returned": {
+          "dx": "18px",
+          "dy": "10px"
+        }
+      }
+    },
+    {
+      "name": "Escape during drag preserves held gesture and catches up to Flock on pointer release",
+      "passed": true,
+      "observed": {
+        "held": {
+          "art": "batech",
+          "step": "interfaces"
+        },
+        "canceled": {
+          "art": "batech",
+          "step": "interfaces"
+        },
+        "released": {
+          "art": "interfaces",
+          "step": "interfaces"
+        },
+        "offsetRestored": {
+          "dx": "19.150054931640625px",
+          "dy": "11.99993896484375px"
+        }
+      }
+    },
+    {
+      "name": "Escape after a completed drag does not pin the previous chapter",
+      "passed": true,
+      "observed": {
+        "captionHeight": 57.60000228881836,
+        "chapter": "interfaces",
+        "dragging": 0,
+        "focus": null,
+        "focusVisible": false,
+        "line": 267.2,
+        "motion": "playing",
+        "scrollY": 4109.60009765625,
+        "step": "interfaces",
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        },
+        "visual": {
+          "bottom": 656,
+          "h": 632,
+          "position": "sticky",
+          "top": 24
+        }
+      }
+    },
+    {
+      "name": "hogarth clicked state releases its chapter on subsequent scroll",
+      "passed": true,
+      "observed": {
+        "chapter": "batech",
+        "step": "batech"
+      }
+    },
+    {
+      "name": "batech clicked state releases its chapter on subsequent scroll",
+      "passed": true,
+      "observed": {
+        "chapter": "interfaces",
+        "step": "interfaces"
+      }
+    },
+    {
+      "name": "interfaces clicked state releases its chapter on subsequent scroll",
+      "passed": true,
+      "observed": {
+        "chapter": "batech",
+        "step": "batech"
+      }
+    },
+    {
+      "name": "Explicit wheel resumes chapter reading after genuine keyboard exploration",
+      "passed": true,
+      "observed": {
+        "before": {
+          "chapter": "batech",
+          "focusVisible": true
+        },
+        "after": {
+          "chapter": "interfaces",
+          "step": "interfaces"
+        }
+      }
+    },
+    {
+      "name": "390px all chapters remain aligned forward/reverse below the sticky artwork",
+      "passed": true,
+      "observed": [
+        {
+          "chapter": "files",
+          "step": "files",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "conversations",
+          "step": "conversations",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "hogarth",
+          "step": "hogarth",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "batech",
+          "step": "batech",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "interfaces",
+          "step": "interfaces",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "batech",
+          "step": "batech",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "hogarth",
+          "step": "hogarth",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "conversations",
+          "step": "conversations",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "files",
+          "step": "files",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        }
+      ]
+    },
+    {
+      "name": "390px chapter anchor clears the sticky visual and reveals its headline",
+      "passed": true,
+      "observed": {
+        "chapter": "hogarth",
+        "kickerTop": 507.375,
+        "sceneTop": 437.125,
+        "scrollMargin": "437px",
+        "step": "hogarth",
+        "titleBottom": 649.0750122070312,
+        "titleTop": 548.0750122070312,
+        "viewport": 390,
+        "viewportHeight": 844,
+        "visualBottom": 413.2000122070313
+      }
+    },
+    {
+      "name": "320px five chapters share the unobscured reading band and stable caption",
+      "passed": true,
+      "observed": [
+        {
+          "chapter": "files",
+          "step": "files",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "conversations",
+          "step": "conversations",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "hogarth",
+          "step": "hogarth",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "batech",
+          "step": "batech",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        },
+        {
+          "chapter": "interfaces",
+          "step": "interfaces",
+          "line": 437.2000122070313,
+          "visualBottom": 413.2000122070313,
+          "captionHeight": 60
+        }
+      ]
+    },
+    {
+      "name": "320px chapter anchor clears sticky art without hiding its headline",
+      "passed": true,
+      "observed": {
+        "chapter": "hogarth",
+        "kickerTop": 477.8999938964844,
+        "sceneTop": 437.1000061035156,
+        "scrollMargin": "437px",
+        "step": "hogarth",
+        "titleBottom": 697.8000335693359,
+        "titleTop": 518.6000366210938,
+        "viewport": 320,
+        "viewportHeight": 844,
+        "visualBottom": 413.2000122070313
+      }
+    },
+    {
+      "name": "320px internal Hogarth Batech and Flock steps use the same mobile reading geometry",
+      "passed": true,
+      "observed": [
+        {
+          "id": "hogarth",
+          "index": 0,
+          "chapter": "hogarth",
+          "scroll": "0",
+          "view": "0"
+        },
+        {
+          "id": "hogarth",
+          "index": 1,
+          "chapter": "hogarth",
+          "scroll": "1",
+          "view": "1"
+        },
+        {
+          "id": "hogarth",
+          "index": 2,
+          "chapter": "hogarth",
+          "scroll": "2",
+          "view": "2"
+        },
+        {
+          "id": "batech",
+          "index": 0,
+          "chapter": "batech",
+          "scroll": "0",
+          "view": "0"
+        },
+        {
+          "id": "batech",
+          "index": 1,
+          "chapter": "batech",
+          "scroll": "1",
+          "view": "1"
+        },
+        {
+          "id": "batech",
+          "index": 2,
+          "chapter": "batech",
+          "scroll": "2",
+          "view": "2"
+        },
+        {
+          "id": "interfaces",
+          "index": 0,
+          "chapter": "interfaces",
+          "scroll": "0",
+          "view": "0"
+        },
+        {
+          "id": "interfaces",
+          "index": 1,
+          "chapter": "interfaces",
+          "scroll": "1",
+          "view": "1"
+        },
+        {
+          "id": "interfaces",
+          "index": 2,
+          "chapter": "interfaces",
+          "scroll": "2",
+          "view": "2"
+        },
+        {
+          "id": "interfaces",
+          "index": 3,
+          "chapter": "interfaces",
+          "scroll": "3",
+          "view": "3"
+        },
+        {
+          "id": "interfaces",
+          "index": 4,
+          "chapter": "interfaces",
+          "scroll": "4",
+          "view": "4"
+        }
+      ]
+    },
+    {
+      "name": "Rapid direction changes at a boundary keep visible art and settle on the reading chapter",
+      "passed": true,
+      "observed": {
+        "samples": [
+          {
+            "art": "hogarth",
+            "opacities": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "step": "hogarth"
+          },
+          {
+            "art": "batech",
+            "opacities": [
+              0,
+              0,
+              0.492617,
+              0.507383,
+              0
+            ],
+            "step": "batech"
+          },
+          {
+            "art": "hogarth",
+            "opacities": [
+              0,
+              0,
+              0.997378,
+              0.00262171,
+              0
+            ],
+            "step": "hogarth"
+          },
+          {
+            "art": "batech",
+            "opacities": [
+              0,
+              0,
+              0.108854,
+              0.891146,
+              0
+            ],
+            "step": "batech"
+          },
+          {
+            "art": "hogarth",
+            "opacities": [
+              0,
+              0,
+              0.89251,
+              0.10749,
+              0
+            ],
+            "step": "hogarth"
+          },
+          {
+            "art": "batech",
+            "opacities": [
+              0,
+              0,
+              0.0718146,
+              0.928185,
+              0
+            ],
+            "step": "batech"
+          }
+        ],
+        "final": {
+          "art": "hogarth",
+          "step": "hogarth"
+        }
+      }
+    },
+    {
+      "name": "Global pause keeps all chapters readable with immediate art and caption changes",
+      "passed": true,
+      "observed": [
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "files",
+          "motion": "paused",
+          "step": "files"
+        },
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "conversations",
+          "motion": "paused",
+          "step": "conversations"
+        },
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "hogarth",
+          "motion": "paused",
+          "step": "hogarth"
+        },
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "batech",
+          "motion": "paused",
+          "step": "batech"
+        },
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "interfaces",
+          "motion": "paused",
+          "step": "interfaces"
+        }
+      ]
+    },
+    {
+      "name": "Reduced motion keeps normal-flow reading and disables art/caption transitions",
+      "passed": true,
+      "observed": [
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "files",
+          "step": "files",
+          "visualPosition": "relative"
+        },
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "hogarth",
+          "step": "hogarth",
+          "visualPosition": "relative"
+        },
+        {
+          "artTransition": "0s",
+          "captionTransition": "0s",
+          "chapter": "interfaces",
+          "step": "interfaces",
+          "visualPosition": "relative"
+        }
+      ]
+    },
+    {
+      "name": "Apple sticker exploration does not block the next chapter",
+      "passed": true,
+      "observed": {
+        "chapter": "batech",
+        "step": "batech"
+      }
+    },
+    {
+      "name": "Dragging a narrative card does not block chapter progression",
+      "passed": true,
+      "observed": {
+        "offset": "15px",
+        "chapter": "interfaces",
+        "step": "interfaces"
+      }
+    },
+    {
+      "name": "Only the selected artwork and attribution are exposed to interaction and accessibility",
+      "passed": true,
+      "observed": {
+        "arts": [
+          {
+            "hidden": "true",
+            "inert": true,
+            "selected": "false"
+          },
+          {
+            "hidden": "true",
+            "inert": true,
+            "selected": "false"
+          },
+          {
+            "hidden": "false",
+            "inert": false,
+            "selected": "true"
+          },
+          {
+            "hidden": "true",
+            "inert": true,
+            "selected": "false"
+          },
+          {
+            "hidden": "true",
+            "inert": true,
+            "selected": "false"
+          }
+        ],
+        "captions": [
+          {
+            "hidden": "true",
+            "selected": "false"
+          },
+          {
+            "hidden": "true",
+            "selected": "false"
+          },
+          {
+            "hidden": "false",
+            "selected": "true"
+          },
+          {
+            "hidden": "true",
+            "selected": "false"
+          },
+          {
+            "hidden": "true",
+            "selected": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Final clean reload has no captured browser console errors",
+      "passed": true,
+      "observed": []
+    }
+  ],
+  "summary": {
+    "accepted": 26,
+    "failed": 0
+  },
+  "diagnostics": [
+    "Before the fix, Escape during a pointer drag then scroll produced art=batech and step=interfaces; final held/release and post-drag Escape regressions passed.",
+    "A long browser QA batch exceeded its execution window; accepted full traversal and measured opacity evidence from preceding tool outputs was retained, and drag cases were repeated in smaller persisted batches.",
+    "The rotated menu bounding-box corner missed its face; the accepted retest targeted the actual interior.",
+    "Lint in the development checkout encountered an unrelated untracked Arena scratch CJS file; full lint passed in the curated PR checkout."
+  ],
+  "restored": {
+    "viewport": true,
+    "mediaEmulation": true,
+    "motion": "playing",
+    "testDragOffsets": "clean reload"
+  },
+  "limits": [
+    "Emulated 320/390px dimensions; no physical touch or browser zoom/text scaling verification.",
+    "No standalone browser suite was run.",
+    "Reduced motion and short viewport deliberately use a non-sticky art fallback."
+  ]
+}

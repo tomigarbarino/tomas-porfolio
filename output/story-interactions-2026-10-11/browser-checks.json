@@ -1,0 +1,529 @@
+{
+  "date": "2026-10-11",
+  "method": "CUA in-app browser native mouse/wheel/keyboard; read-only DOM measurements",
+  "checks": [
+    {
+      "check": "Hogarth native hover without click",
+      "result": "pass",
+      "detail": "More room to compose. Components keep their place in the system.",
+      "frameHeight": 364.875,
+      "view": "2",
+      "workY": 5150.599853515625
+    },
+    {
+      "check": "Hogarth halo surface drag Home keyboard",
+      "result": "pass",
+      "drag": {
+        "x": "19.1500244140625px",
+        "y": "15px"
+      },
+      "keyboard": {
+        "focus": "Editorial",
+        "offset": "0px",
+        "view": "1"
+      }
+    },
+    {
+      "check": "Batech native hover without click",
+      "result": "pass",
+      "detail": "I organized the frontend by domain, giving product features a clearer structure.",
+      "frameHeight": 275.20001220703125,
+      "view": "1",
+      "workY": 5150.599853515625
+    },
+    {
+      "check": "Flock Agora/Trainly native hover and flow connection",
+      "result": "pass",
+      "agora": {
+        "scanX": "46.82956768994633%",
+        "selected": "agora",
+        "tone": "#c6a7ff"
+      },
+      "trainly": {
+        "selected": "trainly",
+        "tone": "#ff76b9",
+        "workY": 5150.60009765625
+      }
+    },
+    {
+      "check": "Flock Space pin and Escape clear",
+      "result": "pass",
+      "pin": "true/trainly",
+      "escape": "false/none"
+    },
+    {
+      "check": "Flock caption-surface drag and Home",
+      "result": "pass",
+      "drag": {
+        "x": "20px",
+        "y": "15px"
+      }
+    },
+    {
+      "check": "Batech caption clear of interactive map",
+      "result": "pass",
+      "filmBottom": 231.036319732666,
+      "mapTop": 264.8000183105469,
+      "videoPlaying": true
+    },
+    {
+      "check": "390px Hogarth controls and canvas",
+      "result": "pass",
+      "buttons": [
+        {
+          "height": 44,
+          "text": "Compact",
+          "width": 104.4000015258789
+        },
+        {
+          "height": 44,
+          "text": "Editorial",
+          "width": 104.4000015258789
+        },
+        {
+          "height": 44,
+          "text": "Wide",
+          "width": 104.4000015258789
+        }
+      ],
+      "canvas": {
+        "bottom": 258,
+        "height": 250,
+        "left": 20,
+        "right": 370.3999938964844,
+        "top": 8,
+        "width": 350.3999938964844,
+        "x": 20,
+        "y": 8
+      },
+      "height": 844,
+      "overflow": false,
+      "panel": {
+        "bottom": 247.1999969482422,
+        "height": 233.1999969482422,
+        "left": 28,
+        "right": 362.3999938964844,
+        "top": 14,
+        "width": 334.3999938964844,
+        "x": 28,
+        "y": 14
+      },
+      "step": "hogarth",
+      "width": 390
+    },
+    {
+      "check": "320px Hogarth full panel and targets",
+      "result": "pass",
+      "buttons": [
+        {
+          "h": 44,
+          "text": "Compact",
+          "w": 83.5999984741211
+        },
+        {
+          "h": 44,
+          "text": "Editorial",
+          "w": 83.5999984741211
+        },
+        {
+          "h": 44,
+          "text": "Wide",
+          "w": 83.5999984741211
+        }
+      ],
+      "canvas": {
+        "bottom": 258,
+        "height": 250,
+        "left": 16,
+        "right": 304,
+        "top": 8,
+        "width": 288,
+        "x": 16,
+        "y": 8
+      },
+      "overflow": false,
+      "panel": {
+        "bottom": 247.1999969482422,
+        "height": 233.1999969482422,
+        "left": 24,
+        "right": 296,
+        "top": 14,
+        "width": 272,
+        "x": 24,
+        "y": 14
+      },
+      "width": 320
+    },
+    {
+      "check": "320px Batech final retest after caption tightening",
+      "result": "pass",
+      "canvasBottom": 258,
+      "caption": "Company footage / my role: frontend",
+      "filmBottom": 106,
+      "mapBottom": 255.1999969482422,
+      "mapTop": 110
+    },
+    {
+      "check": "320px Flock final geometry and click fallback",
+      "result": "pass",
+      "geometry": {
+        "figures": [
+          {
+            "bottom": 113.8000030517578,
+            "height": 101.8000030517578,
+            "left": 22,
+            "right": 134,
+            "top": 12,
+            "width": 112,
+            "x": 22,
+            "y": 12
+          },
+          {
+            "bottom": 112.88883543014526,
+            "height": 104.93717193603516,
+            "left": 163.52500915527344,
+            "right": 299.42234802246094,
+            "top": 7.951663494110107,
+            "width": 135.8973388671875,
+            "x": 163.52500915527344,
+            "y": 7.951663494110107
+          }
+        ],
+        "flow": {
+          "bottom": 254.00000762939453,
+          "height": 136.40000915527344,
+          "left": 24,
+          "right": 296,
+          "top": 117.5999984741211,
+          "width": 272,
+          "x": 24,
+          "y": 117.5999984741211
+        },
+        "hit": "Explore my Agora contribution",
+        "overflow": false,
+        "pressed": "false",
+        "selected": "none",
+        "surfaces": [
+          {
+            "label": "Explore my Agora contribution",
+            "rect": {
+              "bottom": 81.80000019073486,
+              "height": 69,
+              "left": 22.80000114440918,
+              "right": 133.2000026702881,
+              "top": 12.800000190734863,
+              "width": 110.4000015258789,
+              "x": 22.80000114440918,
+              "y": 12.800000190734863
+            }
+          },
+          {
+            "label": "Explore my Trainly contribution",
+            "rect": {
+              "bottom": 76.50846862792969,
+              "height": 62.55792236328125,
+              "left": 169.52389526367188,
+              "right": 292.36251068115234,
+              "top": 13.950546264648438,
+              "width": 122.83861541748048,
+              "x": 169.52389526367188,
+              "y": 13.950546264648438
+            }
+          }
+        ],
+        "width": 320
+      },
+      "click": {
+        "focus": "Explore my Agora contribution",
+        "pressed": "true",
+        "selected": "agora"
+      }
+    },
+    {
+      "check": "pause freezes halo but keeps controls",
+      "result": "pass",
+      "before": {
+        "decorative": "false",
+        "haloX": "",
+        "motion": "paused",
+        "preview": {
+          "bottom": 179.5999984741211,
+          "height": 76,
+          "left": 25.600000381469727,
+          "right": 294.4000186920166,
+          "top": 103.5999984741211,
+          "width": 268.8000183105469,
+          "x": 25.600000381469727,
+          "y": 103.5999984741211
+        },
+        "videoPaused": true,
+        "view": "2"
+      },
+      "haloAfter": ""
+    },
+    {
+      "check": "reduced motion narrative and video lifecycle",
+      "result": "pass",
+      "allPaused": true,
+      "motion": "paused",
+      "narrativeVisible": true,
+      "position": "relative",
+      "step": "batech"
+    },
+    {
+      "check": "390px Flock final retest after spacing fix",
+      "result": "pass",
+      "figures": [
+        {
+          "bottom": 113.8000030517578,
+          "height": 101.8000030517578,
+          "left": 26,
+          "right": 138,
+          "top": 12,
+          "width": 112,
+          "x": 26,
+          "y": 12
+        },
+        {
+          "bottom": 116.82257080078124,
+          "height": 108.82257080078124,
+          "left": 222.40000915527344,
+          "right": 365.94427490234375,
+          "top": 8,
+          "width": 143.5442657470703,
+          "x": 222.40000915527344,
+          "y": 8
+        }
+      ],
+      "flow": {
+        "bottom": 254.00000762939453,
+        "height": 133.60000610351562,
+        "left": 28,
+        "right": 362.3999938964844,
+        "top": 120.4000015258789,
+        "width": 334.3999938964844,
+        "x": 28,
+        "y": 120.4000015258789
+      },
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "check": "1440px desktop Batech composition",
+      "result": "pass",
+      "canvasBottom": 704,
+      "filmBottom": 386.2200241088867,
+      "height": 900,
+      "mapBottom": 692.0000305175781,
+      "mapTop": 422.8000183105469,
+      "overflow": false,
+      "step": "batech",
+      "width": 1440
+    },
+    {
+      "check": "final clean reload and restored emulation",
+      "result": "pass",
+      "art": "hogarth",
+      "flockStudio": 1,
+      "height": 668,
+      "motion": "playing",
+      "overflow": false,
+      "overlay": false,
+      "step": "hogarth",
+      "width": 1011,
+      "workbenches": 2,
+      "errors": []
+    },
+    {
+      "check": "390px Batech final native click retest",
+      "result": "pass",
+      "captionBottom": 106,
+      "focus": "Organize",
+      "mapTop": 110,
+      "view": "1"
+    }
+  ],
+  "initialFindings": [
+    {
+      "check": "390px Batech native scroll and click fallback",
+      "result": "resolved",
+      "geometry": {
+        "art": "batech",
+        "buttons": [
+          {
+            "rect": {
+              "bottom": 199.6000061035156,
+              "height": 44,
+              "left": 34.60000228881836,
+              "right": 139.0000038146973,
+              "top": 155.60000610351562,
+              "width": 104.4000015258789,
+              "x": 34.60000228881836,
+              "y": 155.60000610351562
+            },
+            "text": "Build"
+          },
+          {
+            "rect": {
+              "bottom": 199.6000061035156,
+              "height": 44,
+              "left": 143,
+              "right": 247.4000015258789,
+              "top": 155.60000610351562,
+              "width": 104.4000015258789,
+              "x": 143,
+              "y": 155.60000610351562
+            },
+            "text": "Organize"
+          },
+          {
+            "rect": {
+              "bottom": 199.6000061035156,
+              "height": 44,
+              "left": 251.40000915527344,
+              "right": 355.80001068115234,
+              "top": 155.60000610351562,
+              "width": 104.4000015258789,
+              "x": 251.40000915527344,
+              "y": 155.60000610351562
+            },
+            "text": "Lead"
+          }
+        ],
+        "canvas": {
+          "bottom": 258,
+          "height": 250,
+          "left": 20,
+          "right": 370.3999938964844,
+          "top": 8,
+          "width": 350.3999938964844,
+          "x": 20,
+          "y": 8
+        },
+        "film": {
+          "bottom": 106,
+          "height": 94,
+          "left": 28,
+          "right": 196.1875,
+          "top": 12,
+          "width": 168.1875,
+          "x": 28,
+          "y": 12
+        },
+        "overflow": false,
+        "panel": {
+          "bottom": 255.1999969482422,
+          "height": 145.1999969482422,
+          "left": 28,
+          "right": 362.3999938964844,
+          "top": 110,
+          "width": 334.3999938964844,
+          "x": 28,
+          "y": 110
+        },
+        "step": "batech"
+      },
+      "click": {
+        "height": 145.1999969482422,
+        "view": "2"
+      },
+      "resolution": "Initial read preceded React update; native input and a separate observation now pass."
+    },
+    {
+      "check": "390px Flock clear controls",
+      "result": "resolved",
+      "figures": [
+        {
+          "product": "agora",
+          "rect": {
+            "bottom": 121.9250030517578,
+            "height": 109.9250030517578,
+            "left": 26,
+            "right": 151,
+            "top": 12,
+            "width": 125,
+            "x": 26,
+            "y": 12
+          }
+        },
+        {
+          "product": "trainly",
+          "rect": {
+            "bottom": 116.72485208511353,
+            "height": 108.82257080078124,
+            "left": 222.40000915527344,
+            "right": 365.94427490234375,
+            "top": 7.902281284332275,
+            "width": 143.5442657470703,
+            "x": 222.40000915527344,
+            "y": 7.902281284332275
+          }
+        }
+      ],
+      "flow": {
+        "bottom": 254.00000762939453,
+        "height": 133.60000610351562,
+        "left": 28,
+        "right": 362.3999938964844,
+        "top": 120.4000015258789,
+        "width": 334.3999938964844,
+        "x": 28,
+        "y": 120.4000015258789
+      },
+      "overflow": false,
+      "step": "interfaces",
+      "surfaces": [
+        {
+          "label": "Explore my Agora contribution",
+          "rect": {
+            "bottom": 89.92500019073486,
+            "height": 77.125,
+            "left": 26.80000114440918,
+            "right": 150.2000026702881,
+            "top": 12.800000190734863,
+            "width": 123.4000015258789,
+            "x": 26.80000114440918,
+            "y": 12.800000190734863
+          }
+        },
+        {
+          "label": "Explore my Trainly contribution",
+          "rect": {
+            "bottom": 80.34449481964111,
+            "height": 66.44332885742188,
+            "left": 228.3988800048828,
+            "right": 358.8844299316406,
+            "top": 13.901165962219238,
+            "width": 130.4855499267578,
+            "x": 228.3988800048828,
+            "y": 13.901165962219238
+          }
+        }
+      ],
+      "resolution": "Final 390px and 320px separation passed after reducing image width."
+    },
+    {
+      "check": "320px Batech final caption and map",
+      "result": "resolved",
+      "canvasBottom": 258,
+      "filmBottom": 116.8000030517578,
+      "mapBottom": 255.1999969482422,
+      "mapTop": 110,
+      "overflow": false,
+      "step": "batech",
+      "width": 320,
+      "resolution": "Final 320px caption separation passed after shortening the label."
+    }
+  ],
+  "passed": 17,
+  "finalFailures": 0,
+  "limitations": [
+    "No physical touch hardware test",
+    "No standalone Playwright suite executed",
+    "Emulated mobile mouse click is a fallback check, not real touch certification"
+  ],
+  "acceptedScreenshots": [
+    "01-hogarth.png",
+    "05-compact-flock.png"
+  ]
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="retro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4ff54"/><stop offset=".28" stop-color="#f4ff54"/>
+      <stop offset=".28" stop-color="#ffad76"/><stop offset=".45" stop-color="#ffad76"/>
+      <stop offset=".45" stop-color="#ff76b9"/><stop offset=".66" stop-color="#ff76b9"/>
+      <stop offset=".66" stop-color="#c6a7ff"/><stop offset=".85" stop-color="#c6a7ff"/>
+      <stop offset=".85" stop-color="#8dceff"/><stop offset="1" stop-color="#8dceff"/>
+    </linearGradient>
+  </defs>
+  <path d="M78 8C114 6 146 29 151 63c5 30-8 65-31 82-20 16-59 11-83-2C15 130 6 103 9 76 11 47 39 12 78 8Z" fill="#f2efde" stroke="#080909" stroke-width="2.5"/>
+  <g transform="translate(27 8) scale(4.4)" fill="url(#retro)" stroke="#080909" stroke-width=".38" stroke-linejoin="round">
+    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.62 7.59 9.16 7.31c1.35.07 2.29.77 3.08.83 1.18-.24 2.31-.96 3.57-.87 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.64 4.08ZM12.03 7.25C11.88 5.02 13.69 3.18 15.77 3c.3 2.44-2.2 4.42-3.74 4.25Z"/>
+  </g>
+  <path d="m28 114 104-2-1 18-102 3Z" fill="#080909"/>
+  <text x="80" y="126" fill="#f2efde" font-family="Arial, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1">VIA HOGARTH</text>
+  <path d="m121 143 21-26-2 20Z" fill="#c6a7ff" stroke="#080909" stroke-width="1.5"/>
+</svg>

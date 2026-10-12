@@ -1,0 +1,37 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "success": true
+  },
+  {
+    "route": "/en/agora",
+    "status": 200,
+    "success": true
+  },
+  {
+    "route": "/en/trainly",
+    "status": 200,
+    "success": true
+  },
+  {
+    "route": "/media/agora-logo.svg",
+    "status": 200,
+    "success": true
+  },
+  {
+    "route": "/media/trainly/trainly-logo.svg",
+    "status": 200,
+    "success": true
+  },
+  {
+    "route": "/media/stickers/apple-frontend.svg",
+    "status": 200,
+    "success": true
+  },
+  {
+    "route": "home semantics",
+    "status": 200,
+    "success": true
+  }
+]

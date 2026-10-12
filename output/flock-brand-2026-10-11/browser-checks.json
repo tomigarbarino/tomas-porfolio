@@ -1,0 +1,2929 @@
+{
+  "testedAt": "2026-10-12T02:58:28.858Z",
+  "baseUrl": "http://localhost:3000",
+  "productionBuildId": "Zlhv0ZVYJUOSwFRDiUG4E",
+  "methods": "Codex in-app browser; native wheel, mouse and keyboard; read-only DOM measurements; 320 and 390 CSS-pixel emulation, no physical touch hardware.",
+  "summary": {
+    "passed": 24,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "name": "desktop scroll stage 1",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "01 / Problem & hypothesisFrame the real problem, the people affected and a testable product hypothesis.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1599.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": 135.1875
+        },
+        "scroll": "0",
+        "selected": "0",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop scroll stage 2",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "02 / ResearchTalk to users, inspect the context and constraints, and turn findings into requirements.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1307.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": -156.8125
+        },
+        "scroll": "1",
+        "selected": "1",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop scroll stage 3",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "03 / ImplementationPrioritize a bounded solution and connect the product experience, frontend and AI.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1013.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": -450.8125
+        },
+        "scroll": "2",
+        "selected": "2",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop scroll stage 4",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "04 / ValidationCheck actual behavior against the hypothesis and the expected requirements.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 720.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": -743.8125
+        },
+        "scroll": "3",
+        "selected": "3",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop scroll stage 5",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "05 / InsightsTurn what we learn into the next iteration: refine priorities, risks and the product hypothesis.",
+        "flow": {
+          "bottom": 330.265625,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 137.578125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 12.5,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": -147.5
+          },
+          {
+            "bottom": 86.421875,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": -73.578125
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 428.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": -1035.8125
+        },
+        "scroll": "4",
+        "selected": "4",
+        "targets": [
+          {
+            "bottom": 233.578125,
+            "current": null,
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 183.578125
+          },
+          {
+            "bottom": 233.578125,
+            "current": null,
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 183.578125
+          },
+          {
+            "bottom": 233.578125,
+            "current": null,
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 183.578125
+          },
+          {
+            "bottom": 233.578125,
+            "current": null,
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 183.578125
+          },
+          {
+            "bottom": 233.578125,
+            "current": "step",
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 183.578125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop reverse stage 4",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "04 / ValidationCheck actual behavior against the hypothesis and the expected requirements.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 721.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": -742.8125
+        },
+        "scroll": "3",
+        "selected": "3",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop reverse stage 3",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "03 / ImplementationPrioritize a bounded solution and connect the product experience, frontend and AI.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1013.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": -450.8125
+        },
+        "scroll": "2",
+        "selected": "2",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop reverse stage 2",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "02 / ResearchTalk to users, inspect the context and constraints, and turn findings into requirements.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1306.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": -157.8125
+        },
+        "scroll": "1",
+        "selected": "1",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "desktop reverse stage 1",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "01 / Problem & hypothesisFrame the real problem, the people affected and a testable product hypothesis.",
+        "flow": {
+          "bottom": 544,
+          "h": 192.6875,
+          "w": 455.0625,
+          "x": 488.5,
+          "y": 351.3125
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 226.234375,
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          {
+            "bottom": 300.15625,
+            "h": 160,
+            "w": 215.578125,
+            "x": 727.984375,
+            "y": 140.15625
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1600.65625,
+          "h": 1464.46875,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": 136.1875
+        },
+        "scroll": "0",
+        "selected": "0",
+        "targets": [
+          {
+            "bottom": 447.3125,
+            "current": "step",
+            "h": 50,
+            "text": "01Problem & hypothesis",
+            "w": 74.203125,
+            "x": 502.5,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "02Research",
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "03Implementation",
+            "w": 74.203125,
+            "x": 678.921875,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "04Validation",
+            "w": 74.21875,
+            "x": 767.125,
+            "y": 397.3125
+          },
+          {
+            "bottom": 447.3125,
+            "current": null,
+            "h": 50,
+            "text": "05Insights",
+            "w": 74.21875,
+            "x": 855.34375,
+            "y": 397.3125
+          }
+        ],
+        "viewport": {
+          "h": 668,
+          "w": 1011
+        }
+      }
+    },
+    {
+      "name": "320px logo-only geometry and five targets",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "01 / Problem & hypothesisFrame the real problem, the people affected and a testable product hypothesis.",
+        "flow": {
+          "bottom": 304,
+          "h": 178.09375,
+          "w": 272,
+          "x": 24,
+          "y": 125.90625
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 126.71875,
+            "x": 22,
+            "y": 12
+          },
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 132.46875,
+            "x": 163.53125,
+            "y": 12
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1971.125,
+          "h": 1630.953125,
+          "w": 288,
+          "x": 16,
+          "y": 340.171875
+        },
+        "scroll": "0",
+        "selected": "0",
+        "targets": [
+          {
+            "bottom": 215.90625,
+            "current": "step",
+            "h": 65,
+            "text": "01Problem & hypothesis",
+            "w": 48.390625,
+            "x": 31,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "02Research",
+            "w": 48.40625,
+            "x": 83.390625,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "03Implementation",
+            "w": 48.390625,
+            "x": 135.796875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "04Validation",
+            "w": 48.40625,
+            "x": 188.1875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "05Insights",
+            "w": 48.40625,
+            "x": 240.59375,
+            "y": 150.90625
+          }
+        ],
+        "viewport": {
+          "h": 800,
+          "w": 320
+        }
+      }
+    },
+    {
+      "name": "320px scroll stage 2",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "02 / ResearchTalk to users, inspect the context and constraints, and turn findings into requirements.",
+        "flow": {
+          "bottom": 304,
+          "h": 178.09375,
+          "w": 272,
+          "x": 24,
+          "y": 125.90625
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 126.71875,
+            "x": 22,
+            "y": 12
+          },
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 132.46875,
+            "x": 163.53125,
+            "y": 12
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1538.125,
+          "h": 1630.953125,
+          "w": 288,
+          "x": 16,
+          "y": -92.828125
+        },
+        "scroll": "1",
+        "selected": "1",
+        "targets": [
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "01Problem & hypothesis",
+            "w": 48.390625,
+            "x": 31,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": "step",
+            "h": 65,
+            "text": "02Research",
+            "w": 48.40625,
+            "x": 83.390625,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "03Implementation",
+            "w": 48.390625,
+            "x": 135.796875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "04Validation",
+            "w": 48.40625,
+            "x": 188.1875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "05Insights",
+            "w": 48.40625,
+            "x": 240.59375,
+            "y": 150.90625
+          }
+        ],
+        "viewport": {
+          "h": 800,
+          "w": 320
+        }
+      }
+    },
+    {
+      "name": "320px scroll stage 3",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "03 / ImplementationPrioritize a bounded solution and connect the product experience, frontend and AI.",
+        "flow": {
+          "bottom": 304,
+          "h": 178.09375,
+          "w": 272,
+          "x": 24,
+          "y": 125.90625
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 126.71875,
+            "x": 22,
+            "y": 12
+          },
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 132.46875,
+            "x": 163.53125,
+            "y": 12
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1212.125,
+          "h": 1630.953125,
+          "w": 288,
+          "x": 16,
+          "y": -418.828125
+        },
+        "scroll": "2",
+        "selected": "2",
+        "targets": [
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "01Problem & hypothesis",
+            "w": 48.390625,
+            "x": 31,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "02Research",
+            "w": 48.40625,
+            "x": 83.390625,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": "step",
+            "h": 65,
+            "text": "03Implementation",
+            "w": 48.390625,
+            "x": 135.796875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "04Validation",
+            "w": 48.40625,
+            "x": 188.1875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "05Insights",
+            "w": 48.40625,
+            "x": 240.59375,
+            "y": 150.90625
+          }
+        ],
+        "viewport": {
+          "h": 800,
+          "w": 320
+        }
+      }
+    },
+    {
+      "name": "320px scroll stage 4",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "04 / ValidationCheck actual behavior against the hypothesis and the expected requirements.",
+        "flow": {
+          "bottom": 304,
+          "h": 178.09375,
+          "w": 272,
+          "x": 24,
+          "y": 125.90625
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 126.71875,
+            "x": 22,
+            "y": 12
+          },
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 132.46875,
+            "x": 163.53125,
+            "y": 12
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 885.125,
+          "h": 1630.953125,
+          "w": 288,
+          "x": 16,
+          "y": -745.828125
+        },
+        "scroll": "3",
+        "selected": "3",
+        "targets": [
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "01Problem & hypothesis",
+            "w": 48.390625,
+            "x": 31,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "02Research",
+            "w": 48.40625,
+            "x": 83.390625,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "03Implementation",
+            "w": 48.390625,
+            "x": 135.796875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": "step",
+            "h": 65,
+            "text": "04Validation",
+            "w": 48.40625,
+            "x": 188.1875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "05Insights",
+            "w": 48.40625,
+            "x": 240.59375,
+            "y": 150.90625
+          }
+        ],
+        "viewport": {
+          "h": 800,
+          "w": 320
+        }
+      }
+    },
+    {
+      "name": "320px scroll stage 5",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "05 / InsightsTurn what we learn into the next iteration: refine priorities, risks and the product hypothesis.",
+        "flow": {
+          "bottom": 304,
+          "h": 178.09375,
+          "w": 272,
+          "x": 24,
+          "y": 125.90625
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 126.71875,
+            "x": 22,
+            "y": 12
+          },
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 132.46875,
+            "x": 163.53125,
+            "y": 12
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 559.125,
+          "h": 1630.953125,
+          "w": 288,
+          "x": 16,
+          "y": -1071.828125
+        },
+        "scroll": "4",
+        "selected": "4",
+        "targets": [
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "01Problem & hypothesis",
+            "w": 48.390625,
+            "x": 31,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "02Research",
+            "w": 48.40625,
+            "x": 83.390625,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "03Implementation",
+            "w": 48.390625,
+            "x": 135.796875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "04Validation",
+            "w": 48.40625,
+            "x": 188.1875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": "step",
+            "h": 65,
+            "text": "05Insights",
+            "w": 48.40625,
+            "x": 240.59375,
+            "y": 150.90625
+          }
+        ],
+        "viewport": {
+          "h": 800,
+          "w": 320
+        }
+      }
+    },
+    {
+      "name": "scroll resumes after manual preview without moving keyboard focus",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "05 / InsightsTurn what we learn into the next iteration: refine priorities, risks and the product hypothesis.",
+        "flow": {
+          "bottom": 304,
+          "h": 178.09375,
+          "w": 272,
+          "x": 24,
+          "y": 125.90625
+        },
+        "focus": "02Research",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 126.71875,
+            "x": 22,
+            "y": 12
+          },
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 132.46875,
+            "x": 163.53125,
+            "y": 12
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 543.125,
+          "h": 1630.953125,
+          "w": 288,
+          "x": 16,
+          "y": -1087.828125
+        },
+        "scroll": "4",
+        "selected": "4",
+        "targets": [
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "01Problem & hypothesis",
+            "w": 48.390625,
+            "x": 31,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "02Research",
+            "w": 48.40625,
+            "x": 83.390625,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "03Implementation",
+            "w": 48.390625,
+            "x": 135.796875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": null,
+            "h": 65,
+            "text": "04Validation",
+            "w": 48.40625,
+            "x": 188.1875,
+            "y": 150.90625
+          },
+          {
+            "bottom": 215.90625,
+            "current": "step",
+            "h": 65,
+            "text": "05Insights",
+            "w": 48.40625,
+            "x": 240.59375,
+            "y": 150.90625
+          }
+        ],
+        "viewport": {
+          "h": 800,
+          "w": 320
+        }
+      }
+    },
+    {
+      "name": "five-stage keyboard End Home Escape",
+      "passed": true,
+      "evidence": {
+        "keyboardEnd": {
+          "chapter": "interfaces",
+          "detail": "05 / InsightsTurn what we learn into the next iteration: refine priorities, risks and the product hypothesis.",
+          "flow": {
+            "bottom": 304,
+            "h": 178.09375,
+            "w": 272,
+            "x": 24,
+            "y": 125.90625
+          },
+          "focus": "05Insights",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 126.71875,
+              "x": 22,
+              "y": 12
+            },
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 132.46875,
+              "x": 163.53125,
+              "y": 12
+            }
+          ],
+          "motion": "playing",
+          "scene": {
+            "bottom": 760.125,
+            "h": 1630.953125,
+            "w": 288,
+            "x": 16,
+            "y": -870.828125
+          },
+          "scroll": "3",
+          "selected": "4",
+          "targets": [
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "01Problem & hypothesis",
+              "w": 48.390625,
+              "x": 31,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "02Research",
+              "w": 48.40625,
+              "x": 83.390625,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "03Implementation",
+              "w": 48.390625,
+              "x": 135.796875,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "04Validation",
+              "w": 48.40625,
+              "x": 188.1875,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": "step",
+              "h": 65,
+              "text": "05Insights",
+              "w": 48.40625,
+              "x": 240.59375,
+              "y": 150.90625
+            }
+          ],
+          "viewport": {
+            "h": 800,
+            "w": 320
+          }
+        },
+        "keyboardHome": {
+          "chapter": "interfaces",
+          "detail": "01 / Problem & hypothesisFrame the real problem, the people affected and a testable product hypothesis.",
+          "flow": {
+            "bottom": 304,
+            "h": 178.09375,
+            "w": 272,
+            "x": 24,
+            "y": 125.90625
+          },
+          "focus": "01Problem & hypothesis",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 126.71875,
+              "x": 22,
+              "y": 12
+            },
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 132.46875,
+              "x": 163.53125,
+              "y": 12
+            }
+          ],
+          "motion": "playing",
+          "scene": {
+            "bottom": 977.125,
+            "h": 1630.953125,
+            "w": 288,
+            "x": 16,
+            "y": -653.828125
+          },
+          "scroll": "3",
+          "selected": "0",
+          "targets": [
+            {
+              "bottom": 215.90625,
+              "current": "step",
+              "h": 65,
+              "text": "01Problem & hypothesis",
+              "w": 48.390625,
+              "x": 31,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "02Research",
+              "w": 48.40625,
+              "x": 83.390625,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "03Implementation",
+              "w": 48.390625,
+              "x": 135.796875,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "04Validation",
+              "w": 48.40625,
+              "x": 188.1875,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "05Insights",
+              "w": 48.40625,
+              "x": 240.59375,
+              "y": 150.90625
+            }
+          ],
+          "viewport": {
+            "h": 800,
+            "w": 320
+          }
+        },
+        "keyboardEscape": {
+          "chapter": "interfaces",
+          "detail": "03 / ImplementationPrioritize a bounded solution and connect the product experience, frontend and AI.",
+          "flow": {
+            "bottom": 304,
+            "h": 178.09375,
+            "w": 272,
+            "x": 24,
+            "y": 125.90625
+          },
+          "focus": "01Problem & hypothesis",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 126.71875,
+              "x": 22,
+              "y": 12
+            },
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 132.46875,
+              "x": 163.53125,
+              "y": 12
+            }
+          ],
+          "motion": "playing",
+          "scene": {
+            "bottom": 1194.125,
+            "h": 1630.953125,
+            "w": 288,
+            "x": 16,
+            "y": -436.828125
+          },
+          "scroll": "2",
+          "selected": "2",
+          "targets": [
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "01Problem & hypothesis",
+              "w": 48.390625,
+              "x": 31,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "02Research",
+              "w": 48.40625,
+              "x": 83.390625,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": "step",
+              "h": 65,
+              "text": "03Implementation",
+              "w": 48.390625,
+              "x": 135.796875,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "04Validation",
+              "w": 48.40625,
+              "x": 188.1875,
+              "y": 150.90625
+            },
+            {
+              "bottom": 215.90625,
+              "current": null,
+              "h": 65,
+              "text": "05Insights",
+              "w": 48.40625,
+              "x": 240.59375,
+              "y": 150.90625
+            }
+          ],
+          "viewport": {
+            "h": 800,
+            "w": 320
+          }
+        }
+      }
+    },
+    {
+      "name": "390px responsive layout",
+      "passed": true,
+      "evidence": {
+        "chapter": "interfaces",
+        "detail": "01 / Problem & hypothesisFrame the real problem, the people affected and a testable product hypothesis.",
+        "flow": {
+          "bottom": 304,
+          "h": 142.59375,
+          "w": 334,
+          "x": 28,
+          "y": 161.40625
+        },
+        "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+        "images": [
+          "/media/agora-logo.svg",
+          "/media/trainly/trainly-logo.svg"
+        ],
+        "logos": [
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 136,
+            "x": 26,
+            "y": 12
+          },
+          {
+            "bottom": 112,
+            "h": 100,
+            "w": 140,
+            "x": 222,
+            "y": 12
+          }
+        ],
+        "motion": "playing",
+        "scene": {
+          "bottom": 1838.40625,
+          "h": 1498.328125,
+          "w": 350,
+          "x": 20,
+          "y": 340.078125
+        },
+        "scroll": "0",
+        "selected": "0",
+        "targets": [
+          {
+            "bottom": 230.40625,
+            "current": "step",
+            "h": 44,
+            "text": "01Problem & hypothesis",
+            "w": 60.796875,
+            "x": 35,
+            "y": 186.40625
+          },
+          {
+            "bottom": 230.40625,
+            "current": null,
+            "h": 44,
+            "text": "02Research",
+            "w": 60.796875,
+            "x": 99.796875,
+            "y": 186.40625
+          },
+          {
+            "bottom": 230.40625,
+            "current": null,
+            "h": 44,
+            "text": "03Implementation",
+            "w": 60.796875,
+            "x": 164.59375,
+            "y": 186.40625
+          },
+          {
+            "bottom": 230.40625,
+            "current": null,
+            "h": 44,
+            "text": "04Validation",
+            "w": 60.796875,
+            "x": 229.390625,
+            "y": 186.40625
+          },
+          {
+            "bottom": 230.40625,
+            "current": null,
+            "h": 44,
+            "text": "05Insights",
+            "w": 60.796875,
+            "x": 294.1875,
+            "y": 186.40625
+          }
+        ],
+        "viewport": {
+          "h": 844,
+          "w": 390
+        }
+      }
+    },
+    {
+      "name": "pause freezes automatic flow; manual exploration remains available",
+      "passed": true,
+      "evidence": {
+        "pausedBefore": {
+          "chapter": "interfaces",
+          "detail": "05 / InsightsTurn what we learn into the next iteration: refine priorities, risks and the product hypothesis.",
+          "flow": {
+            "bottom": 304,
+            "h": 142.59375,
+            "w": 334,
+            "x": 28,
+            "y": 161.40625
+          },
+          "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 136,
+              "x": 26,
+              "y": 12
+            },
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 140,
+              "x": 222,
+              "y": 12
+            }
+          ],
+          "motion": "paused",
+          "scene": {
+            "bottom": 1838.40625,
+            "h": 1498.328125,
+            "w": 350,
+            "x": 20,
+            "y": 340.078125
+          },
+          "scroll": "4",
+          "selected": "4",
+          "targets": [
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "01Problem & hypothesis",
+              "w": 60.796875,
+              "x": 35,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "02Research",
+              "w": 60.796875,
+              "x": 99.796875,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "03Implementation",
+              "w": 60.796875,
+              "x": 164.59375,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "04Validation",
+              "w": 60.796875,
+              "x": 229.390625,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": "step",
+              "h": 44,
+              "text": "05Insights",
+              "w": 60.796875,
+              "x": 294.1875,
+              "y": 186.40625
+            }
+          ],
+          "viewport": {
+            "h": 844,
+            "w": 390
+          }
+        },
+        "pausedAfter": {
+          "chapter": "interfaces",
+          "detail": "05 / InsightsTurn what we learn into the next iteration: refine priorities, risks and the product hypothesis.",
+          "flow": {
+            "bottom": 304,
+            "h": 142.59375,
+            "w": 334,
+            "x": 28,
+            "y": 161.40625
+          },
+          "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 136,
+              "x": 26,
+              "y": 12
+            },
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 140,
+              "x": 222,
+              "y": 12
+            }
+          ],
+          "motion": "paused",
+          "scene": {
+            "bottom": 1388.40625,
+            "h": 1498.328125,
+            "w": 350,
+            "x": 20,
+            "y": -109.921875
+          },
+          "scroll": "4",
+          "selected": "4",
+          "targets": [
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "01Problem & hypothesis",
+              "w": 60.796875,
+              "x": 35,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "02Research",
+              "w": 60.796875,
+              "x": 99.796875,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "03Implementation",
+              "w": 60.796875,
+              "x": 164.59375,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "04Validation",
+              "w": 60.796875,
+              "x": 229.390625,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": "step",
+              "h": 44,
+              "text": "05Insights",
+              "w": 60.796875,
+              "x": 294.1875,
+              "y": 186.40625
+            }
+          ],
+          "viewport": {
+            "h": 844,
+            "w": 390
+          }
+        },
+        "pausedManual": {
+          "chapter": "interfaces",
+          "detail": "04 / ValidationCheck actual behavior against the hypothesis and the expected requirements.",
+          "flow": {
+            "bottom": 304,
+            "h": 142.59375,
+            "w": 334,
+            "x": 28,
+            "y": 161.40625
+          },
+          "focus": "04Validation",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 136,
+              "x": 26,
+              "y": 12
+            },
+            {
+              "bottom": 112,
+              "h": 100,
+              "w": 140,
+              "x": 222,
+              "y": 12
+            }
+          ],
+          "motion": "paused",
+          "scene": {
+            "bottom": 1602.40625,
+            "h": 1498.328125,
+            "w": 350,
+            "x": 20,
+            "y": 104.078125
+          },
+          "scroll": "4",
+          "selected": "3",
+          "targets": [
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "01Problem & hypothesis",
+              "w": 60.796875,
+              "x": 35,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "02Research",
+              "w": 60.796875,
+              "x": 99.796875,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "03Implementation",
+              "w": 60.796875,
+              "x": 164.59375,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": "step",
+              "h": 44,
+              "text": "04Validation",
+              "w": 60.796875,
+              "x": 229.390625,
+              "y": 186.40625
+            },
+            {
+              "bottom": 230.40625,
+              "current": null,
+              "h": 44,
+              "text": "05Insights",
+              "w": 60.796875,
+              "x": 294.1875,
+              "y": 186.40625
+            }
+          ],
+          "viewport": {
+            "h": 844,
+            "w": 390
+          }
+        }
+      }
+    },
+    {
+      "name": "reduced motion freezes decorative flow while story remains readable",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "chapter": "interfaces",
+          "detail": "04 / ValidationCheck actual behavior against the hypothesis and the expected requirements.",
+          "flow": {
+            "bottom": -2162.015625,
+            "h": 142.59375,
+            "w": 334,
+            "x": 28,
+            "y": -2304.609375
+          },
+          "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": -2354.015625,
+              "h": 100,
+              "w": 136,
+              "x": 26,
+              "y": -2454.015625
+            },
+            {
+              "bottom": -2354.015625,
+              "h": 100,
+              "w": 140,
+              "x": 222,
+              "y": -2454.015625
+            }
+          ],
+          "motion": "paused",
+          "scene": {
+            "bottom": 1514.015625,
+            "h": 1486.328125,
+            "w": 350,
+            "x": 20,
+            "y": 27.6875
+          },
+          "scroll": "4",
+          "selected": "3",
+          "targets": [
+            {
+              "bottom": -2235.609375,
+              "current": null,
+              "h": 44,
+              "text": "01Problem & hypothesis",
+              "w": 60.796875,
+              "x": 35,
+              "y": -2279.609375
+            },
+            {
+              "bottom": -2235.609375,
+              "current": null,
+              "h": 44,
+              "text": "02Research",
+              "w": 60.796875,
+              "x": 99.796875,
+              "y": -2279.609375
+            },
+            {
+              "bottom": -2235.609375,
+              "current": null,
+              "h": 44,
+              "text": "03Implementation",
+              "w": 60.796875,
+              "x": 164.59375,
+              "y": -2279.609375
+            },
+            {
+              "bottom": -2235.609375,
+              "current": "step",
+              "h": 44,
+              "text": "04Validation",
+              "w": 60.796875,
+              "x": 229.390625,
+              "y": -2279.609375
+            },
+            {
+              "bottom": -2235.609375,
+              "current": null,
+              "h": 44,
+              "text": "05Insights",
+              "w": 60.796875,
+              "x": 294.1875,
+              "y": -2279.609375
+            }
+          ],
+          "viewport": {
+            "h": 844,
+            "w": 390
+          }
+        },
+        "after": {
+          "chapter": "interfaces",
+          "detail": "04 / ValidationCheck actual behavior against the hypothesis and the expected requirements.",
+          "flow": {
+            "bottom": -2612.015625,
+            "h": 142.59375,
+            "w": 334,
+            "x": 28,
+            "y": -2754.609375
+          },
+          "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+          "images": [
+            "/media/agora-logo.svg",
+            "/media/trainly/trainly-logo.svg"
+          ],
+          "logos": [
+            {
+              "bottom": -2804.015625,
+              "h": 100,
+              "w": 136,
+              "x": 26,
+              "y": -2904.015625
+            },
+            {
+              "bottom": -2804.015625,
+              "h": 100,
+              "w": 140,
+              "x": 222,
+              "y": -2904.015625
+            }
+          ],
+          "motion": "paused",
+          "scene": {
+            "bottom": 1064.015625,
+            "h": 1486.328125,
+            "w": 350,
+            "x": 20,
+            "y": -422.3125
+          },
+          "scroll": "4",
+          "selected": "3",
+          "targets": [
+            {
+              "bottom": -2685.609375,
+              "current": null,
+              "h": 44,
+              "text": "01Problem & hypothesis",
+              "w": 60.796875,
+              "x": 35,
+              "y": -2729.609375
+            },
+            {
+              "bottom": -2685.609375,
+              "current": null,
+              "h": 44,
+              "text": "02Research",
+              "w": 60.796875,
+              "x": 99.796875,
+              "y": -2729.609375
+            },
+            {
+              "bottom": -2685.609375,
+              "current": null,
+              "h": 44,
+              "text": "03Implementation",
+              "w": 60.796875,
+              "x": 164.59375,
+              "y": -2729.609375
+            },
+            {
+              "bottom": -2685.609375,
+              "current": "step",
+              "h": 44,
+              "text": "04Validation",
+              "w": 60.796875,
+              "x": 229.390625,
+              "y": -2729.609375
+            },
+            {
+              "bottom": -2685.609375,
+              "current": null,
+              "h": 44,
+              "text": "05Insights",
+              "w": 60.796875,
+              "x": 294.1875,
+              "y": -2729.609375
+            }
+          ],
+          "viewport": {
+            "h": 844,
+            "w": 390
+          }
+        }
+      }
+    },
+    {
+      "name": "Apple overlaps text card without extra row or repeated popup",
+      "passed": true,
+      "evidence": {
+        "card": {
+          "bottom": 554.546875,
+          "h": 211.453125,
+          "right": 432.5,
+          "w": 376.0625,
+          "x": 56.4375,
+          "y": 343.09375
+        },
+        "chapter": "hogarth",
+        "copy": {
+          "bottom": 527.546875,
+          "h": 129.453125,
+          "right": 411.5,
+          "w": 334.0625,
+          "x": 77.4375,
+          "y": 398.09375
+        },
+        "insideCard": true,
+        "motion": "playing",
+        "open": "false",
+        "pinned": "false",
+        "popupCount": 0,
+        "scene": {
+          "bottom": 648,
+          "h": 612,
+          "right": 448.5,
+          "w": 408.0625,
+          "x": 40.4375,
+          "y": 36
+        },
+        "slotPosition": "absolute",
+        "sticker": {
+          "bottom": 384.09375,
+          "h": 88,
+          "right": 439.5,
+          "w": 88,
+          "x": 351.5,
+          "y": 296.09375
+        },
+        "x": "0px",
+        "y": "0px"
+      }
+    },
+    {
+      "name": "Apple hover whole-face drag Home pin Escape",
+      "passed": true,
+      "evidence": {
+        "appleHover": {
+          "card": {
+            "bottom": 554.546875,
+            "h": 211.453125,
+            "right": 432.5,
+            "w": 376.0625,
+            "x": 56.4375,
+            "y": 343.09375
+          },
+          "chapter": "hogarth",
+          "copy": {
+            "bottom": 527.546875,
+            "h": 129.453125,
+            "right": 411.5,
+            "w": 334.0625,
+            "x": 77.4375,
+            "y": 398.09375
+          },
+          "insideCard": true,
+          "motion": "playing",
+          "open": "true",
+          "pinned": "false",
+          "popupCount": 0,
+          "scene": {
+            "bottom": 648,
+            "h": 612,
+            "right": 448.5,
+            "w": 408.0625,
+            "x": 40.4375,
+            "y": 36
+          },
+          "slotPosition": "absolute",
+          "sticker": {
+            "bottom": 384.09375,
+            "h": 88,
+            "right": 439.5,
+            "w": 88,
+            "x": 351.5,
+            "y": 296.09375
+          },
+          "x": "0px",
+          "y": "0px"
+        },
+        "appleMoved": {
+          "card": {
+            "bottom": 554.546875,
+            "h": 211.453125,
+            "right": 432.5,
+            "w": 376.0625,
+            "x": 56.4375,
+            "y": 343.09375
+          },
+          "chapter": "hogarth",
+          "copy": {
+            "bottom": 527.546875,
+            "h": 129.453125,
+            "right": 411.5,
+            "w": 334.0625,
+            "x": 77.4375,
+            "y": 398.09375
+          },
+          "insideCard": true,
+          "motion": "playing",
+          "open": "true",
+          "pinned": "false",
+          "popupCount": 0,
+          "scene": {
+            "bottom": 648,
+            "h": 612,
+            "right": 448.5,
+            "w": 408.0625,
+            "x": 40.4375,
+            "y": 36
+          },
+          "slotPosition": "absolute",
+          "sticker": {
+            "bottom": 399.09375,
+            "h": 88,
+            "right": 399.5,
+            "w": 88,
+            "x": 311.5,
+            "y": 311.09375
+          },
+          "x": "-40px",
+          "y": "15px"
+        },
+        "appleRestored": {
+          "card": {
+            "bottom": 529.546875,
+            "h": 211.453125,
+            "right": 432.5,
+            "w": 376.0625,
+            "x": 56.4375,
+            "y": 318.09375
+          },
+          "chapter": "hogarth",
+          "copy": {
+            "bottom": 502.546875,
+            "h": 129.453125,
+            "right": 411.5,
+            "w": 334.0625,
+            "x": 77.4375,
+            "y": 373.09375
+          },
+          "insideCard": true,
+          "motion": "playing",
+          "open": "false",
+          "pinned": "false",
+          "popupCount": 0,
+          "scene": {
+            "bottom": 623,
+            "h": 612,
+            "right": 448.5,
+            "w": 408.0625,
+            "x": 40.4375,
+            "y": 11
+          },
+          "slotPosition": "absolute",
+          "sticker": {
+            "bottom": 359.09375,
+            "h": 88,
+            "right": 439.5,
+            "w": 88,
+            "x": 351.5,
+            "y": 271.09375
+          },
+          "x": "0px",
+          "y": "0px"
+        },
+        "applePin": {
+          "card": {
+            "bottom": 548.546875,
+            "h": 211.453125,
+            "right": 432.5,
+            "w": 376.0625,
+            "x": 56.4375,
+            "y": 337.09375
+          },
+          "chapter": "hogarth",
+          "copy": {
+            "bottom": 521.546875,
+            "h": 129.453125,
+            "right": 411.5,
+            "w": 334.0625,
+            "x": 77.4375,
+            "y": 392.09375
+          },
+          "insideCard": true,
+          "motion": "playing",
+          "open": "true",
+          "pinned": "true",
+          "popupCount": 0,
+          "scene": {
+            "bottom": 642,
+            "h": 612,
+            "right": 448.5,
+            "w": 408.0625,
+            "x": 40.4375,
+            "y": 30
+          },
+          "slotPosition": "absolute",
+          "sticker": {
+            "bottom": 378.09375,
+            "h": 88,
+            "right": 439.5,
+            "w": 88,
+            "x": 351.5,
+            "y": 290.09375
+          },
+          "x": "0px",
+          "y": "0px"
+        },
+        "appleEscape": {
+          "card": {
+            "bottom": 548.546875,
+            "h": 211.453125,
+            "right": 432.5,
+            "w": 376.0625,
+            "x": 56.4375,
+            "y": 337.09375
+          },
+          "chapter": "hogarth",
+          "copy": {
+            "bottom": 521.546875,
+            "h": 129.453125,
+            "right": 411.5,
+            "w": 334.0625,
+            "x": 77.4375,
+            "y": 392.09375
+          },
+          "insideCard": true,
+          "motion": "playing",
+          "open": "false",
+          "pinned": "false",
+          "popupCount": 0,
+          "scene": {
+            "bottom": 642,
+            "h": 612,
+            "right": 448.5,
+            "w": 408.0625,
+            "x": 40.4375,
+            "y": 30
+          },
+          "slotPosition": "absolute",
+          "sticker": {
+            "bottom": 378.09375,
+            "h": 88,
+            "right": 439.5,
+            "w": 88,
+            "x": 351.5,
+            "y": 290.09375
+          },
+          "x": "0px",
+          "y": "0px"
+        }
+      }
+    },
+    {
+      "name": "320px Apple overlap remains inside viewport and above copy",
+      "passed": true,
+      "evidence": {
+        "card": {
+          "bottom": 948.609375,
+          "h": 279.5,
+          "right": 288,
+          "w": 256,
+          "x": 32,
+          "y": 669.109375
+        },
+        "chapter": "hogarth",
+        "copy": {
+          "bottom": 925.609375,
+          "h": 201.5,
+          "right": 271,
+          "w": 222,
+          "x": 49,
+          "y": 724.109375
+        },
+        "insideCard": true,
+        "motion": "playing",
+        "open": "false",
+        "pinned": "false",
+        "popupCount": 0,
+        "scene": {
+          "bottom": 1004.609375,
+          "h": 664.171875,
+          "right": 304,
+          "w": 288,
+          "x": 16,
+          "y": 340.4375
+        },
+        "slotPosition": "absolute",
+        "sticker": {
+          "bottom": 710.109375,
+          "h": 88,
+          "right": 295,
+          "w": 88,
+          "x": 207,
+          "y": 622.109375
+        },
+        "x": "0px",
+        "y": "0px"
+      }
+    },
+    {
+      "name": "compact selected work entry without duplicated Trainly scene",
+      "passed": true,
+      "evidence": {
+        "directory": {
+          "bottom": 542.5,
+          "h": 367.46875,
+          "w": 996,
+          "x": 0,
+          "y": 175.03125
+        },
+        "header": {
+          "bottom": 175.03125,
+          "h": 175.375,
+          "w": 996,
+          "x": 0,
+          "y": -0.34375
+        },
+        "heading": "Selected work.",
+        "introImages": 0,
+        "links": [
+          {
+            "href": "/en/agora",
+            "text": "Agora"
+          },
+          {
+            "href": "/en/trainly",
+            "text": "Trainly"
+          },
+          {
+            "href": "#batech",
+            "text": "Batech"
+          }
+        ],
+        "oldScene": 0,
+        "overflow": false,
+        "quick": true,
+        "trainly": {
+          "bottom": 2224.2066040039062,
+          "h": 1663.859619140625,
+          "w": 894.90625,
+          "x": 50.546875,
+          "y": 560.3469848632812
+        },
+        "viewport": 1011
+      }
+    },
+    {
+      "name": "whole logo and independent process-node drag Home",
+      "passed": true,
+      "evidence": {
+        "dragBefore": {
+          "chapter": "interfaces",
+          "flow": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 192.6875,
+            "w": 455.0625,
+            "x": 488.5,
+            "y": 351.3125
+          },
+          "logo": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          "node": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 50,
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          "stage": "0"
+        },
+        "logoMoved": {
+          "chapter": "interfaces",
+          "flow": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 192.6875,
+            "w": 455.0625,
+            "x": 488.5,
+            "y": 351.3125
+          },
+          "logo": {
+            "dx": "20px",
+            "dy": "8px",
+            "h": 160,
+            "w": 225.15625,
+            "x": 504.5,
+            "y": 74.234375
+          },
+          "node": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 50,
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          "stage": "0"
+        },
+        "logoHome": {
+          "chapter": "interfaces",
+          "flow": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 192.6875,
+            "w": 455.0625,
+            "x": 488.5,
+            "y": 351.3125
+          },
+          "logo": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          "node": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 50,
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          "stage": "0"
+        },
+        "nodeMoved": {
+          "chapter": "interfaces",
+          "flow": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 192.6875,
+            "w": 455.0625,
+            "x": 488.5,
+            "y": 351.3125
+          },
+          "logo": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          "node": {
+            "dx": "-12px",
+            "dy": "-3px",
+            "h": 50,
+            "w": 74.21875,
+            "x": 578.703125,
+            "y": 394.3125
+          },
+          "stage": "1"
+        },
+        "nodeHome": {
+          "chapter": "interfaces",
+          "flow": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 192.6875,
+            "w": 455.0625,
+            "x": 488.5,
+            "y": 351.3125
+          },
+          "logo": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 160,
+            "w": 225.15625,
+            "x": 484.5,
+            "y": 66.234375
+          },
+          "node": {
+            "dx": "0px",
+            "dy": "0px",
+            "h": 50,
+            "w": 74.21875,
+            "x": 590.703125,
+            "y": 397.3125
+          },
+          "stage": "1"
+        }
+      }
+    }
+  ],
+  "finalState": {
+    "chapter": "interfaces",
+    "detail": "01 / Problem & hypothesisFrame the real problem, the people affected and a testable product hypothesis.",
+    "flow": {
+      "bottom": 544,
+      "h": 192.6875,
+      "w": 455.0625,
+      "x": 488.5,
+      "y": 351.3125
+    },
+    "focus": "05 / Flock I+DFlock I+D.Product meets AI.Prod",
+    "images": [
+      "/media/agora-logo.svg",
+      "/media/trainly/trainly-logo.svg"
+    ],
+    "logos": [
+      {
+        "bottom": 226.234375,
+        "h": 160,
+        "w": 225.15625,
+        "x": 484.5,
+        "y": 66.234375
+      },
+      {
+        "bottom": 300.15625,
+        "h": 160,
+        "w": 215.578125,
+        "x": 727.984375,
+        "y": 140.15625
+      }
+    ],
+    "motion": "playing",
+    "scene": {
+      "bottom": 1500.65625,
+      "h": 1464.46875,
+      "w": 408.0625,
+      "x": 40.4375,
+      "y": 36.1875
+    },
+    "scroll": "0",
+    "selected": "0",
+    "targets": [
+      {
+        "bottom": 447.3125,
+        "current": "step",
+        "h": 50,
+        "text": "01Problem & hypothesis",
+        "w": 74.203125,
+        "x": 502.5,
+        "y": 397.3125
+      },
+      {
+        "bottom": 447.3125,
+        "current": null,
+        "h": 50,
+        "text": "02Research",
+        "w": 74.21875,
+        "x": 590.703125,
+        "y": 397.3125
+      },
+      {
+        "bottom": 447.3125,
+        "current": null,
+        "h": 50,
+        "text": "03Implementation",
+        "w": 74.203125,
+        "x": 678.921875,
+        "y": 397.3125
+      },
+      {
+        "bottom": 447.3125,
+        "current": null,
+        "h": 50,
+        "text": "04Validation",
+        "w": 74.21875,
+        "x": 767.125,
+        "y": 397.3125
+      },
+      {
+        "bottom": 447.3125,
+        "current": null,
+        "h": 50,
+        "text": "05Insights",
+        "w": 74.21875,
+        "x": 855.34375,
+        "y": 397.3125
+      }
+    ],
+    "viewport": {
+      "h": 668,
+      "w": 1011
+    }
+  },
+  "temporaryEmulationRestored": true,
+  "consoleErrors": []
+}

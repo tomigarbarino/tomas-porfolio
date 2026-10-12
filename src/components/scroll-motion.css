@@ -1,0 +1,15 @@
+/* Independent translate composes with authored angles and child drag positions. */
+[data-scroll-depth]:not([data-drag-frame]) { --scroll-y: 0px; translate: 0 var(--scroll-y); }
+#main[data-scroll-motion] .portfolio-backdrop::before { translate: 0 var(--scroll-field-y, 0px); }
+#main[data-scroll-motion] .portfolio-backdrop::after { translate: 0 calc(var(--scroll-field-y, 0px) * .6); }
+#main[data-scroll-motion] :is(.hero-world, .td-world, .ad-world) .ascii-video {
+  top: -20px;
+  height: calc(100% + 40px);
+  translate: 0 calc(var(--scroll-field-y, 0px) * .6);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-depth]:not([data-drag-frame]),
+  #main[data-scroll-motion] .portfolio-backdrop::before,
+  #main[data-scroll-motion] .portfolio-backdrop::after,
+  #main[data-scroll-motion] :is(.hero-world, .td-world, .ad-world) .ascii-video { translate: none; }
+}

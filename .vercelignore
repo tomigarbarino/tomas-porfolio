@@ -1,3 +1,9 @@
 outputs/
 .env*
 .git/
+node_modules/
+.next/
+output/
+.arena/
+tmp/
+work/

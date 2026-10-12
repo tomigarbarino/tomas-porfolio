@@ -1,0 +1,12 @@
+.hero-case-artifact { position: relative; min-height: 190px; padding: 15px; color: var(--bg); background: var(--fg); overflow: hidden; }
+.hero-case-artifact__edition,.hero-case-artifact__note { display: block; font-size: 8px; line-height: 1.6; letter-spacing: .04em; }
+.hero-case-artifact__brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 15px; }
+.hero-case-artifact__brand img { width: 70%; height: auto; padding: 12px; background: var(--bg); box-shadow: 4px 4px 0 var(--pop-violet); }
+.hero-case-artifact__brand > span { color: #573687; font: 900 42px/1 var(--font-display),sans-serif; }
+.hero-case-artifact__flow { display: grid; grid-template-columns: 1fr 18px 1fr; align-items: center; gap: 5px; margin: 20px 3px 14px 0; }
+.hero-case-artifact__flow > span { display: grid; place-items: center; min-height: 40px; padding: 7px 3px; border: 1px solid var(--bg); background: var(--pop-violet); box-shadow: 3px 3px 0 var(--bg); font-size: 9px; line-height: 1.5; text-align: center; transition: background-color var(--motion-response) var(--motion-ease); }
+.hero-case-artifact__flow > span:last-child { background: var(--pop-pink); }
+.hero-case-artifact__flow > b { font-weight: 400; text-align: center; }
+.project-window:is(:hover,:focus-within) .hero-case-artifact__flow > span:last-child { background: var(--acid); }
+html[data-motion="paused"] .hero-case-artifact__flow > span { transition: none; }
+@media (prefers-reduced-motion:reduce) { .hero-case-artifact__flow > span { transition: none; } }

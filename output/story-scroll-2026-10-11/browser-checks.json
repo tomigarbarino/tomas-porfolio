@@ -1,0 +1,312 @@
+{
+  "url": "http://localhost:3000/",
+  "date": "2026-10-11",
+  "method": "CUA selected in-app browser, native wheel/click/key input; read-only DOM inspection",
+  "checks": [
+    {
+      "check": "desktop native scroll forward",
+      "result": "pass",
+      "stages": [
+        "files",
+        "conversations",
+        "hogarth",
+        "batech",
+        "interfaces"
+      ],
+      "input": "native wheel",
+      "note": "All five complete articles remain in DOM; art and progress follow without slide clicks."
+    },
+    {
+      "check": "desktop reverse + clean-load video",
+      "result": "pass",
+      "stage": "batech",
+      "input": "native wheel -940",
+      "video": {
+        "playing": true,
+        "readyState": 4
+      },
+      "note": "Development HMR left media inactive; clean reload then native scroll reproduced correct autoplay."
+    },
+    {
+      "check": "surface drag + keyboard restore",
+      "result": "pass",
+      "surface": "Minecraft story card",
+      "movement": {
+        "x": 16,
+        "y": 21
+      },
+      "home": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "check": "focus protection first attempt",
+      "result": "diagnostic",
+      "note": "The keyboard focus setup scrolled the page; wheel had not reached the next reading stage. Retested below."
+    },
+    {
+      "check": "scroll focus protection",
+      "result": "pass",
+      "art": "files",
+      "focus": "Move the game files note",
+      "step": "hogarth",
+      "y": 3380.800048828125
+    },
+    {
+      "check": "paused scroll progression",
+      "result": "pass",
+      "art": "hogarth",
+      "motion": "paused",
+      "step": "hogarth",
+      "videosPaused": true
+    },
+    {
+      "check": "390px native scroll",
+      "result": "pass",
+      "art": "conversations",
+      "overflow": false,
+      "step": "conversations",
+      "y": 2011.199951171875
+    },
+    {
+      "check": "390px stable scene geometry after caption fix",
+      "result": "pass",
+      "before": {
+        "captionH": 60,
+        "scenes": [
+          {
+            "h": 594,
+            "id": "story-files",
+            "y": 1811.9249267578125
+          },
+          {
+            "h": 594,
+            "id": "story-conversations",
+            "y": 2405.9249877929688
+          },
+          {
+            "h": 594,
+            "id": "story-hogarth",
+            "y": 2999.925003051758
+          },
+          {
+            "h": 616.2999877929688,
+            "id": "story-batech",
+            "y": 3593.925018310547
+          },
+          {
+            "h": 1334.9000244140625,
+            "id": "story-interfaces",
+            "y": 4210.225036621094
+          }
+        ],
+        "workY": 5790.324951171875
+      },
+      "after": {
+        "art": "interfaces",
+        "captionH": 60,
+        "overflow": false,
+        "projects": [
+          {
+            "clip": "visible",
+            "h": 397.6000061035156,
+            "text": "Drag to move. Double click then drag text to select, or hold Alt. On touch, hold text to select. Arrow keys move ten pixels; hold Shift for forty. Home resets. Escape restores the position at the start of this move.\n\nPROJECT / FLOCK I+D\n\nAgora\n\nMy role / Product Owner\n\nI work across customer discovery, product priorities, architecture decisions and hands-on AI implementation. I also work on candidate UX and UI alongside recruiter workflows.\n\nOpen the Agora case\n↗"
+          },
+          {
+            "clip": "visible",
+            "h": 375.3999938964844,
+            "text": "Drag to move. Double click then drag text to select, or hold Alt. On touch, hold text to select. Arrow keys move ten pixels; hold Shift for forty. Home resets. Escape restores the position at the start of this move.\n\nPROJECT / FLOCK I+D\n\nTrainly\n\nMy scope / Product flow · Frontend · AI\n\nI work on the product flow and frontend that connect learning, conversational assessment and manager visibility, together with the AI integration.\n\nOpen the Trainly case\n↗"
+          }
+        ],
+        "scenes": [
+          {
+            "h": 594,
+            "id": "story-files",
+            "y": 1811.9249267578125
+          },
+          {
+            "h": 594,
+            "id": "story-conversations",
+            "y": 2405.9249267578125
+          },
+          {
+            "h": 594,
+            "id": "story-hogarth",
+            "y": 2999.9249877929688
+          },
+          {
+            "h": 616.2999877929688,
+            "id": "story-batech",
+            "y": 3593.925003051758
+          },
+          {
+            "h": 1334.9000244140625,
+            "id": "story-interfaces",
+            "y": 4210.225006103516
+          }
+        ],
+        "step": "interfaces",
+        "workY": 5790.3250732421875
+      }
+    },
+    {
+      "check": "320px complete story",
+      "result": "pass",
+      "art": "interfaces",
+      "captionH": 60,
+      "h": 800,
+      "linkCount": 2,
+      "overflow": false,
+      "sceneH": 1417.0999755859375,
+      "sceneHidden": false,
+      "step": "interfaces",
+      "titles": [
+        {
+          "right": 239.1374969482422,
+          "text": "Before I knew"
+        },
+        {
+          "right": 212.9125061035156,
+          "text": "it was code."
+        },
+        {
+          "right": 273.6875,
+          "text": "An idea became"
+        },
+        {
+          "right": 268.83750915527344,
+          "text": "a conversation."
+        },
+        {
+          "right": 304,
+          "text": "Hogarth Worldwide."
+        },
+        {
+          "right": 304,
+          "text": "Into product teams."
+        },
+        {
+          "right": 144.85000610351562,
+          "text": "Batech."
+        },
+        {
+          "right": 304,
+          "text": "From builder to lead."
+        },
+        {
+          "right": 176.0500030517578,
+          "text": "Flock I+D."
+        },
+        {
+          "right": 302.8500061035156,
+          "text": "Product meets AI."
+        }
+      ],
+      "visual": {
+        "bottom": 363.2000122070313,
+        "height": 355.20001220703125,
+        "left": 16,
+        "right": 304,
+        "top": 8,
+        "width": 288,
+        "x": 16,
+        "y": 8
+      },
+      "w": 320,
+      "y": 3941.60009765625
+    },
+    {
+      "check": "320px reduced motion",
+      "result": "pass",
+      "allPaused": true,
+      "art": "hogarth",
+      "motion": "paused",
+      "overflow": false,
+      "scenes": [
+        {
+          "height": 466.5,
+          "id": "story-files",
+          "position": "relative",
+          "visible": "visible"
+        },
+        {
+          "height": 492.5,
+          "id": "story-conversations",
+          "position": "relative",
+          "visible": "visible"
+        },
+        {
+          "height": 651.7000122070312,
+          "id": "story-hogarth",
+          "position": "relative",
+          "visible": "visible"
+        },
+        {
+          "height": 691.1000366210938,
+          "id": "story-batech",
+          "position": "relative",
+          "visible": "visible"
+        },
+        {
+          "height": 1405.0999755859375,
+          "id": "story-interfaces",
+          "position": "relative",
+          "visible": "visible"
+        }
+      ],
+      "step": "hogarth",
+      "visualPosition": "relative"
+    },
+    {
+      "check": "reduced-motion native scroll progression",
+      "result": "pass",
+      "allPaused": true,
+      "art": "batech",
+      "step": "batech"
+    },
+    {
+      "check": "short viewport 1280x540",
+      "result": "pass",
+      "h": 540,
+      "overflow": false,
+      "sceneMin": "0px",
+      "step": "files",
+      "visualPosition": "relative",
+      "w": 1280
+    },
+    {
+      "check": "normal viewport final",
+      "result": "pass",
+      "width": 876,
+      "height": 668,
+      "note": "Native screenshot 13-final-minecraft.png inspected. Temporary viewport and reduced-motion emulation restored."
+    },
+    {
+      "check": "final clean reload",
+      "result": "pass",
+      "since": "2026-10-12T00:51:54.096Z",
+      "art": "files",
+      "overflow": false,
+      "overlay": false,
+      "stages": 5,
+      "step": "files",
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "No real mobile touch hardware test",
+    "Updated standalone Playwright scripts parsed, not executed",
+    "HMR media state and some Windows-DPI capture attempts were diagnostic; clean reload/native screenshot used for accepted proof",
+    "Historical logs from intermediate HMR edits remain in the browser log; final clean-load interval checked separately with no new errors."
+  ],
+  "acceptedScreenshots": [
+    "05-desktop-batech.png",
+    "06-desktop-flock.png",
+    "09-mobile-batech.png",
+    "10-mobile-flock.png",
+    "11-compact-flock.png",
+    "12-compact-projects.png",
+    "13-final-minecraft.png"
+  ]
+}
