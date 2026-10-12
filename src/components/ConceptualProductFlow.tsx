@@ -6,10 +6,10 @@ import "./conceptual-product-flow.css";
 import { storyReadingLine } from "./story-scroll";
 
 const stages = [
-  { label: "Problem & hypothesis", copy: "Frame the real problem, the people affected and a testable product hypothesis." },
+  { label: "Problem & hypothesis", shortLabel: "Problem", copy: "Frame the real problem, the people affected and a testable product hypothesis." },
   { label: "Research", copy: "Talk to users, inspect the context and constraints, and turn findings into requirements." },
-  { label: "Implementation", copy: "Prioritize a bounded solution and connect the product experience, frontend and AI." },
-  { label: "Validation", copy: "Check actual behavior against the hypothesis and the expected requirements." },
+  { label: "Implementation", displayLabel: "Implement", copy: "Prioritize a bounded solution and connect the product experience, frontend and AI." },
+  { label: "Validation", displayLabel: "Validate", copy: "Check actual behavior against the hypothesis and the expected requirements." },
   { label: "Insights", copy: "Turn what we learn into the next iteration: refine priorities, risks and the product hypothesis." },
 ] as const;
 
@@ -134,6 +134,7 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
               ref={element => { buttons.current[index] = element; }}
               type="button"
               className="conceptual-flow__node"
+              aria-label={stage.label}
               data-drag-enabled
               id={`${id}-node-${index}`}
               aria-expanded={active === index}
@@ -158,7 +159,7 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
               onKeyDown={event => navigate(event, index)}
             >
               <span className="conceptual-flow__number" aria-hidden="true">0{index + 1}</span>
-              {stage.label}
+              {"shortLabel" in stage ? <><span className="conceptual-flow__label--full">{stage.label}</span><span className="conceptual-flow__label--short">{stage.shortLabel}</span></> : "displayLabel" in stage ? stage.displayLabel : stage.label}
               </button>
             </div>
           </Fragment>

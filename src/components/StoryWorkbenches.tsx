@@ -16,7 +16,7 @@ const layouts = [
 const responsibilities = [
   { label: "Build", copy: "I built the SaaS frontend from the ground up with React and TypeScript." },
   { label: "Organize", copy: "I organized the frontend by domain, giving product features a clearer structure." },
-  { label: "Lead", copy: "I grew into frontend leadership while continuing to deliver product features." },
+  { label: "Lead", copy: "Frontend leadership remained hands-on: I continued delivering product features." },
 ] as const;
 
 function moveFocus(event: KeyboardEvent<HTMLButtonElement>, index: number, buttons: RefObject<Array<HTMLButtonElement | null>>) {

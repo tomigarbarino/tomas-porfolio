@@ -9,7 +9,7 @@ type SiteHeaderProps = {
 };
 
 const navigation = [
-  { label: "Work", hash: "work" },
+  { label: "Case studies", hash: "work" },
   { label: "Story", hash: "story" },
   { label: "Contact", hash: "contact" },
 ] as const;
@@ -27,8 +27,8 @@ export function SiteHeader({ context = "home", backHref = "/#trainly" }: SiteHea
         </a>
         <nav className="site-header__navigation" aria-label="Main navigation">
           {navigation.map(item => (
-            <a key={item.hash} href={`/#${item.hash}`}>
-              {item.label}
+            <a key={item.hash} href={`/#${item.hash}`} className={item.hash === "work" ? "site-header__cases" : undefined}>
+              {item.hash === "work" ? <><span className="site-header__case-label--full">Case studies</span><span className="site-header__case-label--short">Cases</span></> : item.label}
             </a>
           ))}
         </nav>

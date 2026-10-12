@@ -92,3 +92,8 @@ html[data-motion="paused"] :is(.conceptual-flow__note,.conceptual-flow__connecti
   .origin-story--scroll .flock-story-studio .conceptual-flow--process .conceptual-flow__note { padding: 8px; font-size: 10px; line-height: 1.45; }
   .origin-story--scroll .flock-story-studio .conceptual-flow--process .conceptual-flow__note-label { margin-bottom: 4px !important; font-size: 8px; line-height: 1.2; }
 }
+.conceptual-flow__label--short { display: none; }
+@media (max-width: 360px) {
+  .conceptual-flow--process .conceptual-flow__label--full { display: none; }
+  .conceptual-flow--process .conceptual-flow__label--short { display: inline; }
+}

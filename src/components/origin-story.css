@@ -337,11 +337,13 @@ html[data-motion="paused"] .origin-story--scroll .origin-story__media-note > spa
 .origin-story--scroll .origin-story__scene[data-story-step="batech"] { --story-accent: var(--story-pink); }
 .origin-story--scroll .origin-story__scene[data-story-step="hogarth"] { --story-accent: var(--story-highlight); }
 .origin-story--scroll .origin-story__scene-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; color: var(--story-accent); font-size: 11px; line-height: 1.7; text-transform: uppercase; }
+.origin-story--scroll .origin-story__scene-kicker[id] { scroll-margin-top: inherit; }
 .origin-story--scroll .origin-story__scene .origin-story__title { margin-top: 22px !important; font-size: clamp(50px,4.9vw,76px); line-height: .95; }
 .origin-story--scroll .origin-story__scene .origin-story__title span { max-width: 100%; overflow-wrap: anywhere; }
 .origin-story--scroll .origin-story__scene-role { max-width: 48ch; margin-top: 20px !important; color: var(--story-lavender); font-size: 12px; line-height: 1.8; }
 .origin-story--scroll .origin-story__scene .origin-story__reading { width: calc(100% - 32px); max-width: none; margin: 28px 16px 0; padding: 54px 24px 26px; border: 1px solid var(--story-ink); box-shadow: 5px 6px 0 var(--story-ink),6px 7px 0 var(--story-accent); }
 .origin-story--scroll .origin-story__scene .origin-story__copy { max-width: 52ch; font-size: 15px; line-height: 1.85; }
+.origin-story--scroll .origin-story__scope-note { margin-top: 18px; padding-top: 14px; border-top: 1px solid currentColor; font-size: 11px; line-height: 1.7; }
 .origin-story--scroll .origin-story__apple-slot { position: absolute; z-index: 6; top: -48px; right: -8px; width: 88px; height: 88px; }
 .origin-story--scroll .origin-story__reading--hogarth > .artifact-drag { left: 8px; right: auto; }
 .origin-story--scroll .origin-story__reading .origin-story__episode-link { color: var(--story-ink); }

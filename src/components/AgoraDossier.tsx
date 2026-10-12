@@ -126,7 +126,7 @@ export function AgoraDossier() {
       <SiteHeader context="case" backHref="/#agora" />
       <section className="ad-hero" id="top" data-drag-boundary aria-labelledby="agora-case-title">
         <div className="ad-hero-copy" data-scroll-depth="12">
-          <p className="ad-label ad-hero-label">Case file 03 / Flock I+D</p>
+          <p className="ad-label ad-hero-label">Case file 01 / Flock I+D</p>
           <h1 id="agora-case-title">Agora.<br /><span>Keep the<br />context.</span></h1>
           <p className="ad-hero-deck">A trainee was rejected. The problem was missing context.</p>
           <p className="ad-hero-scope">On Agora at Flock I+D, I’m the Product Owner. My work spans customer discovery, product priorities, architecture decisions, hands-on AI implementation and candidate UX/UI.</p>
@@ -143,7 +143,7 @@ export function AgoraDossier() {
       </section>
 
       <div className="ad-case-layout" id="case-content">
-        <aside className="ad-rail"><AgoraSectionNav /><p className="ad-rail-note">03 / AGORA<br />Product ownership + AI<br />Flock I+D</p></aside>
+        <aside className="ad-rail"><AgoraSectionNav /><p className="ad-rail-note">01 / AGORA<br />Product ownership + AI<br />Flock I+D</p></aside>
         <div className="ad-content">
           <section className="ad-section" id="overview" data-drag-boundary aria-labelledby="agora-overview-title">
             <SectionHeading number="01" label="Context + my contribution" title={<span id="agora-overview-title">Product owner.<br />Hands-on builder.</span>}><p>Agora connects CV matching, AI technical interviews and a recruiter backoffice with ranking, history and a searchable talent pool. At Flock I+D, my role crosses product decisions and implementation.</p></SectionHeading>

@@ -52,12 +52,11 @@ const chapters = [
     eyebrow: "04 / Batech",
     title: ["Batech.", "From builder to lead."],
     role: "Frontend Engineer → Frontend Lead",
-    copy: "I built the SaaS frontend from the ground up with React and TypeScript and organized it by domain. I grew from the only frontend engineer into frontend leadership while continuing to deliver product features.",
+    copy: "At Batech, I was the only frontend engineer on a SaaS product using AI and computer vision to turn existing cameras into operational information, alerts and reports. My responsibility grew into frontend leadership while I continued delivering product features.",
+    note: "The video is company footage. It provides product context; it does not attribute computer vision models or company metrics to my work.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
     mediaNote: "Batech company footage / my contribution: frontend engineering and leadership",
-    href: "#batech",
-    link: "See the Batech work",
   },
   {
     id: "interfaces",
@@ -65,13 +64,13 @@ const chapters = [
     eyebrow: "05 / Flock I+D",
     title: ["Flock I+D.", "Product meets AI."],
     role: "Product Engineer / AI R&D",
-    copy: "At Flock I+D, I work as a Product Engineer, taking features from discovery to delivery: understanding user needs, defining requirements, prioritizing, making architecture decisions, implementing and validating the result. I’m currently working on two products: Agora and Trainly.",
+    copy: "At Flock I+D, my work extends from the interface to the whole feature: discovery, product and architecture decisions, implementation and validation. I work as a Product Engineer in AI R&D on Agora and Trainly, two products within Flock.",
     src: "/media/hero-ascii.mp4",
     poster: "/media/hero-ascii.png",
     mediaNote: "Agora + Trainly / product brands · conceptual flow",
     projects: [
-      { name: "Agora", logo: "/media/agora-logo.svg", logoWidth: 126, logoHeight: 37, scope: "My role / Product Owner", action: "I work across customer discovery, product priorities, architecture decisions and hands-on AI implementation. I also work on candidate UX and UI alongside recruiter workflows.", href: "/en/agora", link: "Open the Agora case" },
-      { name: "Trainly", logo: "/media/trainly/trainly-logo.svg", logoWidth: 328, logoHeight: 80, scope: "My scope / Product flow · Frontend · AI", action: "I work on the product flow and frontend that connect learning, conversational assessment and manager visibility, together with the AI integration.", href: "/en/trainly", link: "Open the Trainly case" },
+      { name: "Agora", logo: "/media/agora-logo.svg", logoWidth: 126, logoHeight: 37, scope: "My role / Product Owner", action: "I help define the recruiting product, implement AI features and shape the candidate UX/UI.", href: "/en/agora", link: "Open the Agora case" },
+      { name: "Trainly", logo: "/media/trainly/trainly-logo.svg", logoWidth: 328, logoHeight: 80, scope: "My work / Learning experience", action: "I work on the frontend and AI integration connecting learning, conversational assessment and manager visibility.", href: "/en/trainly", link: "Open the Trainly case" },
     ],
   },
 ] as const;
@@ -411,7 +410,7 @@ export function OriginStory() {
           <p className="origin-story__kicker">Story / from files to product teams</p>
           <h2 id={headingId}>The same curiosity.</h2>
           <p className="origin-story__summary">Different problems. The same instinct: make something, take it to people, and keep learning.</p>
-          <a className="origin-story__fast-track" href="#work">Selected work <span aria-hidden="true">↗</span></a>
+          <a className="origin-story__fast-track" href="#work">Case studies <span aria-hidden="true">↗</span></a>
         </div>
         <nav className="origin-story__timeline" aria-label="Career stages">
           {chapters.map((chapter, index) => <a key={chapter.id} href={`#story-${chapter.id}`} aria-current={activeIndex === index ? "step" : undefined}><span aria-hidden="true">0{index + 1}</span>{chapter.label}<i aria-hidden="true">↘</i></a>)}
@@ -429,14 +428,14 @@ export function OriginStory() {
 
         <div className="origin-story__scene-list">
           {chapters.map((chapter, index) => <article key={chapter.id} id={`story-${chapter.id}`} ref={node => { sceneRefs.current[index] = node; }} className="origin-story__scene" data-story-step={chapter.id} data-selected={activeIndex === index} aria-labelledby={`${id}-${chapter.id}-title`} tabIndex={-1} data-drag-boundary>
-            <p className="origin-story__scene-kicker">{chapter.eyebrow}</p>
+            <p id={chapter.id === "batech" ? "batech" : undefined} className="origin-story__scene-kicker">{chapter.eyebrow}</p>
             <h3 className="origin-story__title" id={`${id}-${chapter.id}-title`}>{chapter.title.map(line => <span key={line}>{line}</span>)}</h3>
             <p className="origin-story__scene-role">{chapter.role}</p>
             <div className={`origin-story__reading${chapter.id === "hogarth" ? " origin-story__reading--hogarth" : ""}`} data-drag-frame>
               <ArtifactDrag label={`Move the ${chapter.label} story card`} />
               {chapter.id === "hogarth" ? <div className="origin-story__apple-slot"><HogarthAppleSticker /></div> : null}
               <p className="origin-story__copy">{chapter.copy}</p>
-              {"href" in chapter ? <a className="origin-story__episode-link" href={chapter.href}>{chapter.link} <span aria-hidden="true">↗</span></a> : null}
+              {"note" in chapter ? <p className="origin-story__scope-note">{chapter.note}</p> : null}
             </div>
             {"projects" in chapter ? <div className="origin-story__projects" data-drag-boundary>{chapter.projects.map(project => <article key={project.name} data-drag-frame>
               <ArtifactDrag label={`Move the ${project.name} career card`} />

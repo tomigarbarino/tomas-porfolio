@@ -36,7 +36,7 @@ export function TrainlyDossier() {
       <TrainlyCaseMotion />
       <SiteHeader context="case" />
       <section className="td-hero" id="top" data-drag-boundary aria-labelledby="trainly-case-title">
-        <div className="td-hero-copy" data-scroll-depth="14"><p className="td-label">Case file 01 / Product engineering</p><h1 id="trainly-case-title">Trainly.<br /><span>Learning,<br />in a loop.</span></h1><p className="td-hero-deck">From scattered documents to evidence of competence.</p><p className="td-hero-description">A multi-agent learning platform built around the connection between knowledge, learning and conversational assessment.</p><dl className="td-role"><div><dt>My role</dt><dd>Product Engineer</dd></div><div><dt>My scope</dt><dd>Product flow · Frontend · AI</dd></div><div><dt>Status</dt><dd>Active validation</dd></div></dl><a className="td-link td-link--primary" href="#challenge">Open the case <span aria-hidden="true">↓</span></a></div>
+        <div className="td-hero-copy" data-scroll-depth="14"><p className="td-label">Case file 02 / Product engineering</p><h1 id="trainly-case-title">Trainly.<br /><span>Learning,<br />in a loop.</span></h1><p className="td-hero-deck">From scattered documents to evidence of competence.</p><p className="td-hero-description">A multi-agent learning platform built around the connection between knowledge, learning and conversational assessment.</p><dl className="td-role"><div><dt>My role</dt><dd>Product Engineer</dd></div><div><dt>My scope</dt><dd>Product flow · Frontend · AI</dd></div><div><dt>Status</dt><dd>Active validation</dd></div></dl><a className="td-link td-link--primary" href="#challenge">Open the case <span aria-hidden="true">↓</span></a></div>
         <div className="td-hero-art" data-scroll-depth="-36">
           <EvidenceFrame image="hero.png" title="Trainly / learning validation system" caption="Trainly / learning validation system." width={2025} height={1452} concept priority />
           <div className="td-hero-sticker"><PeelSticker art="duck" title="Ask the duck." fact="The evaluator asks for explanations and examples, then follows the learner’s reasoning." tone="cream" /></div>
@@ -45,7 +45,7 @@ export function TrainlyDossier() {
       </section>
 
       <div className="td-case-layout" id="case-content">
-        <aside className="td-rail"><TrainlySectionNav sections={trainlyDossier.sections} /><p className="td-rail-note">01 / TRAINLY<br />Flock I+D</p></aside>
+        <aside className="td-rail"><TrainlySectionNav sections={trainlyDossier.sections} /><p className="td-rail-note">02 / TRAINLY<br />Flock I+D</p></aside>
         <div className="td-content">
           <section id="challenge" className="td-section td-challenge" data-scroll-depth="-24" data-drag-boundary aria-labelledby="trainly-challenge-title">
             <SectionHeading number="01" label="The challenge" title={<span id="trainly-challenge-title">Understanding<br />needs evidence.</span>}><p>Corporate learning often stops at delivery: a person receives a document, attends a session or completes a course. The organization still needs to know whether that knowledge can be explained or applied.</p></SectionHeading>

@@ -4,8 +4,8 @@ import { useRef, useState, type KeyboardEvent } from "react";
 import "./scene-discoveries.css";
 
 const discoveries = [
-  { id: "files", number: "01", title: "Before code.", subtitle: "Minecraft files", detail: "Changing game files before I knew what programming was. Curiosity came first.", action: "Follow the story", chapter: 0 },
-  { id: "menus", number: "02", title: "Into the world.", subtitle: "Digital menus", detail: "I went to restaurants on my own to offer digital menus. An idea became a real conversation.", action: "Meet that chapter", chapter: 1 },
+  { id: "files", number: "01", title: "Before code.", subtitle: "Minecraft files", detail: "A small edit. A different game.", action: "Follow the files", chapter: 0 },
+  { id: "menus", number: "02", title: "Into the world.", subtitle: "Digital menus", detail: "An idea, taken outside the screen.", action: "Open the menus chapter", chapter: 1 },
 ] as const;
 type DiscoveryId = typeof discoveries[number]["id"];
 

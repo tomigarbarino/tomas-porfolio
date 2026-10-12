@@ -1,0 +1,32 @@
+/* Chapter shortcuts use native links with the same paper treatment as the game. */
+.portfolio-dialog .quest-list > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  min-height: 62px;
+  padding: 16px 18px;
+  border: 1px solid var(--bg);
+  background: var(--pop-violet, #c6a7ff);
+  color: var(--bg);
+  box-shadow: 4px 4px 0 var(--bg), 5px 5px 0 var(--pop-violet, #c6a7ff);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+  text-decoration: none;
+  transition: transform var(--motion-response) var(--motion-ease), background-color var(--motion-response) var(--motion-ease);
+}
+.portfolio-dialog .quest-list > a:nth-child(2) { background: var(--fg); }
+.portfolio-dialog .quest-list > a:nth-child(3) { background: var(--pop-pink, #ff76b9); }
+.portfolio-dialog .quest-list > a:is(:hover, :focus-visible) { transform: translateX(5px); background: var(--fg); color: var(--bg); }
+.portfolio-dialog .quest-list > a:focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
+html[data-motion="paused"] .portfolio-dialog .quest-list > a { transition: none; }
+html[data-motion="paused"] .portfolio-dialog .quest-list > a:is(:hover, :focus-visible) { transform: none; }
+@media (max-width: 799px) {
+  .portfolio-dialog .quest-list > a { padding-block: 18px; font-size: 11px; line-height: 1.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-dialog .quest-list > a { transition: none; }
+  .portfolio-dialog .quest-list > a:is(:hover, :focus-visible) { transform: none; }
+}

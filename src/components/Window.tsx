@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent, typ
 
 type Point = { x: number; y: number };
 type Props = {
+  project?: string;
   children: ReactNode;
   container: RefObject<HTMLDivElement | null>;
   minimized: boolean;
@@ -11,7 +12,7 @@ type Props = {
   onClose: () => void;
 };
 
-export function Window({ children, container, minimized, onMinimize, onClose }: Props) {
+export function Window({ children, container, minimized, onMinimize, onClose, project = "Trainly" }: Props) {
   const node = useRef<HTMLElement>(null);
   const drag = useRef<{ pointer: number; start: Point; origin: Point; active: boolean; touch: boolean } | null>(null);
   const suppressClick = useRef(false);
@@ -97,15 +98,15 @@ export function Window({ children, container, minimized, onMinimize, onClose }: 
   }
 
   return (
-    <article ref={node} className={`project-window${position ? " has-position" : ""}${moving ? " is-dragging" : ""}`} data-drag-surface data-artifact-dragging={moving ? "true" : undefined} hidden={minimized} aria-label="Trainly project window" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onLostPointerCapture={up} onClickCapture={event => {
+    <article ref={node} className={`project-window${position ? " has-position" : ""}${moving ? " is-dragging" : ""}`} data-drag-surface data-artifact-dragging={moving ? "true" : undefined} hidden={minimized} aria-label={`${project} project window`} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onLostPointerCapture={up} onClickCapture={event => {
       if (suppressClick.current && event.detail > 0) { event.preventDefault(); event.stopPropagation(); suppressClick.current = false; }
     }} style={position ? { left: position.x, top: position.y, right: "auto" } : undefined}>
       <div className="window-titlebar">
-        <button type="button" className="window-drag" aria-label="Move Trainly window" aria-describedby="window-move-help" onKeyDown={key}>
-          <span>TRAINLY / PRODUCT CASE</span><span className="artifact-drag__grip" aria-hidden="true" />
+        <button type="button" className="window-drag" aria-label={`Move ${project} window`} aria-describedby="window-move-help" onKeyDown={key}>
+          <span>{project.toUpperCase()} / PRODUCT CASE</span><span className="artifact-drag__grip" aria-hidden="true" />
         </button>
-        <button type="button" aria-label="Minimize Trainly window" onClick={onMinimize}>–</button>
-        <button type="button" aria-label="Close Trainly window" onClick={onClose}>×</button>
+        <button type="button" aria-label={`Minimize ${project} window`} onClick={onMinimize}>–</button>
+        <button type="button" aria-label={`Close ${project} window`} onClick={onClose}>×</button>
       </div>
       <p id="window-move-help" className="sr-only">Drag any part of the window. Hold Alt to select text. Use arrow keys to move this window. Shift moves faster. Home resets its position.</p>
       <div className="window-content">{children}</div>
