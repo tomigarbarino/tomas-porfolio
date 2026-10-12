@@ -33,7 +33,7 @@ Open http://localhost:3000. The build uses Webpack explicitly. Vercel is configu
 
 Agora capabilities and the matching decision are owner-reported. The decision distinguishes personal contribution from team validation; this portfolio does not independently verify production outcomes or claim overall model accuracy. Candidate designs contain empty preparation states, without real candidate records.
 
-Trainly is demo-ready and in active validation; public demo values and concept images do not establish learning outcomes. Batech footage is company context. Minecraft and café loops are thematic references rather than personal artifacts or client evidence.
+Agora and Trainly are used by clients and growing, as confirmed by the owner. Public demo values and concept images do not establish learning outcomes. Batech footage is company context. Minecraft and café loops are thematic references rather than personal artifacts or client evidence.
 
 ## Verification and documentation
 
