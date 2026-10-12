@@ -3,6 +3,7 @@ import { AgoraCase } from "./AgoraCase";
 import { ArtifactDrag } from "./ArtifactDrag";
 import { PeelSticker } from "./PeelSticker";
 import { QuickProfileButton } from "./QuickProfileButton";
+import { CaseStudyDirectory } from "./CaseStudyDirectory";
 import { trainlyCase } from "@/data/portfolio";
 import "./product-work.css";
 
@@ -20,10 +21,7 @@ export function ProductWork() {
         <h2 id="work-title">Case studies.</h2>
         <p className="pw-work-deck">A decision in recruiting. A learning experience built around understanding.</p>
       </header>
-      <nav className="pw-case-directory" aria-label="Case studies">
-        <Link href="/en/agora" prefetch={false}><span>01 / Agora</span><strong>Missing context. Human judgment.</strong><small>Read the product decision and its scoped check</small><b aria-hidden="true">↗</b></Link>
-        <Link href={trainlyCase.href} prefetch={false}><span>02 / Trainly</span><strong>From company knowledge to understanding.</strong><small>Explore the learning experience and implementation</small><b aria-hidden="true">↗</b></Link>
-      </nav>
+      <CaseStudyDirectory />
       <AgoraCase />
       <div className="pw-reading">
         <article id="trainly" className="pw-case pw-case--trainly" data-scroll-depth="-20" data-drag-boundary aria-labelledby="trainly-title">
