@@ -137,12 +137,6 @@
 .ad-design-gallery > .ad-design:first-child { margin-right: 6%; transform: rotate(-2deg); }
 .ad-design-gallery > .ad-design:last-child { margin-left: 6%; transform: rotate(2deg); }
 .ad .ad-design:target { outline: 3px solid var(--acid); outline-offset: 8px; }
-.ad-system-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
-.ad-system-grid > article { position: relative; min-width: 0; padding: 32px 22px 24px; border: 1px solid var(--ad-violet); }
-.ad-system-grid .ad-label { color: var(--ad-pink); padding-right: 24px; }
-.ad-system-grid h3 { margin-top: 22px; font-family: var(--font-display),Impact,sans-serif; font-size: 32px; line-height: 1; }
-.ad-system-grid > article > p:nth-of-type(2) { margin-top: 20px; font-size: 11px; line-height: 1.9; }
-.ad-system-grid .ad-stack-group { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--ad-violet); font-size: 10px; line-height: 1.8; }
 .ad-next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 .ad-related { display: grid; align-content: start; gap: 28px; padding: 30px; border: 1px solid var(--ad-ink); color: var(--ad-ink); background: var(--ad-violet); box-shadow: 6px 7px 0 var(--ad-ink),7px 8px 0 var(--ad-cream); }
 .ad-related strong { font-family: var(--font-display),Impact,sans-serif; font-size: clamp(42px,4.8vw,66px); line-height: .96; }
@@ -163,8 +157,6 @@
   .ad-hero-sticker { width: 140px; right: 0; }
   .ad-hero-edition { font-size: 30px; }
   .ad-case-layout { grid-template-columns: 148px minmax(0,1fr); gap: 30px; }
-  .ad-system-grid { gap: 14px; }
-  .ad-system-grid > article { padding-inline: 18px; }
 }
 @media (max-width: 999px) {
   .ad-case-layout { display: block; }
@@ -200,7 +192,7 @@
   .ad-section-sticker--commit .peel-sticker__fact::before { left: -8px; right: auto; transform: rotate(135deg); }
   .ad-section-sticker--commit .peel-sticker__fact::after { right: 100%; left: auto; }
   /* Keep a real horizontal travel lane inside each section's drag boundary. */
-  .ad :is(.ad-contributions,.ad-incident-grid,.ad-system-grid,.agora-flow-motion,.ad-decision-rule) { margin-inline: 16px; }
+  .ad :is(.ad-contributions,.ad-incident-grid,.agora-flow-motion,.ad-decision-rule) { margin-inline: 16px; }
   .ad-overview-grid, .ad-incident-grid, .ad-validation > ol, .ad-next-grid { grid-template-columns: minmax(0,1fr); }
   .ad-overview-grid { gap: 28px; }
   .ad-product-bet { margin-inline: 24px; }
@@ -219,10 +211,6 @@
   .ad-design-gallery > .ad-design:first-child { margin-right: 0; }
   .ad-design-gallery > .ad-design:last-child { margin-left: 0; }
   .ad-design-bar { padding-left: 12px; font-size: 9px; }
-  .ad-system-grid { grid-template-columns: minmax(0,1fr); gap: 22px; }
-  .ad-system-grid > article { padding: 30px 24px; }
-  .ad-system-grid h3 { font-size: 36px; }
-  .ad-system-grid > article > p:nth-of-type(2) { font-size: 12px; }
   .ad-next-grid { gap: 34px; }
   .ad-contact { padding-left: 0; }
   .ad-footer { gap: 14px; }

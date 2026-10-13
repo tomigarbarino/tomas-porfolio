@@ -6,6 +6,7 @@ import { AmbientMotion } from "./AmbientMotion";
 import { ArtifactDrag } from "./ArtifactDrag";
 import { AgoraFlow } from "./AgoraFlow";
 import { AgoraDecisionReplay } from "./AgoraDecisionReplay";
+import { AgoraProductLayers } from "./AgoraProductLayers";
 import { AsciiVideo } from "./AsciiVideo";
 import { MotionPreference, useMotionPreference } from "./MotionPreference";
 import { PeelSticker } from "./PeelSticker";
@@ -180,7 +181,7 @@ export function AgoraDossier() {
           <section className="ad-section" id="system" data-drag-boundary aria-labelledby="agora-system-title">
             <SectionHeading number="05" label="Product system" title={<span id="agora-system-title">The product behind<br />the decision.</span>}><p>I contribute to architecture decisions and AI features across these product responsibilities. Manatal integration and bulk search uploads support the recruiter workflow.</p></SectionHeading>
             <aside className="ad-section-sticker ad-section-sticker--commit" data-scroll-depth="-14"><PeelSticker art="commit" title="Small change. Clear check." fact="Check the affected cases, unchanged scores and a control. The scope of a change is part of the decision." tone="lime" /></aside>
-            <div className="ad-art-group" data-scroll-depth="-12"><div className="ad-system-grid"><article data-drag-frame><ArtifactDrag label="Move the Agora application responsibility" /><p className="ad-label">Application</p><h3>Both sides<br />of the workflow.</h3><p>Recruiter searches, candidate context, ranking and history; candidate preparation and interview entry.</p><p className="ad-stack-group">Next.js · Supabase</p></article><article data-drag-frame><ArtifactDrag label="Move the Agora AI responsibility" /><p className="ad-label">AI workflows</p><h3>Evidence and<br />interviews.</h3><p>CV matching against role criteria and automated technical interviews with AI agents.</p><p className="ad-stack-group">Python · OpenAI</p></article><article data-drag-frame><ArtifactDrag label="Move the Agora operations responsibility" /><p className="ad-label">Infrastructure</p><h3>Supporting<br />the product.</h3><p>Hosting and operational services across the application and its agent workflows.</p><p className="ad-stack-group">AWS Amplify · Railway</p></article></div></div>
+            <AgoraProductLayers />
           </section>
 
           <section className="ad-section ad-next" id="next" aria-labelledby="agora-next-title">
