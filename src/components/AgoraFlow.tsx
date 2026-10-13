@@ -142,16 +142,12 @@ export function AgoraFlow() {
 
   return (
     <div className="agora-flow-motion" data-scroll-depth="-24">
-      <figure ref={flowRef} className="agora-flow" data-drag-frame data-drag-boundary aria-labelledby={`${id}-flow-label`} onKeyDown={event => {
+      <figure ref={flowRef} className="agora-flow" data-drag-frame data-drag-boundary aria-label="Illustrative Agora product flow" onKeyDown={event => {
         if (event.key !== "Escape") return;
         setPinned(null);
         setDismissed(true);
       }}>
         <ArtifactDrag label="Move the complete Agora flow" />
-        <figcaption className="agora-flow__caption" id={`${id}-flow-label`}>
-          <span>Illustrative product flow</span>
-          <span className="agora-flow__caption-note">Criteria / context / review</span>
-        </figcaption>
         <svg ref={svgRef} className="agora-flow__connections" aria-hidden="true" focusable="false">
           <defs><marker id={markerId} markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M 0 0 L 6 3 L 0 6" fill="none" stroke="context-stroke" strokeWidth="1.5" /></marker></defs>
           {connections.map(({ from, to }) => <path key={`${from}-${to}`} className="agora-flow__connector" data-agora-edge={`${from}-${to}`} data-active={active !== null && (active === from || active === to)} markerEnd={`url(#${markerId})`} visibility="hidden" />)}
@@ -191,25 +187,21 @@ export function AgoraFlow() {
             <ArtifactDrag label="Move Voice interview node" />
           </section>
         </div>
-        <p className="agora-flow__note">Role criteria → Evidence → Recruiter review. Voice interview connects to Evidence.</p>
         <div className="agora-flow__details">
           <div className="agora-flow__detail agora-flow__detail--idle" data-visible={active === null} aria-hidden={active !== null} inert={active !== null}>
             <p className="agora-flow__detail-label">Inside the decision</p>
             <h5>What happens when requirements are missing?</h5>
-            <p>Inspect Evidence or Recruiter review to follow the guardrail. Focus or hover to preview; tap to keep a note open. Escape closes it.</p>
-            <p className="agora-flow__detail-limit">Illustrative explanation / no real CV, candidate record or live data.</p>
+            <p>Follow the guardrail from missing criteria to a human decision.</p>
           </div>
           <div id={`${id}-evidence-detail`} className="agora-flow__detail" role="region" aria-labelledby={`${id}-evidence-title`} data-visible={active === "evidence"} aria-hidden={active !== "evidence"} inert={active !== "evidence"}>
-            <p className="agora-flow__detail-label">Evidence / illustrative explanation</p>
+            <p className="agora-flow__detail-label">Evidence</p>
             <h5 id={`${id}-evidence-title`}>Missing input cannot support a rejection.</h5>
             <p>With no structured skills in the search, the matcher has no requirements to compare. The guardrail routes that search to human review instead of treating missing context as a candidate score.</p>
-            <p className="agora-flow__detail-limit">No structured skills → human review. This diagram explains the rule; it does not display a real CV or a live result.</p>
           </div>
           <div id={`${id}-review-detail`} className="agora-flow__detail" role="region" aria-labelledby={`${id}-review-title`} data-visible={active === "review"} aria-hidden={active !== "review"} inert={active !== "review"}>
-            <p className="agora-flow__detail-label">Recruiter review / illustrative explanation</p>
+            <p className="agora-flow__detail-label">Recruiter review</p>
             <h5 id={`${id}-review-title`}>Keep the reason for escalation visible.</h5>
             <p>A person reviews the missing requirements before a candidate decision proceeds. Extending the education catalog to English degree names addressed a separate recognition gap.</p>
-            <p className="agora-flow__detail-limit">The bounded fix protects this missing-input state. It does not establish overall matching accuracy or fairness.</p>
           </div>
         </div>
       </figure>

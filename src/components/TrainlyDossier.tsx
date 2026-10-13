@@ -19,12 +19,11 @@ function SectionHeading({ number, label, title, children }: { number: string; la
   return <header className="td-section-heading" data-scroll-depth="10"><p className="td-label"><span>{number}</span> / {label}</p><h2>{title}</h2>{children && <div className="td-section-intro">{children}</div>}</header>;
 }
 
-function EvidenceFrame({ id, image, title, caption, width, height, concept = false, priority = false }: { id?: string; image: string; title: string; caption: string; width: number; height: number; concept?: boolean; priority?: boolean }) {
+function EvidenceFrame({ id, image, title, alt, width, height, concept = false, priority = false }: { id?: string; image: string; title: string; alt: string; width: number; height: number; concept?: boolean; priority?: boolean }) {
   return <figure id={id} className={`td-evidence-frame${concept ? " td-evidence-frame--concept" : ""}`} data-drag-frame>
     <ArtifactDrag label={`Move ${title}`} />
     <div className="td-frame-bar"><span>{title}</span></div>
-    <Image src={`/media/trainly/${image}`} alt={caption} width={width} height={height} priority={priority} sizes="(max-width: 799px) 94vw, (max-width: 1179px) 84vw, 1000px" />
-    <figcaption><span>{caption}</span><span className="td-frame-kind">{concept ? "Brand / concept visual" : "Product interface"}</span></figcaption>
+    <Image src={`/media/trainly/${image}`} alt={alt} width={width} height={height} priority={priority} sizes="(max-width: 799px) 94vw, (max-width: 1179px) 84vw, 1000px" />
   </figure>;
 }
 
@@ -38,7 +37,7 @@ export function TrainlyDossier() {
       <section className="td-hero" id="top" data-drag-boundary aria-labelledby="trainly-case-title">
         <div className="td-hero-copy" data-scroll-depth="14"><p className="td-label">Case file 02 / Product engineering</p><h1 id="trainly-case-title">Trainly.<br /><span>Learning,<br />in a loop.</span></h1><p className="td-hero-deck">From scattered documents to evidence of competence.</p><p className="td-hero-description">A multi-agent learning platform built around the connection between knowledge, learning and conversational assessment.</p><dl className="td-role"><div><dt>My role</dt><dd>Product Engineer</dd></div><div><dt>My scope</dt><dd>Product flow · Frontend · AI</dd></div><div><dt>Status</dt><dd>{trainlyCase.status}</dd></div></dl><a className="td-link td-link--primary" href="#challenge">Open the case <span aria-hidden="true">↓</span></a></div>
         <div className="td-hero-art" data-scroll-depth="-36">
-          <EvidenceFrame image="hero.png" title="Trainly / learning validation system" caption="Trainly / learning validation system." width={2025} height={1452} concept priority />
+          <EvidenceFrame image="hero.png" title="Trainly / learning validation system" alt="Trainly / learning validation system." width={2025} height={1452} concept priority />
           <div className="td-hero-sticker"><PeelSticker art="duck" title="Ask the duck." fact="The evaluator asks for explanations and examples, then follows the learner’s reasoning." tone="cream" /></div>
           <p className="td-hero-edition" aria-hidden="true">KNOWLEDGE<br />→ LEARNING<br />→ EVIDENCE</p>
         </div>
@@ -61,28 +60,27 @@ export function TrainlyDossier() {
 
           <section id="experience" className="td-section" data-scroll-depth="-24" data-drag-boundary aria-labelledby="trainly-experience-title">
             <SectionHeading number="03" label="Learning experience" title={<span id="trainly-experience-title">Give the material<br />a learning path.</span>}><p>The system interprets one or more source documents, identifies themes and relationships, then sequences prerequisites, explanations and examples. Specialized agents create chapters and complementary formats.</p></SectionHeading>
-            <div className="td-evidence-pair"><EvidenceFrame id="learning-sequence" image="learning-experience.png" title="01 / Knowledge into learning" caption="Concept: source documents become a structured learning experience." width={2025} height={1140} concept /><div className="td-format-note" data-drag-frame><ArtifactDrag label="Move the learning formats note" /><p className="td-label">One path / multiple formats</p><ul>{trainlyDossier.formats.map((item,index) => <li key={item}><span>0{index+1}</span>{item}</li>)}</ul></div></div>
-            <EvidenceFrame id="trainly-campus" image="campus-ai.png" title="02 / Inside the campus" caption="AI campus / learning and onboarding." width={1350} height={652} />
-            <details className="td-disclosure td-format-fold"><summary>Unfold the format study <span aria-hidden="true">+</span></summary><div data-drag-boundary><EvidenceFrame image="ai-design.png" title="03 / Learning formats" caption="Concept study: presentations, flashcards and live evaluations." width={2025} height={1140} concept /></div></details>
+            <div className="td-evidence-pair"><EvidenceFrame id="learning-sequence" image="learning-experience.png" title="01 / Knowledge into learning" alt="Concept: source documents become a structured learning experience." width={2025} height={1140} concept /><div className="td-format-note" data-drag-frame><ArtifactDrag label="Move the learning formats note" /><p className="td-label">One path / multiple formats</p><ul>{trainlyDossier.formats.map((item,index) => <li key={item}><span>0{index+1}</span>{item}</li>)}</ul></div></div>
+            <EvidenceFrame id="trainly-campus" image="campus-ai.png" title="02 / Inside the campus" alt="AI campus / learning and onboarding." width={1350} height={652} />
+            <details className="td-disclosure td-format-fold"><summary>Unfold the format study <span aria-hidden="true">+</span></summary><div data-drag-boundary><EvidenceFrame image="ai-design.png" title="03 / Learning formats" alt="Concept study: presentations, flashcards and live evaluations." width={2025} height={1140} concept /></div></details>
           </section>
 
           <section id="validation" className="td-section td-validation" data-scroll-depth="-24" data-drag-boundary aria-labelledby="trainly-validation-title">
             <SectionHeading number="04" label="Competency validation" title={<span id="trainly-validation-title">A conversation<br />that reveals reasoning.</span>}><p>The evaluator asks technical questions, requests examples and follows the learner’s reasoning. The goal is to distinguish understanding from repetition.</p></SectionHeading>
             <div id="evaluation-approach" className="td-validation-note" data-drag-frame><ArtifactDrag label="Move the conversational assessment note" /><p className="td-label">Live AI interview / product approach</p><div><span>Ask</span><i aria-hidden="true">→</i><span>Explain</span><i aria-hidden="true">→</i><span>Explore</span></div><p>Technical questions. Concrete examples. Follow-up on the reasoning.</p></div>
-            <EvidenceFrame image="validation.png" title="Conversational competency validation" caption="Trainly brand visual / conversational assessment." width={2025} height={651} concept />
-            <p className="td-note">This case explains the evaluation approach. A learner conversation or evaluator trace is not included.</p>
+            <EvidenceFrame image="validation.png" title="Conversational competency validation" alt="Trainly brand visual / conversational assessment." width={2025} height={651} concept />
           </section>
 
           <section id="system" className="td-section" data-scroll-depth="-24" data-drag-boundary aria-labelledby="trainly-system-title">
             <SectionHeading number="05" label="The product system" title={<span id="trainly-system-title">Individual learning.<br />Team visibility.</span>}><p>The learner experience is paired with an administrative layer where managers can inspect progress, results and gaps. This makes the training process observable.</p></SectionHeading>
-            <EvidenceFrame id="trainly-manager" image="capacitar-equipos.png" title="Team training / manager experience" caption="Trainly team-training interface from the public demo." width={1350} height={712} />
-            <div className="td-architecture"><header><p className="td-label">System responsibilities</p><h3>Tools and roles<br />across the product.</h3><p className="td-note">Stack and responsibilities declared in the published case. Interface captures show the product surface; implementation internals are not included in this dossier.</p></header><dl>{trainlyCase.system.map((item,index) => <div key={item.name} data-drag-frame><dt><span>0{index+1}</span>{item.name}</dt><dd><ArtifactDrag label={`Move the ${item.name} system card`} />{item.purpose}</dd></div>)}</dl></div>
+            <EvidenceFrame id="trainly-manager" image="capacitar-equipos.png" title="Team training / manager experience" alt="Trainly team-training interface from the public demo." width={1350} height={712} />
+            <div className="td-architecture"><header><p className="td-label">System responsibilities</p><h3>Tools and roles<br />across the product.</h3></header><dl>{trainlyCase.system.map((item,index) => <div key={item.name} data-drag-frame><dt><span>0{index+1}</span>{item.name}</dt><dd><ArtifactDrag label={`Move the ${item.name} system card`} />{item.purpose}</dd></div>)}</dl></div>
           </section>
 
           <section id="learnings" className="td-section" data-scroll-depth="-24" data-drag-boundary aria-labelledby="trainly-learnings-title">
             <SectionHeading number="06" label="Learnings & next" title={<span id="trainly-learnings-title">The insight<br />was the loop.</span>}><p>Training becomes more useful when teaching, evaluating and improving are designed as one connected system.</p></SectionHeading>
             <div className="td-learnings-grid">{trainlyDossier.learnings.map(item => <article key={item.title} data-kind={item.label.toLowerCase()} data-drag-frame><ArtifactDrag label={`Move note: ${item.title}`} /><p className="td-label">{item.label}</p><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
-            <div className="td-status" data-drag-frame><ArtifactDrag label="Move the Trainly evidence status" /><p className="td-label">Current status / in use and growing</p><h3>In use.<br />Growing.</h3><p>Clients use Trainly, and the product continues to grow. This case presents the implemented product flow and interface; it does not report quantified learning outcomes.</p></div>
+            <div className="td-status" data-drag-frame><ArtifactDrag label="Move the Trainly evidence status" /><p className="td-label">Current status / in use and growing</p><h3>In use.<br />Growing.</h3><p>Clients use Trainly, and the product continues to grow. Explore the product flow, interface and implementation.</p></div>
           </section>
         </div>
       </div>

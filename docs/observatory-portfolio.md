@@ -6,6 +6,8 @@ The portfolio connects a distinctive visual entrance to evidence of product judg
 
 ## User experience
 
+The owner requested a cleaner presentation on 2026-10-12. Agora and Trainly media frames and cursor previews now show their image and title without caption footers. Repeated provenance/disclaimer notes are removed from the case pages and home summaries; image alt text, substantive contribution details and team-reported validation remain. Provenance and evidence limits stay in the asset/content documentation. The obsolete Batech company-footage/frontend-lead badge is removed from the home hero, which presents the current Product Engineer / Applied AI role. Caption spacing is removed rather than retained as empty rows.
+
 The home follows entrance → origin story → case index → Trainly summary → Batech → Agora preview → contact. The case index provides direct paths without requiring the full sequence. Agora and Trainly have dedicated dossiers. Five visible career steps name the companies and place both projects within Flock I+D; see [Agora case and career story](agora-case-and-story.md).
 
 The Story is one five-stage reading path, without a separate summary carousel and repeated chronology. Its articles stay in normal document flow and grow with their content. A persistent artistic canvas follows the reading position; optional native anchors provide direct entry to each stage. The scroll does not move focus or intercept wheel/touch. Focus or an active gesture holds the current artwork until it can change safely. Discovery objects maintain separate hover, focus, panel focus and pin state.

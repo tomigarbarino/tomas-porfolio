@@ -52,7 +52,7 @@ export function ProductWork() {
             <section className="pw-evidence" data-drag-frame aria-labelledby="trainly-evidence">
               <ArtifactDrag label="Move the Trainly evidence card" />
               <div><p className="pw-detail-label">Current state</p><h4 id="trainly-evidence">{trainlyCase.statusHeadline}</h4></div>
-              <div><p>Clients use Trainly, and the product continues to grow. Explore the implemented flow, interface and architecture in the full case.</p><p className="pw-evidence-limit">This case does not report quantified learning outcomes. Demo values are illustrative, not customer results.</p></div>
+              <div><p>Clients use Trainly, and the product continues to grow. Explore the implemented flow, interface and architecture in the full case.</p></div>
             </section>
             <div className="pw-case-actions"><Link className="pw-case-cta" href={trainlyCase.href} prefetch={true}>Read the Trainly case <span aria-hidden="true">→</span></Link><a className="pw-text-link" href="#contact">Let’s talk <span aria-hidden="true">↓</span></a></div>
           </div>

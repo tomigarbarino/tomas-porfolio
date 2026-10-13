@@ -35,14 +35,10 @@ const designs = [
   {
     id: "candidate-upload", src: "/media/agora-candidate-upload.png", title: "Candidate CV upload",
     alt: "Agora candidate CV upload interface reference with an empty upload area",
-    caption: "An empty upload state in the candidate application.",
-    source: "https://www.figma.com/design/gKp8MoVlJ2vdftqeyqmyht/Agora---Design-file?node-id=4672-8410",
   },
   {
     id: "interview-preparation", src: "/media/agora-device-check.png", title: "Interview preparation",
     alt: "Agora candidate interview device-check interface reference, before an interview starts",
-    caption: "Device preparation before the AI interview begins.",
-    source: "https://www.figma.com/design/gKp8MoVlJ2vdftqeyqmyht/Agora---Design-file?node-id=5822-10016",
   },
 ] as const;
 
@@ -113,7 +109,6 @@ function CandidateFrame({ design, hero = false }: { design: typeof designs[numbe
     {/* These are existing, empty Figma states, not a live candidate record. */}
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img src={design.src} alt={design.alt} width="1440" height="900" loading={hero ? "eager" : "lazy"} decoding="async" />
-    <figcaption><div><span className="ad-design-kind">Candidate experience</span><p>{design.caption}</p></div><a href={design.source} target="_blank" rel="noreferrer">View source ↗</a></figcaption>
   </figure>;
 }
 
@@ -151,7 +146,7 @@ export function AgoraDossier() {
           </section>
 
           <section className="ad-section ad-decision-section" id="decision" data-drag-boundary aria-labelledby="agora-decision-title">
-            <SectionHeading number="02" label="A real product decision / anonymized" title={<span id="agora-decision-title">Missing requirements<br />should trigger review,<br /><em>not rejection.</em></span>}><p>A talent team flagged a Systems student rejected for a trainee search. The explanation blamed missing studies. Two separate failures sat behind that decision.</p></SectionHeading>
+            <SectionHeading number="02" label="A real product decision" title={<span id="agora-decision-title">Missing requirements<br />should trigger review,<br /><em>not rejection.</em></span>}><p>A talent team flagged a Systems student rejected for a trainee search. The explanation blamed missing studies. Two separate failures sat behind that decision.</p></SectionHeading>
             <div className="ad-incident-grid">
               <article data-drag-frame data-agora-decision-step="missing-skills"><ArtifactDrag label="Move the missing skills diagnosis" /><p className="ad-label">01 / Missing requirements</p><h3>No structured skills.<br />A 0% match.</h3><p>The requirements were in a public advert the matcher did not consume. With no structured skills in the search, missing context became a 0% match and an automatic rejection.</p></article>
               <article data-drag-frame data-agora-decision-step="education-catalog"><ArtifactDrag label="Move the education catalog diagnosis" /><p className="ad-label">02 / A catalog gap</p><h3>Education existed.<br />The alias did not.</h3><p>The Spanish-language education catalog did not recognize English degree names and levels. The resulting rejection explanation also missed the candidate’s stated education.</p></article>
@@ -166,30 +161,26 @@ export function AgoraDossier() {
             <p className="ad-tradeoff">The structural fix was to prevent searches without requirements. Templates, Manatal imports and AI prefill needed more time, so the immediate guardrail stayed small while that work remained on the roadmap.</p>
             <details className="ad-disclosure"><summary>Why this fix? The alternatives considered <span aria-hidden="true">+</span></summary><dl className="ad-alternatives"><div><dt>Use another evaluator</dt><dd>It shared the same education catalog, so that recognition gap would remain.</dd></div><div><dt>Read the public advert</dt><dd>That would mix promotional copy with structured role requirements.</dd></div><div><dt>Repair search creation structurally</dt><dd>Templates, imports and AI prefill needed more time. They remained on the roadmap while the bounded guardrail addressed the missing-input state.</dd></div></dl></details>
             <section className="ad-validation" aria-labelledby="agora-validation-title">
-              <header><p className="ad-label">Team-reported validation</p><h3 id="agora-validation-title">One decision changed.<br />Scores stayed the same.</h3></header>
+              <header><p className="ad-label">Validation</p><h3 id="agora-validation-title">One decision changed.<br />Scores stayed the same.</h3></header>
               <ol><li><span>Before release</span><p>The team reported two searches affected by missing structured skills. Replaying the calculation changed one decision without changing scores.</p></li><li><span>After release</span><p>A read-only check, reported by the team, confirmed human review and education recognition for the affected case. A control search stayed unchanged.</p></li></ol>
-              <p className="ad-note">Reported by the team; not independently verified for this portfolio. This bounded replay and control check do not measure overall matching accuracy, fairness or business impact.</p>
             </section>
           </section>
 
           <section className="ad-section ad-flow-section" id="flow" data-drag-boundary aria-labelledby="agora-flow-title">
             <SectionHeading number="03" label="Product flow" title={<span id="agora-flow-title">Criteria. Evidence.<br />Human context.</span>}><p>Role criteria define the review. Jev connects CV evidence to each criterion; voice interviews add technical context. Recruiters see the candidate’s combined history.</p></SectionHeading>
             <AgoraFlow />
-            <p className="ad-note">Illustrative product flow and explanation. It contains no real CV, candidate record or live result.</p>
           </section>
 
           <section className="ad-section" id="experience" data-drag-boundary aria-labelledby="agora-experience-title">
             <SectionHeading number="04" label="Candidate experience" title={<span id="agora-experience-title">Candidate UX is<br />part of the product.</span>}><p>My scope also includes candidate UX/UI. These product designs show two moments in that journey: uploading a CV and preparing devices for an AI interview.</p></SectionHeading>
             <aside className="ad-section-sticker ad-section-sticker--human" data-scroll-depth="14"><PeelSticker art="human" title="Human in the loop." fact="A CV upload and a device check are part of the same candidate journey as the interview." tone="pink" /></aside>
             <div className="ad-art-group" data-scroll-depth="-12"><div className="ad-design-gallery">{designs.map(design => <CandidateFrame key={design.id} design={design} />)}</div></div>
-            <p className="ad-note">Interface references / CV upload and interview preparation.</p>
           </section>
 
           <section className="ad-section" id="system" data-drag-boundary aria-labelledby="agora-system-title">
             <SectionHeading number="05" label="Product system" title={<span id="agora-system-title">The product behind<br />the decision.</span>}><p>I contribute to architecture decisions and AI features across these product responsibilities. Manatal integration and bulk search uploads support the recruiter workflow.</p></SectionHeading>
             <aside className="ad-section-sticker ad-section-sticker--commit" data-scroll-depth="-14"><PeelSticker art="commit" title="Small change. Clear check." fact="Check the affected cases, unchanged scores and a control. The scope of a change is part of the decision." tone="lime" /></aside>
             <div className="ad-art-group" data-scroll-depth="-12"><div className="ad-system-grid"><article data-drag-frame><ArtifactDrag label="Move the Agora application responsibility" /><p className="ad-label">Application</p><h3>Both sides<br />of the workflow.</h3><p>Recruiter searches, candidate context, ranking and history; candidate preparation and interview entry.</p><p className="ad-stack-group">Next.js · Supabase</p></article><article data-drag-frame><ArtifactDrag label="Move the Agora AI responsibility" /><p className="ad-label">AI workflows</p><h3>Evidence and<br />interviews.</h3><p>CV matching against role criteria and automated technical interviews with AI agents.</p><p className="ad-stack-group">Python · OpenAI</p></article><article data-drag-frame><ArtifactDrag label="Move the Agora operations responsibility" /><p className="ad-label">Infrastructure</p><h3>Supporting<br />the product.</h3><p>Hosting and operational services across the application and its agent workflows.</p><p className="ad-stack-group">AWS Amplify · Railway</p></article></div></div>
-            <p className="ad-note">Conceptual grouping of the declared product stack and responsibilities. Deployment topology and implementation internals are not included in this case.</p>
           </section>
 
           <section className="ad-section ad-next" id="next" aria-labelledby="agora-next-title">
