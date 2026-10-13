@@ -12,7 +12,7 @@ The career story now uses five complete scenes that advance with the reading pos
 
 The Agora dossier has a section rail and direct links to the incident decision. A search without structured skills had produced an automatic rejection; the case explains the separate education-catalog gap, alternatives considered, bounded human-review guardrail and team-reported replay/control check. Personal contribution stays distinct from reported team validation. The case does not claim overall model accuracy or business impact.
 
-Candidate artifacts are existing empty Figma designs with source links. The diagram remains illustrative. Drag, notes, native disclosures, related-case links and the shared header use the portfolio's shared interaction components. Global pause and reduced motion extend to the page and its silent ASCII environment. The coverage below distinguishes desktop input and mobile viewport checks from real-device touch verification.
+Candidate artifacts are existing empty interface designs; their provenance is recorded in the asset documentation. Image foot captions, source-link footers and repeated caveat notes were removed at the owner's request on 2026-10-12. Descriptive image alt text and the illustrative diagram's accessible label remain. Drag, notes, native disclosures, related-case links and the shared header use the portfolio's shared interaction components. Global pause and reduced motion extend to the page and its silent ASCII environment. Earlier source-link and caption checks below describe the preceding layout.
 
 ## Technical overview
 
@@ -24,7 +24,7 @@ Candidate artifacts are existing empty Figma designs with source links. The diag
 - `SiteHeader.tsx`: configurable native return target; Agora returns to `/#agora`, Trainly retains `/#trainly`.
 - `ProductWork`, `TrainlyDossier`, sitemap and `/agora` alias: connected case navigation and discovery.
 
-There are no new dependencies, APIs, database operations or environment variables. The section observer and motion components clean up listeners and observers. Mobile Flock project cards keep their reading width while an outer gutter reserves horizontal drag space. The Agora hero reserves room beneath its rotated frame so the sticker leaves its source link reachable. Dragged nodes keep the existing geometric connector logic; chapter artwork remains mounted.
+There are no new dependencies, APIs, database operations or environment variables. The section observer and motion components clean up listeners and observers. Mobile Flock project cards keep their reading width while an outer gutter reserves horizontal drag space. The Agora hero retains its rotated frame and sticker. Dragged nodes keep the existing geometric connector logic; chapter artwork remains mounted.
 
 ## End-to-end refinement — 2026-10-11
 

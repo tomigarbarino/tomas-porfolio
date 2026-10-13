@@ -14,7 +14,6 @@ const cases = [
     description: "Read the product decision and its scoped check",
     logo: "/media/agora-logo.svg", logoWidth: 126, logoHeight: 37,
     image: "/media/agora-interview-ready.png", width: 1440, height: 900,
-    caption: "Interview readiness / Candidate experience",
   },
   {
     id: "trainly", number: "02", name: "Trainly", href: "/en/trainly",
@@ -22,7 +21,6 @@ const cases = [
     description: "Explore the learning experience and implementation",
     logo: "/media/trainly/trainly-logo.svg", logoWidth: 148, logoHeight: 36,
     image: "/media/trainly/campus-ai.png", width: 1350, height: 652,
-    caption: "AI campus / Learning experience",
   },
 ] as const;
 
@@ -82,7 +80,7 @@ export function CaseStudyDirectory() {
       const below = window.innerHeight - rect.bottom - 32;
       if (active!.input === "keyboard") {
         const room = Math.max(above, below);
-        preview!.style.setProperty("--preview-room", `${Math.max(0, room - 154)}px`);
+        preview!.style.setProperty("--preview-room", `${Math.max(0, room - 112)}px`);
         height = preview!.offsetHeight;
         hasRoom = height <= room;
       }
@@ -175,7 +173,6 @@ export function CaseStudyDirectory() {
             <div className="case-preview__bar"><span>CASE_{product.number} / {product.name.toUpperCase()}</span><span className="case-preview__dots">● ● ●</span></div>
             <div className="case-preview__brand"><Image src={product.logo} alt="" width={product.logoWidth} height={product.logoHeight} unoptimized /><span>PRODUCT<br />PREVIEW ↗</span></div>
             <div className="case-preview__screen"><Image src={product.image} alt="" loading="eager" width={384} height={Math.round(384 * product.height / product.width)} /></div>
-            <div className="case-preview__caption"><span>{product.caption}</span><span>↗</span></div>
           </div>
         </div>, document.body,
       ) : null}

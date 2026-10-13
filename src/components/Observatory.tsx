@@ -41,7 +41,6 @@ export function Observatory() {
       <div className="observatory-stage" ref={stage}>
         <div className="scene-ink" aria-hidden="true" />
         <SiteHeader context="home" />
-        <a className="scene-caption" href="#batech"><span>BATECH / COMPANY FOOTAGE</span><span>My role: frontend leadership</span></a>
         <SceneDiscoveries onPlay={() => setSelected("quests")} />
         <div className="hero-copy" data-scroll-depth="18"><h1 id="hero-title">Tomás<br />Garbarino.</h1><p><span className="hero-role">Product Engineer / Applied AI</span><br />Real problems. Working systems.</p><p className="hero-contribution">I connect customer discovery, product decisions and hands-on AI implementation.</p><a className="button-primary mobile-case-link" href="#work">Explore case studies →</a><div className="mobile-routes"><button type="button" onClick={() => setSelected("profile")}>Quick profile →</button><a href="#story">Story →</a><button type="button" onClick={() => setSelected("quests")}>Side quests +</button><a href="#contact">Contact ↗</a></div></div>
         {windowState !== "closed" && <Window project="Agora" container={stage} minimized={windowState === "minimized"} onMinimize={() => hideWindow("minimized")} onClose={() => hideWindow("closed")}>

@@ -25,10 +25,8 @@
 .case-preview__brand { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 17px 18px; }
 .case-preview__brand img { display: block; width: auto; max-width: 148px; height: 32px; object-fit: contain; }
 .case-preview__brand > span { color: var(--preview-accent); font-size: 9px; line-height: 1.6; text-align: right; }
-.case-preview__screen { position: relative; width: calc(100% - 20px); margin: 0 10px; overflow: hidden; aspect-ratio: 16 / 10; max-height: max(0px, min(calc(100svh - 186px), var(--preview-room, 100svh))); background: #151518; border: 1px solid #ffffff24; }
+.case-preview__screen { position: relative; width: calc(100% - 20px); margin: 0 10px 10px; overflow: hidden; aspect-ratio: 16 / 10; max-height: max(0px, min(calc(100svh - 144px), var(--preview-room, 100svh))); background: #151518; border: 1px solid #ffffff24; }
 .case-preview__screen img { display: block; width: 100%; height: 100%; object-fit: contain; animation: case-preview-image 800ms var(--motion-reveal-ease, cubic-bezier(.22,1,.36,1)) both; }
-.case-preview__caption { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 14px; font-size: 9px; line-height: 1.5; }
-.case-preview__caption > span:last-child { color: var(--preview-accent); font-size: 18px; }
 .case-preview[data-input="keyboard"] .case-preview__window,
 .case-preview[data-input="keyboard"] .case-preview__screen img,
 html[data-motion="paused"] .case-preview__window,

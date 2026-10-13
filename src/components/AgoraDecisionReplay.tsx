@@ -76,7 +76,6 @@ export function AgoraDecisionReplay() {
         </li>
       </ol>
       <p className="agora-decision-replay__sr" id={`${id}-help`}>Hover or focus to preview; select to keep a state. Escape restores With guardrail.</p>
-      <p className="agora-decision-replay__note">Illustrative replay of the reported rule / no live candidate calculation</p>
     </div>
   );
 }

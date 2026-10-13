@@ -5,11 +5,11 @@ import { trainlyDossier } from "@/data/trainly-dossier";
 import { ArtifactDrag } from "./ArtifactDrag";
 
 const stageArtifacts = [
-  { href: "#learning-sequence", label: "View source → learning concept", kind: "Concept visual", note: "Illustrates the transformation. A source document is not included in this dossier." },
-  { href: "#learning-sequence", label: "View the learning sequence concept", kind: "Concept visual", note: "Illustrates a structured learning path; this is not an agent execution trace." },
-  { href: "#trainly-campus", label: "Inspect the campus interface", kind: "Product interface", note: "The published capture shows the campus in its learning and onboarding state." },
-  { href: "#evaluation-approach", label: "Read the evaluation approach", kind: "Product approach", note: "Questions and follow-up are described here. A learner conversation is not included." },
-  { href: "#trainly-manager", label: "Inspect the manager interface", kind: "Product interface", note: "A public-demo capture of team training; demo values are not learning-outcome data." },
+  { href: "#learning-sequence", label: "Explore the learning sequence" },
+  { href: "#learning-sequence", label: "View the learning sequence" },
+  { href: "#trainly-campus", label: "Inspect the campus interface" },
+  { href: "#evaluation-approach", label: "Read the evaluation approach" },
+  { href: "#trainly-manager", label: "Inspect the manager interface" },
 ] as const;
 
 export function TrainlyLoopExplorer() {
@@ -29,7 +29,6 @@ export function TrainlyLoopExplorer() {
   useEffect(() => () => { if (hoverTimer.current !== null) clearTimeout(hoverTimer.current); }, []);
   return (
     <div className="td-loop-explorer" data-drag-boundary>
-      <p className="td-note">Conceptual product loop</p>
       <ol className="td-stage-list" aria-label="Explore the five product stages">
         {trainlyDossier.stages.map((item, index) => <li key={item.name}>
           <button id={`${panelId}-trigger-${index}`} type="button" aria-pressed={active === index} aria-controls={`${panelId}-stage-${index}`} onClick={() => select(index)} onPointerEnter={event => {
@@ -57,7 +56,7 @@ export function TrainlyLoopExplorer() {
           >
             <p className="td-label">{item.name} / inside the loop</p><h3>{item.title}</h3><p>{item.body}</p><p>{item.detail}</p>
             <span className="td-stage-output">{item.output}</span>
-            <div className="td-stage-artifact"><span>{stageArtifacts[index].kind}</span><a href={stageArtifacts[index].href}>{stageArtifacts[index].label} <span aria-hidden="true">↗</span></a><p>{stageArtifacts[index].note}</p></div>
+            <div className="td-stage-artifact"><a href={stageArtifacts[index].href}>{stageArtifacts[index].label} <span aria-hidden="true">↗</span></a></div>
           </div>)}
         </div>
         <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">Stage {active + 1} of {trainlyDossier.stages.length}: {stage.name}. {stage.title}</p>

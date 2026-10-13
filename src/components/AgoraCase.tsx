@@ -55,7 +55,6 @@ export function AgoraCase() {
                 </article>
               ))}
             </div>
-            <p className="agora-preview__limit">Checks reported by the team for this incident; they do not measure overall matching accuracy or business impact.</p>
           </div>
           <div className="agora-preview__actions">
             <Link className="agora-preview__link" href="/en/agora" prefetch={true}>Read the Agora case <span aria-hidden="true">→</span></Link>

@@ -52,8 +52,6 @@ h1, h2, h3 { font-family: var(--font-display), sans-serif; font-weight: 900; }
 .identity span:last-child { font-size: 18px; color: var(--muted); }
 .hero-header nav { display: flex; width: 464px; gap: 28px; padding: 3px 64px 0 0; font-size: 18px; }
 .hero-header nav > a { min-width: 80px; }
-.scene-caption { position: absolute; top: 115px; left: 40px; z-index: 2; display: flex; flex-direction: column; gap: 5px; width: 260px; max-width: 25%; padding: 8px; background: var(--bg); font-size: 10px; line-height: 1.5; }
-.scene-caption span:first-child { color: var(--acid); font-size: 9px; }
 .hero-copy { position: absolute; left: 40px; bottom: 83px; z-index: 2; width: 59%; }
 .hero-copy h1 { font-size: clamp(68px,6.39vw,112px); line-height: 1; letter-spacing: -.025em; text-shadow: 0 2px 3px #050609, 0 0 22px #050609b3; }
 .hero-copy p { margin-top: 20px; font-size: clamp(18px,1.667vw,26px); line-height: 1.34; text-shadow: 0 1px 3px #050609, 0 0 12px #050609; }
@@ -138,7 +136,6 @@ html[data-motion="paused"] .project-window { transition: none; }
 @media (min-width: 1700px) {
   .hero-copy { left: 60px; }
   .hero-header, .hero-footer { padding-left: 60px; padding-right: 60px; }
-  .scene-caption { left: 60px; }
   .project-window { right: 6%; }
 }
 @media (max-width: 1100px) and (min-width: 800px) {
@@ -148,7 +145,6 @@ html[data-motion="paused"] .project-window { transition: none; }
   .hero-header nav { width: auto; gap: 28px; padding-right: 10px; font-size: 14px; }
   .hero-header nav > a { min-width: auto; }
   .hero-copy { left: 28px; }
-  .scene-caption { left: 28px; max-width: 48%; }
   .project-window { width: 350px; right: 24px; }
   .window-content { padding: 18px; }
   .hero-footer { padding-left: 28px; padding-right: 28px; gap: 22px; }
@@ -162,7 +158,6 @@ html[data-motion="paused"] .project-window { transition: none; }
   .identity span:last-child { font-size: 13px; }
   .hero-header nav { display: none; }
   .hero-world { top: 88px; left: 0; right: 0; height: 360px; opacity: .72; transform: none; transition: none; }
-  .scene-caption { display: none; }
   .hero-copy { position: relative; left: auto; bottom: auto; width: 100%; z-index: 2; }
   .hero-copy h1 { font-size: 46px; line-height: 48px; letter-spacing: -.01em; }
   .hero-copy p { margin-top: 43px; font-size: 18px; line-height: 27px; }
