@@ -35,7 +35,7 @@ Animation uses bounded CSS variables and a settling RAF that stops when converge
 
 Native browser validation covers desktop hover/depth and contribution emphasis, Tab/Escape, whole-surface drag with simultaneous scroll, keyboard movement/reset, forward/reverse scroll after selection, shared pause and emulated reduced motion, and 390/320px layouts. No horizontal overflow or captured console errors was observed. Mobile checks use viewport emulation and mouse click equivalents; physical phone touch hardware was not tested. Local evidence is in `output/layered-interactions-2026-10-13/browser-checks.json`.
 
-Full ESLint, TypeScript and the optimized Next.js build passed with Node.js 24.19.0. Build `U49pR9ceC4kvqQkLSCbIX` prerenders home, Agora and Trainly; all 12 route/metadata checks passed. An optimized-build hover check retained the next section's document position. These gates verify the portfolio implementation; they do not evaluate Agora's live AI or hiring outcomes.
+Full ESLint, TypeScript and the optimized Next.js build passed with Node.js 24.19.0. Build `1kvcC9U2Fo4ZpMWaEuCas` prerenders home, Agora and Trainly; all 12 route/metadata checks passed. An optimized-build hover check retained the next section's document position. These gates verify the portfolio implementation; they do not evaluate Agora's live AI or hiring outcomes.
 
 Rollback is a revert of the scoped interaction commit. The existing motion control immediately disables decorative animation without disabling controls or drag. No product backend, live candidate data, external runtime service or new dependency is involved.
 

@@ -35,6 +35,7 @@ export function AgoraProductLayers() {
     let keyboard = false;
     let held = false;
     let hoverBlocked = false;
+    let lastPointer: { x: number; y: number } | null = null;
     const pointers = new Set<number>();
     const moveKeys = new Set<string>();
     let visible = false;
@@ -118,10 +119,7 @@ export function AgoraProductLayers() {
     }
     function move(event: PointerEvent) {
       if (held || !fine.matches || event.pointerType !== "mouse" || event.buttons || event.altKey || window.getSelection()?.toString()) return;
-      if (hoverBlocked) {
-        if (!event.movementX && !event.movementY) return;
-        hoverBlocked = false;
-      }
+      if (hoverBlocked) return;
       const next = choice(event.target);
       if (next !== hovered) { hovered = next; select(); }
       if (paused) return;
@@ -130,6 +128,14 @@ export function AgoraProductLayers() {
       target.x = -clamp((event.clientY - box.top) / box.height * 2 - 1, -1, 1) * 2.5;
       target.y = clamp((event.clientX - box.left) / box.width * 2 - 1, -1, 1) * 3.5;
       schedule();
+    }
+    function trackPointer(event: PointerEvent) {
+      if (event.pointerType !== "mouse") return;
+      const changed = !lastPointer || lastPointer.x !== event.clientX || lastPointer.y !== event.clientY;
+      lastPointer = { x: event.clientX, y: event.clientY };
+      // Relative movement can be zero for absolute-pointer input. Client
+      // coordinates also distinguish real movement from scroll-generated over.
+      if (changed && !held && !event.buttons) hoverBlocked = false;
     }
     function leave() {
       hovered = null;
@@ -218,6 +224,7 @@ export function AgoraProductLayers() {
     root.addEventListener("focusout", focusOut);
     root.addEventListener("click", click);
     document.addEventListener("pointerdown", down, { passive: true, capture: true });
+    document.addEventListener("pointermove", trackPointer, { passive: true, capture: true });
     document.addEventListener("pointerup", pointerUp, { passive: true, capture: true });
     document.addEventListener("pointercancel", pointerUp, { passive: true, capture: true });
     document.addEventListener("keydown", key, true);
@@ -238,6 +245,7 @@ export function AgoraProductLayers() {
       root.removeEventListener("focusout", focusOut);
       root.removeEventListener("click", click);
       document.removeEventListener("pointerdown", down, true);
+      document.removeEventListener("pointermove", trackPointer, true);
       document.removeEventListener("pointerup", pointerUp, true);
       document.removeEventListener("pointercancel", pointerUp, true);
       document.removeEventListener("keydown", key, true);
