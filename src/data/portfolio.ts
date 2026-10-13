@@ -11,11 +11,11 @@ export const portfolioProfile = {
 
 export const portfolioMedia = {
   trainly: {
-    src: "/media/trainly-product.png",
-    width: 1350,
-    height: 652,
-    alt: "Trainly public demo: the campus interface with an onboarding guide.",
-    credit: "Public Trainly demo / Flock I+D",
+    src: "/media/trainly/trainly-03-actividad-clase-narrada-tutor.png",
+    width: 1440,
+    height: 900,
+    alt: "Trainly’s actual narrated lesson and contextual AI tutor in a local demo with fictional data.",
+    credit: "Approved Trainly local demo / Flock I+D",
   },
   batech: {
     src: "/media/batech-product.jpg",

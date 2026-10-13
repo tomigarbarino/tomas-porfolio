@@ -52,9 +52,9 @@ export function AgoraResearch() {
         <h3 id="jev-contribution-title">Make the decision<br />reviewable.</h3>
         <p>I implemented structured search requirements, criterion-level CV evidence, JEV integrations and human-review controls with AI coding agents. The team built the base platform; my work connects its decision rules, interface and validation.</p>
         <div className="ajr-evidence">
-          <Image src="/media/agora/criterion-evidence.png" alt="Agora’s actual interface, rendered locally with fictional data: an Excel requirement marked uncertain at 48%, with the supporting CV excerpts visible." width={2392} height={232} sizes="(max-width: 799px) 88vw, 900px" />
+          <Image src="/media/agora/agora-03-evidencia-por-requisito.png" alt="Agora’s actual recruiter interface in a fictional local demo: requirements with CV evidence, an uncertain Excel requirement at 48%, a review reason and the options to approve and invite or not advance." width={1440} height={900} sizes="(max-width: 799px) 88vw, 900px" draggable={false} />
         </div>
-        <p>In this demo, mentioning Excel does not establish the required experience. Showing the evidence gives the recruiter something concrete to check. <a className="ajr-evidence-link" href="/media/agora/criterion-evidence.png" target="_blank" rel="noopener noreferrer">Inspect the evidence <span aria-hidden="true">↗</span></a></p>
+        <p>This local demo uses fictional data. Mentioning Excel does not establish the required experience: the recruiter sees the CV excerpts, records a review reason and chooses the next action. I designed and implemented this review interface to keep the judgment connected to its evidence. <a className="ajr-evidence-link" href="/media/agora/agora-03-evidencia-por-requisito.png" target="_blank" rel="noopener noreferrer">Inspect the full review <span aria-hidden="true">↗</span></a></p>
       </article>
     </div>
 
