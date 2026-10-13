@@ -7,6 +7,7 @@ import { ArtifactDrag } from "./ArtifactDrag";
 import { AgoraFlow } from "./AgoraFlow";
 import { AgoraDecisionReplay } from "./AgoraDecisionReplay";
 import { AgoraProductLayers } from "./AgoraProductLayers";
+import { AgoraResearch } from "./AgoraResearch";
 import { AsciiVideo } from "./AsciiVideo";
 import { MotionPreference, useMotionPreference } from "./MotionPreference";
 import { PeelSticker } from "./PeelSticker";
@@ -20,6 +21,7 @@ const sections = [
   { id: "overview", label: "Context + role" },
   { id: "decision", label: "The decision" },
   { id: "flow", label: "Product flow" },
+  { id: "research", label: "Published research" },
   { id: "experience", label: "Candidate experience" },
   { id: "system", label: "Product system" },
   { id: "next", label: "What comes next" },
@@ -29,17 +31,17 @@ const contributions = [
   { title: "Product direction", body: "I work on product definition and priorities. In this case, I helped define the immediate guardrail while the structural search-creation fix stayed on the roadmap.", href: "#decision", link: "The product decision" },
   { title: "Architecture + AI", body: "I participate in architecture decisions and implement AI features directly, connecting the application with its agent workflows.", href: "#system", link: "The product system" },
   { title: "Customer discovery", body: "I discover customer needs and bring commercial context into product decisions. This case starts with a concrete report from a talent team.", href: "#decision", link: "Where the case started" },
-  { title: "Candidate experience", body: "My UX/UI work includes the candidate journey alongside recruiter workflows, from entering a profile to preparing for an interview.", href: "#experience", link: "The candidate journey" },
+  { title: "Candidate experience", body: "The team built the base candidate application. I contribute UX improvements, reliability fixes and end-to-end validation across entry, preparation and the voice interview.", href: "#experience", link: "The candidate journey" },
 ] as const;
 
 const designs = [
   {
-    id: "candidate-upload", src: "/media/agora-candidate-upload.png", title: "Candidate CV upload",
-    alt: "Agora candidate CV upload interface reference with an empty upload area",
+    id: "candidate-upload", src: "/media/agora/agora-c1-candidato-ingreso.png", title: "Candidate entry",
+    alt: "Agora candidate welcome interface from the actual application running in a local demo with fictional candidate and role data",
   },
   {
-    id: "interview-preparation", src: "/media/agora-device-check.png", title: "Interview preparation",
-    alt: "Agora candidate interview device-check interface reference, before an interview starts",
+    id: "interview-preparation", src: "/media/agora/agora-c3-candidato-entrevista-lista.png", title: "Interview ready",
+    alt: "Agora interview-ready interface from the actual application running in a local demo with fictional data, before the voice interview starts",
   },
 ] as const;
 
@@ -105,9 +107,9 @@ function SectionHeading({ number, label, title, children }: { number: string; la
 
 function CandidateFrame({ design, hero = false }: { design: typeof designs[number]; hero?: boolean }) {
   return <figure id={hero ? undefined : design.id} className={`ad-design${hero ? " ad-design--hero" : ""}`} data-drag-frame>
-    <ArtifactDrag label={`Move the Agora ${design.title.toLowerCase()} design${hero ? " in the hero" : ""}`} />
+    <ArtifactDrag label={`Move the Agora ${design.title.toLowerCase()} interface${hero ? " in the hero" : ""}`} />
     <div className="ad-design-bar"><span>Agora / {design.title}</span><span aria-hidden="true">↗</span></div>
-    {/* These are existing, empty Figma states, not a live candidate record. */}
+    {/* Actual application screens from a local demo with fictional data. */}
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img src={design.src} alt={design.alt} width="1440" height="900" loading={hero ? "eager" : "lazy"} decoding="async" />
   </figure>;
@@ -172,20 +174,25 @@ export function AgoraDossier() {
             <AgoraFlow />
           </section>
 
+          <section className="ad-section ad-research-section" id="research" data-drag-boundary aria-labelledby="agora-research-title">
+            <SectionHeading number="04" label="Published research" title={<span id="agora-research-title">How I validate<br />AI decisions.</span>}><p>The published JEV study compares AI evaluations with reference judgments in a retrospective dataset. It is separate from the production incident above.</p></SectionHeading>
+            <AgoraResearch />
+          </section>
+
           <section className="ad-section" id="experience" data-drag-boundary aria-labelledby="agora-experience-title">
-            <SectionHeading number="04" label="Candidate experience" title={<span id="agora-experience-title">Candidate UX is<br />part of the product.</span>}><p>My scope also includes candidate UX/UI. These product designs show two moments in that journey: uploading a CV and preparing devices for an AI interview.</p></SectionHeading>
-            <aside className="ad-section-sticker ad-section-sticker--human" data-scroll-depth="14"><PeelSticker art="human" title="Human in the loop." fact="A CV upload and a device check are part of the same candidate journey as the interview." tone="pink" /></aside>
+            <SectionHeading number="05" label="Candidate experience" title={<span id="agora-experience-title">Candidate UX is<br />part of the product.</span>}><p>The team built the base candidate application. My contribution includes UX work, reliability fixes and end-to-end validation. These local demo screens use fictional data and show candidate entry and the interview-ready state.</p></SectionHeading>
+            <aside className="ad-section-sticker ad-section-sticker--human" data-scroll-depth="14"><PeelSticker art="human" title="Human in the loop." fact="The team built the candidate app; I contributed to UX, reliability fixes and validation from entry to interview." tone="pink" /></aside>
             <div className="ad-art-group" data-scroll-depth="-12"><div className="ad-design-gallery">{designs.map(design => <CandidateFrame key={design.id} design={design} />)}</div></div>
           </section>
 
           <section className="ad-section" id="system" data-drag-boundary aria-labelledby="agora-system-title">
-            <SectionHeading number="05" label="Product system" title={<span id="agora-system-title">The product behind<br />the decision.</span>}><p>I contribute to architecture decisions and AI features across these product responsibilities. Manatal integration and bulk search uploads support the recruiter workflow.</p></SectionHeading>
+            <SectionHeading number="06" label="Product system" title={<span id="agora-system-title">The product behind<br />the decision.</span>}><p>I contribute to architecture decisions and AI features across these product responsibilities. Manatal integration and bulk search uploads support the recruiter workflow.</p></SectionHeading>
             <aside className="ad-section-sticker ad-section-sticker--commit" data-scroll-depth="-14"><PeelSticker art="commit" title="Small change. Clear check." fact="Check the affected cases, unchanged scores and a control. The scope of a change is part of the decision." tone="lime" /></aside>
             <AgoraProductLayers />
           </section>
 
           <section className="ad-section ad-next" id="next" aria-labelledby="agora-next-title">
-            <SectionHeading number="06" label="Current status / in use and growing" title={<span id="agora-next-title">The next iteration:<br />better inputs.</span>}><p>Agora is used by clients and continues to grow. The immediate guardrail addressed searches with no structured skills. Structured templates, imports and AI prefill remain the next structural direction, alongside continued work on the candidate and recruiter experience.</p></SectionHeading>
+            <SectionHeading number="07" label="Current status / in use and growing" title={<span id="agora-next-title">The next iteration:<br />better inputs.</span>}><p>Agora is used by clients and continues to grow. The immediate guardrail addressed searches with no structured skills. Structured templates, imports and AI prefill remain the next structural direction, alongside continued work on the candidate and recruiter experience.</p></SectionHeading>
             <div className="ad-next-grid"><Link className="ad-related" href="/en/trainly" prefetch={true}><span className="ad-label">Another case / Trainly</span><strong>Learning,<br />in a loop.</strong><span>Product flow · Frontend · AI integration <i aria-hidden="true">↗</i></span></Link><div className="ad-contact"><p className="ad-label">Bring the context.</p><h3>Building an<br />AI product?</h3><Link className="ad-link ad-link--primary" href="/#contact" prefetch={true}>Let’s talk product engineering <span aria-hidden="true">↗</span></Link><Link className="ad-link" href="/#work" prefetch={true}>Back to selected work <span aria-hidden="true">←</span></Link></div></div>
             <footer className="ad-footer"><span>Tomás Garbarino / Product Engineer · Applied AI</span><a href="#top">Back to top ↑</a><span aria-hidden="true">TG_</span></footer>
           </section>

@@ -267,9 +267,9 @@ export function AgoraProductLayers() {
         {layers.map((layer, index) => <button key={layer.id} type="button" className={`agl-layer agl-layer--${layer.id}`} data-layer-choice={layer.id} data-drag-enabled aria-pressed={active === layer.id} aria-describedby={`${id}-${layer.id}`}>
           <span className="agl-layer-bar"><span>0{index + 1} / {layer.name}</span><span aria-hidden="true">↗</span></span>
           {layer.id === "experience" ? <span className="agl-interface">
-            {/* Existing empty interface design; no candidate record is used. */}
+            {/* Actual candidate interface rendered locally with fictional demo data. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/media/agora-candidate-upload.png" alt="" width="1440" height="900" loading="lazy" decoding="async" draggable={false} />
+            <img src="/media/agora/agora-c1-candidato-ingreso.png" alt="Agora candidate entry in a local demo of the actual app with fictional data" width="1440" height="900" loading="lazy" decoding="async" draggable={false} />
             <strong>Candidate ↔ Recruiter</strong>
           </span> : layer.id === "workflow" ? <span className="agl-diagram"><span>Criteria</span><b aria-hidden="true">→</b><span>CV evidence</span><b aria-hidden="true">+</b><span>Interview</span></span> : <span className="agl-rule"><span>Missing criteria</span><b aria-hidden="true">→</b><strong>Human review</strong></span>}
         </button>)}

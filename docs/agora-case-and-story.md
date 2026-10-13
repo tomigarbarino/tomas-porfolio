@@ -2,7 +2,7 @@
 
 ## Summary
 
-Agora has a dedicated case at `/en/agora`. Its short home preview leads into personal contribution, a real matching decision, product flow, candidate designs and the declared stack. The career story names five steps instead of compressing company experience into the third art chapter.
+Agora has a dedicated case at `/en/agora`. Its short home preview leads into personal contribution, a real matching decision, product flow, published JEV research, candidate interfaces and the declared stack. The career story names five steps instead of compressing company experience into the third art chapter.
 
 ## User experience
 
@@ -12,13 +12,14 @@ The career story now uses five complete scenes that advance with the reading pos
 
 The Agora dossier has a section rail and direct links to the incident decision. A search without structured skills had produced an automatic rejection; the case explains the separate education-catalog gap, alternatives considered, bounded human-review guardrail and team-reported replay/control check. Personal contribution stays distinct from reported team validation. The case does not claim overall model accuracy or business impact.
 
-Candidate artifacts are existing empty interface designs; their provenance is recorded in the asset documentation. Image foot captions, source-link footers and repeated caveat notes were removed at the owner's request on 2026-10-12. Descriptive image alt text and the illustrative diagram's accessible label remain. Drag, notes, native disclosures, related-case links and the shared header use the portfolio's shared interaction components. Global pause and reduced motion extend to the page and its silent ASCII environment. Earlier source-link and caption checks below describe the preceding layout.
+Candidate artifacts now show the actual application rendered locally with fictional data. Candidate entry and interview-ready screens replace the earlier design references; a criterion-level evidence excerpt accompanies the research contribution. The portfolio retains no image foot captions or source-link footers. Demo provenance appears in meaningful narrative and descriptive alt text. Drag, notes, native disclosures, related-case links and the shared header use the portfolio's shared interaction components. Global pause and reduced motion extend to the page and its silent ASCII environment. Earlier source-link and caption checks below describe the preceding layout.
 
 ## Technical overview
 
 - `src/app/en/agora/page.tsx`: route metadata, canonical URL and Open Graph design image.
 - `AgoraDossier.tsx` / `agora-dossier.css`: dedicated narrative, event-driven section rail, candidate frames and scoped visual system.
 - `AgoraDecisionReplay.tsx` / `agora-decision-replay.css`: fixed before/after rule states with independent hover, focus and pinned selection; no live evaluation.
+- `AgoraResearch.tsx` / `agora-research.css`: always-visible retrospective comparison, contribution, CV review-load trade-off, method and full-paper link. Shared scroll wrappers and whole-surface drag; no custom animation loop.
 - `AgoraProductLayers.tsx` / `agora-product-layers.css`: scroll-opened product window linking experience, AI workflows and the human-review guardrail to always-visible personal contributions. The application/agent hosting stack remains visible alongside those responsibilities.
 - `AgoraCase.tsx`: concise home preview with the existing `AgoraFlow` and full-case links.
 - `OriginStory.tsx` / `origin-story.css`: explicit career sequence and the two Flock projects.
@@ -26,6 +27,22 @@ Candidate artifacts are existing empty interface designs; their provenance is re
 - `ProductWork`, `TrainlyDossier`, sitemap and `/agora` alias: connected case navigation and discovery.
 
 There are no new dependencies, APIs, database operations or environment variables. The section observer and motion components clean up listeners and observers. Mobile Flock project cards keep their reading width while an outer gutter reserves horizontal drag space. The Agora hero retains its rotated frame and sticker. Dragged nodes keep the existing geometric connector logic; chapter artwork remains mounted.
+
+## Published JEV research — 2026-10-13
+
+Reading order: **role → incident decision → product flow → published research → candidate experience → system → next**. The new `#research` rail entry identifies a separate retrospective study rather than implying that the earlier guardrail produced the benchmark result. Existing candidate anchors remain compatible.
+
+The comparison shows 80.9% agreement for JEV and 54.1% for the historical interview evaluator, a 26.8 percentage-point difference. Its denominator is the 220 questions with a majority-panel label from 48 interviews. Corpus counts remain distinct: 496 applications and 221 extracted questions. Confidence intervals remain visible. A CV-policy example shows exact retrospective review counts of 32 and 136 when the rejection threshold changes from 0.30 to 0.05; the UI does not present that alternative as deployed.
+
+Personal contribution attributes the paper to its author and implementation of structured requirements, evidence per criterion, JEV integrations and review controls to Tomás, with AI coding agents. The team receives credit for the base platform. Visible limitations include one client's CV search, 60 human-labeled CVs, one product-team annotator, sensitivity to labeling, and no measured hiring quality or fairness. Further methodology is available through a native disclosure. The primary link opens the [full public research](https://www.flocklabs.ar/research/como-decide-jev-en-agora-probabilidades-umbrales-y-revision-humana).
+
+The chart uses explicit labels and a common 0–100% bar scale. Hover adds emphasis without changing numbers or requiring discovery to read them. Its window and implementation note use existing `ArtifactDrag`; outer wrappers use `ScrollMotion` so drag and parallax do not compete for `translate`. Shared Pause motion/reduced motion disable CSS transitions and decorative scroll motion while controls remain usable. The informative criterion image uses Next Image with an intrinsic ratio and lazy loading, plus a keyboard-accessible original-image link for narrow screens. Methodology distinguishes the threshold explored on the same sample from cost-based cross-validation and records the absence of a reserved holdout.
+
+Three publication-approved images came from the 2026-10-13 Agora/Trainly export prepared on the work computer: candidate entry, interview ready and uncertain-criterion evidence. They show actual interfaces with fictional fixtures; they do not establish a live backend call, a real voice interview or production adoption. No private references, raw candidate records, company source code or work-machine tools are included in this repository. Trainly assets and simulated-voice clips remain outside this change.
+
+Full ESLint, TypeScript and the optimized Next.js 16.3.8 build passed with the bundled Node.js 24.19.0 runtime. Build `5-W3L_wzWqexe90TJqElR` serves the three static portfolio routes; all 12 route/metadata checks passed. The three PNGs return HTTP 200 and match the approved export bytes. Native browser checks cover always-visible results, source navigation, original-image keyboard access, methodology disclosure, whole-surface drag with simultaneous scroll, keyboard movement/reset, stable hover layout, shared Pause/reduced motion, 320/390px geometry and existing product-layer selection clearing on reverse scroll. An initial offscreen-image check is recorded as a lazy-loading diagnostic and its corrected visible-section check passed. These portfolio checks do not validate Agora's backend or AI outcomes; physical touch hardware and FPS profiling were not tested.
+
+Local evidence: `output/agora-jev-research-2026-10-13/` in the development workspace. The earlier standalone Playwright script below is historical and was not used for this addition. Rollback is a revert of this scoped addition. No data, API or environment rollback is required.
 
 ## Layered product window — 2026-10-13
 
