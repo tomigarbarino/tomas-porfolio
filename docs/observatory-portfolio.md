@@ -24,6 +24,10 @@ Agora's illustrative flow measures node rectangles and reconnects edges after dr
 
 `MotionPreference` provides one persisted play/pause state. `AsciiVideo`, `BatechVideo`, `AmbientMotion` and `ScrollMotion` retain reduced-motion, visibility and offscreen safeguards. The chromatic Story lens remains confined to its frame and video interior. Pause is independent of dragging and navigation.
 
+`AgoraProductLayers` connects the product interface, AI workflow and bounded human-review decision in a scroll-opened 3D paper window, with visible contribution explanations. Its hover/focus lift and pointer perspective settle rather than running indefinitely; real scroll clears manual exploration, and held pointer/keyboard drag gestures freeze decorative motion. See [the Agora feature record](agora-case-and-story.md#layered-product-window--2026-10-13).
+
+`CursorInkTrail`, mounted once in the root layout alongside `PersonalCursor`, stamps a bounded pool of 28 pink/lilac dots in empty outer margins. Content and nearby edges are excluded through hit testing. Individual fades finish after 680 ms, with no idle animation loop or React updates on pointer movement. Passive listeners clear the trail during pointer gestures, scrolling, text selection/Alt, keyboard navigation, blur/hidden state and motion changes. It stays below cursor product previews, has no hit targets and is absent for reduced motion or coarse/non-hover pointers. Native checks observed margin appearance, complete fade, protected text, held pointer suppression, Alt, keyboard clearing, scroll clearing and route reuse on home/Agora/Trainly; physical touch hardware was not tested.
+
 `QuickProfileButton` uses the same dialog entry event as the hero. `PortfolioDialogs` dispatches the selected Story chapter before following its anchor. `TrainlySectionNav` observes a reading band and native hash navigation without controlling scroll.
 
 ## Operational notes

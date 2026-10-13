@@ -1,0 +1,7 @@
+.cursor-ink-trail { display: none; position: fixed; z-index: 40; inset: 0; overflow: clip; contain: strict; pointer-events: none; user-select: none; }
+.cursor-ink-trail > span { position: absolute; top: 0; left: 0; width: 3px; height: 3px; border-radius: 50%; background: #ff76b9; opacity: 0; pointer-events: none; }
+.cursor-ink-trail > [data-tone="lilac"] { background: #c6a7ff; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .cursor-ink-trail[data-enabled="true"] { display: block; }
+}
+html[data-motion="paused"] .cursor-ink-trail { display: none; }

@@ -19,12 +19,25 @@ Candidate artifacts are existing empty interface designs; their provenance is re
 - `src/app/en/agora/page.tsx`: route metadata, canonical URL and Open Graph design image.
 - `AgoraDossier.tsx` / `agora-dossier.css`: dedicated narrative, event-driven section rail, candidate frames and scoped visual system.
 - `AgoraDecisionReplay.tsx` / `agora-decision-replay.css`: fixed before/after rule states with independent hover, focus and pinned selection; no live evaluation.
+- `AgoraProductLayers.tsx` / `agora-product-layers.css`: scroll-opened product window linking experience, AI workflows and the human-review guardrail to always-visible personal contributions. The application/agent hosting stack remains visible alongside those responsibilities.
 - `AgoraCase.tsx`: concise home preview with the existing `AgoraFlow` and full-case links.
 - `OriginStory.tsx` / `origin-story.css`: explicit career sequence and the two Flock projects.
 - `SiteHeader.tsx`: configurable native return target; Agora returns to `/#agora`, Trainly retains `/#trainly`.
 - `ProductWork`, `TrainlyDossier`, sitemap and `/agora` alias: connected case navigation and discovery.
 
 There are no new dependencies, APIs, database operations or environment variables. The section observer and motion components clean up listeners and observers. Mobile Flock project cards keep their reading width while an outer gutter reserves horizontal drag space. The Agora hero retains its rotated frame and sticker. Dragged nodes keep the existing geometric connector logic; chapter artwork remains mounted.
+
+## Layered product window — 2026-10-13
+
+The product-system section now presents one paper window in perspective. Native forward/reverse scroll gradually separates its experience, AI and decision planes. Hover, keyboard focus and click/tap highlight the associated contribution and gently lift that plane; the explanations never depend on opening a hidden panel. The window and explanation surfaces share `ArtifactDrag`, including arrow movement and Home reset.
+
+Animation uses bounded CSS variables and a settling RAF that stops when converged, offscreen, hidden or held. Pointer presses freeze decorative movement before drag intent; movement keys on drag grips do the same. Real scrolling clears manual previews and requires fresh mouse movement before hover can resume, so a stationary cursor cannot pin the narrative. The controller does not prevent wheel/touch events, move focus or reset drag offsets. Shared Pause motion and reduced motion show static expanded layers; resuming starts from the current values. Explicit click pins remain separate from temporary hover/focus.
+
+Native browser validation covers desktop hover/depth and contribution emphasis, Tab/Escape, whole-surface drag with simultaneous scroll, keyboard movement/reset, forward/reverse scroll after selection, shared pause and emulated reduced motion, and 390/320px layouts. No horizontal overflow or captured console errors was observed. Mobile checks use viewport emulation and mouse click equivalents; physical phone touch hardware was not tested. Local evidence is in `output/layered-interactions-2026-10-13/browser-checks.json`.
+
+Full ESLint, TypeScript and the optimized Next.js build passed with Node.js 24.19.0. Build `U49pR9ceC4kvqQkLSCbIX` prerenders home, Agora and Trainly; all 12 route/metadata checks passed. An optimized-build hover check retained the next section's document position. These gates verify the portfolio implementation; they do not evaluate Agora's live AI or hiring outcomes.
+
+Rollback is a revert of the scoped interaction commit. The existing motion control immediately disables decorative animation without disabling controls or drag. No product backend, live candidate data, external runtime service or new dependency is involved.
 
 ## End-to-end refinement — 2026-10-11
 
