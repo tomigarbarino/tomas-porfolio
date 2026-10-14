@@ -97,15 +97,11 @@ export function CaseStudyDirectory() {
     setActive({ id, input: "mouse", entrance: recovering ? active.entrance : ++entranceRef.current });
   }
 
-  function leave() {
-    hoveredRef.current = null;
-    if (focusedRef.current) {
-      cancelExit();
-      setActive({ id: focusedRef.current, input: "keyboard" });
-      return;
-    }
+  const closeSoftly = useCallback(() => {
+    if (exitRef.current.length) return;
     const preview = previewRef.current;
     if (!preview || paused) { dismiss(); return; }
+    followRef.current = null;
     const windows = Array.from(preview.querySelectorAll<HTMLElement>(".case-preview__echo")).reverse();
     const main = preview.querySelector<HTMLElement>(".case-preview__window");
     if (main) windows.push(main);
@@ -125,6 +121,16 @@ export function CaseStudyDirectory() {
     last.onfinish = () => {
       if (exitRef.current.at(-1) === last) dismiss();
     };
+  }, [paused, dismiss, cancelExit]);
+
+  function leave() {
+    hoveredRef.current = null;
+    if (focusedRef.current) {
+      cancelExit();
+      setActive({ id: focusedRef.current, input: "keyboard" });
+      return;
+    }
+    closeSoftly();
   }
 
   useEffect(() => () => cancelExit(), [cancelExit]);
@@ -203,21 +209,31 @@ export function CaseStudyDirectory() {
     function key(event: KeyboardEvent) { if (event.key === "Escape") dismiss(); }
     function resize() { dismiss(); }
     function visibility() { if (document.hidden) dismiss(); }
+    function blur() {
+      hoveredRef.current = null;
+      focusedRef.current = null;
+      closeSoftly();
+    }
+    function pointerOut(event: globalThis.PointerEvent) {
+      if (event.pointerType === "mouse" && event.relatedTarget === null) blur();
+    }
     window.addEventListener("keydown", key);
-    window.addEventListener("scroll", dismiss, { passive: true, capture: true });
+    window.addEventListener("scroll", blur, { passive: true, capture: true });
     window.addEventListener("resize", resize);
-    window.addEventListener("blur", dismiss);
+    window.addEventListener("blur", blur);
+    window.addEventListener("pointerout", pointerOut);
     document.addEventListener("visibilitychange", visibility);
     return () => {
       cancelAnimationFrame(frame);
       followRef.current = null;
       window.removeEventListener("keydown", key);
-      window.removeEventListener("scroll", dismiss, true);
+      window.removeEventListener("scroll", blur, true);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("blur", dismiss);
+      window.removeEventListener("blur", blur);
+      window.removeEventListener("pointerout", pointerOut);
       document.removeEventListener("visibilitychange", visibility);
     };
-  }, [active, paused, dismiss]);
+  }, [active, paused, dismiss, closeSoftly]);
 
   return (
     <>
@@ -240,9 +256,13 @@ export function CaseStudyDirectory() {
               setActive({ id: item.id, input: "keyboard" });
             }}
             onBlur={() => {
-              cancelExit();
               focusedRef.current = null;
-              setActive(hoveredRef.current ? { id: hoveredRef.current, input: "mouse" } : null);
+              if (hoveredRef.current) {
+                cancelExit();
+                setActive({ id: hoveredRef.current, input: "mouse", entrance: active?.id === hoveredRef.current ? active.entrance : ++entranceRef.current });
+              } else {
+                closeSoftly();
+              }
             }}
             onClick={dismiss}>
             <span>{item.number} / {item.name}</span><strong>{item.title}</strong>
