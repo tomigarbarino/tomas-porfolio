@@ -10,18 +10,22 @@ import "./product-work.css";
 export function ProductWork() {
   return (
     <section id="work" className="pw" aria-labelledby="work-title">
-      <header className="pw-work-header">
-        <div className="pw-work-topline">
-          <p className="pw-detail-label">Two products / Flock I+D</p>
-          <nav className="pw-direct" aria-label="Profile and contact">
-            <QuickProfileButton />
-            <a href="#contact">Contact</a>
-          </nav>
+      <div className="pw-work-entry">
+        <div className="pw-work-overview">
+          <header className="pw-work-header">
+            <div className="pw-work-topline">
+              <p className="pw-detail-label">Two products / Flock I+D</p>
+              <nav className="pw-direct" aria-label="Profile and contact">
+                <QuickProfileButton />
+                <a href="#contact">Contact</a>
+              </nav>
+            </div>
+            <h2 id="work-title">Case studies.</h2>
+            <p className="pw-work-deck">A decision in recruiting. A learning experience built around understanding.</p>
+          </header>
+          <CaseStudyDirectory />
         </div>
-        <h2 id="work-title">Case studies.</h2>
-        <p className="pw-work-deck">A decision in recruiting. A learning experience built around understanding.</p>
-      </header>
-      <CaseStudyDirectory />
+      </div>
       <AgoraCase />
       <div className="pw-reading">
         <article id="trainly" className="pw-case pw-case--trainly" data-scroll-depth="-20" data-drag-boundary aria-labelledby="trainly-title">

@@ -17,6 +17,11 @@
 .pw a { text-decoration: none; }
 .pw a:focus-visible { outline: 3px solid currentColor; outline-offset: 6px; }
 
+@media (min-width: 801px) and (min-height: 620px) and (prefers-reduced-motion: no-preference) {
+  .pw-work-entry { min-height: 200svh; }
+  .pw-work-overview { position: sticky; top: 16px; padding-bottom: 48px; }
+}
+
 .pw-work-header { max-width: 1280px; margin-inline: auto; padding: 48px clamp(20px, 5vw, 72px) 0; }
 .pw-work-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
 .pw-work-header .pw-direct { display: flex; flex: 0 0 auto; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 12px; line-height: 1.7; }
