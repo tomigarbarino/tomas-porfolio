@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Trainly — From documents to evidence of competence",
     description: "A product engineering case by Tomás Garbarino. Learning, evaluation and improvement in one connected system.",
+    images: [{ url: "/media/trainly/trainly-02-plan-decision-bloqueante@2x.png", width: 2880, height: 1800, alt: "Trainly source-linked plan and a blocking human decision — actual interface with fictional demo data" }],
     type: "article",
   },
 };

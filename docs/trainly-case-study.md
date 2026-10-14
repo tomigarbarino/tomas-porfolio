@@ -1,61 +1,53 @@
 # Trainly portfolio case study
 
-## Summary
+## Current implementation
 
-Trainly now has a first-party case study at `/trainly`. The portfolio no longer sends visitors to the external Flocklabs article to understand the product, and the Trainly showcase no longer fetches imagery from raw GitHub URLs.
+The canonical case is `/en/trainly`, rendered by the Next.js App Router page at `src/app/en/trainly/page.tsx`. It uses the portfolio's typography, floating header, ASCII backdrop, draggable windows, stickers, cursor and shared motion preference. The aliases `/trainly`, `/trainyl` and `/es/trainly` permanently redirect to the canonical route through `next.config.ts`.
 
-The page presents the product as an evidence-based case study: the problem, hypothesis, multi-agent learning loop, conversational validation, manager experience, architecture, learnings, and next areas of validation. It deliberately avoids unverified outcome metrics.
+The narrative follows company knowledge through a reviewable plan, learning, assessment and manager actions. The central product decision is visible: the AI proposes chapters with source references, and generation stops when conflicting material needs a human decision.
 
-The case study inherits the shared portfolio design system documented in [design-system.md](design-system.md). Trainly orange is scoped as a project accent while the parent canvas, typography, navigation, surfaces, buttons, and status meanings remain consistent with the landing page.
+## Actual application captures
 
-## UX
+The approved October 13, 2026 capture package replaces the concept hero, learning illustration, format study and validation artwork. The older campus and manager images are also replaced. Four PNGs are copied byte-for-byte into `public/media/trainly/`; no image editing or remote image sources are introduced.
 
-- A portfolio-system hero introduces the core premise while keeping Trainly identity inside the evidence frame.
-- The same floating typographic header, centered navigation, and contact CTA appear on the landing and case study.
-- A sticky desktop table of contents supports a long-form reading experience.
-- The narrative moves through six chapters: challenge, product loop, experience, validation, system, and learnings.
-- Large product images make the implemented experience visible throughout the story.
-- The final evidence note separates implemented/demo-ready work from outcomes that still require quantitative validation.
-- `/trainyl` redirects to the canonical `/trainly` path to tolerate the original misspelling.
+| File | Intrinsic dimensions | Use |
+| --- | --- | --- |
+| `trainly-02-plan-decision-bloqueante@2x.png` | 2880 × 1800 | Full-width plan review at `#learning-sequence`: source references, conflicting requirements and disabled generation pending a decision |
+| `trainly-03-actividad-clase-narrada-tutor.png` | 1440 × 900 | Hero and `#trainly-campus`: narrated lesson with a slide-specific tutor |
+| `trainly-04-cuestionario-feedback.png` | 1440 × 900 | Practice feedback: an incorrect answer is marked |
+| `trainly-05-seguimiento-responsable.png` | 1440 × 900 | `#trainly-manager`: priority cases, follow-up actions and active study time |
 
-## Technical overview
+These are actual Trainly interfaces rendered in a local demo on product `main` (`3985301`) with fictional data and a local backend. They demonstrate the interface and product flow. Counts, percentages, people and course progress inside the screenshots are fixtures, not client results. The page explains the demo provenance once in the contribution prose; each image has descriptive alt text. No image foot captions are added.
 
-- React Router exposes `/trainly` as an independent page and preserves the existing portfolio at `/`.
-- `vercel.json` rewrites direct route requests to the React entry point.
-- Global semantic tokens live in `src/styles/design-tokens.css`.
-- All case-study images live under `public/trainly/` and are served from the portfolio origin.
-- The original landing-page Trainly card now links internally to `/trainly`.
-- Existing hidden raw GitHub image references were removed from the Trainly showcase markup.
+The quiz is presented separately from conversational assessment. It does not demonstrate a voice interview or establish competence. Its visible limitation becomes a product insight: the interface highlights the incorrect answer but does not explain the answer or show the correct one. No voice clips, adoption metrics or learning outcome claims are introduced.
 
-## Flow
+## Participation
 
-```text
-Portfolio Trainly card
-        ↓
-      /trainly
-        ↓
-Challenge → Product loop → Learning experience
-        ↓
-Conversational validation → Manager system → Learnings / next
-```
+The team built the initial platform, document import, oral assessment, users/roles and branding. The case credits Tomás's work on source handling, the reviewable plan, narration and source context, learning progression, and the manager's action center. The approved package supports those contributions; the case does not attribute the entire product to one person.
 
-## Operational notes
+The declared product status remains live with clients and growing. The portfolio has no independently verified usage totals or learning-outcome measurements to publish.
 
-- Canonical route: `/trainly`
-- Compatibility alias: `/trainyl`
-- Main source images: `public/trainly/case-study/`
-- Page component: `src/pages/TrainlyCaseStudy.tsx`
-- Page styles: `src/trainly-case-study.css`
+## Structure and interaction
 
-## Validation
+The six case sections remain `#challenge`, `#loop`, `#experience`, `#validation`, `#system` and `#learnings`. Existing loop destinations `#learning-sequence`, `#trainly-campus`, `#evaluation-approach` and `#trainly-manager` are preserved.
 
-- TypeScript: `npm run type-check`
-- Production bundle: `npm run build`
-- Test suite: `npm test -- --watchAll=false --runInBand --passWithNoTests`
-- Browser QA covers direct route loading, navigation from the landing page, desktop/mobile layouts, console errors, horizontal overflow, broken images, and same-origin image sources.
+- `TrainlyDossier.tsx` renders the case and reusable evidence frames.
+- `trainly-dossier.css` keeps the colored window bars, offset shadows and responsive layout.
+- `trainly-dossier.ts` supplies stage descriptions, formats and learnings. Structure now describes source traceability and approval; Improve describes concrete manager actions.
+- `TrainlyLoopExplorer` keeps hover, focus and click previews with an accessible all-stages disclosure.
+- `ArtifactDrag` still moves each window from its non-control surface, including the image. Native image dragging is disabled to avoid a competing ghost image.
+- Every evidence frame has an `Open image` native link in the window bar, with a minimum 44 px target and a new-tab label. The image itself remains a drag surface. This lets visitors inspect dense interface text at its original resolution on small screens.
+- Hero imagery uses priority loading; below-fold captures retain native lazy loading through `next/image` with explicit intrinsic sizes and responsive `sizes`.
+- Shared pause/reduced-motion controls, scroll motion, stickers and the loop controller are unchanged. No dependencies, custom animation loops, APIs, database changes or environment changes are required.
 
-## Risks and follow-ups
+## Verification
 
-- Quantitative learning outcomes must only be added after they are measured and attributable.
-- The source PNGs are intentionally high-resolution; a later performance pass can produce AVIF/WebP variants without changing the page structure.
-- The current architecture description reflects the public product case and should be updated if the production stack changes materially.
+Full ESLint, TypeScript and optimized Next.js build `L9COYo1uqihApO_xxthcC` passed. All 12 route/metadata checks and seven local image/content checks passed; served PNG hashes match the approved sources.
+
+Native browser verification covered desktop/320/390px framing, all five rendered image instances, the 44px original-image links, opening the full 2880×1800 plan by keyboard, dragging from the plan image while scrolling, native Tab-focused movement and Home reset, the updated Structure/Improve stages, the retained manager anchor, shared Pause and confirmed reduced motion. Four early reads are retained as verifier diagnostics: responsive-image loading/native scrollbar width, locator-assisted keyboard focus (two observations), and asynchronous media-query propagation. Corrected checks passed without an application patch. A broad locator also matched the five mounted stage links; the exact manager link passed.
+
+Local evidence and desktop/mobile screenshots are in `output/real-product-captures-2026-10-13/` in the development workspace. The PR records exact-head Vercel preview verification separately. Historical product tests are background evidence; these checks validate the portfolio presentation, not the Trainly backend, AI output, physical touch hardware or learning outcomes.
+
+## Follow-ups
+
+Publish quantitative client outcomes only after measurement and permission. A future conversational assessment capture needs its own evidence; the quiz remains a practice example. Additional capture formats or clips should be chosen for a concrete narrative purpose rather than filling the page with more screenshots.

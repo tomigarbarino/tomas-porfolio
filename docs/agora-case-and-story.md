@@ -16,7 +16,7 @@ Candidate artifacts now show the actual application rendered locally with fictio
 
 ## Technical overview
 
-- `src/app/en/agora/page.tsx`: route metadata, canonical URL and Open Graph design image.
+- `src/app/en/agora/page.tsx`: route metadata, canonical URL and Open Graph interface image.
 - `AgoraDossier.tsx` / `agora-dossier.css`: dedicated narrative, event-driven section rail, candidate frames and scoped visual system.
 - `AgoraDecisionReplay.tsx` / `agora-decision-replay.css`: fixed before/after rule states with independent hover, focus and pinned selection; no live evaluation.
 - `AgoraResearch.tsx` / `agora-research.css`: always-visible retrospective comparison, contribution, CV review-load trade-off, method and full-paper link. Shared scroll wrappers and whole-surface drag; no custom animation loop.
@@ -27,6 +27,14 @@ Candidate artifacts now show the actual application rendered locally with fictio
 - `ProductWork`, `TrainlyDossier`, sitemap and `/agora` alias: connected case navigation and discovery.
 
 There are no new dependencies, APIs, database operations or environment variables. The section observer and motion components clean up listeners and observers. Mobile Flock project cards keep their reading width while an outer gutter reserves horizontal drag space. The Agora hero retains its rotated frame and sticker. Dragged nodes keep the existing geometric connector logic; chapter artwork remains mounted.
+
+## Complete recruiter review capture — 2026-10-13
+
+The research contribution now shows the complete requirement/evidence/review interface instead of its narrow Excel excerpt. A recruiter can see the requirement judgments, supporting CV text, review reason and the two next-action choices in the same image. The adjacent narrative identifies the author's design and implementation of this interface; the team retains credit for the base platform. This is a fictional local demo, not the trainee incident's candidate or a hiring outcome. It does not establish whether the corresponding production migrations have run.
+
+The new source is the publication-approved `export/agora/screens/agora-03-evidencia-por-requisito.png`, copied unchanged to `public/media/agora/`. The original-image link opens this full 1440×900 capture. Whole-surface drag still starts on the image; the link remains a native control. The existing contribution note, scroll wrapper, research results, candidate screens and layered system keep their behavior. Home cursor previews and Agora Open Graph now use the same review interface. The preceding small excerpt remains available as a historical asset, without a second repeated image in the reading flow.
+
+Full ESLint, TypeScript and optimized Next.js build `L9COYo1uqihApO_xxthcC` passed for this integration. All 12 route/metadata checks and seven local image/content checks passed; the five new image responses match their approved source hashes. Native browser verification covered the full review image and attribution, whole-image dragging, keyboard reset, opening the 1440×900 original, 320px bounds and the existing layered system clearing its selection on reverse scroll. Shared interaction controls were preserved. The PR records preview verification separately. No new dependencies, APIs, DB operations or environment variables are required.
 
 ## Published JEV research — 2026-10-13
 

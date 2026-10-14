@@ -13,14 +13,14 @@ const cases = [
     title: "Missing context. Human judgment.",
     description: "Read the product decision and its scoped check",
     logo: "/media/agora-logo.svg", logoWidth: 126, logoHeight: 37,
-    image: "/media/agora-interview-ready.png", width: 1440, height: 900,
+    image: "/media/agora/agora-03-evidencia-por-requisito.png", width: 1440, height: 900,
   },
   {
     id: "trainly", number: "02", name: "Trainly", href: "/en/trainly",
     title: "From company knowledge to understanding.",
     description: "Explore the learning experience and implementation",
     logo: "/media/trainly/trainly-logo.svg", logoWidth: 148, logoHeight: 36,
-    image: "/media/trainly/campus-ai.png", width: 1350, height: 652,
+    image: "/media/trainly/trainly-02-plan-decision-bloqueante@2x.png", width: 2880, height: 1800,
   },
 ] as const;
 

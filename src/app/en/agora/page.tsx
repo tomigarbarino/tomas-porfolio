@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Agora — Hiring decisions need context",
     description: "Product ownership, hands-on AI implementation and published JEV evaluation research. A recruiting case by Tomás Garbarino.",
     type: "article",
-    images: [{ url: "/media/agora/agora-c1-candidato-ingreso.png", width: 1440, height: 900, alt: "Agora candidate entry — actual interface with fictional demo data" }],
+    images: [{ url: "/media/agora/agora-03-evidencia-por-requisito.png", width: 1440, height: 900, alt: "Agora criterion evidence and human review — actual interface with fictional demo data" }],
   },
 };
 
