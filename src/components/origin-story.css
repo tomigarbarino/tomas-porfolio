@@ -46,7 +46,7 @@ html[data-motion="paused"] .origin-story__art { animation-play-state: paused; }
 .origin-story__video > :is(img, video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .origin-story__art-index { position: absolute; z-index: 1; right: 18px; top: 12px; pointer-events: none; color: var(--story-paper); font-family: var(--font-display), Impact, sans-serif; font-size: 130px; font-weight: 900; line-height: .8; -webkit-text-stroke: 1px var(--story-ink); }
 .origin-story__selection { color: var(--story-lavender); animation: story-chromatic-cycle var(--motion-cycle,24s) var(--motion-ease,ease-in-out) infinite; animation-play-state: paused; }
-html[data-motion="playing"] #main[data-ambient-active="true"] .origin-story[data-art-active="true"] .origin-story__art--files[data-selected="true"] .origin-story__selection { animation-play-state: running; }
+html[data-motion="playing"] #main[data-ambient-active="true"] .origin-story[data-art-active="true"] .origin-story__art--batech[data-selected="true"] .origin-story__selection { animation-play-state: running; }
 @keyframes story-chromatic-cycle {
   0%, 100% { color: var(--story-pink); }
   33.333% { color: var(--story-lavender); }
@@ -437,4 +437,15 @@ html[data-motion="paused"] .origin-story__art :is(.origin-story__file-piece, .or
 @media (max-height: 600px), (prefers-reduced-motion: reduce) {
   .origin-story--scroll .origin-story__visual { position: relative; top: auto; }
   .origin-story--scroll .origin-story__scene { min-height: 0; padding-block: 36px 48px; scroll-margin-top: 28px; }
+}
+
+/* Computer Vision study: film and lens share a bounded region above the map. */
+.origin-story--scroll .origin-story__art--batech { --batech-film-height: max(94px, calc(var(--story-canvas-height) - var(--batech-map-height, 270px) - 58px)); }
+.origin-story--scroll .origin-story__art--batech .origin-story__selection { z-index: 3; top: calc(20px + (var(--batech-film-height) - min(156px, calc(var(--batech-film-height) * .5), calc(var(--batech-film-height) - 50px))) * .5); left: 46%; width: 38%; height: min(156px, calc(var(--batech-film-height) * .5), calc(var(--batech-film-height) - 50px)); }
+.origin-story--scroll .origin-story__art--batech .origin-story__selection-label { font-size: 9px; }
+@media (max-width: 800px) {
+  .origin-story--scroll .origin-story__art--batech { --batech-film-height: max(94px, calc(var(--story-canvas-height) - var(--batech-map-height, 156px) - 28px)); }
+  .origin-story--scroll .origin-story__art--batech .origin-story__selection { top: 36px; left: 45%; width: 37%; height: min(52px, calc(var(--batech-film-height) - 50px)); }
+  .origin-story--scroll .origin-story__art--batech .origin-story__selection-label { font-size: 8px; }
+  .origin-story--scroll .origin-story__art--batech .origin-story__cursor { right: -12px; bottom: -12px; width: 26px; height: 32px; }
 }
