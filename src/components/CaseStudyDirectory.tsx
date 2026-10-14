@@ -7,6 +7,23 @@ import { createPortal } from "react-dom";
 import { useMotionPreference } from "./MotionPreference";
 import "./case-study-directory.css";
 
+const cascadeLayouts = {
+  agora: [
+    { x: .02, y: .08, size: 220, title: "candidate", image: "/media/agora/agora-c1-candidato-ingreso.png" },
+    { x: .76, y: .03, size: 252, title: "evidence", image: "/media/agora/agora-03-evidencia-por-requisito.png" },
+    { x: .4, y: .8, size: 216, title: "interview", image: "/media/agora/agora-c3-candidato-entrevista-lista.png" },
+    { x: .02, y: .78, size: 186, title: "review", image: "/media/agora/agora-03-evidencia-por-requisito.png" },
+    { x: .98, y: .94, size: 202, title: "ready", image: "/media/agora/agora-c3-candidato-entrevista-lista.png" },
+  ],
+  trainly: [
+    { x: .03, y: .04, size: 220, title: "lesson", image: "/media/trainly/trainly-03-actividad-clase-narrada-tutor.png" },
+    { x: .87, y: .07, size: 242, title: "plan", image: "/media/trainly/trainly-02-plan-decision-bloqueante@2x.png" },
+    { x: .03, y: .9, size: 218, title: "practice", image: "/media/trainly/trainly-04-cuestionario-feedback.png" },
+    { x: .88, y: .94, size: 250, title: "follow-up", image: "/media/trainly/trainly-05-seguimiento-responsable.png" },
+    { x: .5, y: .46, size: 180, title: "tutor", image: "/media/trainly/trainly-03-actividad-clase-narrada-tutor.png" },
+  ],
+} as const;
+
 const cases = [
   {
     id: "agora", number: "01", name: "Agora", href: "/en/agora",
@@ -27,12 +44,12 @@ const cases = [
 type CaseId = typeof cases[number]["id"];
 type ActivePreview = { id: CaseId; input: "mouse" | "keyboard" };
 type Point = { x: number; y: number };
-const cascadeLayers = [5, 4, 3, 2, 1] as const;
 
 export function CaseStudyDirectory() {
   const { paused } = useMotionPreference();
   const [active, setActive] = useState<ActivePreview | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
+  const floatingRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<Partial<Record<CaseId, HTMLAnchorElement>>>({});
   const hoveredRef = useRef<CaseId | null>(null);
   const focusedRef = useRef<CaseId | null>(null);
@@ -68,10 +85,10 @@ export function CaseStudyDirectory() {
       setActive({ id: focusedRef.current, input: "keyboard" });
       return;
     }
-    const stack = previewRef.current?.firstElementChild;
-    if (!stack || paused) { dismiss(); return; }
+    const stage = previewRef.current?.firstElementChild;
+    if (!stage || paused) { dismiss(); return; }
     cancelExit();
-    const animation = stack.animate([
+    const animation = stage.animate([
       { opacity: 1, transform: "scale(1)" },
       { opacity: 0, transform: "scale(.97) translateY(4px)" },
     ], { duration: 140, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" });
@@ -85,20 +102,21 @@ export function CaseStudyDirectory() {
 
   useEffect(() => {
     const preview = previewRef.current;
+    const floating = floatingRef.current;
     const link = active ? linksRef.current[active.id] : null;
-    if (!preview || !link || !active) return;
+    if (!preview || !floating || !link || !active) return;
     if (paused && exitRef.current) {
       preview.dataset.ready = "false";
       exitRef.current.finish();
       return;
     }
-    preview.style.removeProperty("--preview-room");
+    floating.style.removeProperty("--preview-room");
     let frame = 0;
     let lastTime = 0;
     let position = { x: 0, y: 0 };
     let target = { x: 0, y: 0 };
-    const width = preview.offsetWidth;
-    let height = preview.offsetHeight;
+    const width = floating.offsetWidth;
+    let height = floating.offsetHeight;
     let hasRoom = true;
 
     function place(point: Point) {
@@ -116,15 +134,15 @@ export function CaseStudyDirectory() {
       const below = window.innerHeight - rect.bottom - 32;
       if (active!.input === "keyboard") {
         const room = Math.max(above, below);
-        preview!.style.setProperty("--preview-room", `${Math.max(0, room - 112)}px`);
-        height = preview!.offsetHeight;
+        floating!.style.setProperty("--preview-room", `${Math.max(0, room - 112)}px`);
+        height = floating!.offsetHeight;
         hasRoom = height <= room;
       }
       return place({ x: rect.right - width - 28, y: below >= above ? rect.bottom - 8 : rect.top - height - 40 });
     }
 
     function paint() {
-      preview!.style.transform = `translate3d(${position.x}px, ${position.y}px, 0)`;
+      floating!.style.transform = `translate3d(${position.x}px, ${position.y}px, 0)`;
     }
 
     function tick(time: number) {
@@ -204,21 +222,25 @@ export function CaseStudyDirectory() {
       </nav>
       {product && active ? createPortal(
         <div ref={previewRef} key={product.id} className="case-preview" data-product={product.id} data-input={active.input} data-cascade={active.input === "mouse" && !paused} aria-hidden="true">
-          <div className="case-preview__stack">
-            {active.input === "mouse" && !paused ? cascadeLayers.map((depth, index) => (
-              <div key={depth} className="case-preview__echo" style={{
-                "--echo-offset": `${-depth * 7}px`,
-                "--echo-delay": `${index * 24}ms`,
+          <div className="case-preview__stage">
+            {active.input === "mouse" && !paused ? cascadeLayouts[product.id].map((layer, index) => (
+              <div key={layer.title} className="case-preview__echo" style={{
+                "--echo-x": layer.x,
+                "--echo-y": layer.y,
+                "--echo-size": `${layer.size}px`,
+                "--echo-delay": `${index * 30}ms`,
                 zIndex: index,
               } as CSSProperties}>
-                <div className="case-preview__bar"><span>{product.id}.exe / 0{index + 1}</span><span className="case-preview__controls">– □ ×</span></div>
-                <div className="case-preview__echo-body" />
+                <div className="case-preview__bar"><span>{product.id} / {layer.title}</span><span className="case-preview__controls">– □ ×</span></div>
+                <div className="case-preview__echo-body"><Image src={layer.image} alt="" loading="eager" width={384} height={240} /></div>
               </div>
             )) : null}
-            <div className="case-preview__window">
-              <div className="case-preview__bar"><span>CASE_{product.number} / {product.name.toUpperCase()}</span><span className="case-preview__controls">– □ ×</span></div>
-              <div className="case-preview__brand"><Image src={product.logo} alt="" width={product.logoWidth} height={product.logoHeight} unoptimized /><span>PRODUCT<br />PREVIEW ↗</span></div>
-              <div className="case-preview__screen"><Image src={product.image} alt="" loading="eager" width={384} height={Math.round(384 * product.height / product.width)} /></div>
+            <div ref={floatingRef} className="case-preview__follow">
+              <div className="case-preview__window">
+                <div className="case-preview__bar"><span>CASE_{product.number} / {product.name.toUpperCase()}</span><span className="case-preview__controls">– □ ×</span></div>
+                <div className="case-preview__brand"><Image src={product.logo} alt="" width={product.logoWidth} height={product.logoHeight} unoptimized /><span>PRODUCT<br />PREVIEW ↗</span></div>
+                <div className="case-preview__screen"><Image src={product.image} alt="" loading="eager" width={384} height={Math.round(384 * product.height / product.width)} /></div>
+              </div>
             </div>
           </div>
         </div>, document.body,
