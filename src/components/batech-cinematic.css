@@ -4,6 +4,24 @@
   background: var(--story-paper);
 }
 
+.origin-story__company-film--cinematic > .artifact-drag {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  width: 44px;
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  background: var(--story-pink);
+  color: var(--story-ink);
+}
+
+.origin-story__company-film--cinematic > .artifact-drag:focus-visible {
+  outline: 3px solid var(--story-ink);
+  outline-offset: -5px;
+}
+
 .batech-cinematic {
   container: batech-cinematic / size;
   position: absolute;
