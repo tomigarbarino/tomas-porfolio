@@ -68,6 +68,8 @@ export function CaseStudyDirectory() {
   }, []);
 
   const dismiss = useCallback(() => {
+    // Hide before canceling fills: React may remove the portal on the following frame.
+    if (previewRef.current) previewRef.current.dataset.ready = "false";
     cancelExit();
     hoveredRef.current = null;
     focusedRef.current = null;
@@ -82,6 +84,7 @@ export function CaseStudyDirectory() {
       const style = getComputedStyle(node);
       return { opacity: style.opacity, transform: style.transform };
     });
+    if (!recovering && previewRef.current) previewRef.current.dataset.ready = "false";
     cancelExit();
     if (recovering) {
       const animations = nodes.map((node, index) => node.animate([
