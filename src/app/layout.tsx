@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { PersonalCursor } from "@/components/PersonalCursor";
 import { CursorInkTrail } from "@/components/CursorInkTrail";
+import { CaseStudyPreviewProvider } from "@/components/CaseStudyDirectory";
 import "./globals.css";
 
 const display = localFont({ src: "../../public/fonts/BarlowCondensed-Black.ttf", variable: "--font-display", weight: "900", display: "swap" });
@@ -41,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${display.variable} ${mono.variable}`}><PersonalCursor /><CursorInkTrail />{children}</body>
+      <body className={`${display.variable} ${mono.variable}`}><PersonalCursor /><CursorInkTrail /><CaseStudyPreviewProvider>{children}</CaseStudyPreviewProvider></body>
     </html>
   );
 }

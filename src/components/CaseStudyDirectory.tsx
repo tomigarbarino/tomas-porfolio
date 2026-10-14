@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { usePathname } from "next/navigation";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type CSSProperties, type FocusEvent, type MouseEvent, type PointerEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useMotionPreference } from "./MotionPreference";
 import "./case-study-directory.css";
@@ -11,16 +12,16 @@ const cascadeLayouts = {
   agora: [
     { x: .02, y: .08, size: 220, title: "candidate", image: "/media/agora/agora-c1-candidato-ingreso.png" },
     { x: .76, y: .03, size: 252, title: "evidence", image: "/media/agora/agora-03-evidencia-por-requisito.png" },
-    { x: .4, y: .8, size: 216, title: "interview", image: "/media/agora/agora-c3-candidato-entrevista-lista.png" },
-    { x: .02, y: .78, size: 186, title: "review", image: "/media/agora/agora-03-evidencia-por-requisito.png" },
+    { x: .4, y: .8, size: 216, title: "signal", words: ["EVIDENCE", "FIRST."], note: "CRITERION-LEVEL MATCHING", tone: "paper" },
+    { x: .02, y: .78, size: 186, title: "review", words: ["HUMAN", "JUDGMENT."], note: "CONTEXT MATTERS", tone: "accent" },
     { x: .98, y: .94, size: 202, title: "ready", image: "/media/agora/agora-c3-candidato-entrevista-lista.png" },
   ],
   trainly: [
     { x: .03, y: .04, size: 220, title: "lesson", image: "/media/trainly/trainly-03-actividad-clase-narrada-tutor.png" },
     { x: .87, y: .07, size: 242, title: "plan", image: "/media/trainly/trainly-02-plan-decision-bloqueante@2x.png" },
-    { x: .03, y: .9, size: 218, title: "practice", image: "/media/trainly/trainly-04-cuestionario-feedback.png" },
+    { x: .03, y: .9, size: 218, title: "practice", words: ["LEARN", "BY DOING."], note: "PRACTICE / FEEDBACK", tone: "accent" },
     { x: .88, y: .94, size: 250, title: "follow-up", image: "/media/trainly/trainly-05-seguimiento-responsable.png" },
-    { x: .5, y: .46, size: 180, title: "tutor", image: "/media/trainly/trainly-03-actividad-clase-narrada-tutor.png" },
+    { x: .5, y: .46, size: 200, title: "source", words: ["COMPANY", "KNOWLEDGE."], note: "SOURCE → LEARNING", tone: "paper" },
   ],
 } as const;
 
@@ -45,7 +46,22 @@ type CaseId = typeof cases[number]["id"];
 type ActivePreview = { id: CaseId; input: "mouse" | "keyboard"; entrance?: number };
 type Point = { x: number; y: number };
 
-export function CaseStudyDirectory() {
+type PreviewActions = {
+  registerLink: (id: CaseId, node: HTMLAnchorElement | null) => void;
+  enter: (event: PointerEvent<HTMLAnchorElement>, id: CaseId) => void;
+  move: (event: PointerEvent<HTMLAnchorElement>) => void;
+  leave: () => void;
+  focus: (event: FocusEvent<HTMLAnchorElement>, id: CaseId) => void;
+  blur: () => void;
+  navigate: (event: MouseEvent<HTMLAnchorElement>) => void;
+  dismiss: () => void;
+};
+
+const PreviewContext = createContext<PreviewActions | null>(null);
+
+export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const previousPath = useRef(pathname);
   const { paused } = useMotionPreference();
   const [active, setActive] = useState<ActivePreview | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -133,19 +149,64 @@ export function CaseStudyDirectory() {
     closeSoftly();
   }
 
+  function registerLink(id: CaseId, node: HTMLAnchorElement | null) {
+    if (node) linksRef.current[id] = node;
+    else delete linksRef.current[id];
+  }
+
+  function move(event: PointerEvent<HTMLAnchorElement>) {
+    if (event.pointerType !== "mouse") return;
+    pointRef.current = { x: event.clientX, y: event.clientY };
+    followRef.current?.(pointRef.current);
+  }
+
+  function focus(event: FocusEvent<HTMLAnchorElement>, id: CaseId) {
+    if (!event.currentTarget.matches(":focus-visible")) return;
+    cancelExit();
+    focusedRef.current = id;
+    setActive({ id, input: "keyboard" });
+  }
+
+  function blur() {
+    focusedRef.current = null;
+    if (hoveredRef.current) {
+      cancelExit();
+      setActive({ id: hoveredRef.current, input: "mouse", entrance: active?.id === hoveredRef.current ? active.entrance : ++entranceRef.current });
+    } else {
+      closeSoftly();
+    }
+  }
+
+  function navigate(event: MouseEvent<HTMLAnchorElement>) {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    hoveredRef.current = null;
+    focusedRef.current = null;
+    closeSoftly();
+  }
+
+  useEffect(() => {
+    if (previousPath.current === pathname) return;
+    previousPath.current = pathname;
+    hoveredRef.current = null;
+    focusedRef.current = null;
+    closeSoftly();
+  }, [pathname, closeSoftly]);
+
   useEffect(() => () => cancelExit(), [cancelExit]);
 
   useEffect(() => {
     const preview = previewRef.current;
     const floating = floatingRef.current;
     const link = active ? linksRef.current[active.id] : null;
-    if (!preview || !floating || !link || !active) return;
+    if (!preview || !floating || !active) return;
     if (paused && exitRef.current.length) {
       preview.dataset.ready = "false";
       exitRef.current.forEach((animation) => animation.finish());
       return;
     }
     if (paused) recoveryRef.current.forEach((animation) => animation.finish());
+    // The directory unmounts on navigation; the root-owned exit keeps its last position.
+    if (!link) return;
     floating.style.removeProperty("--preview-room");
     let frame = 0;
     let lastTime = 0;
@@ -236,40 +297,8 @@ export function CaseStudyDirectory() {
   }, [active, paused, dismiss, closeSoftly]);
 
   return (
-    <>
-      <nav className="pw-case-directory" aria-label="Case studies">
-        {cases.map((item) => (
-          <Link key={item.id} ref={(node) => { if (node) linksRef.current[item.id] = node; }}
-            href={item.href} prefetch={true} data-case-preview={item.id}
-            onPointerEnter={(event) => enter(event, item.id)}
-            onPointerMove={(event) => {
-              if (event.pointerType !== "mouse") return;
-              pointRef.current = { x: event.clientX, y: event.clientY };
-              followRef.current?.(pointRef.current);
-            }}
-            onPointerLeave={leave}
-            onPointerDown={(event) => { if (event.pointerType !== "mouse") dismiss(); }}
-            onFocus={(event) => {
-              if (!event.currentTarget.matches(":focus-visible")) return;
-              cancelExit();
-              focusedRef.current = item.id;
-              setActive({ id: item.id, input: "keyboard" });
-            }}
-            onBlur={() => {
-              focusedRef.current = null;
-              if (hoveredRef.current) {
-                cancelExit();
-                setActive({ id: hoveredRef.current, input: "mouse", entrance: active?.id === hoveredRef.current ? active.entrance : ++entranceRef.current });
-              } else {
-                closeSoftly();
-              }
-            }}
-            onClick={dismiss}>
-            <span>{item.number} / {item.name}</span><strong>{item.title}</strong>
-            <small>{item.description}</small><b aria-hidden="true">↗</b>
-          </Link>
-        ))}
-      </nav>
+    <PreviewContext.Provider value={{ registerLink, enter, move, leave, focus, blur, navigate, dismiss }}>
+      {children}
       {product && active ? createPortal(
         <div ref={previewRef} key={`${product.id}:${active.entrance ?? 0}`} className="case-preview" data-product={product.id} data-input={active.input} data-cascade={active.input === "mouse" && !paused} aria-hidden="true">
           <div className="case-preview__stage">
@@ -282,7 +311,14 @@ export function CaseStudyDirectory() {
                 zIndex: index,
               } as CSSProperties}>
                 <div className="case-preview__bar"><span>{product.id} / {layer.title}</span><span className="case-preview__controls">– □ ×</span></div>
-                <div className="case-preview__echo-body"><Image src={layer.image} alt="" loading="eager" width={384} height={240} /></div>
+                {"words" in layer ? (
+                  <div className="case-preview__keyword" data-tone={layer.tone}>
+                    <strong>{layer.words.map((word) => <span key={word}>{word}</span>)}</strong>
+                    <small>{layer.note}</small>
+                  </div>
+                ) : (
+                  <div className="case-preview__echo-body"><Image src={layer.image} alt="" loading="eager" width={384} height={240} /></div>
+                )}
               </div>
             )) : null}
             <div ref={floatingRef} className="case-preview__follow">
@@ -295,6 +331,30 @@ export function CaseStudyDirectory() {
           </div>
         </div>, document.body,
       ) : null}
-    </>
+    </PreviewContext.Provider>
+  );
+}
+
+export function CaseStudyDirectory() {
+  const preview = useContext(PreviewContext);
+  if (!preview) throw new Error("CaseStudyDirectory requires CaseStudyPreviewProvider");
+
+  return (
+    <nav className="pw-case-directory" aria-label="Case studies">
+      {cases.map((item) => (
+        <Link key={item.id} ref={(node) => preview.registerLink(item.id, node)}
+          href={item.href} prefetch={true} data-case-preview={item.id}
+          onPointerEnter={(event) => preview.enter(event, item.id)}
+          onPointerMove={preview.move}
+          onPointerLeave={preview.leave}
+          onPointerDown={(event) => { if (event.pointerType !== "mouse") preview.dismiss(); }}
+          onFocus={(event) => preview.focus(event, item.id)}
+          onBlur={preview.blur}
+          onClick={preview.navigate}>
+          <span>{item.number} / {item.name}</span><strong>{item.title}</strong>
+          <small>{item.description}</small><b aria-hidden="true">↗</b>
+        </Link>
+      ))}
+    </nav>
   );
 }
