@@ -42,7 +42,7 @@ const cases = [
 ] as const;
 
 type CaseId = typeof cases[number]["id"];
-type ActivePreview = { id: CaseId; input: "mouse" | "keyboard" };
+type ActivePreview = { id: CaseId; input: "mouse" | "keyboard"; entrance?: number };
 type Point = { x: number; y: number };
 
 export function CaseStudyDirectory() {
@@ -55,12 +55,16 @@ export function CaseStudyDirectory() {
   const focusedRef = useRef<CaseId | null>(null);
   const pointRef = useRef<Point>({ x: 0, y: 0 });
   const followRef = useRef<((point: Point) => void) | null>(null);
-  const exitRef = useRef<Animation | null>(null);
+  const exitRef = useRef<Animation[]>([]);
+  const recoveryRef = useRef<Animation[]>([]);
+  const entranceRef = useRef(0);
   const product = cases.find((item) => item.id === active?.id);
 
   const cancelExit = useCallback(() => {
-    exitRef.current?.cancel();
-    exitRef.current = null;
+    exitRef.current.forEach((animation) => animation.cancel());
+    recoveryRef.current.forEach((animation) => animation.cancel());
+    exitRef.current = [];
+    recoveryRef.current = [];
   }, []);
 
   const dismiss = useCallback(() => {
@@ -72,10 +76,22 @@ export function CaseStudyDirectory() {
 
   function enter(event: PointerEvent<HTMLAnchorElement>, id: CaseId) {
     if (event.pointerType !== "mouse") return;
+    const recovering = active?.id === id && exitRef.current.length > 0;
+    const nodes = recovering ? Array.from(previewRef.current?.querySelectorAll<HTMLElement>(".case-preview__echo,.case-preview__window") ?? []) : [];
+    const starts = nodes.map((node) => {
+      const style = getComputedStyle(node);
+      return { opacity: style.opacity, transform: style.transform };
+    });
     cancelExit();
+    if (recovering) {
+      const animations = nodes.map((node, index) => node.animate([
+        starts[index], { opacity: 1, transform: "none" },
+      ], { duration: 180, easing: "cubic-bezier(.22,1,.36,1)", fill: "both" }));
+      recoveryRef.current = animations;
+    }
     pointRef.current = { x: event.clientX, y: event.clientY };
     hoveredRef.current = id;
-    setActive({ id, input: "mouse" });
+    setActive({ id, input: "mouse", entrance: recovering ? active.entrance : ++entranceRef.current });
   }
 
   function leave() {
@@ -85,16 +101,26 @@ export function CaseStudyDirectory() {
       setActive({ id: focusedRef.current, input: "keyboard" });
       return;
     }
-    const stage = previewRef.current?.firstElementChild;
-    if (!stage || paused) { dismiss(); return; }
+    const preview = previewRef.current;
+    if (!preview || paused) { dismiss(); return; }
+    const windows = Array.from(preview.querySelectorAll<HTMLElement>(".case-preview__echo")).reverse();
+    const main = preview.querySelector<HTMLElement>(".case-preview__window");
+    if (main) windows.push(main);
+    // Sample together before applying animations so a quick leave never flashes a hidden window.
+    const starts = windows.map((node) => {
+      const style = getComputedStyle(node);
+      return { opacity: style.opacity, transform: style.transform };
+    });
     cancelExit();
-    const animation = stage.animate([
-      { opacity: 1, transform: "scale(1)" },
-      { opacity: 0, transform: "scale(.97) translateY(4px)" },
-    ], { duration: 140, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" });
-    exitRef.current = animation;
-    animation.onfinish = () => {
-      if (exitRef.current === animation) dismiss();
+    const animations = windows.map((node, index) => node.animate([
+      starts[index],
+      { opacity: 0, transform: "translateY(6px) scale(.985)" },
+    ], { duration: 200, delay: index * 200, easing: "cubic-bezier(.4,0,.2,1)", fill: "both" }));
+    exitRef.current = animations;
+    const last = animations.at(-1);
+    if (!last) { dismiss(); return; }
+    last.onfinish = () => {
+      if (exitRef.current.at(-1) === last) dismiss();
     };
   }
 
@@ -105,11 +131,12 @@ export function CaseStudyDirectory() {
     const floating = floatingRef.current;
     const link = active ? linksRef.current[active.id] : null;
     if (!preview || !floating || !link || !active) return;
-    if (paused && exitRef.current) {
+    if (paused && exitRef.current.length) {
       preview.dataset.ready = "false";
-      exitRef.current.finish();
+      exitRef.current.forEach((animation) => animation.finish());
       return;
     }
+    if (paused) recoveryRef.current.forEach((animation) => animation.finish());
     floating.style.removeProperty("--preview-room");
     let frame = 0;
     let lastTime = 0;
@@ -221,7 +248,7 @@ export function CaseStudyDirectory() {
         ))}
       </nav>
       {product && active ? createPortal(
-        <div ref={previewRef} key={product.id} className="case-preview" data-product={product.id} data-input={active.input} data-cascade={active.input === "mouse" && !paused} aria-hidden="true">
+        <div ref={previewRef} key={`${product.id}:${active.entrance ?? 0}`} className="case-preview" data-product={product.id} data-input={active.input} data-cascade={active.input === "mouse" && !paused} aria-hidden="true">
           <div className="case-preview__stage">
             {active.input === "mouse" && !paused ? cascadeLayouts[product.id].map((layer, index) => (
               <div key={layer.title} className="case-preview__echo" style={{
