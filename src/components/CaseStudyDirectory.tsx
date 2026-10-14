@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { createPortal } from "react-dom";
 import { useMotionPreference } from "./MotionPreference";
 import "./case-study-directory.css";
@@ -27,6 +27,7 @@ const cases = [
 type CaseId = typeof cases[number]["id"];
 type ActivePreview = { id: CaseId; input: "mouse" | "keyboard" };
 type Point = { x: number; y: number };
+const cascadeLayers = [5, 4, 3, 2, 1] as const;
 
 export function CaseStudyDirectory() {
   const { paused } = useMotionPreference();
@@ -37,25 +38,60 @@ export function CaseStudyDirectory() {
   const focusedRef = useRef<CaseId | null>(null);
   const pointRef = useRef<Point>({ x: 0, y: 0 });
   const followRef = useRef<((point: Point) => void) | null>(null);
+  const exitRef = useRef<Animation | null>(null);
   const product = cases.find((item) => item.id === active?.id);
 
-  function dismiss() {
+  const cancelExit = useCallback(() => {
+    exitRef.current?.cancel();
+    exitRef.current = null;
+  }, []);
+
+  const dismiss = useCallback(() => {
+    cancelExit();
     hoveredRef.current = null;
     focusedRef.current = null;
     setActive(null);
-  }
+  }, [cancelExit]);
 
   function enter(event: PointerEvent<HTMLAnchorElement>, id: CaseId) {
     if (event.pointerType !== "mouse") return;
+    cancelExit();
     pointRef.current = { x: event.clientX, y: event.clientY };
     hoveredRef.current = id;
     setActive({ id, input: "mouse" });
   }
 
+  function leave() {
+    hoveredRef.current = null;
+    if (focusedRef.current) {
+      cancelExit();
+      setActive({ id: focusedRef.current, input: "keyboard" });
+      return;
+    }
+    const stack = previewRef.current?.firstElementChild;
+    if (!stack || paused) { dismiss(); return; }
+    cancelExit();
+    const animation = stack.animate([
+      { opacity: 1, transform: "scale(1)" },
+      { opacity: 0, transform: "scale(.97) translateY(4px)" },
+    ], { duration: 140, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" });
+    exitRef.current = animation;
+    animation.onfinish = () => {
+      if (exitRef.current === animation) dismiss();
+    };
+  }
+
+  useEffect(() => () => cancelExit(), [cancelExit]);
+
   useEffect(() => {
     const preview = previewRef.current;
     const link = active ? linksRef.current[active.id] : null;
     if (!preview || !link || !active) return;
+    if (paused && exitRef.current) {
+      preview.dataset.ready = "false";
+      exitRef.current.finish();
+      return;
+    }
     preview.style.removeProperty("--preview-room");
     let frame = 0;
     let lastTime = 0;
@@ -133,7 +169,7 @@ export function CaseStudyDirectory() {
       window.removeEventListener("blur", dismiss);
       document.removeEventListener("visibilitychange", visibility);
     };
-  }, [active, paused]);
+  }, [active, paused, dismiss]);
 
   return (
     <>
@@ -147,17 +183,16 @@ export function CaseStudyDirectory() {
               pointRef.current = { x: event.clientX, y: event.clientY };
               followRef.current?.(pointRef.current);
             }}
-            onPointerLeave={() => {
-              hoveredRef.current = null;
-              setActive(focusedRef.current ? { id: focusedRef.current, input: "keyboard" } : null);
-            }}
+            onPointerLeave={leave}
             onPointerDown={(event) => { if (event.pointerType !== "mouse") dismiss(); }}
             onFocus={(event) => {
               if (!event.currentTarget.matches(":focus-visible")) return;
+              cancelExit();
               focusedRef.current = item.id;
               setActive({ id: item.id, input: "keyboard" });
             }}
             onBlur={() => {
+              cancelExit();
               focusedRef.current = null;
               setActive(hoveredRef.current ? { id: hoveredRef.current, input: "mouse" } : null);
             }}
@@ -168,11 +203,23 @@ export function CaseStudyDirectory() {
         ))}
       </nav>
       {product && active ? createPortal(
-        <div ref={previewRef} key={product.id} className="case-preview" data-product={product.id} data-input={active.input} aria-hidden="true">
-          <div className="case-preview__window">
-            <div className="case-preview__bar"><span>CASE_{product.number} / {product.name.toUpperCase()}</span><span className="case-preview__dots">● ● ●</span></div>
-            <div className="case-preview__brand"><Image src={product.logo} alt="" width={product.logoWidth} height={product.logoHeight} unoptimized /><span>PRODUCT<br />PREVIEW ↗</span></div>
-            <div className="case-preview__screen"><Image src={product.image} alt="" loading="eager" width={384} height={Math.round(384 * product.height / product.width)} /></div>
+        <div ref={previewRef} key={product.id} className="case-preview" data-product={product.id} data-input={active.input} data-cascade={active.input === "mouse" && !paused} aria-hidden="true">
+          <div className="case-preview__stack">
+            {active.input === "mouse" && !paused ? cascadeLayers.map((depth, index) => (
+              <div key={depth} className="case-preview__echo" style={{
+                "--echo-offset": `${-depth * 7}px`,
+                "--echo-delay": `${index * 24}ms`,
+                zIndex: index,
+              } as CSSProperties}>
+                <div className="case-preview__bar"><span>{product.id}.exe / 0{index + 1}</span><span className="case-preview__controls">– □ ×</span></div>
+                <div className="case-preview__echo-body" />
+              </div>
+            )) : null}
+            <div className="case-preview__window">
+              <div className="case-preview__bar"><span>CASE_{product.number} / {product.name.toUpperCase()}</span><span className="case-preview__controls">– □ ×</span></div>
+              <div className="case-preview__brand"><Image src={product.logo} alt="" width={product.logoWidth} height={product.logoHeight} unoptimized /><span>PRODUCT<br />PREVIEW ↗</span></div>
+              <div className="case-preview__screen"><Image src={product.image} alt="" loading="eager" width={384} height={Math.round(384 * product.height / product.width)} /></div>
+            </div>
           </div>
         </div>, document.body,
       ) : null}
