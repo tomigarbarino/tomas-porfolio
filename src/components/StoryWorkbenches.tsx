@@ -81,7 +81,7 @@ function useInspectionHalo(surface: RefObject<HTMLDivElement | null>, enabled: b
   }, [surface, enabled]);
 }
 
-function useChapterScrollView(chapterId: string, count: number, { active, paused }: Props, frameRef: RefObject<HTMLDivElement | null>) {
+export function useChapterScrollView(chapterId: string, count: number, { active, paused }: Props, frameRef: RefObject<HTMLDivElement | null>) {
   const [scrollView, setScrollView] = useState(0);
   const scrollViewRef = useRef(0);
   const [hoveredView, setHoveredView] = useState<number | null>(null);
@@ -179,18 +179,13 @@ export function HogarthWorkbench({ active, paused }: Props) {
   </div>;
 }
 
-export function BatechDomainMap({ active, paused }: Props) {
+export function BatechDomainMap({ active, paused, controller }: Props & { controller: ReturnType<typeof useChapterScrollView> }) {
   const frameRef = useRef<HTMLDivElement>(null);
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
   const id = useId();
-  const { scrollView, view, setHoveredView, setFocusedView } = useChapterScrollView("story-batech", responsibilities.length, { active, paused }, frameRef);
+  const { scrollView, view, setHoveredView, setFocusedView } = controller;
   return <div ref={frameRef} className="story-workbench story-workbench--batech" data-drag-frame data-view={view} data-scroll-view={scrollView} data-motion={active && !paused}>
     <ArtifactDrag label="Move the Batech responsibility map" />
-    <header className="story-workbench__bar"><p>Build / organize / lead<span>Conceptual responsibility map</span></p></header>
-    <div className="story-workbench__routes" aria-hidden="true">
-      <svg viewBox="0 0 300 70" preserveAspectRatio="none"><path data-route="0" d="M30 16H150V54H270" /><path data-route="1" d="M30 54H90V16H210V54H270" /><path data-route="2" d="M30 16H270M150 16V54M30 54H270" /></svg>
-      <span className="story-workbench__endpoint">UI</span><span className="story-workbench__endpoint">DOMAIN</span><span className="story-workbench__endpoint">TEAM</span>
-    </div>
     <div className="story-workbench__controls" role="group" aria-label="Batech responsibilities">
       {responsibilities.map((responsibility, index) => <button key={responsibility.label} type="button" ref={node => { buttons.current[index] = node; }} aria-pressed={view === index} aria-controls={`${id}-detail`} onPointerEnter={event => { if (event.pointerType === "mouse" && !event.buttons) setHoveredView(index); }} onPointerLeave={() => setHoveredView(null)} onPointerCancel={() => setHoveredView(null)} onFocus={() => setFocusedView(index)} onBlur={() => setFocusedView(null)} onClick={() => setFocusedView(index)} onKeyDown={event => moveFocus(event, index, buttons)}>{responsibility.label}</button>)}
     </div>

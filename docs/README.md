@@ -1,6 +1,7 @@
 # Portfolio documentation
 
 - [Scroll-led career story](scroll-story.md): five-stage reading path, sticky artwork, interaction contracts and current validation.
+- [Batech cinematic ASCII](batech-cinematic-ascii.md): approved visual treatment, shared scroll state, lens behavior and release validation.
 - [Agora case and career story](agora-case-and-story.md): dedicated case, named career sequence and validation.
 - [Trainly case study](trainly-case-study.md): current Next.js dossier, approved product captures, contribution and validation.
 - [Release dependency correction](release-dependencies.md): production dependency updates, remaining development-only findings and release gates.

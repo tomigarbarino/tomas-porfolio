@@ -1,0 +1,71 @@
+.minecraft-origin {
+  --minecraft-duration: 5s;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: minecraft-origin-finish var(--minecraft-duration) linear both;
+  animation-play-state: paused;
+}
+.minecraft-origin[data-playing="true"] { animation-play-state: running; }
+.minecraft-origin__image { animation: minecraft-origin-image var(--minecraft-duration) ease-in-out both; animation-play-state: inherit; }
+.minecraft-origin__intro { position: absolute; inset: 0; animation-play-state: inherit; }
+.minecraft-origin__file { position: absolute; top: 38%; left: 50%; display: grid; justify-items: center; gap: 12px; color: var(--story-paper); animation: minecraft-origin-file var(--minecraft-duration) ease-in-out both; animation-play-state: inherit; }
+.minecraft-origin__file svg { display: block; width: clamp(56px,8vw,76px); height: auto; filter: drop-shadow(4px 4px 0 var(--story-lavender)); }
+.minecraft-origin__file > span { color: var(--story-lavender); font-size: 11px; line-height: 1.5; letter-spacing: .03em; }
+.minecraft-origin__pixel-cursor { position: absolute; z-index: 2; top: 38%; left: 50%; color: var(--story-pink); filter: drop-shadow(2px 2px 0 var(--story-paper)); animation: minecraft-origin-cursor var(--minecraft-duration) cubic-bezier(.22,.61,.36,1) both; animation-play-state: inherit; }
+.minecraft-origin__pixel-cursor svg { display: block; width: 28px; height: auto; }
+.minecraft-origin__terminal { position: absolute; top: 34%; left: 50%; width: 80%; max-width: 350px; translate: -50% 0; border: 2px solid var(--story-ink); background: var(--story-ink); color: var(--story-paper); box-shadow: inset 1px 1px 0 var(--story-paper),5px 6px 0 var(--story-ink),6px 7px 0 var(--story-lavender); animation: minecraft-origin-terminal var(--minecraft-duration) ease-in-out both; animation-play-state: inherit; }
+.minecraft-origin__terminal-bar { display: flex; justify-content: space-between; gap: 16px; min-height: 30px; padding: 7px 10px; border-bottom: 1px solid var(--story-ink); background: var(--story-lavender); color: var(--story-ink); font-size: 9px; line-height: 1.5; text-transform: uppercase; }
+.minecraft-origin__terminal-body { display: flex; align-items: center; gap: 10px; min-height: 100px; padding: 24px clamp(14px,3vw,28px); font-size: clamp(17px,2.4vw,25px); line-height: 1.5; animation-play-state: inherit; }
+.minecraft-origin__prompt { color: var(--story-pink); }
+.minecraft-origin__typed { display: inline-block; width: 11ch; max-width: 0; overflow: hidden; border-right: 2px solid var(--story-highlight); white-space: nowrap; animation: minecraft-origin-type 1s steps(11,end) 2.55s both,minecraft-origin-caret .75s step-end 2.55s 3 both; animation-play-state: inherit; }
+.minecraft-origin__dot { flex: 0 0 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--story-pink); opacity: 0; }
+.minecraft-origin > .origin-story__file-piece { pointer-events: auto; }
+
+@keyframes minecraft-origin-finish { from,to { opacity: 1; } }
+@keyframes minecraft-origin-image { 0%,84% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes minecraft-origin-file {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.94); }
+  8%,31% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  34%,39% { opacity: 1; transform: translate(-50%,-50%) scale(.97); }
+  36%,41% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  48%,100% { opacity: 0; transform: translate(-50%,-50%) scale(.96); }
+}
+@keyframes minecraft-origin-cursor {
+  0%,10% { opacity: 0; transform: translate(-104px,88px); }
+  14% { opacity: 1; transform: translate(-104px,88px); }
+  31% { opacity: 1; transform: translate(20px,0); }
+  34%,39% { opacity: 1; transform: translate(20px,0) scale(.85); }
+  36%,41% { opacity: 1; transform: translate(20px,0) scale(1); }
+  48%,100% { opacity: 0; transform: translate(28px,8px); }
+}
+@keyframes minecraft-origin-terminal { 0%,43% { opacity: 0; transform: translateY(6px) scale(.97); } 51%,100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes minecraft-origin-type { from { max-width: 0; } to { max-width: 11ch; } }
+@keyframes minecraft-origin-caret { 0%,49% { border-color: var(--story-highlight); } 50%,100% { border-color: transparent; } }
+@keyframes minecraft-origin-dot { 0%,100% { opacity: 1; } 50% { opacity: .2; } }
+
+.minecraft-origin[data-complete="true"] { animation: none; }
+.minecraft-origin[data-complete="true"] .minecraft-origin__image { animation: none; opacity: 1; }
+.minecraft-origin[data-complete="true"] :is(.minecraft-origin__file,.minecraft-origin__pixel-cursor) { display: none; }
+.minecraft-origin[data-complete="true"] .minecraft-origin__terminal { animation: none; opacity: 1; transform: none; }
+.minecraft-origin[data-complete="true"] .minecraft-origin__typed { animation: none; max-width: 11ch; border-color: transparent; }
+.minecraft-origin[data-complete="true"] .minecraft-origin__dot { opacity: 1; animation: minecraft-origin-dot 1.4s ease-in-out infinite; animation-play-state: paused; }
+.minecraft-origin[data-complete="true"][data-motion="true"] .minecraft-origin__dot { animation-play-state: running; }
+.minecraft-origin[data-static="true"] .minecraft-origin__terminal { top: 18%; animation: none; opacity: 1; transform: none; }
+.minecraft-origin[data-static="true"] .minecraft-origin__typed { animation: none; max-width: 11ch; border-color: transparent; }
+.minecraft-origin[data-static="true"] .minecraft-origin__dot { animation: none; opacity: 1; }
+
+@media (max-width: 800px) {
+  .minecraft-origin__terminal { top: 18%; width: 84%; }
+  .minecraft-origin__terminal-body { min-height: 78px; padding-block: 18px; }
+  .minecraft-origin__file svg { width: 56px; }
+  .minecraft-origin__file > span { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .minecraft-origin,.minecraft-origin :is(.minecraft-origin__image,.minecraft-origin__intro,.minecraft-origin__terminal,.minecraft-origin__typed,.minecraft-origin__dot) { animation: none; }
+  .minecraft-origin .minecraft-origin__image,.minecraft-origin .minecraft-origin__intro { opacity: 1; visibility: visible; }
+  .minecraft-origin :is(.minecraft-origin__file,.minecraft-origin__pixel-cursor) { display: none; }
+  .minecraft-origin .minecraft-origin__terminal { top: 18%; opacity: 1; transform: none; }
+  .minecraft-origin .minecraft-origin__typed { max-width: 11ch; border-color: transparent; }
+  .minecraft-origin[data-complete] .minecraft-origin__dot { animation: none; opacity: 1; }
+}
