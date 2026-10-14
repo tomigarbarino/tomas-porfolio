@@ -125,9 +125,14 @@ html[data-motion="paused"] .story-workbench :is(.story-workbench__browser, .stor
 }
 
 /* Reserve the measured map height instead of shrinking the film to a thumbnail. */
+.origin-story .story-workbench--batech > .artifact-drag { top: auto; bottom: 1px; min-height: 44px; padding: 6px; opacity: .45; }
+.origin-story .story-workbench--batech > .artifact-drag:is(:hover,:focus-visible) { opacity: 1; }
+.origin-story .story-workbench--batech .story-workbench__detail { min-height: 76px; padding-right: 56px; }
+.origin-story .story-workbench--batech .story-workbench__detail p { min-height: 0; }
 .origin-story--scroll .origin-story__art--batech .origin-story__company-film { top: 20px; left: 4%; right: 4%; width: auto; height: var(--batech-film-height); transform: none; }
 .origin-story--scroll .origin-story__art--batech .origin-story__company-film video { width: 100%; height: 100%; max-height: none; object-fit: cover; }
 @media (max-width: 800px) {
+  .origin-story .story-workbench--batech .story-workbench__detail { min-height: 60px; padding-right: 52px; }
   .origin-story .story-workbench--batech { top: auto; bottom: 4px; }
   .origin-story--scroll .origin-story__art--batech .origin-story__company-film { top: 4px; left: 8px; right: 8px; height: var(--batech-film-height); }
 }

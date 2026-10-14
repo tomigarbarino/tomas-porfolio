@@ -6,10 +6,10 @@ import Link from "next/link";
 import { AsciiVideo } from "@/components/AsciiVideo";
 import { useMotionPreference } from "@/components/MotionPreference";
 import { ArtifactDrag } from "@/components/ArtifactDrag";
-import { BatechVideo } from "@/components/BatechVideo";
+import { BatechCinematic } from "@/components/BatechCinematic";
 import { MinecraftOrigin } from "./MinecraftOrigin";
 import "./origin-story.css";
-import { BatechDomainMap, HogarthWorkbench } from "./StoryWorkbenches";
+import { BatechDomainMap, HogarthWorkbench, useChapterScrollView } from "./StoryWorkbenches";
 import { FlockStoryStudio } from "./FlockStoryStudio";
 import { HogarthAppleSticker } from "./HogarthAppleSticker";
 import { storyReadingLine } from "./story-scroll";
@@ -49,7 +49,7 @@ const chapters = [
     id: "batech",
     label: "Batech",
     eyebrow: "04 / Batech",
-    title: ["Batech.", "From builder to lead."],
+    title: ["I built the interface", "around Computer Vision."],
     role: "Frontend Engineer → Frontend Lead",
     copy: "At Batech, I worked on a product built around AI and computer vision: turning existing cameras into operational information, alerts and reports. As its only frontend engineer, I built the interface around those signals, then grew into frontend leadership while continuing to deliver features.",
     src: "/media/hero-ascii.mp4",
@@ -77,6 +77,9 @@ function StoryArt({ chapter, index, paused, active, reducedMotion }: { chapter: 
   const lensRef = useRef<HTMLDivElement>(null);
   const lensPoint = useRef({ x: 0, y: 0 });
   const stopLens = useRef<(() => void) | null>(null);
+  // One selection drives the film, controls and contribution. Reading continues
+  // with motion off; only the decorative transitions and video are paused.
+  const batech = useChapterScrollView("story-batech", 3, { active: chapter.id === "batech" && active, paused: false }, artRef);
   useEffect(() => {
     const lens = lensRef.current;
     const handle = lens?.querySelector<HTMLButtonElement>(".artifact-drag");
@@ -259,9 +262,9 @@ function StoryArt({ chapter, index, paused, active, reducedMotion }: { chapter: 
   }
 
   if (chapter.id === "batech") {
-    return <div ref={artRef} className="origin-story__art origin-story__art--batech" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
+    return <div ref={artRef} className="origin-story__art origin-story__art--batech" data-drag-boundary data-selected={active} data-batech-view={batech.view} aria-hidden={!active} inert={!active}>
       <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
-      <figure className="origin-story__company-film" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechVideo active={active} /></figure>
+      <figure className="origin-story__company-film origin-story__company-film--cinematic" data-drag-frame><ArtifactDrag label="Move the Batech story film" /><BatechCinematic stage={batech.view} active={active} /></figure>
         <div ref={lensRef} className="origin-story__selection origin-story__bridge" style={{ backdropFilter: `url("#${lensFilterId}")` }} data-drag-frame data-lens-following="false" aria-label="Chromatic study over the Batech computer vision film">
           <svg className="origin-story__lens-filter" aria-hidden="true" focusable="false" width="0" height="0">
             <defs>
@@ -276,7 +279,7 @@ function StoryArt({ chapter, index, paused, active, reducedMotion }: { chapter: 
           <span className="origin-story__selection-corner" aria-hidden="true" />
           <span className="origin-story__cursor" aria-hidden="true" />
         </div>
-      <BatechDomainMap active={active} paused={paused} />
+      <BatechDomainMap active={active} paused={paused} controller={batech} />
     </div>;
   }
 
