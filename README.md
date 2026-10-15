@@ -29,6 +29,7 @@ Open http://localhost:3000. The build uses Webpack explicitly. Vercel is configu
 - The shared header and home contact section offer a direct English CV download. The existing one-page PDF is served from `public/documents/tomas-garbarino-cv-en.pdf`; replace that file to update it without changing the links.
 - Agora has its own dossier at `/en/agora`: personal responsibilities, an anonymized decision with a hover/focus before-and-after replay, product flow, candidate-experience Figma designs and the declared stack. The home preserves an interactive preview. Trainly has a separate dossier with artifact links; both cases connect to each other. Batech distinguishes frontend contribution from company footage.
 - Global pause persists across pages. Reduced motion, hidden-tab and offscreen handling stop decorative motion and silent autoplay. Native video controls remain hidden.
+- Missing URLs, including `/404`, open an untimed packet-recovery mini-game. The footer's `TG_` signature is its secret entry. See [the game documentation](docs/secret-404-game.md) for keyboard, motion and HTTP verification.
 
 ## Content boundaries
 
