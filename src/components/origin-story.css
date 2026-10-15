@@ -377,6 +377,7 @@ html[data-motion="paused"] .origin-story__art :is(.origin-story__file-piece, .or
 }
 @media (max-width: 800px) {
   .origin-story.origin-story--scroll { --story-canvas-height: 300px; padding-bottom: 40px; }
+  .origin-story.origin-story--scroll[data-chapter="interfaces"] { --story-canvas-height: 310px; }
   .origin-story--scroll .origin-story__header { grid-template-columns: minmax(0,1fr); gap: 24px; }
   .origin-story--scroll .origin-story__timeline { display: flex; flex-wrap: wrap; gap: 8px; }
   .origin-story--scroll .origin-story__timeline a { flex: 1 1 130px; gap: 8px; min-height: 44px; padding: 8px 10px; font-size: 10px; }
@@ -427,6 +428,9 @@ html[data-motion="paused"] .origin-story__art :is(.origin-story__file-piece, .or
   .origin-story--scroll .origin-story__art--batech .origin-story__company-note > span { font-size: 9px; line-height: 1.45; }
   .origin-story--scroll .origin-story__footer { gap: 14px; margin-top: 24px; }
   .origin-story--scroll .origin-story__utilities { width: auto; margin-left: 0; }
+}
+@media (max-width: 800px) and (any-pointer: coarse) {
+  .origin-story.origin-story--scroll[data-chapter="interfaces"] { --story-canvas-height: 330px; }
 }
 @media (max-width: 360px) {
   .origin-story--scroll .origin-story__menu-piece { left: 31%; width: 144px; }

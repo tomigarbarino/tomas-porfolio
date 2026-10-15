@@ -1,9 +1,7 @@
 /* Original graphic system informed by WD2 art direction and the selected hero. */
 :root { --pop-violet: #c6a7ff; --pop-pink: #ff76b9; }
-[data-drag-frame] > .artifact-drag:not(.peel-sticker__move) { position: absolute; z-index: 5; top: 8px; right: 8px; opacity: .65; }
-[data-drag-frame]:is(:hover,:focus-within) > .artifact-drag { opacity: 1; }
+[data-drag-frame] > .artifact-drag:not(.peel-sticker__move) { position: absolute; z-index: 5; top: 8px; right: 8px; }
 [data-drag-frame][data-artifact-dragging="true"] { z-index: 8; }
-@media (pointer: coarse) { [data-drag-frame] > .artifact-drag { opacity: 1; } }
 .hero-role { color: var(--acid); font-size: .7em; text-transform: uppercase; letter-spacing: .025em; }
 .portfolio-dialog .dialog-bar { padding-right: 50px; }
 .portfolio-dialog .dialog-bar > .artifact-drag { position: static; flex: 0 0 66px; margin-left: auto; opacity: 1; font-size: 10px; }

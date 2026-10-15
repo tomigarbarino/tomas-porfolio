@@ -61,6 +61,18 @@ Representative captures:
 
 ## Risks and follow-ups
 
+### Drag-control refinement — 2026-10-15
+
+The dotted, boxed drag grips are replaced by a small transparent `Move` label. Desktop hover reveals only the owning object's control; nested objects no longer expose a cluster of handles. Touch and hybrid devices retain visible alternatives. The hero's labeled window titlebar keeps its behavior without a decorative grip, and stickers no longer reserve a separate 52px control footer.
+
+Flock's small process steps share the board's position menu. Its five step shortcuts open the existing movement controls one at a time, preserving click/tap movement, reset and direct keyboard arrows/Home without covering the step labels. Whole-surface dragging, native text selection and scroll handling are unchanged. Its compact board control is 44×24px with a fine pointer and 44×44px with a coarse pointer; the mobile canvas reserves the corresponding header space. Pause and reduced motion disable the control fade.
+
+Implementation: `ArtifactDrag`, `MoveControls`, `Window`, the shared drag styles and the affected story/sticker layouts. No dependency, service, data or environment changes.
+
+Local in-app-browser checks covered whole-surface logo dragging, movement-menu switching, a 40px step move, reset, 10px keyboard movement, owner-only hover in Agora and nested Trainly cards, sticker geometry, and reduced-motion styles. At 320px with coarse-pointer emulation, only the board control appears over the process, its targets remain usable and the page has no horizontal overflow. Physical touch hardware and other browser engines were not tested. Evidence lives in `output/drag-control-polish/`; this records local/preview work, not a production release.
+
+Final-source ESLint, TypeScript (`--noEmit --incremental false`) and the Next.js webpack production build passed with Node 24. Build ID: `rR-pqqVg9Ijjj22Qi8LRC`.
+
 - Real mobile long-press selection handles cannot be certified through Chromium touch emulation alone.
 - Agora's reported production check is a bounded incident validation, not a model benchmark. Trainly quantitative outcomes and a direct Batech frontend artifact remain unavailable; the copy makes no substitute claims.
 - A PR preview verifies implementation, not hiring conversion. Production rollout remains separate from this change.

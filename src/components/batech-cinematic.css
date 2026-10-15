@@ -13,7 +13,7 @@
   min-height: 44px;
   padding: 8px;
   border: 0;
-  background: var(--story-pink);
+  background: transparent;
   color: var(--story-ink);
 }
 
@@ -42,17 +42,12 @@
   justify-content: space-between;
   gap: 12px;
   min-width: 0;
-  padding: 0 12px;
+  padding: 0 54px 0 12px;
   background: var(--story-pink);
   color: var(--story-ink);
   font-size: 10px;
   line-height: 1;
   white-space: nowrap;
-}
-
-.batech-cinematic__chrome {
-  flex: 0 0 auto;
-  letter-spacing: 2px;
 }
 
 .batech-cinematic__viewport,
@@ -143,7 +138,7 @@
 
 @media (max-width: 800px) {
   .batech-cinematic { grid-template-rows: 30px minmax(0, 1fr); }
-  .batech-cinematic__bar { padding-inline: 10px; font-size: 8px; }
+  .batech-cinematic__bar { padding-inline: 10px 50px; font-size: 8px; }
   .batech-cinematic__phrase { width: 48%; padding-inline: 6px; font-size: clamp(7px, 2.3cqw, 10px); }
 }
 

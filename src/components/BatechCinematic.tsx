@@ -24,7 +24,6 @@ export function BatechCinematic({ stage, active }: { stage: number; active: bool
     >
       <div className="batech-cinematic__bar">
         <span>04 / SIGNAL → INTERFACE</span>
-        <span className="batech-cinematic__chrome">− □ ×</span>
       </div>
       <div className="batech-cinematic__viewport">
         <div className="batech-cinematic__footage">

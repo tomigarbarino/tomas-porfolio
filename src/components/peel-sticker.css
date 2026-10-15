@@ -19,6 +19,7 @@
 
 /* Only this inner layer arrives; the drag frame keeps its final, axis-aligned bounds. */
 .peel-sticker__arrival {
+  position: relative;
   display: grid;
   min-width: 0;
   opacity: 1;
@@ -148,10 +149,11 @@
 .peel-sticker .peel-sticker__reveal:hover:not(:disabled) { color: var(--sticker-ink); }
 
 .peel-sticker__move {
-  position: relative;
+  position: absolute;
   z-index: 3;
-  justify-self: end;
-  margin: 8px 8px 0 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
 }
 
 .peel-sticker__title,
