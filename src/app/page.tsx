@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Observatory } from "@/components/Observatory";
 import { ProductWork } from "@/components/ProductWork";
 import { OriginStory } from "@/components/OriginStory";
@@ -30,7 +31,7 @@ export default function Home() {
           <p className="contact-fit">Open to Product Engineer and Forward Deployed Engineer opportunities with teams building useful AI products.</p>
           <CVDownloadLink className="contact-cv" ariaLabel="Download CV · English PDF">Download CV <span>· English PDF</span> <span aria-hidden="true">↓</span></CVDownloadLink>
           <aside className="contact-play" data-scroll-depth="-32" aria-label="Developer sticker"><PeelSticker art="commit" title="One more commit." fact="A useful first question: what should the product help someone do?" tone="pink" /></aside>
-          <div className="contact-bottom"><div id="profile"><p>TOMÁS GARBARINO</p><p className="muted">Product Engineer / Applied AI</p></div><nav aria-label="Social profiles"><a href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/tomigarbarino" target="_blank" rel="noreferrer">GitHub ↗</a></nav><span className="contact-signature" aria-hidden="true">TG_</span></div>
+          <div className="contact-bottom"><div id="profile"><p>TOMÁS GARBARINO</p><p className="muted">Product Engineer / Applied AI</p></div><nav aria-label="Social profiles"><a href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/tomigarbarino" target="_blank" rel="noreferrer">GitHub ↗</a></nav><Link className="contact-signature" href="/404" prefetch={false} aria-label="TG_ — open the secret 404 game">TG_</Link></div>
         </section>
       </main>
     </MotionPreference>
