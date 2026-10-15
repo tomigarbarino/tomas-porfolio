@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MotionPreference } from "@/components/MotionPreference";
-import { PacketRecoveryLoader, Secret404MotionToggle } from "@/components/PacketRecoveryLoader";
+import { PacketRecoveryLoader } from "@/components/PacketRecoveryLoader";
+import { SiteHeader } from "@/components/SiteHeader";
 import "@/components/secret-404.css";
 
 export const metadata: Metadata = {
@@ -15,10 +16,7 @@ export default function NotFound() {
     <MotionPreference>
       <a className="skip-link" href="#lost-signals">Skip to packet recovery</a>
       <div className="secret404">
-        <header className="secret404__header">
-          <Link href="/" className="secret404__identity"><span>Tomás Garbarino</span><span>Product Engineer / Applied AI</span></Link>
-          <Link href="/" className="button-primary secret404__back"><span className="secret404__back-full">Back to portfolio ↗</span><span className="secret404__back-short">Back home ↗</span></Link>
-        </header>
+        <SiteHeader context="case" backHref="/#top" />
         <main className="secret404__body" id="missing-page">
           <div className="secret404__intro">
             <p className="secret404__eyebrow">404 / Page not found</p>
@@ -32,7 +30,7 @@ export default function NotFound() {
             <noscript><p className="secret404__no-script">The optional packet game needs JavaScript. You can always <Link href="/">return to the portfolio</Link>.</p></noscript>
           </section>
         </main>
-        <footer className="secret404__footer"><span>A small detour / Secret 01</span><Secret404MotionToggle /><span className="secret404__signature" aria-hidden="true">TG_</span></footer>
+        <footer className="secret404__footer"><span>A small detour / Secret 01</span><span className="secret404__signature" aria-hidden="true">TG_</span></footer>
       </div>
     </MotionPreference>
   );

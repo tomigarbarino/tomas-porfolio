@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useMotionPreference } from "./MotionPreference";
 
 const PacketRecoveryGame = dynamic(() => import("./PacketRecoveryGame"), {
   ssr: false,
@@ -10,9 +9,4 @@ const PacketRecoveryGame = dynamic(() => import("./PacketRecoveryGame"), {
 
 export function PacketRecoveryLoader() {
   return <PacketRecoveryGame />;
-}
-
-export function Secret404MotionToggle() {
-  const { paused, reducedMotion, setPaused } = useMotionPreference();
-  return <button type="button" disabled={reducedMotion} onClick={() => setPaused(!paused)}>{reducedMotion ? "Reduced motion" : paused ? "Play motion" : "Pause motion"}</button>;
 }

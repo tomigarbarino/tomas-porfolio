@@ -4,7 +4,7 @@
 
 Missing routes now use the portfolio's designed retro 404 instead of Next.js's default error screen. Eight packet windows hide four matching signals; recovering them opens `curiosity.txt`, connecting the detour to the portfolio's theme of small experiments becoming real products.
 
-The footer's `TG_` signature links to `/404`. That URL deliberately remains unmatched, so it receives the same real error response as any missing route. Primary navigation and project case flows remain unchanged.
+The footer's `TG_` signature links to `/404`. That URL deliberately remains unmatched, so it receives the same real error response as any missing route. The 404 uses the same `SiteHeader` as the case pages, with Case studies, Story, Contact, English CV download, the shared motion control and a return link to the portfolio top. Its header spans the page independently of the game's content gutters so the compact navigation fits on mobile.
 
 ## User experience
 
@@ -12,13 +12,13 @@ The footer's `TG_` signature links to `/404`. That URL deliberately remains unma
 - The first selection shuffles a fresh board. Reset/replay shuffle again. Repeated, recovered and invalid selections are ignored.
 - All controls work with native Tab, Enter and Space. Arrow/Home/End keys move between packets; 1–8 select them only while a packet has focus. Shortcuts never run on the rest of the page.
 - Progress and a polite live message announce outcomes. Sealed controls expose no hidden signal identity. On completion, focus moves to the reward heading; replay returns it to the first packet. A return link is always available.
-- The existing local ASCII image, fonts, palette and button style reproduce the Figma desktop/mobile/reward direction. Controls fit 320 px, with whole-tile targets at least 82 px tall. A footer control uses the shared motion preference; reduced motion and global pause remove game transitions.
+- The existing local ASCII image, fonts, palette and button style reproduce the Figma desktop/mobile/reward direction. Controls fit 320 px, with whole-tile targets at least 82 px tall. The header control uses the shared motion preference; reduced motion and global pause remove game transitions.
 
 ## Technical overview
 
 `src/app/not-found.tsx` is a synchronous server shell with descriptive metadata, heading, explanation and return navigation. Installed Next.js 16.3.8 resolves the root not-found metadata export; built HTTP tests assert the title instead of assuming it. A trial explicit `/404` page calling `notFound()` omitted the useful server shell in its built response, so it was removed.
 
-`PacketRecoveryLoader.tsx` dynamically imports the client game with SSR disabled. The normal portfolio does not download the game chunk, and its footer entry disables prefetch. The server 404 remains useful without JavaScript; the optional game shows a loading message and a noscript explanation. There is no video on this view.
+`PacketRecoveryLoader.tsx` dynamically imports the client game with SSR disabled. The normal portfolio does not download the game chunk, and its footer entry disables prefetch. The server 404 remains useful without JavaScript, including the shared navigation and CV download; the optional game shows a loading message and a noscript explanation. There is no video on this view.
 
 `PacketRecoveryGame.tsx` renders semantic native controls, announcements, focus management and scoped shortcuts. `src/lib/packet-memory.ts` contains pure immutable transitions and a Fisher–Yates shuffle. The initial deck is null so server/client markup matches; randomness occurs only inside user event handlers. State stays in memory, with no persistence, backend, tracking or new dependency.
 
@@ -44,6 +44,8 @@ python scripts/verify-search-discovery.py --base-url http://127.0.0.1:3003
 - Final axe-core 4.14.0 scans reported zero violations on the initial board at desktop and 320 px; the reward scan also reported zero. Contrast-over-image incomplete checks remain manual review items. Visual checks at 1440×900, 390×844 and 320×844 confirmed the layout.
 
 Local evidence is in `output/secret-404-implementation-2026-10-15/` in the task workspace, outside the public app. Release verification should run both HTTP scripts against the canonical production alias and smoke-test the playable game after deployment.
+
+The shared-header correction additionally passed lint, TypeScript, production build and 24/24 HTTP checks across the three missing-route shapes, including the common navigation and CV link. Browser checks covered 1440 px, 390 px and 320 px without horizontal overflow or header/game overlap, shared pause/reduced-motion controls and keyboard packet selection. Its evidence is in `output/404-shared-navigation/`.
 
 ## Operations and limits
 
