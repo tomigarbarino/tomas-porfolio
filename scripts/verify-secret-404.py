@@ -64,13 +64,16 @@ def main():
                 'one_descriptive_title': len(shell.titles) == 1 and '404' in shell.titles[0] and 'Off the grid' in shell.titles[0],
                 'server_shell': {'missing-page', 'lost-signals'} <= shell.ids,
                 'return_link': '/' in shell.links,
+                'shared_navigation': {'/#top', '/#work', '/#story', '/#contact'} <= set(shell.links),
+                'cv_download': '/documents/tomas-garbarino-cv-en.pdf' in shell.links,
                 'no_video': shell.video_count == 0,
             }
             results.append({'route': route, 'status': response.status, 'titles': shell.titles, 'checks': checks})
         finally:
             client.close()
     passed = sum(sum(result['checks'].values()) for result in results)
-    report = {'base_url': args.base_url, 'routes': results, 'passed': passed, 'failed': 18 - passed}
+    total = sum(len(result['checks']) for result in results)
+    report = {'base_url': args.base_url, 'routes': results, 'passed': passed, 'failed': total - passed}
     target = Path(args.report)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')
