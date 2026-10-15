@@ -62,7 +62,7 @@ html[data-motion="paused"] .flock-story-studio[data-animated] .flock-story-studi
 @media (max-width: 800px) {
   .origin-story .flock-story-studio__product { top: 4px; left: 6px; width: min(44%,136px); box-shadow: 3px 4px 0 var(--story-ink), 4px 5px 0 var(--flock-frame-tone); }
   .origin-story .flock-story-studio__product--trainly { top: 4px; left: auto; right: 8px; width: min(46%,140px); }
-  .origin-story .flock-story-studio__surface { min-height: 96px; padding: 48px 10px 12px; }
+  .origin-story .flock-story-studio__surface { min-height: 82px; padding: 42px 10px 10px; }
   .origin-story .flock-story-studio__logo { height: 26px; }
 }
 @media (prefers-reduced-motion: reduce) {
