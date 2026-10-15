@@ -56,7 +56,7 @@ export function SceneDiscoveries({ onPlay }: { onPlay: () => void }) {
             setFocusedPanel(current => current === item.id ? null : current);
           }
         }} onKeyDown={event => escape(event, index)}>
-          <button ref={element => { buttons.current[index] = element; }} type="button" className="discovery-object" aria-label={`Discover ${item.subtitle}`} aria-expanded={open} aria-controls={`discovery-${item.id}`} onClick={() => {
+          <button ref={element => { buttons.current[index] = element; }} type="button" className="discovery-object" aria-expanded={open} aria-controls={`discovery-${item.id}`} onClick={() => {
             // Explicit activation transfers focus even on browsers that do not
             // focus buttons on a pointer click, before another panel is hidden.
             buttons.current[index]?.focus({ preventScroll: true });

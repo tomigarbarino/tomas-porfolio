@@ -89,7 +89,7 @@
 .agora-flow__node--voice { --window-bar: var(--agora-fg); grid-column: 2; min-height: 0; background: var(--agora-pink); }
 .agora-flow__eyebrow { position: relative; margin: 0 -20px !important; padding: 10px 36px 10px 12px; border-bottom: 1px solid var(--agora-bg); color: var(--agora-bg); background: var(--window-bar); font-size: 10px; line-height: 1.6; text-transform: uppercase; }
 .agora-flow__eyebrow::after { content: ""; position: absolute; top: 12px; right: 10px; width: 12px; height: 12px; border: 1px solid var(--agora-bg); background: linear-gradient(transparent 65%, var(--agora-bg) 65%, var(--agora-bg) 75%, transparent 75%); }
-.agora-flow h4 { margin-top: 23px; font-family: var(--font-display), Impact, sans-serif; font-size: 38px; font-weight: 900; line-height: 1; }
+.agora-flow h3 { margin-top: 23px; font-family: var(--font-display), Impact, sans-serif; font-size: 38px; font-weight: 900; line-height: 1; }
 .agora-flow__description { margin-top: 16px !important; font-size: 12px; line-height: 1.8; }
 .agora-flow__node ul { display: grid; gap: 8px; margin-top: auto; padding-top: 23px; font-size: 11px; line-height: 1.7; }
 .agora-flow__node ul li { padding-left: 9px; border-left: 2px solid var(--agora-bg); }
@@ -107,10 +107,10 @@
 .agora-flow__detail[data-visible="true"] { opacity: 1; visibility: visible; pointer-events: auto; }
 .agora-flow__detail--idle { border-style: dashed; }
 .agora-flow__detail-label { color: var(--agora-violet); font-size: 10px; line-height: 1.7; text-transform: uppercase; }
-.agora-flow__detail h5 { margin: 16px 0 0; font-family: var(--font-display),Impact,sans-serif; font-size: clamp(28px,2.9vw,38px); line-height: 1.05; }
+.agora-flow__detail h4 { margin: 16px 0 0; font-family: var(--font-display),Impact,sans-serif; font-size: clamp(28px,2.9vw,38px); line-height: 1.05; }
 .agora-flow__detail > p:not(:first-child) { max-width: 92ch; margin-top: 18px; font-size: 12px; line-height: 1.9; }
 .agora-flow__voice-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.agora-flow__voice-title h4 { font-size: 34px; }
+.agora-flow__voice-title h3 { font-size: 34px; }
 .agora-flow__voice-mark { flex: 0 0 auto; display: flex; align-items: center; gap: 3px; height: 23px; margin-top: 23px; color: var(--agora-bg); }
 .agora-flow__voice-mark i { width: 3px; height: 7px; background: currentColor; }
 .agora-flow__voice-mark i:nth-child(2), .agora-flow__voice-mark i:nth-child(4) { height: 15px; }
@@ -158,8 +158,8 @@ html:not([data-motion="paused"]) .agora-case__footer a:focus-visible { transform
   .agora-flow__grid { --agora-edge: 30px; }
   .agora-flow__node { padding-inline: 15px; }
   .agora-flow__eyebrow { margin-inline: -15px !important; }
-  .agora-flow h4 { font-size: 33px; }
-  .agora-flow__voice-title h4 { font-size: 30px; }
+  .agora-flow h3 { font-size: 33px; }
+  .agora-flow__voice-title h3 { font-size: 30px; }
   .agora-case__contribution, .agora-case__product, .agora-case__stack { gap: 40px; }
 }
 @media (max-width: 767px) {
@@ -195,8 +195,8 @@ html:not([data-motion="paused"]) .agora-case__footer a:focus-visible { transform
   .agora-flow__node--review { grid-column: 1 / -1; grid-row: 3; }
   .agora-flow__eyebrow { margin-inline: -14px !important; padding: 9px 27px 9px 9px; font-size: 10px; }
   .agora-flow__eyebrow::after { top: 11px; right: 7px; width: 10px; height: 10px; }
-  .agora-flow h4 { margin-top: 19px; font-size: 35px; }
-  .agora-flow__node--requirement h4, .agora-flow__voice-title h4 { font-size: 28px; }
+  .agora-flow h3 { margin-top: 19px; font-size: 35px; }
+  .agora-flow__node--requirement h3, .agora-flow__voice-title h3 { font-size: 28px; }
   .agora-flow__description { margin-top: 13px !important; font-size: 12px; }
   .agora-flow__node ul { display: flex; flex-wrap: wrap; gap: 8px 18px; padding-top: 19px; font-size: 11px; }
   .agora-flow__node--requirement ul { display: grid; }
@@ -221,7 +221,7 @@ html:not([data-motion="paused"]) .agora-case__footer a:focus-visible { transform
   .agora-flow__grid { column-gap: 12px; }
   .agora-flow__node { padding-inline: 10px; }
   .agora-flow__eyebrow { margin-inline: -10px !important; }
-  .agora-flow__node--requirement h4, .agora-flow__voice-title h4 { font-size: 25px; }
+  .agora-flow__node--requirement h3, .agora-flow__voice-title h3 { font-size: 25px; }
   .agora-flow__node--requirement .agora-flow__description, .agora-flow__node--voice .agora-flow__description { font-size: 11px; }
   .agora-case__footer { padding-inline: 18px; }
 }

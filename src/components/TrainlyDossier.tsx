@@ -23,7 +23,7 @@ function EvidenceFrame({ id, image, title, alt, width, height, priority = false 
   const source = `/media/trainly/${image}`;
   return <figure id={id} className="td-evidence-frame" data-drag-frame>
     <ArtifactDrag label={`Move ${title}`} />
-    <div className="td-frame-bar"><span>{title}</span><a href={source} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size image: ${title} (new tab)`}>Open image <span aria-hidden="true">↗</span></a></div>
+    <div className="td-frame-bar"><span>{title}</span><a href={source} target="_blank" rel="noopener noreferrer" aria-label={`Open image at full size: ${title} (new tab)`}>Open image <span aria-hidden="true">↗</span></a></div>
     <Image src={source} alt={alt} width={width} height={height} draggable={false} priority={priority} sizes={priority ? "(max-width: 799px) 94vw, 48vw" : "(max-width: 799px) 94vw, (max-width: 1179px) 84vw, 1000px"} />
   </figure>;
 }
@@ -36,7 +36,7 @@ export function TrainlyDossier() {
       <TrainlyCaseMotion />
       <SiteHeader context="case" />
       <section className="td-hero" id="top" data-drag-boundary aria-labelledby="trainly-case-title">
-        <div className="td-hero-copy" data-scroll-depth="14"><p className="td-label">Case file 02 / Product engineering</p><h1 id="trainly-case-title">Trainly.<br /><span>Learning,<br />in a loop.</span></h1><p className="td-hero-deck">From scattered documents to evidence of competence.</p><p className="td-hero-description">A multi-agent learning platform built around the connection between knowledge, learning and conversational assessment.</p><dl className="td-role"><div><dt>My role</dt><dd>Product Engineer</dd></div><div><dt>My scope</dt><dd>Product flow · Frontend · AI</dd></div><div><dt>Status</dt><dd>{trainlyCase.status}</dd></div></dl><a className="td-link td-link--primary" href="#challenge">Open the case <span aria-hidden="true">↓</span></a></div>
+        <div className="td-hero-copy" data-scroll-depth="14"><p className="td-label">Case file 02 / Flock I+D</p><h1 id="trainly-case-title">Trainly.<br /><span>Learning,<br />in a loop.</span></h1><p className="td-hero-deck">From scattered documents to evidence of competence.</p><p className="td-hero-description">At Flock I+D, I work on product flow, frontend and AI integration for Trainly’s learning and conversational assessment workflows.</p><dl className="td-role"><div><dt>My role</dt><dd>Product Engineer</dd></div><div><dt>My scope</dt><dd>Product flow · Frontend · AI</dd></div><div><dt>Status</dt><dd>{trainlyCase.status}</dd></div></dl><a className="td-link td-link--primary" href="#challenge">Open the case <span aria-hidden="true">↓</span></a></div>
         <div className="td-hero-art" data-scroll-depth="-36">
           <EvidenceFrame image="trainly-03-actividad-clase-narrada-tutor.png" title="Trainly / lesson + contextual tutor" alt="Actual Trainly interface with fictional demo data: a narrated lesson beside the AI tutor's explain, example and practice-question actions." width={1440} height={900} priority />
           <div className="td-hero-sticker"><PeelSticker art="duck" title="Ask the duck." fact="The evaluator asks for explanations and examples, then follows the learner’s reasoning." tone="cream" /></div>

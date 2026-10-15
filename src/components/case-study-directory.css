@@ -22,7 +22,11 @@
   box-shadow: 6px 7px 0 #080909, 7px 8px 0 var(--preview-accent), 0 18px 48px #0007;
   transform-origin: 35% 15%;
 }
-.case-preview__window { position: relative; z-index: 5; animation: case-preview-reveal 240ms cubic-bezier(.22,1,.36,1) both; }
+.case-preview__window { display: block; position: relative; z-index: 5; pointer-events: none; text-decoration: none; animation: case-preview-reveal 240ms cubic-bezier(.22,1,.36,1) both; }
+/* Only the main window accepts input; the full-screen cascade stays transparent. */
+.case-preview[data-ready="true"]:not([data-exiting="true"]) .case-preview__window { pointer-events: auto; }
+.case-preview__window:hover { text-decoration: none; }
+.case-preview__window:focus-visible { outline: 3px solid var(--acid, #f4ff54); outline-offset: 4px; }
 .case-preview[data-cascade="true"] .case-preview__window { animation-delay: 120ms; }
 .case-preview__echo {
   position: absolute;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef } from "react";
+import { MoveControls, type MoveCommands } from "./MoveControls";
 import "./artifact-drag.css";
 
 type Position = { x: number; y: number };
@@ -19,7 +20,9 @@ const functionalControl = "a[href], button, input, select, textarea, summary, [c
 
 export function ArtifactDrag({ label, className = "" }: { label: string; className?: string }) {
   const handleRef = useRef<HTMLButtonElement>(null);
+  const commandsRef = useRef<MoveCommands | null>(null);
   const instructionsId = useId();
+  const controlsId = useId();
 
   useEffect(() => {
     const handle = handleRef.current;
@@ -106,6 +109,14 @@ export function ArtifactDrag({ label, className = "" }: { label: string; classNa
       });
     }
 
+    commandsRef.current = {
+      move(delta) {
+        keyboardStart = null;
+        schedule({ x: position.x + delta.x, y: position.y + delta.y });
+      },
+      reset() { keyboardStart = null; schedule({ x: 0, y: 0 }); },
+    };
+
     function release(cancel: boolean) {
       if (!gesture) return;
       const previous = gesture;
@@ -177,7 +188,8 @@ export function ArtifactDrag({ label, className = "" }: { label: string; classNa
         // prevent its callout; native selection handles must keep their gesture.
         holdTimer = window.setTimeout(() => release(false), 400);
       }
-      if (fromGrip) activate(event);
+      // The grip's touch-action keeps touch dragging available. A stationary
+      // press must still produce a normal click to open position controls.
     }
 
     function mouseDown(event: MouseEvent) {
@@ -296,6 +308,7 @@ export function ArtifactDrag({ label, className = "" }: { label: string; classNa
 
     return () => {
       release(false);
+      commandsRef.current = null;
       if (raf) cancelAnimationFrame(raf);
       frame.removeAttribute("data-drag-surface");
       observer.disconnect();
@@ -314,10 +327,11 @@ export function ArtifactDrag({ label, className = "" }: { label: string; classNa
 
   return (
     <>
-      <button ref={handleRef} type="button" className={`artifact-drag ${className}`.trim()} aria-label={label} aria-describedby={instructionsId}>
+      <button ref={handleRef} type="button" className={`artifact-drag ${className}`.trim()} aria-label={label} aria-describedby={instructionsId} aria-haspopup="dialog" aria-controls={controlsId} aria-expanded="false" popoverTarget={controlsId}>
         <span className="artifact-drag__grip" aria-hidden="true" />
       </button>
-      <span id={instructionsId} className="artifact-drag__instructions">Drag to move. Double click then drag text to select, or hold Alt. On touch, hold text to select. Arrow keys move ten pixels; hold Shift for forty. Home resets. Escape restores the position at the start of this move.</span>
+      <span id={instructionsId} className="artifact-drag__instructions">Press for click or tap position controls, or drag to move. Double click then drag text to select, or hold Alt. On touch, hold text to select. Arrow keys move ten pixels; hold Shift for forty. Home resets. Escape restores the position at the start of this move.</span>
+      <MoveControls id={controlsId} label={label} trigger={handleRef} onMove={delta => commandsRef.current?.move(delta)} onReset={() => commandsRef.current?.reset()} />
     </>
   );
 }

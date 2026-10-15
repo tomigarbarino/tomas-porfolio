@@ -29,7 +29,7 @@
   justify-content: center;
   gap: 6px;
   min-width: 44px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 7px 9px;
   border: 1px solid currentColor;
   border-radius: 0;
@@ -72,7 +72,16 @@
 }
 @media (hover: hover) and (pointer: fine) {
   [data-drag-frame][data-drag-surface] .artifact-drag:not(:focus-visible) { opacity: 0; pointer-events: none; }
+  [data-drag-frame][data-drag-surface]:is(:hover,:focus-within) .artifact-drag,
   [data-drag-frame][data-drag-surface] .artifact-drag:focus-visible { opacity: 1; pointer-events: auto; }
+}
+/* Process artwork used to expose its grips only to keyboard users. Keep the
+   pointer alternative available without changing the dimensions of the art. */
+.origin-story--scroll .flock-story-studio .conceptual-flow--process[data-drag-frame]:is(:hover,:focus-within) > .artifact-drag,
+.origin-story--scroll .flock-story-studio .conceptual-flow--process .conceptual-flow__item[data-drag-frame]:is(:hover,:focus-within) > .artifact-drag { opacity: 1 !important; pointer-events: auto !important; }
+@media (pointer: coarse) {
+  .origin-story--scroll .flock-story-studio .conceptual-flow--process[data-drag-frame] > .artifact-drag,
+  .origin-story--scroll .flock-story-studio .conceptual-flow--process .conceptual-flow__item[data-drag-frame] > .artifact-drag { opacity: 1 !important; pointer-events: auto !important; }
 }
 html[data-motion="paused"] .artifact-drag { transition: none; }
 @media (prefers-reduced-motion: reduce) { .artifact-drag { transition: none; } }

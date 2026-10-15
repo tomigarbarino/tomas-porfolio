@@ -6,7 +6,7 @@ export const portfolioProfile = {
   opportunities:
     "Product Engineer, Applied AI and Forward Deployed Engineer opportunities.",
   email: "tomasgarbarino.dev@gmail.com",
-  publishedPortfolio: "https://tomas-garbarino.vercel.app/en",
+  publishedPortfolio: "https://tomas-garbarino.vercel.app/",
 } as const;
 
 export const portfolioMedia = {

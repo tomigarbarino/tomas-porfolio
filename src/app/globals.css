@@ -64,8 +64,8 @@ h1, h2, h3 { font-family: var(--font-display), sans-serif; font-weight: 900; }
 .is-dragging .window-drag { cursor: grabbing; }
 .drag-label { font-size: 9px; color: var(--bg); }
 .window-titlebar > button:not(.window-drag) { width: 36px; font-size: 25px; line-height: 1; }
-.window-titlebar > button:not(.window-drag):hover { color: var(--bg); background: var(--acid); }
-.window-titlebar > button:focus-visible { outline-offset: -3px; }
+.window-titlebar > button:hover:not(:disabled) { color: var(--bg); background: var(--acid); }
+.window-titlebar > button:focus-visible { outline-color: var(--bg); outline-offset: -3px; }
 .window-content { padding: 16px; }
 .window-content > img { display: block; width: 100%; height: auto; aspect-ratio: 1350/652; object-fit: contain; }
 .window-content > p { margin-top: 15px; font-size: 12px; line-height: 1.5; }

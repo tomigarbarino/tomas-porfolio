@@ -134,7 +134,6 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
               ref={element => { buttons.current[index] = element; }}
               type="button"
               className="conceptual-flow__node"
-              aria-label={stage.label}
               data-drag-enabled
               id={`${id}-node-${index}`}
               aria-expanded={active === index}
@@ -158,7 +157,7 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
               }}
               onKeyDown={event => navigate(event, index)}
             >
-              <span className="conceptual-flow__number" aria-hidden="true">0{index + 1}</span>
+              <span className="conceptual-flow__number">0{index + 1}</span>{" "}
               {"shortLabel" in stage ? <><span className="conceptual-flow__label--full">{stage.label}</span><span className="conceptual-flow__label--short">{stage.shortLabel}</span></> : "displayLabel" in stage ? stage.displayLabel : stage.label}
               </button>
             </div>

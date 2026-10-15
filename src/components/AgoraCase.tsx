@@ -43,7 +43,7 @@ export function AgoraCase() {
           </div>
         </header>
         <div className="agora-case__content">
-          <div className="agora-preview__decision" aria-labelledby="agora-decision-title">
+          <div className="agora-preview__decision" role="group" aria-labelledby="agora-decision-title">
             <p id="agora-decision-title" className="agora-case__label">Inside the case / a real decision</p>
             <div className="agora-preview__cards">
               {decision.map((step, index) => (

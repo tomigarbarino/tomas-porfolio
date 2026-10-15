@@ -57,7 +57,40 @@ export function AgoraFlow() {
   const [focused, setFocused] = useState<Detail | null>(null);
   const [pinned, setPinned] = useState<Detail | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  const hoverExit = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // The nodes, connecting space and detail share one hover region, so a reader
+  // can move to the explanation at their own pace without pinning it first.
   const active = dismissed ? null : hovered ?? focused ?? pinned;
+
+  function cancelHoverExit() {
+    if (hoverExit.current !== null) clearTimeout(hoverExit.current);
+    hoverExit.current = null;
+  }
+
+  function inspect(detail: Detail) {
+    cancelHoverExit();
+    setHovered(detail);
+    setDismissed(false);
+  }
+
+  useEffect(() => () => {
+    if (hoverExit.current !== null) clearTimeout(hoverExit.current);
+  }, []);
+
+  useEffect(() => {
+    if (active === null) return;
+    function dismissDetail(event: globalThis.KeyboardEvent) {
+      // Hover content must also dismiss while focus remains outside the figure.
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      if (hoverExit.current !== null) clearTimeout(hoverExit.current);
+      hoverExit.current = null;
+      setHovered(null);
+      setPinned(null);
+      setDismissed(true);
+    }
+    window.addEventListener("keydown", dismissDetail);
+    return () => window.removeEventListener("keydown", dismissDetail);
+  }, [active]);
 
   useEffect(() => {
     const flow = flowRef.current;
@@ -131,6 +164,7 @@ export function AgoraFlow() {
   }
 
   function pin(detail: Detail) {
+    cancelHoverExit();
     if (pinned === detail) {
       setPinned(null);
       setDismissed(true);
@@ -142,8 +176,17 @@ export function AgoraFlow() {
 
   return (
     <div className="agora-flow-motion" data-scroll-depth="-24">
-      <figure ref={flowRef} className="agora-flow" data-drag-frame data-drag-boundary aria-label="Illustrative Agora product flow" onKeyDown={event => {
-        if (event.key !== "Escape") return;
+      <figure ref={flowRef} className="agora-flow" data-drag-frame data-drag-boundary aria-label="Illustrative Agora product flow" onPointerEnter={cancelHoverExit} onPointerLeave={event => {
+        if (event.pointerType !== "mouse") return;
+        cancelHoverExit();
+        hoverExit.current = setTimeout(() => {
+          hoverExit.current = null;
+          setHovered(null);
+        }, 300);
+      }} onKeyDown={event => {
+        if (event.key !== "Escape" || event.defaultPrevented) return;
+        cancelHoverExit();
+        setHovered(null);
         setPinned(null);
         setDismissed(true);
       }}>
@@ -155,26 +198,26 @@ export function AgoraFlow() {
         <div className="agora-flow__grid">
           <section className="agora-flow__node agora-flow__node--requirement" data-drag-frame data-agora-node="requirement" aria-labelledby="agora-requirement">
             <p className="agora-flow__eyebrow">01 / Define</p>
-            <h4 id="agora-requirement">Role criteria</h4>
+            <h3 id="agora-requirement">Role criteria</h3>
             <p className="agora-flow__description">The search and its role criteria.</p>
             <ul><li>Search context</li><li>Role criteria</li></ul>
             <ArtifactDrag label="Move Role criteria node" />
           </section>
           <section className="agora-flow__node agora-flow__node--evidence" data-drag-frame data-agora-node="evidence" data-detail-active={active === "evidence"} aria-labelledby="agora-evidence" onPointerEnter={event => {
-            if (event.pointerType === "mouse") { setHovered("evidence"); setDismissed(false); }
-          }} onPointerLeave={() => setHovered(current => current === "evidence" ? null : current)} onFocusCapture={() => focus("evidence")} onBlurCapture={event => blur(event, "evidence")}>
+            if (event.pointerType === "mouse") inspect("evidence");
+          }} onFocusCapture={() => focus("evidence")} onBlurCapture={event => blur(event, "evidence")}>
             <p className="agora-flow__eyebrow">02 / Connect</p>
-            <h4 id="agora-evidence">Evidence</h4>
+            <h3 id="agora-evidence">Evidence</h3>
             <p className="agora-flow__description">Jev / CV matching against each criterion.</p>
             <ul><li>Criterion-level evidence</li><li>Interview context</li></ul>
             <button className="agora-flow__inspect" type="button" aria-controls={`${id}-evidence-detail`} aria-expanded={active === "evidence"} aria-pressed={pinned === "evidence"} onClick={() => pin("evidence")}>Inspect evidence <span aria-hidden="true">+</span></button>
             <ArtifactDrag label="Move Evidence node" />
           </section>
           <section className="agora-flow__node agora-flow__node--review" data-drag-frame data-agora-node="review" data-detail-active={active === "review"} aria-labelledby="agora-review" onPointerEnter={event => {
-            if (event.pointerType === "mouse") { setHovered("review"); setDismissed(false); }
-          }} onPointerLeave={() => setHovered(current => current === "review" ? null : current)} onFocusCapture={() => focus("review")} onBlurCapture={event => blur(event, "review")}>
+            if (event.pointerType === "mouse") inspect("review");
+          }} onFocusCapture={() => focus("review")} onBlurCapture={event => blur(event, "review")}>
             <p className="agora-flow__eyebrow">03 / Review</p>
-            <h4 id="agora-review">Recruiter review</h4>
+            <h3 id="agora-review">Recruiter review</h3>
             <p className="agora-flow__description">Candidate context in the backoffice.</p>
             <ul><li>Ranking + history</li><li>Talent pool</li></ul>
             <button className="agora-flow__inspect" type="button" aria-controls={`${id}-review-detail`} aria-expanded={active === "review"} aria-pressed={pinned === "review"} onClick={() => pin("review")}>Inspect review <span aria-hidden="true">+</span></button>
@@ -182,7 +225,7 @@ export function AgoraFlow() {
           </section>
           <section className="agora-flow__node agora-flow__node--voice" data-drag-frame data-agora-node="voice" aria-labelledby="agora-voice">
             <p className="agora-flow__eyebrow">AI agents / Candidate experience</p>
-            <div className="agora-flow__voice-title"><h4 id="agora-voice">Voice interview</h4><span className="agora-flow__voice-mark" aria-hidden="true"><i /><i /><i /><i /><i /></span></div>
+            <div className="agora-flow__voice-title"><h3 id="agora-voice">Voice interview</h3><span className="agora-flow__voice-mark" aria-hidden="true"><i /><i /><i /><i /><i /></span></div>
             <p className="agora-flow__description">Automated technical interviews with AI agents.</p>
             <ArtifactDrag label="Move Voice interview node" />
           </section>
@@ -190,17 +233,17 @@ export function AgoraFlow() {
         <div className="agora-flow__details">
           <div className="agora-flow__detail agora-flow__detail--idle" data-visible={active === null} aria-hidden={active !== null} inert={active !== null}>
             <p className="agora-flow__detail-label">Inside the decision</p>
-            <h5>What happens when requirements are missing?</h5>
+            <h4>What happens when requirements are missing?</h4>
             <p>Follow the guardrail from missing criteria to a human decision.</p>
           </div>
           <div id={`${id}-evidence-detail`} className="agora-flow__detail" role="region" aria-labelledby={`${id}-evidence-title`} data-visible={active === "evidence"} aria-hidden={active !== "evidence"} inert={active !== "evidence"}>
             <p className="agora-flow__detail-label">Evidence</p>
-            <h5 id={`${id}-evidence-title`}>Missing input cannot support a rejection.</h5>
+            <h4 id={`${id}-evidence-title`}>Missing input cannot support a rejection.</h4>
             <p>With no structured skills in the search, the matcher has no requirements to compare. The guardrail routes that search to human review instead of treating missing context as a candidate score.</p>
           </div>
           <div id={`${id}-review-detail`} className="agora-flow__detail" role="region" aria-labelledby={`${id}-review-title`} data-visible={active === "review"} aria-hidden={active !== "review"} inert={active !== "review"}>
             <p className="agora-flow__detail-label">Recruiter review</p>
-            <h5 id={`${id}-review-title`}>Keep the reason for escalation visible.</h5>
+            <h4 id={`${id}-review-title`}>Keep the reason for escalation visible.</h4>
             <p>A person reviews the missing requirements before a candidate decision proceeds. Extending the education catalog to English degree names addressed a separate recognition gap.</p>
           </div>
         </div>
