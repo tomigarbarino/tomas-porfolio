@@ -1,90 +1,45 @@
 "use client";
 
-import { Fragment, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import { Fragment, useId, useRef, type KeyboardEvent } from "react";
+import Link from "next/link";
 import ArtifactDrag from "./ArtifactDrag";
+import { useChapterScrollView } from "./StoryWorkbenches";
 import "./conceptual-product-flow.css";
-import { storyReadingLine } from "./story-scroll";
 
 const stages = [
-  { label: "Problem & hypothesis", shortLabel: "Problem", copy: "Frame the real problem, the people affected and a testable product hypothesis." },
-  { label: "Research", copy: "Talk to users, inspect the context and constraints, and turn findings into requirements." },
-  { label: "Implementation", displayLabel: "Implement", copy: "Prioritize a bounded solution and connect the product experience, frontend and AI." },
-  { label: "Validation", displayLabel: "Validate", copy: "Check actual behavior against the hypothesis and the expected requirements." },
-  { label: "Insights", copy: "Turn what we learn into the next iteration: refine priorities, risks and the product hypothesis." },
+  { label: "Problem & hypothesis", shortLabel: "Problem", title: "A course should not silently choose.", copy: "Conflicting sources need a visible decision before generation." },
+  { label: "Research", title: "Keep the source in view.", copy: "Connect proposed chapters to the documents behind them." },
+  { label: "Implementation", displayLabel: "Implement", title: "Surface the conflict in the plan.", copy: "Make the plan reviewable, so a person can resolve the conflict before generation." },
+  { label: "Validation", displayLabel: "Validate", title: "Unresolved means blocked.", copy: "The captured demo keeps approval and generation disabled until the conflict is resolved." },
+  { label: "Insights", title: "AI proposes. A person decides.", copy: "A person owns the plan." },
 ] as const;
 
-export function ConceptualProductFlow({ active: visible, paused }: { active: boolean; paused: boolean }) {
+const contributions = {
+  agora: { name: "Agora", title: "Product ownership + AI.", copy: "I own product priorities, build AI features and shape candidate UX.", href: "/en/agora#decision" },
+  trainly: { name: "Trainly", title: "Learning frontend + AI.", copy: "I connect the learning frontend, AI integration and assessment.", href: "/en/trainly#experience" },
+} as const;
+
+type Props = {
+  active: boolean;
+  paused: boolean;
+  product: keyof typeof contributions | null;
+  contributionId: string;
+  onInspectStage: () => void;
+};
+
+export function ConceptualProductFlow({ active: visible, paused, product, contributionId, onInspectStage }: Props) {
   const id = useId();
   const frameRef = useRef<HTMLDivElement>(null);
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
-  const [scrollStage, setScrollStage] = useState(0);
-  const scrollStageRef = useRef(0);
-  const [hovered, setHovered] = useState<number | null>(null);
-  const [focused, setFocused] = useState<number | null>(null);
-  const [pinned, setPinned] = useState<number | null>(null);
-  const [dismissed, setDismissed] = useState(false);
-  const inspected = dismissed ? null : focused ?? hovered ?? pinned;
-  const active = inspected ?? scrollStage;
+  // Motion controls stop decoration, never the narrative selected by reading.
+  const { scrollView: scrollStage, view: active, setHoveredView, setFocusedView } = useChapterScrollView("story-interfaces", stages.length, { active: visible, paused: false }, frameRef);
+  const contribution = product ? contributions[product] : null;
 
-  useEffect(() => {
-    const chapter = document.getElementById("story-interfaces");
-    const surface = frameRef.current;
-    if (!visible || paused || !chapter || !surface) return;
-    let raf = 0;
-    let heldPointer: number | null = null;
-    let lastScrollY = window.scrollY;
-    function sync() {
-      raf = 0;
-      if (document.hidden || heldPointer !== null || surface!.querySelector('[data-artifact-dragging="true"]') || surface!.hasAttribute("data-artifact-dragging")) return;
-      const box = chapter!.getBoundingClientRect();
-      if (!box.height) return;
-      const line = storyReadingLine(chapter!.closest(".origin-story"));
-      const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
-      const next = Math.min(stages.length - 1, Math.floor(progress * stages.length));
-      if (window.scrollY !== lastScrollY || scrollStageRef.current !== next) {
-        // Reading resumes after any real scroll, even within the same stage.
-        // DOM focus and manual drag offsets remain with the user's controls.
-        setHovered(null);
-        setFocused(null);
-        setPinned(null);
-        setDismissed(false);
-      }
-      lastScrollY = window.scrollY;
-      if (scrollStageRef.current !== next) {
-        scrollStageRef.current = next;
-        setScrollStage(next);
-      }
-    }
-    function schedule() { if (!raf && !document.hidden) raf = requestAnimationFrame(sync); }
-    function down(event: PointerEvent) { if (event.isPrimary && event.button === 0) heldPointer = event.pointerId; }
-    function release(event: PointerEvent) { if (heldPointer === event.pointerId) heldPointer = null; schedule(); }
-    function blur() { heldPointer = null; schedule(); }
-    function visibility() {
-      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; heldPointer = null; }
-      else schedule();
-    }
-    const resize = new ResizeObserver(schedule);
-    resize.observe(chapter);
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    window.addEventListener("pointerup", release, true);
-    window.addEventListener("pointercancel", release, true);
-    window.addEventListener("blur", blur);
-    document.addEventListener("visibilitychange", visibility);
-    surface.addEventListener("pointerdown", down, true);
-    schedule();
-    return () => {
-      cancelAnimationFrame(raf);
-      resize.disconnect();
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      window.removeEventListener("pointerup", release, true);
-      window.removeEventListener("pointercancel", release, true);
-      window.removeEventListener("blur", blur);
-      document.removeEventListener("visibilitychange", visibility);
-      surface.removeEventListener("pointerdown", down, true);
-    };
-  }, [visible, paused]);
+  function inspect(index: number, keyboard = false) {
+    onInspectStage();
+    if (keyboard) { setHoveredView(null); setFocusedView(index); }
+    else setHoveredView(index);
+  }
 
   function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     const next = event.key === "ArrowRight" ? (index + 1) % stages.length
@@ -105,26 +60,24 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
       data-open="true"
       data-stage={active}
       data-scroll-stage={scrollStage}
-      onPointerLeave={() => {
-        setHovered(null);
-        if (focused === null) setDismissed(false);
-      }}
+      data-motion={visible && !paused}
+      onPointerLeave={() => setHoveredView(null)}
       onBlurCapture={event => {
         if (event.currentTarget.contains(event.relatedTarget as Node | null)) return;
-        setFocused(null);
-        if (hovered === null) setDismissed(false);
+        setFocusedView(null);
       }}
       onKeyDown={event => {
-        if (event.key !== "Escape" || event.defaultPrevented || inspected === null) return;
-        setPinned(null);
-        setDismissed(true);
+        if (event.key !== "Escape" || event.defaultPrevented) return;
+        setHoveredView(null);
+        setFocusedView(null);
+        onInspectStage();
         event.preventDefault();
         event.stopPropagation();
       }}
     >
       <ArtifactDrag label="Move the product process" />
-      <p className="conceptual-flow__heading">Product process <span className="conceptual-flow__current">0{active + 1} / current</span></p>
-      <div className="conceptual-flow__rail" role="group" aria-label="Product process">
+      <p className="conceptual-flow__heading">{contribution ? "Flock / product contributions" : "Trainly / one product rule"} <span className="conceptual-flow__current">0{active + 1} / current</span></p>
+      <div className="conceptual-flow__rail" role="group" aria-label="Trainly product process">
         {stages.map((stage, index) => (
           <Fragment key={stage.label}>
             {index > 0 ? <i className="conceptual-flow__connection" data-lit={active >= index} aria-hidden="true">→</i> : null}
@@ -136,25 +89,19 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
               className="conceptual-flow__node"
               data-drag-enabled
               id={`${id}-node-${index}`}
-              aria-expanded={active === index}
+              aria-expanded={!contribution && active === index}
               aria-current={index === active ? "step" : undefined}
               aria-controls={`${id}-note-${index}`}
-              onPointerEnter={event => {
-                if (event.pointerType !== "mouse") return;
-                setHovered(index);
-                setDismissed(false);
+              onPointerMove={event => {
+                if (event.pointerType !== "mouse" || event.buttons) return;
+                inspect(index);
               }}
               onFocus={event => {
                 if (!event.currentTarget.matches(":focus-visible")) return;
-                setFocused(index);
-                setHovered(null);
-                setDismissed(false);
+                inspect(index, true);
               }}
-              onBlur={() => setFocused(current => current === index ? null : current)}
-              onClick={() => {
-                setPinned(pinned === index ? null : index);
-                setDismissed(pinned === index);
-              }}
+              onBlur={() => setFocusedView(null)}
+              onClick={() => inspect(index, true)}
               onKeyDown={event => navigate(event, index)}
             >
               <span className="conceptual-flow__number">0{index + 1}</span>{" "}
@@ -172,14 +119,33 @@ export function ConceptualProductFlow({ active: visible, paused }: { active: boo
             id={`${id}-note-${index}`}
             role="region"
             aria-labelledby={`${id}-node-${index}`}
-            aria-hidden={active !== index}
-            inert={active !== index}
-            data-selected={active === index}
+            aria-hidden={contribution !== null || active !== index}
+            inert={contribution !== null || active !== index}
+            data-selected={!contribution && active === index}
           >
             <p className="conceptual-flow__note-label">0{index + 1} / {stage.label}</p>
+            <p className="conceptual-flow__note-title">{stage.title}</p>
             <p>{stage.copy}</p>
+            {index === stages.length - 1 ? <Link className="conceptual-flow__case-link" href="/en/trainly#experience">Explore Trainly <span aria-hidden="true">↗</span></Link> : null}
           </div>
         ))}
+        <div
+          id={contributionId}
+          className="conceptual-flow__note conceptual-flow__contribution"
+          data-flock-contribution
+          data-selected={contribution !== null}
+          aria-hidden={contribution === null}
+          inert={contribution === null}
+          role="region"
+          aria-label="My product contribution"
+        >
+          {contribution ? <>
+            <p className="conceptual-flow__note-label">{contribution.name} / my contribution</p>
+            <p className="conceptual-flow__note-title">{contribution.title}</p>
+            <p>{contribution.copy}</p>
+            <Link className="conceptual-flow__case-link" href={contribution.href}>Explore {contribution.name} <span aria-hidden="true">↗</span></Link>
+          </> : null}
+        </div>
       </div>
     </div>
   );

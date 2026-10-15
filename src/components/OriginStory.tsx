@@ -3,7 +3,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AsciiVideo } from "@/components/AsciiVideo";
 import { useMotionPreference } from "@/components/MotionPreference";
 import { ArtifactDrag } from "@/components/ArtifactDrag";
 import { BatechCinematic } from "@/components/BatechCinematic";
@@ -13,6 +12,7 @@ import { BatechDomainMap, HogarthWorkbench, useChapterScrollView } from "./Story
 import { FlockStoryStudio } from "./FlockStoryStudio";
 import { HogarthAppleSticker } from "./HogarthAppleSticker";
 import { storyReadingLine } from "./story-scroll";
+import { DigitalMenuConcept, DigitalMenusStory } from "./DigitalMenusStory";
 
 const chapters = [
   {
@@ -239,17 +239,7 @@ function StoryArt({ chapter, index, paused, active, reducedMotion }: { chapter: 
     return (
       <div className="origin-story__art origin-story__art--conversations" data-drag-boundary data-selected={active} aria-hidden={!active} inert={!active}>
         <span className="origin-story__art-index" aria-hidden="true">0{index + 1}</span>
-        <div className="origin-story__cafe-print" aria-hidden="true">
-          <AsciiVideo src={chapter.src} poster={chapter.poster} paused={paused} className="origin-story__video" />
-        </div>
-        <div className="origin-story__menu-piece origin-story__bridge" data-drag-frame>
-          <ArtifactDrag label="Move the conceptual menu" />
-          <p>Conceptual menu</p>
-          <strong>MENU</strong>
-          <span className="origin-story__menu-rule" />
-          <span className="origin-story__menu-lines"><i /><i /><i /><i /><i /><i /></span>
-          <span className="origin-story__menu-mark" />
-        </div>
+        <DigitalMenusStory active={active} paused={paused} src={chapter.src} poster={chapter.poster} />
       </div>
     );
   }
@@ -443,6 +433,7 @@ export function OriginStory() {
               <ArtifactDrag label={`Move the ${chapter.label} story card`} />
               {chapter.id === "hogarth" ? <div className="origin-story__apple-slot"><HogarthAppleSticker /></div> : null}
               <p className="origin-story__copy">{chapter.copy}</p>
+              {chapter.id === "conversations" ? <DigitalMenuConcept /> : null}
             </div>
             {"projects" in chapter ? <div className="origin-story__projects" data-drag-boundary>{chapter.projects.map(project => <article key={project.name} data-drag-frame>
               <ArtifactDrag label={`Move the ${project.name} career card`} />

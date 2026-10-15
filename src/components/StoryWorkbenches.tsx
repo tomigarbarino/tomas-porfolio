@@ -93,6 +93,7 @@ export function useChapterScrollView(chapterId: string, count: number, { active,
     let raf = 0;
     let heldPointer: number | null = null;
     let lastScrollY = window.scrollY;
+    let enteringChapter = true;
     function sync() {
       raf = 0;
       if (document.hidden || heldPointer !== null || surface!.hasAttribute("data-artifact-dragging")) return;
@@ -102,11 +103,12 @@ export function useChapterScrollView(chapterId: string, count: number, { active,
       const line = storyReadingLine(chapter!.closest(".origin-story"));
       const progress = Math.max(0, Math.min(1, (line - box.top) / box.height));
       const next = Math.min(count - 1, Math.floor(progress * count));
-      if (window.scrollY !== lastScrollY || next !== scrollViewRef.current) {
+      if (enteringChapter || window.scrollY !== lastScrollY || next !== scrollViewRef.current) {
         // Manual exploration lasts until reading resumes, without blurring controls.
         setHoveredView(null);
         setFocusedView(null);
       }
+      enteringChapter = false;
       lastScrollY = window.scrollY;
       if (next !== scrollViewRef.current) {
         scrollViewRef.current = next;
