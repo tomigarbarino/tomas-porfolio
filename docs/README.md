@@ -1,5 +1,7 @@
 # Portfolio documentation
 
+- [Accessibility and AI search audit](accessibility-ai-search-audit.md): WCAG findings and fixes, manual coverage, server-rendered identity/case schema, search validation and remaining limits.
+
 - [Scroll-led career story](scroll-story.md): five-stage reading path, sticky artwork, interaction contracts and current validation.
 - [Batech cinematic ASCII](batech-cinematic-ascii.md): approved visual treatment, shared scroll state, lens behavior and release validation.
 - [Agora case and career story](agora-case-and-story.md): dedicated case, named career sequence and validation.

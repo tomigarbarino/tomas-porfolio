@@ -25,7 +25,7 @@ export function AgoraResearch() {
             <div><dt>Questions extracted</dt><dd>221</dd></div>
           </dl>
 
-          <div className="ajr-comparison" aria-labelledby="jev-comparison-title">
+          <div className="ajr-comparison" role="group" aria-labelledby="jev-comparison-title">
             <div className="ajr-result-heading"><h4 id="jev-comparison-title">Agreement with the<br />majority reference panel</h4><p className="ajr-delta"><strong>+26.8</strong><span>percentage points<br />vs. previous evaluator</span></p></div>
             <p className="ajr-denominator">Main comparison: 220 questions from 48 interviews.</p>
             <dl className="ajr-results">{results.map(result => <div className="ajr-result" data-evaluator={result.id} key={result.id}>

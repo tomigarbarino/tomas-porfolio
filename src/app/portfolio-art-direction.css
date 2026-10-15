@@ -118,6 +118,7 @@ html[data-motion="paused"] .contact-cv { transition: none; }
 .contact-section[data-art-direction] .contact-signature { padding: 16px 10px; border-bottom: 4px solid var(--pop-pink); color: var(--fg); }
 .portfolio-dialog { border-color: var(--pop-violet); box-shadow: 10px 10px 0 var(--bg),11px 11px 0 var(--pop-violet); }
 .portfolio-dialog .dialog-bar { background: var(--acid); color: var(--bg); }
+.portfolio-dialog .dialog-bar > button:focus-visible { outline-color: var(--bg); outline-offset: -4px; }
 .portfolio-dialog .dialog-bar > button:hover { background: var(--pop-pink); }
 .portfolio-dialog .dialog-bar > button:focus-visible { outline-color: var(--bg); outline-offset: -4px; }
 .portfolio-dialog .dialog-content h2 { text-shadow: 3px 3px 0 #c6a7ff38; }

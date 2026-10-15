@@ -64,17 +64,26 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
   const previousPath = useRef(pathname);
   const { paused } = useMotionPreference();
   const [active, setActive] = useState<ActivePreview | null>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLElement>(null);
   const floatingRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<Partial<Record<CaseId, HTMLAnchorElement>>>({});
   const hoveredRef = useRef<CaseId | null>(null);
   const focusedRef = useRef<CaseId | null>(null);
   const pointRef = useRef<Point>({ x: 0, y: 0 });
   const followRef = useRef<((point: Point) => void) | null>(null);
+  const freezeRef = useRef<(() => void) | null>(null);
+  const previewHoveredRef = useRef(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dismissedPointRef = useRef<Point | null>(null);
   const exitRef = useRef<Animation[]>([]);
   const recoveryRef = useRef<Animation[]>([]);
   const entranceRef = useRef(0);
   const product = cases.find((item) => item.id === active?.id);
+
+  const cancelCloseTimer = useCallback(() => {
+    if (closeTimerRef.current !== null) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = null;
+  }, []);
 
   const cancelExit = useCallback(() => {
     exitRef.current.forEach((animation) => animation.cancel());
@@ -86,15 +95,26 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
   const dismiss = useCallback(() => {
     // Hide before canceling fills: React may remove the portal on the following frame.
     if (previewRef.current) previewRef.current.dataset.ready = "false";
+    cancelCloseTimer();
+    freezeRef.current?.();
     cancelExit();
     hoveredRef.current = null;
     focusedRef.current = null;
+    previewHoveredRef.current = false;
     setActive(null);
-  }, [cancelExit]);
+  }, [cancelCloseTimer, cancelExit]);
 
   function enter(event: PointerEvent<HTMLAnchorElement>, id: CaseId) {
     if (event.pointerType !== "mouse") return;
+    const dismissedAt = dismissedPointRef.current;
+    // Removing a hovered window can expose a trigger under the stationary
+    // pointer. Only a deliberate re-entry, not that hit-test change, reopens it.
+    if (dismissedAt && dismissedAt.x === event.clientX && dismissedAt.y === event.clientY) return;
+    dismissedPointRef.current = null;
+    cancelCloseTimer();
+    previewHoveredRef.current = false;
     const recovering = active?.id === id && exitRef.current.length > 0;
+    const continuing = active?.id === id;
     const nodes = recovering ? Array.from(previewRef.current?.querySelectorAll<HTMLElement>(".case-preview__echo,.case-preview__window") ?? []) : [];
     const starts = nodes.map((node) => {
       const style = getComputedStyle(node);
@@ -102,6 +122,11 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     });
     if (!recovering && previewRef.current) previewRef.current.dataset.ready = "false";
     cancelExit();
+    if (previewRef.current) {
+      previewRef.current.dataset.exiting = "false";
+      const window = previewRef.current.querySelector<HTMLElement>(".case-preview__window");
+      if (window) window.inert = false;
+    }
     if (recovering) {
       const animations = nodes.map((node, index) => node.animate([
         starts[index], { opacity: 1, transform: "none" },
@@ -110,17 +135,23 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     }
     pointRef.current = { x: event.clientX, y: event.clientY };
     hoveredRef.current = id;
-    setActive({ id, input: "mouse", entrance: recovering ? active.entrance : ++entranceRef.current });
+    setActive({ id, input: "mouse", entrance: continuing ? active.entrance : ++entranceRef.current });
   }
 
   const closeSoftly = useCallback(() => {
+    cancelCloseTimer();
     if (exitRef.current.length) return;
     const preview = previewRef.current;
     if (!preview || paused) { dismiss(); return; }
-    followRef.current = null;
+    freezeRef.current?.();
+    previewHoveredRef.current = false;
+    preview.dataset.exiting = "true";
     const windows = Array.from(preview.querySelectorAll<HTMLElement>(".case-preview__echo")).reverse();
     const main = preview.querySelector<HTMLElement>(".case-preview__window");
-    if (main) windows.push(main);
+    if (main) {
+      main.inert = true;
+      windows.push(main);
+    }
     // Sample together before applying animations so a quick leave never flashes a hidden window.
     const starts = windows.map((node) => {
       const style = getComputedStyle(node);
@@ -137,16 +168,41 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     last.onfinish = () => {
       if (exitRef.current.at(-1) === last) dismiss();
     };
-  }, [paused, dismiss, cancelExit]);
+  }, [paused, dismiss, cancelExit, cancelCloseTimer]);
+
+  function scheduleClose() {
+    cancelCloseTimer();
+    // Freeze the last position so the window can be reached rather than chased.
+    freezeRef.current?.();
+    closeTimerRef.current = setTimeout(() => {
+      closeTimerRef.current = null;
+      if (!hoveredRef.current && !focusedRef.current && !previewHoveredRef.current) closeSoftly();
+    }, 300);
+  }
 
   function leave() {
     hoveredRef.current = null;
+    dismissedPointRef.current = null;
     if (focusedRef.current) {
       cancelExit();
       setActive({ id: focusedRef.current, input: "keyboard" });
       return;
     }
-    closeSoftly();
+    if (!previewHoveredRef.current) scheduleClose();
+  }
+
+  function holdPreview(event: PointerEvent<HTMLAnchorElement>) {
+    if (event.pointerType !== "mouse" || previewRef.current?.dataset.exiting === "true") return;
+    cancelCloseTimer();
+    freezeRef.current?.();
+    pointRef.current = { x: event.clientX, y: event.clientY };
+    previewHoveredRef.current = true;
+  }
+
+  function leavePreview(event: PointerEvent<HTMLAnchorElement>) {
+    if (event.pointerType !== "mouse") return;
+    previewHoveredRef.current = false;
+    if (!hoveredRef.current && !focusedRef.current) scheduleClose();
   }
 
   function registerLink(id: CaseId, node: HTMLAnchorElement | null) {
@@ -162,7 +218,14 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
 
   function focus(event: FocusEvent<HTMLAnchorElement>, id: CaseId) {
     if (!event.currentTarget.matches(":focus-visible")) return;
+    dismissedPointRef.current = null;
+    cancelCloseTimer();
     cancelExit();
+    if (previewRef.current) {
+      previewRef.current.dataset.exiting = "false";
+      const window = previewRef.current.querySelector<HTMLElement>(".case-preview__window");
+      if (window) window.inert = false;
+    }
     focusedRef.current = id;
     setActive({ id, input: "keyboard" });
   }
@@ -172,7 +235,7 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     if (hoveredRef.current) {
       cancelExit();
       setActive({ id: hoveredRef.current, input: "mouse", entrance: active?.id === hoveredRef.current ? active.entrance : ++entranceRef.current });
-    } else {
+    } else if (!previewHoveredRef.current) {
       closeSoftly();
     }
   }
@@ -181,6 +244,7 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     hoveredRef.current = null;
     focusedRef.current = null;
+    previewHoveredRef.current = false;
     closeSoftly();
   }
 
@@ -192,7 +256,7 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     closeSoftly();
   }, [pathname, closeSoftly]);
 
-  useEffect(() => () => cancelExit(), [cancelExit]);
+  useEffect(() => () => { cancelCloseTimer(); cancelExit(); }, [cancelCloseTimer, cancelExit]);
 
   useEffect(() => {
     const preview = previewRef.current;
@@ -266,13 +330,25 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
       target = place(point);
       if (!frame) frame = requestAnimationFrame(tick);
     } : null;
+    freezeRef.current = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      lastTime = 0;
+      target = { ...position };
+      followRef.current = null;
+    };
 
-    function key(event: KeyboardEvent) { if (event.key === "Escape") dismiss(); }
+    function key(event: KeyboardEvent) {
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      dismissedPointRef.current = { ...pointRef.current };
+      dismiss();
+    }
     function resize() { dismiss(); }
     function visibility() { if (document.hidden) dismiss(); }
     function blur() {
       hoveredRef.current = null;
       focusedRef.current = null;
+      previewHoveredRef.current = false;
       closeSoftly();
     }
     function pointerOut(event: globalThis.PointerEvent) {
@@ -287,6 +363,7 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     return () => {
       cancelAnimationFrame(frame);
       followRef.current = null;
+      freezeRef.current = null;
       window.removeEventListener("keydown", key);
       window.removeEventListener("scroll", blur, true);
       window.removeEventListener("resize", resize);
@@ -300,10 +377,10 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
     <PreviewContext.Provider value={{ registerLink, enter, move, leave, focus, blur, navigate, dismiss }}>
       {children}
       {product && active ? createPortal(
-        <div ref={previewRef} key={`${product.id}:${active.entrance ?? 0}`} className="case-preview" data-product={product.id} data-input={active.input} data-cascade={active.input === "mouse" && !paused} aria-hidden="true">
+        <aside ref={previewRef} key={`${product.id}:${active.entrance ?? 0}`} className="case-preview" aria-label={`${product.name} case preview`} data-product={product.id} data-input={active.input} data-cascade={active.input === "mouse" && !paused}>
           <div className="case-preview__stage">
             {active.input === "mouse" && !paused ? cascadeLayouts[product.id].map((layer, index) => (
-              <div key={layer.title} className="case-preview__echo" style={{
+              <div key={layer.title} className="case-preview__echo" aria-hidden="true" inert style={{
                 "--echo-x": layer.x,
                 "--echo-y": layer.y,
                 "--echo-size": `${layer.size}px`,
@@ -322,14 +399,16 @@ export function CaseStudyPreviewProvider({ children }: { children: ReactNode }) 
               </div>
             )) : null}
             <div ref={floatingRef} className="case-preview__follow">
-              <div className="case-preview__window">
+              <Link className="case-preview__window" href={product.href} prefetch={true} tabIndex={-1} aria-label={`CASE_${product.number} / ${product.name.toUpperCase()} — PRODUCT PREVIEW — open case study`} onPointerEnter={holdPreview} onPointerMove={event => { pointRef.current = { x: event.clientX, y: event.clientY }; }} onPointerLeave={leavePreview} onClick={navigate}>
+                <div aria-hidden="true">
                 <div className="case-preview__bar"><span>CASE_{product.number} / {product.name.toUpperCase()}</span><span className="case-preview__controls">– □ ×</span></div>
                 <div className="case-preview__brand"><Image src={product.logo} alt="" width={product.logoWidth} height={product.logoHeight} unoptimized /><span>PRODUCT<br />PREVIEW ↗</span></div>
                 <div className="case-preview__screen"><Image src={product.image} alt="" loading="eager" width={384} height={Math.round(384 * product.height / product.width)} /></div>
-              </div>
+                </div>
+              </Link>
             </div>
           </div>
-        </div>, document.body,
+        </aside>, document.body,
       ) : null}
     </PreviewContext.Provider>
   );
