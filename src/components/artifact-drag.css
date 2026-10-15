@@ -27,33 +27,30 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   min-width: 44px;
   min-height: 44px;
-  padding: 7px 9px;
-  border: 1px solid currentColor;
+  padding: 7px 6px;
+  border: 1px solid transparent;
   border-radius: 0;
-  background: #f2efde;
-  color: #080909;
-  font: 500 10px/1 var(--font-mono, monospace);
+  background: transparent;
+  color: inherit;
+  font: 500 9px/1 var(--font-mono, monospace);
   letter-spacing: .04em;
   text-transform: uppercase;
   cursor: grab;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  transition: background-color var(--motion-response) var(--motion-ease), opacity var(--motion-response) var(--motion-ease);
 }
 
-.artifact-drag:hover:not(:disabled) { background: #f4ff54; color: #080909; }
-.artifact-drag[data-dragging="true"] { cursor: grabbing; background: #f4ff54; }
+.artifact-drag,
+.origin-story .artifact-drag { transition: background-color var(--motion-response) var(--motion-ease), opacity var(--motion-response) var(--motion-ease); }
+
+.artifact-drag:hover:not(:disabled),
+.artifact-drag:is(:focus-visible,[aria-expanded="true"]) { background: #f2efde; color: #080909; }
+.artifact-drag[data-dragging="true"] { cursor: grabbing; background: #f4ff54; color: #080909; }
 .artifact-drag:focus-visible { outline: 3px solid #ff76b9; outline-offset: 3px; }
-.artifact-drag__grip {
-  width: 8px;
-  height: 12px;
-  flex: 0 0 auto;
-  background: radial-gradient(circle, currentColor 1px, transparent 1.4px) 0 0 / 4px 4px;
-}
+.artifact-drag__label { font: 500 9px/1 var(--font-mono, monospace); letter-spacing: .04em; pointer-events: none; }
 
 .artifact-drag__instructions {
   position: absolute;
@@ -71,17 +68,20 @@
   .artifact-drag { min-height: 44px; }
 }
 @media (hover: hover) and (pointer: fine) {
-  [data-drag-frame][data-drag-surface] .artifact-drag:not(:focus-visible) { opacity: 0; pointer-events: none; }
-  [data-drag-frame][data-drag-surface]:is(:hover,:focus-within) .artifact-drag,
-  [data-drag-frame][data-drag-surface] .artifact-drag:focus-visible { opacity: 1; pointer-events: auto; }
+  [data-drag-frame][data-drag-surface] .artifact-drag { opacity: 0; pointer-events: none; }
+  /* Reveal the owner, not every movable object nested inside it. */
+  [data-drag-frame][data-drag-surface]:hover:not(:has([data-drag-frame]:hover)) > .artifact-drag:not(.artifact-drag--keyboard),
+  .peel-sticker[data-drag-surface]:hover > .peel-sticker__arrival > .artifact-drag,
+  .td-architecture [data-drag-frame][data-drag-surface]:hover > dd > .artifact-drag,
+  .portfolio-dialog[data-drag-surface]:hover > .dialog-bar > .artifact-drag,
+  [data-drag-frame][data-drag-surface] .artifact-drag:is(:focus-visible,[aria-expanded="true"],[data-dragging="true"]) { opacity: 1; pointer-events: auto; }
 }
-/* Process artwork used to expose its grips only to keyboard users. Keep the
-   pointer alternative available without changing the dimensions of the art. */
-.origin-story--scroll .flock-story-studio .conceptual-flow--process[data-drag-frame]:is(:hover,:focus-within) > .artifact-drag,
-.origin-story--scroll .flock-story-studio .conceptual-flow--process .conceptual-flow__item[data-drag-frame]:is(:hover,:focus-within) > .artifact-drag { opacity: 1 !important; pointer-events: auto !important; }
-@media (pointer: coarse) {
-  .origin-story--scroll .flock-story-studio .conceptual-flow--process[data-drag-frame] > .artifact-drag,
-  .origin-story--scroll .flock-story-studio .conceptual-flow--process .conceptual-flow__item[data-drag-frame] > .artifact-drag { opacity: 1 !important; pointer-events: auto !important; }
+/* Hybrid laptops still need discoverable tap alternatives. */
+@media (any-pointer: coarse) {
+  [data-drag-frame][data-drag-surface] .artifact-drag { opacity: 1; pointer-events: auto; }
 }
+/* Small process steps share the board's menu; retain direct keyboard movement. */
+[data-drag-frame][data-drag-surface] .artifact-drag--keyboard { opacity: 0; pointer-events: none; }
+[data-drag-frame][data-drag-surface] .artifact-drag--keyboard:is(:focus-visible,[aria-expanded="true"],[data-dragging="true"]) { opacity: 1; pointer-events: auto; }
 html[data-motion="paused"] .artifact-drag { transition: none; }
-@media (prefers-reduced-motion: reduce) { .artifact-drag { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .artifact-drag, .origin-story .artifact-drag { transition: none; } }

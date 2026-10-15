@@ -28,6 +28,8 @@
 .move-controls .move-controls__pad > .move-controls__reset { grid-area: 2/2; background: #f4ff54; font-size: 11px; }
 .move-controls__right { grid-area: 2/3; }
 .move-controls__down { grid-area: 3/2; }
+.move-controls__objects { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #08090955; }
+.move-controls .move-controls__objects > button { min-height: 44px; padding: 6px; border: 1px solid #080909; background: transparent; color: #080909; font: inherit; font-size: 10px; line-height: 1.4; overflow-wrap: anywhere; cursor: pointer; }
 .move-controls > p { margin: 12px 0 0; font: inherit; font-size: 11px; }
 .move-controls button:hover:not(:disabled) { background: #ff76b9; color: #080909; }
 .move-controls button:focus-visible { outline: 3px solid #080909; outline-offset: 2px; }

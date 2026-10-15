@@ -111,7 +111,7 @@ export function Window({ children, container, minimized, onMinimize, onClose, pr
     }} style={position ? { left: position.x, top: position.y, right: "auto" } : undefined}>
       <div className="window-titlebar">
         <button ref={handle} type="button" className="window-drag" aria-label={`${project} / Product case — move window`} aria-describedby={helpId} aria-haspopup="dialog" aria-controls={controlsId} aria-expanded="false" popoverTarget={controlsId} onKeyDown={key} onBlur={() => { keyboardStart.current = null; }}>
-          <span>{project.toUpperCase()} / PRODUCT CASE</span><span className="artifact-drag__grip" aria-hidden="true" />
+          <span>{project.toUpperCase()} / PRODUCT CASE</span>
         </button>
         <button type="button" aria-label={`Minimize ${project} window`} onClick={onMinimize}>–</button>
         <button type="button" aria-label={`Close ${project} window`} onClick={onClose}>×</button>

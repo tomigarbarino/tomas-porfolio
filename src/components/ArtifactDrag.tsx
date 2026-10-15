@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef } from "react";
-import { MoveControls, type MoveCommands } from "./MoveControls";
+import { MoveControls, type MoveCommands, type MoveTarget } from "./MoveControls";
 import "./artifact-drag.css";
 
 type Position = { x: number; y: number };
@@ -18,11 +18,12 @@ type Gesture = {
 
 const functionalControl = "a[href], button, input, select, textarea, summary, [contenteditable]:not([contenteditable='false']), [role='button'], [role='link'], [role='slider'], [role='checkbox'], [role='radio'], [role='switch'], video[controls], audio[controls], iframe, .window-drag, [data-no-drag]";
 
-export function ArtifactDrag({ label, className = "" }: { label: string; className?: string }) {
+export function ArtifactDrag({ label, className = "", menuId, relatedTargets }: { label: string; className?: string; menuId?: string; relatedTargets?: readonly MoveTarget[] }) {
   const handleRef = useRef<HTMLButtonElement>(null);
   const commandsRef = useRef<MoveCommands | null>(null);
   const instructionsId = useId();
-  const controlsId = useId();
+  const generatedControlsId = useId();
+  const controlsId = menuId ?? generatedControlsId;
 
   useEffect(() => {
     const handle = handleRef.current;
@@ -328,10 +329,10 @@ export function ArtifactDrag({ label, className = "" }: { label: string; classNa
   return (
     <>
       <button ref={handleRef} type="button" className={`artifact-drag ${className}`.trim()} aria-label={label} aria-describedby={instructionsId} aria-haspopup="dialog" aria-controls={controlsId} aria-expanded="false" popoverTarget={controlsId}>
-        <span className="artifact-drag__grip" aria-hidden="true" />
+        <span className="artifact-drag__label" aria-hidden="true">Move</span>
       </button>
       <span id={instructionsId} className="artifact-drag__instructions">Press for click or tap position controls, or drag to move. Double click then drag text to select, or hold Alt. On touch, hold text to select. Arrow keys move ten pixels; hold Shift for forty. Home resets. Escape restores the position at the start of this move.</span>
-      <MoveControls id={controlsId} label={label} trigger={handleRef} onMove={delta => commandsRef.current?.move(delta)} onReset={() => commandsRef.current?.reset()} />
+      <MoveControls id={controlsId} label={label} trigger={handleRef} relatedTargets={relatedTargets} onMove={delta => commandsRef.current?.move(delta)} onReset={() => commandsRef.current?.reset()} />
     </>
   );
 }

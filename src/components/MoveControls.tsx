@@ -5,6 +5,7 @@ import "./move-controls.css";
 
 export type MovePoint = { x: number; y: number };
 export type MoveCommands = { move: (delta: MovePoint) => void; reset: () => void };
+export type MoveTarget = { label: string; id: string };
 
 type Props = {
   id: string;
@@ -12,10 +13,11 @@ type Props = {
   trigger: RefObject<HTMLButtonElement | null>;
   onMove: (delta: MovePoint) => void;
   onReset: () => void;
+  relatedTargets?: readonly MoveTarget[];
 };
 
 /** Kept beside its trigger in the DOM so a modal dialog does not make it inert. */
-export function MoveControls({ id, label, trigger, onMove, onReset }: Props) {
+export function MoveControls({ id, label, trigger, onMove, onReset, relatedTargets }: Props) {
   const panel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -115,6 +117,9 @@ export function MoveControls({ id, label, trigger, onMove, onReset }: Props) {
         <button type="button" className="move-controls__right" data-move-direction aria-label="Move right" onClick={() => onMove({ x: 40, y: 0 })}>→</button>
         <button type="button" className="move-controls__down" data-move-direction aria-label="Move down" onClick={() => onMove({ x: 0, y: 40 })}>↓</button>
       </div>
+      {relatedTargets?.length ? <div className="move-controls__objects" role="group" aria-label="Position a process step">
+        {relatedTargets.map(target => <button key={target.id} type="button" popoverTarget={target.id} aria-haspopup="dialog" aria-controls={target.id} aria-label={`Move step: ${target.label}`} onClick={() => panel.current?.hidePopover()}>{target.label}</button>)}
+      </div> : null}
       <p>Click or tap. No dragging needed.</p>
     </div>
   );

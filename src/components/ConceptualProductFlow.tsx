@@ -75,14 +75,14 @@ export function ConceptualProductFlow({ active: visible, paused, product, contri
         event.stopPropagation();
       }}
     >
-      <ArtifactDrag label="Move the product process" />
+      <ArtifactDrag label="Move the product process" relatedTargets={stages.map((stage, index) => ({ label: stage.label, id: `${id}-move-step-${index}` }))} />
       <p className="conceptual-flow__heading">{contribution ? "Flock / product contributions" : "Trainly / one product rule"} <span className="conceptual-flow__current">0{active + 1} / current</span></p>
       <div className="conceptual-flow__rail" role="group" aria-label="Trainly product process">
         {stages.map((stage, index) => (
           <Fragment key={stage.label}>
             {index > 0 ? <i className="conceptual-flow__connection" data-lit={active >= index} aria-hidden="true">→</i> : null}
             <div className="conceptual-flow__item" data-drag-frame data-flow-node={index}>
-              <ArtifactDrag label={`Move ${stage.label} node`} />
+              <ArtifactDrag label={`Move ${stage.label} node`} menuId={`${id}-move-step-${index}`} className="artifact-drag--keyboard" />
               <button
               ref={element => { buttons.current[index] = element; }}
               type="button"
