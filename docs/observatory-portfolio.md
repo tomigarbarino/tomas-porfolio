@@ -73,6 +73,8 @@ Local in-app-browser checks covered whole-surface logo dragging, movement-menu s
 
 Final-source ESLint, TypeScript (`--noEmit --incremental false`) and the Next.js webpack production build passed with Node 24. Build ID: `rR-pqqVg9Ijjj22Qi8LRC`.
 
+Production verification of PR #15 (`06fd89e`) confirmed the movement menus, reset, keyboard controls, whole-surface drag and scroll recovery. It also exposed inherited cream text over the bright Agora titlebars and the menu paper. The contrast follow-up uses the matching dark ink and focus outlines on those controls; the menu label has a tiny paper backing so all three poses stay readable. Local measured text contrast is 18.30:1 for the layered window, 13.22:1 for candidate windows and 17.26:1 for the menu. ESLint, TypeScript and production build `MlwdeP7OU_0CMF8-b3vfa` passed. Evidence and release status are recorded in `output/drag-control-polish-production/`; hardware/browser limits above still apply.
+
 - Real mobile long-press selection handles cannot be certified through Chromium touch emulation alone.
 - Agora's reported production check is a bounded incident validation, not a model benchmark. Trainly quantitative outcomes and a direct Batech frontend artifact remain unavailable; the copy makes no substitute claims.
 - A PR preview verifies implementation, not hiring conversion. Production rollout remains separate from this change.
