@@ -1,6 +1,6 @@
 # Portfolio documentation
 
-- [Writing & Research](writing-research.md): independent catalogue, complete JEV report, annotated reading notes, page signatures and validation.
+- [Writing & Research](writing-research.md): independent catalogue, complete native JEV study, PDF download, annotated reading notes, page signatures and validation.
 
 - [Orquestador original project](orquestador-case.md): guided public-source workflow, recorded run, failure gate, own-project positioning and contact paths.
 

@@ -1,0 +1,1660 @@
+{
+  "title": "Cómo decide JEV en Agora",
+  "subtitle": "Probabilidades, umbrales y revisión humana en el filtrado de candidatos y la evaluación de entrevistas",
+  "language": "es",
+  "author": "Tomás Garbarino",
+  "sourcePdfSha256": "e0130022fb2adbe58cee868aaa5e6dc1dbed31ec28142fdd967bc8991e13f468",
+  "sections": [
+    {
+      "id": "resumen",
+      "title": "Resumen",
+      "sourcePage": 1,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Contexto. Las plataformas de selección usan cada vez más modelos de lenguaje para decidir a quién entrevistar, pero sus respuestas en texto libre son difíciles de umbralizar, auditar y corregir. Estudiamos una alternativa: un modelo de decisión, JEV (TypeSafe, jev-1.13.0), que devuelve probabilidades y confianzas, integrado en Agora, la plataforma de selección con IA de Flock.",
+          "sourcePages": [
+            1
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Métodos. Evaluamos de forma retrospectiva dos decisiones con datos reales: el filtrado de 496 postulaciones contra tres requisitos y el juicio sobre 221 preguntas técnicas en 48 entrevistas conducidas por IA. La referencia principal es un panel ciego de tres modelos de dos familias (Claude Opus, Claude Sonnet, GPT-5.5). Sumamos un etiquetado humano a ciegas de 60 CVs, con segunda lectura de los casos discrepantes y un diseño estratificado que permite estimar el efecto sobre las 496 postulaciones. Comparamos JEV con Claude Haiku 4.5, GPT-5.4-mini y el evaluador que estaba en producción, con intervalos por bootstrap, pruebas pareadas y validación cruzada de umbrales.",
+          "sourcePages": [
+            1
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Resultados. En entrevistas, JEV coincidió con la mayoría del panel en el 80,9 % de las preguntas (IC 95 % 75,0–86,4), 7,7 puntos por encima de Claude Haiku, 14,1 sobre GPT-5.4-mini y 26,8 sobre el evaluador anterior (McNemar con corrección de Holm, p = 0,027, < 0,001 y < 0,001), y la ventaja se mantuvo con las ocho definiciones de referencia que probamos. En CVs inequívocos los tres sistemas ordenan casi a la perfección (AUROC ≥ 0,968). La diferencia aparece en los dudosos: contra la persona, la política original de JEV rechazó automáticamente 12 de 26 CVs invitables; con un umbral de rechazo de 0,05 fueron 0, a cambio de llevar la revisión humana de 32 a 136 postulaciones. Estimado sobre las 496 y con el umbral elegido por validación cruzada, la proporción de invitables rechazados automáticamente baja de 61 % a 5 %, y JEV ordena mejor que los modelos generales contra el criterio humano (AUROC 0,91 frente a 0,81 y 0,83). En R1, el panel de modelos coincidió entre sí (κ 0,73–0,80) mucho más que con la persona (κ 0,31–0,38).",
+          "sourcePages": [
+            1
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Conclusiones. Un modelo que decide con números permite expresar la política de selección como umbrales explícitos, medir su costo y corregirla sin reescribir prompts. En entrevistas, JEV mejora de forma clara y robusta sobre lo que había en producción. En CVs, el ordenamiento es bueno, pero el umbral es una decisión de producto que hay que calibrar con personas: un acuerdo alto entre modelos no garantiza que reflejen el criterio de un reclutador.",
+          "sourcePages": [
+            1
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Palabras clave: selección de personal · modelos de decisión · LLM como evaluador · predicción selectiva · humano en el circuito · umbrales de decisión",
+          "sourcePages": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aprendizajes",
+      "title": "Qué aprendimos",
+      "sourcePage": 2,
+      "blocks": [
+        {
+          "type": "listItem",
+          "text": "1. En entrevistas, JEV es mejor que lo que teníamos. El evaluador anterior daba por respondidas por completo 83/105 respuestas que el panel consideró parciales; JEV, 27/105.",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "listItem",
+          "text": "2. Su confianza sirve para derivar. Si decide solo cuando su confianza es ≥ 0,8, acierta el 91,9 % de lo que decide y deriva el resto a una persona.",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "listItem",
+          "text": "3. En CVs el problema era el umbral, no el modelo. JEV ordena mejor que los modelos generales contra el criterio humano, pero muchos CVs que una persona invitaría reciben probabilidades entre 0,05 y 0,3, y la política original los rechazaba. Con 0,05, la pérdida estimada baja de 61 % a 5 % fuera de muestra, revisando el 27 % de las postulaciones.",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "listItem",
+          "text": "4. Que los modelos coincidan no prueba que tengan razón. Tres modelos de dos familias coincidieron mucho entre ellos y poco con la persona: la validación humana no es opcional.",
+          "sourcePages": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "introduccion",
+      "title": "1. Introducción",
+      "sourcePage": 2,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Filtrar candidatos es una decisión de alto impacto. Un falso rechazo saca a una persona del proceso sin que nadie lo note; una falsa invitación consume tiempo de entrevistadores y de candidatos. La regulación europea clasifica como de alto riesgo a los sistemas de IA usados para seleccionar o evaluar candidatos [13], y la literatura sobre selección algorítmica viene señalando hace años la distancia entre lo que se promete y lo que se puede validar [12].",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "La práctica más extendida es pedirle a un modelo de lenguaje general que «evalúe» un CV o una entrevista y procesar su respuesta en prosa. Esa interfaz tiene tres problemas para un producto. Primero, la decisión queda escondida dentro del prompt: cambiar cuán exigente es el filtro implica reescribir instrucciones y volver a probar todo. Segundo, los modelos generales no expresan su incertidumbre de forma confiable sin ayuda [7, 8, 9]. Tercero, no hay un lugar natural donde decir «si no estás seguro, que lo mire una persona».",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Los modelos de decisión especializados cambian la interfaz. Quien llama envía un estado estructurado y una lista de preguntas, y el modelo devuelve números: la probabilidad de que una afirmación sea cierta, o la opción elegida y su confianza. Con salidas numéricas, la política se vuelve explícita (umbrales), auditable (cada decisión tiene un puntaje) y ajustable (mover un umbral es un cambio de configuración). Agora integró uno de estos modelos, JEV de TypeSafe [1], en dos puntos del proceso: el filtrado de CVs y la evaluación de entrevistas.",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Este informe responde cuatro preguntas con datos reales de Agora:",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "listItem",
+          "text": "1. P1. ¿Las probabilidades de JEV ordenan a los candidatos tan bien o mejor que un modelo general que recibe la misma pregunta?",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "listItem",
+          "text": "2. P2. ¿Qué decisiones toma la política de umbrales y cuánto se equivoca contra una referencia de modelos y contra una persona?",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "listItem",
+          "text": "3. P3. ¿Cómo se elige el umbral, y cuánto cuesta en revisión humana proteger a los candidatos dudosos?",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "listItem",
+          "text": "4. P4. Al juzgar si una pregunta de entrevista fue respondida, ¿JEV supera al evaluador que estaba en producción y a modelos generales con la misma consigna, y esa ventaja depende de cómo se define la referencia?",
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Contribuciones. (i) Un diseño de sistema que convierte salidas numéricas en una política de tres vías con derivación a personas y código determinístico para lo aritmético. (ii) Un protocolo de evaluación para contextos sin etiquetas: un panel ciego de modelos de dos familias, estratificado por acuerdo, más un etiquetado humano con pesos de diseño que permite estimar efectos poblacionales a partir de una muestra chica. (iii) Una comparación sobre 496 postulaciones y 48 entrevistas reales, con pruebas pareadas, análisis de robustez de la referencia y curvas de operación. (iv) Una lectura de producto: el umbral como decisión con costo explícito, y la evidencia de que el acuerdo entre modelos no sustituye la validación humana.",
+          "sourcePages": [
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trabajo-relacionado",
+      "title": "2. Trabajo relacionado",
+      "sourcePage": 3,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Modelos de lenguaje como evaluadores. Usar un LLM como juez se volvió una práctica común porque escala y suele coincidir razonablemente con personas en tareas de evaluación de texto [5, 24]. Esa coincidencia, sin embargo, varía mucho según la tarea y el tipo de dato [25], y los evaluadores muestran sesgos sistemáticos, entre ellos preferir textos de su propia familia [6]. Nuestro panel combina dos familias para mitigar ese riesgo y lo medimos explícitamente quitando un anotador por vez; agregamos por mayoría, una alternativa más simple que los modelos de error por anotador [20].",
+          "sourcePages": [
+            3
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Incertidumbre y calibración. Las redes modernas tienden a estar mal calibradas [3], y en los LLM la confianza verbalizada mejora con técnicas específicas pero sigue siendo frágil [7, 8, 9]. La calibración se suele resumir con el puntaje de Brier [21] y el error de calibración esperado [22]. JEV devuelve probabilidades como parte del contrato de la API, lo que hace posible estudiar su calibración y su capacidad de ordenar por separado.",
+          "sourcePages": [
+            3
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Abstención y derivación a personas. La predicción selectiva estudia cuánto error se evita si el sistema se abstiene en los casos menos seguros, y se resume con curvas de riesgo–cobertura [4]. La literatura de «aprender a derivar» formaliza cuándo conviene pasarle el caso a una persona [10, 11]. Una política de tres vías con banda de revisión es una forma simple y auditable de ese principio, y la decisión de dónde ubicar la banda es un problema de costos asimétricos [14].",
+          "sourcePages": [
+            3
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Selección algorítmica. Las auditorías de sistemas de selección muestran sesgos difíciles de detectar sin datos demográficos y sin resultados de contratación [12, 23]. Este estudio no mide equidad entre grupos (§6.4); lo que sí aporta es un diseño donde cada decisión automática tiene un puntaje y un umbral, condición necesaria para poder auditarla.",
+          "sourcePages": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sistema",
+      "title": "3. Sistema",
+      "sourcePage": 3,
+      "blocks": [
+        {
+          "type": "figure",
+          "number": 1,
+          "caption": "Figura 1. Flujo de decisión en Agora. JEV responde preguntas acotadas sobre la postulación; el código resuelve lo aritmético; la política convierte probabilidades en tres acciones con umbrales configurables. La revisión humana es un resultado previsto, no una falla.",
+          "src": "/media/research/jev/figure-1.png",
+          "width": 1509,
+          "height": 391,
+          "sha256": "5ac3399c6796d90eda4a8e7a29d09d30c37b4e42dca185194d8b6d111b2e94af",
+          "sourcePage": 3
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-3-1",
+          "text": "3.1 Primitivas de JEV",
+          "sourcePages": [
+            3
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "JEV expone dos primitivas. Noul devuelve la probabilidad de que una afirmación sea cierta dado un estado estructurado. Choice devuelve una opción entre varias y una confianza en [0, 1]. Agora no le pide al modelo que «evalúe al candidato»: le hace preguntas cerradas y deja la decisión a una política escrita en código.",
+          "sourcePages": [
+            3,
+            4
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-3-2",
+          "text": "3.2 Filtrado de CVs",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Para cada búsqueda, el equipo de talent confirma una lista de requisitos. Cada uno tiene una pregunta, exclusiones explícitas, un peso, una marca de obligatorio y un tipo (semántico, experiencia o estudios). Para los semánticos, Agora envía a JEV el perfil profesional del candidato (experiencia, estudios, idiomas y skills) sin nombre, correo, teléfono ni oraciones demográficas, y le hace una pregunta noul por trabajo cuando el requisito debe cumplirse dentro de un mismo empleo. Los meses de experiencia y el nivel de estudios se calculan en código. Sea p la probabilidad de un requisito obligatorio; la política es:",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "equation",
+          "text": "invitar si p > t+ en todos los obligatorios · rechazar si p < t− en alguno · revisar en otro caso",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Con t+ = 0,7 y t− = 0,3 en la configuración evaluada. Para que la comparación sea justa, aplicamos los mismos umbrales a las probabilidades que devuelven los modelos generales.",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-3-3",
+          "text": "3.3 Evaluación de entrevistas",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Después de una entrevista conducida por IA, un LLM extrae las preguntas técnicas que se hicieron. Para cada una, JEV lee la transcripción completa sin datos personales y devuelve un choice (sí, parcial o no) con su confianza, y una probabilidad de que la pregunta sea clave para el puesto. En modo asistido, una pregunta clave con confianza menor a 0,8, o una pregunta de relevancia dudosa que no fue respondida por completo, deriva la evaluación a revisión humana.",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-3-4",
+          "text": "3.4 El umbral como decisión de costo",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Elegir t− es elegir cuántos candidatos invitables se arriesga a perder a cambio de cuántas revisiones. Si λ es el costo de rechazar a alguien invitable y µ el de invitar a alguien que debió descartarse, ambos expresados en unidades de una revisión humana, el costo esperado de una política sobre N postulaciones es:",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "equation",
+          "text": "C(t−) = λ · rechazos de invitables + µ · invitaciones de descartables + revisiones",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Esto hace explícito algo que en un prompt queda implícito: cuánto vale no perder a un candidato. En §5.5 estimamos C con las etiquetas humanas para distintos valores de λ y µ [14].",
+          "sourcePages": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diseno",
+      "title": "4. Diseño del estudio",
+      "sourcePage": 4,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Es un estudio retrospectivo y observacional sobre registros existentes, leídos en modo solo lectura. Las decisiones reportadas son las que habría tomado cada política sobre esos registros; no afirmamos que se hayan enviado invitaciones o rechazos a candidatos.",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-4-1",
+          "text": "4.1 Datos",
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Experimento A (CVs). Las 496 postulaciones con CV procesado (de 518 recibidas) a un puesto de ventas telefónicas en call center para un cliente del sector financiero, con datos aportados por Acciona IT. Evaluamos tres requisitos: R1 (obligatorio) venta telefónica de productos financieros o seguros en un call center, excluyendo cobranzas, reclamos, postventa sin venta y ventas de otros rubros; R2, cumplimiento de objetivos comerciales; R3, manejo de un CRM (Apéndice A).",
+          "sourcePages": [
+            4,
+            5
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Experimento B (entrevistas). De 50 entrevistas completas con transcripción y evaluación guardadas, dos no tenían preguntas técnicas: quedan 48 entrevistas y 221 preguntas.",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-4-2",
+          "text": "4.2 Referencia de modelos",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Producción no tiene etiquetas humanas utilizables para estas decisiones. Construimos una referencia con tres anotadores de dos familias (Claude Opus, Claude Sonnet y GPT-5.5) que etiquetaron cada ítem de forma independiente, con la misma entrada sin datos personales que recibe JEV, un único rubric y sin ver la salida de ningún sistema. En CVs, cada anotador respondió sí, no o poco claro por requisito. Un CV es positivo o negativo si los tres coinciden en sí o en no, dudoso si al menos dos dicen poco claro, y en desacuerdo en el resto. En entrevistas la etiqueta es sí, parcial o no; la referencia principal es la mayoría (al menos dos de tres, 220 de 221 preguntas) y la unanimidad (142) es un análisis de sensibilidad.",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-4-3",
+          "text": "4.3 Etiquetado humano",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Para medir lo que el panel no puede medir, seleccionamos 60 CVs de R1 con un muestreo estratificado por acuerdo del panel: 12 positivos, 12 negativos, 30 dudosos y 6 en desacuerdo. Una persona del equipo de producto los etiquetó a ciegas, sin ver puntajes ni etiquetas del panel, con una herramienta local que mostraba el requisito, las exclusiones y la experiencia del CV, y preguntaba qué haría un reclutador: invitar, revisar o descartar. La muestra sobrerrepresenta los casos dudosos a propósito; para estimar qué pasaría en las 496 postulaciones ponderamos cada CV por la inversa de su probabilidad de selección (Horvitz–Thompson [15]): cada positivo representa 3,2 postulaciones, cada negativo 24,7, cada dudoso 4,3 y cada CV en desacuerdo 5,7. La lectura principal es la lectura adjudicada (primera lectura, con los casos discrepantes resueltos por la segunda lectura a ciegas); como análisis de sensibilidad reportamos las etiquetas de la primera lectura, sin adjudicar.",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Segunda lectura. Para distinguir criterio de error, la misma persona volvió a etiquetar a ciegas 12 CVs mezclados, sin saber cuáles eran cuáles: los 6 casos de estratos claros en los que su primera lectura contradecía a los tres modelos y 6 CVs de control elegidos al azar. Repitió su etiqueta en 4 de los 6 controles; los 2 cambios fueron hacia una decisión más estricta (de revisar a descartar). En los 6 discrepantes, la segunda lectura coincidió con el panel en 2, quedó en una posición intermedia en 2 (de invitar a revisar) y mantuvo la primera etiqueta en 2. Es decir, parte de la discrepancia era inconsistencia de etiquetado y parte es una diferencia de criterio que se sostiene. La lectura principal usa la primera lectura con esos 6 casos resueltos por la segunda (4 etiquetas cambian); la primera lectura sin adjudicar se reporta como análisis de sensibilidad.",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-4-4",
+          "text": "4.4 Sistemas comparados",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Comparamos JEV (una llamada por CV o entrevista, sin reintentos) con dos modelos generales a los que se les dio la misma pregunta, las mismas exclusiones y la misma advertencia sobre entrada no confiable: Claude Haiku 4.5 y GPT-5.4-mini, el modelo que Agora usaba para la evaluación directa de entrevistas. Para CVs devuelven una probabilidad; para entrevistas, la misma elección de tres vías. En entrevistas incluimos además el evaluador que estaba desplegado, un pipeline de agentes sobre gpt-4o-mini cuyos veredictos estaban guardados.",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-4-5",
+          "text": "4.5 Métricas y estadística",
+          "sourcePages": [
+            6
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "En CVs reportamos AUROC (ordenamiento), Brier y error de calibración esperado contra la fracción de «sí» del panel (calibración), y tasas de decisión por estrato. Contra la persona reportamos AUROC ponderado por diseño, acuerdo con intervalo de Wilson [18] y la tasa estimada de invitables rechazados automáticamente, con intervalos por bootstrap estratificado (4.000 remuestreos) [19]. Para elegir el umbral sin sobreajustar usamos validación cruzada estratificada repetida (300 repeticiones de 5 particiones): en cada partición se elige t− minimizando C con λ = 10 y µ = 2 sobre el 80 % y se mide el error en el 20 % restante. En entrevistas reportamos exactitud y F1 macro con intervalos por bootstrap remuestreando entrevistas (las preguntas de una entrevista no son independientes), diferencias pareadas con intervalo por bootstrap y prueba exacta de McNemar [16] con corrección de Holm [17] para tres comparaciones, y curvas de riesgo–cobertura con su área (AURC) [4].",
+          "sourcePages": [
+            6
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-4-6",
+          "text": "4.6 Privacidad",
+          "sourcePages": [
+            6
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Ningún sistema ni anotador recibió nombres, correos, teléfonos ni URLs. Este informe contiene solo resultados agregados; los CVs y transcripciones sin datos personales que se usaron para etiquetar quedan fuera del paquete compartible.",
+          "sourcePages": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resultados",
+      "title": "5. Resultados",
+      "sourcePage": 6,
+      "blocks": [
+        {
+          "type": "heading",
+          "id": "jev-section-5-1",
+          "text": "5.1 ¿Cuánto coinciden los anotadores, y con quién?",
+          "sourcePages": [
+            6
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "En CVs, los modelos del panel coincidieron entre sí con κ de Cohen [2] de 0,73–0,80 en R1, 0,86–0,91 en R2 y 0,75–0,86 en R3; los valores más bajos son siempre los pares entre familias. En R1 quedaron 38 positivos, 296 negativos, 128 dudosos y 34 en desacuerdo. En entrevistas el acuerdo fue moderado: 0,68 (Opus–Sonnet), 0,55 (Opus–GPT-5.5) y 0,44 (Sonnet–GPT-5.5).",
+          "sourcePages": [
+            6
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "El dato más importante de esta sección es otro. Sobre los 60 CVs etiquetados por la persona, cada modelo del panel coincidió con ella mucho menos de lo que coincidía con los otros modelos: Claude Opus κ = 0,38 (57 % de acuerdo), Claude Sonnet κ = 0,35 (55 % de acuerdo), GPT-5.5 κ = 0,31 (53 % de acuerdo). Los modelos comparten una lectura del requisito que la persona no comparte del todo. Un acuerdo alto entre anotadores sintéticos es evidencia de confiabilidad, no de validez.",
+          "sourcePages": [
+            6
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-2",
+          "text": "5.2 CVs inequívocos: los tres ordenan casi a la perfección",
+          "sourcePages": [
+            7
+          ]
+        },
+        {
+          "type": "table",
+          "id": "jev-table-1"
+        },
+        {
+          "type": "paragraph",
+          "text": "Cuando los anotadores coinciden, los tres sistemas ordenan casi sin errores, y lo que los distingue es qué hacen en los umbrales. En R1, JEV y Claude Haiku no se equivocaron en ninguna decisión automática; GPT-5.4-mini invitó automáticamente al 1,4 % de los negativos claros. En R2, el requisito más difuso, las diferencias crecen: GPT-5.4-mini invitó al 16,6 % de los negativos (JEV: 1,6 %) y Claude Haiku rechazó al 4,8 % de los positivos. Contra la fracción de «sí» del panel, el error de calibración esperado en R1 fue 0,093 para JEV, 0,066 para Haiku y 0,087 para GPT-5.4-mini; en R2, 0,125, 0,040 y 0,212. Claude Haiku tiene el menor error de calibración en los tres requisitos y JEV el menor Brier en R1 y R2: ordenar bien y estar calibrado son propiedades distintas. En R1, JEV asigna a los casos intermedios probabilidades más bajas que la fracción de «sí» del panel, que es justamente la zona donde opera el umbral de rechazo; en R2 y R3 ocurre lo contrario en varios tramos.",
+          "sourcePages": [
+            7
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-3",
+          "text": "5.3 Donde divergen: los CVs dudosos",
+          "sourcePages": [
+            8
+          ]
+        },
+        {
+          "type": "figure",
+          "number": 2,
+          "caption": "Figura 2. Decisión de la política original para R1 sobre las 496 postulaciones, por estrato del panel. Los tres sistemas se comportan parecido en los casos claros y muy distinto en los dudosos.",
+          "src": "/media/research/jev/figure-2.png",
+          "width": 1537,
+          "height": 518,
+          "sha256": "1c1a513bba2de3d5b11b1b12945e0ef15e5573411aab721d1fa9619693141da9",
+          "sourcePage": 8
+        },
+        {
+          "type": "paragraph",
+          "text": "En los 128 CVs dudosos, típicamente experiencia de atención al cliente o telemarketing sin venta financiera explícita, JEV rechazó automáticamente la gran mayoría, Claude Haiku derivó más a revisión y GPT-5.4-mini invitó a casi la mitad. Con el panel como única referencia no hay forma de decir cuál de esos comportamientos es correcto: la acción adecuada sobre un caso dudoso es una decisión de política, no de etiquetado. Por eso agregamos el etiquetado humano.",
+          "sourcePages": [
+            8
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-4",
+          "text": "5.4 Contra el criterio de una persona",
+          "sourcePages": [
+            8
+          ]
+        },
+        {
+          "type": "table",
+          "id": "jev-table-2"
+        },
+        {
+          "type": "paragraph",
+          "text": "Con la política original, JEV rechazó automáticamente 12 de los 26 CVs que la persona invitaría y 12 de los 15 que mandaría a revisión. Los modelos generales tampoco resolvieron bien esta zona: Claude Haiku rechazó 9 de los 26 invitables y GPT-5.4-mini 7, y este último además invitó 6 de los 19 que la persona descartaría. Con n = 60, los intervalos del acuerdo se solapan para los cuatro.",
+          "sourcePages": [
+            8
+          ]
+        },
+        {
+          "type": "figure",
+          "number": 3,
+          "caption": "Figura 3. Probabilidad asignada a R1 por cada sistema, agrupada por la acción que eligió la persona (escala logit). Línea continua: umbral de rechazo original (0,3). Discontinua: 0,05. Punteada: umbral de invitación (0,7). Barra negra: mediana.",
+          "src": "/media/research/jev/figure-3.png",
+          "width": 1428,
+          "height": 621,
+          "sha256": "faf6f5d4dab2501fd4702c29556f6d655ce2e1e35da2d683cd7923af53a141ff",
+          "sourcePage": 9
+        },
+        {
+          "type": "paragraph",
+          "text": "La Figura 3 muestra por qué. Los puntajes de JEV separan los grupos (medianas de 0,32 para invitar, 0,06 para revisar y 0,03 para descartar), pero una buena parte de los invitables queda entre 0,05 y 0,3: el modelo los ve menos probables que los positivos claros, y la política original los cortaba. La Tabla 3 lo cuantifica con el AUROC ponderado, que mide solo el ordenamiento y no depende del umbral.",
+          "sourcePages": [
+            9
+          ]
+        },
+        {
+          "type": "table",
+          "id": "jev-table-3"
+        },
+        {
+          "type": "paragraph",
+          "text": "JEV tiene los valores puntuales más altos en las dos comparaciones, pero con 60 casos los intervalos se solapan y el resultado depende de pocas etiquetas: en el análisis de sensibilidad (las etiquetas de la primera lectura, sin adjudicar), el AUROC de JEV baja a 0,727 y 0,804, y JEV sigue con los valores más altos. Como cada negativo de la muestra representa a 24,7 postulaciones, unos pocos negativos claros que la persona invitó o mandó a revisión pesan mucho en cualquier estimación poblacional.",
+          "sourcePages": [
+            9
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-5",
+          "text": "5.5 Cuánto cuesta no perder candidatos",
+          "sourcePages": [
+            10
+          ]
+        },
+        {
+          "type": "figure",
+          "number": 4,
+          "caption": "Figura 4. Curvas de operación sobre las 496 postulaciones al mover el umbral de rechazo (t+ = 0,7 fijo): en el eje horizontal, cuántas postulaciones van a revisión humana (conteo exacto); en el vertical, qué proporción de los invitables según la persona se rechazaría automáticamente (estimación ponderada, lectura principal). Las etiquetas marcan 0,3 y 0,05.",
+          "src": "/media/research/jev/figure-4.png",
+          "width": 940,
+          "height": 689,
+          "sha256": "9c4f28310684653f51279d2e6ee962ae1a35cb0201274c045ede74ba68815598",
+          "sourcePage": 10
+        },
+        {
+          "type": "table",
+          "id": "jev-table-4"
+        },
+        {
+          "type": "paragraph",
+          "text": "Con el umbral original, la política de JEV rechazaba automáticamente una proporción estimada de 61 % de los invitables (sensibilidad: 72 %), mandando solo 32 postulaciones a revisión. Bajar t− a 0,05 reduce esa pérdida a 0 % (sensibilidad: 29 %) a cambio de 136 revisiones, el 27 % de las postulaciones, y sin cambiar las invitaciones automáticas (35). Para llevar a cero la pérdida estimada de invitables, JEV necesita mandar a revisión 136 postulaciones (t− = 0,05); Claude Haiku 4.5 no lo logra en la grilla evaluada; GPT-5.4-mini necesita mandar a revisión 223 postulaciones (t− = 0,05). GPT-5.4-mini, además, invita automáticamente a 114 postulaciones, más de tres veces que JEV, incluyendo a una parte de los que la persona descartaría.",
+          "sourcePages": [
+            10
+          ]
+        },
+        {
+          "type": "table",
+          "id": "jev-table-5"
+        },
+        {
+          "type": "paragraph",
+          "text": "Con λ = 10, la política de menor costo esperado es la de JEV con rechazo bajo 0,05 (151 unidades, frente a 247 de la mejor alternativa, GPT-5.4-mini, y 496 de revisar todo). Con las etiquetas sin adjudicar el orden cambia: la política más barata pasa a ser la de GPT-5.4-mini, lo que muestra cuánto pesan unos pocos casos en una muestra de 60. Para JEV, la política original cuesta entre 1,7 y 25,0 veces lo que la óptima, según λ y el escenario. Dicho de otro modo, el umbral de 0,3 solo es el óptimo si perder a un candidato invitable cuesta entre 1,0 y 1,1 revisiones: lo que la política original asumía, sin decirlo, es que perder a alguien vale lo mismo que mirar un CV. Cuando el umbral de JEV se elige por validación cruzada, el valor más elegido es 0,05, que manda a revisión 136 de 496 postulaciones, con una pérdida fuera de muestra de 4,9 %; en la sensibilidad es 0,005, que manda a revisión 461 de 496 postulaciones, con 26,4 %. En la lectura principal, 0,05 fue el umbral elegido en el 96 % de las particiones: el valor que surgió al mirar la muestra completa sobrevive a la validación cruzada. En la primera lectura sin adjudicar, en cambio, el criterio de la persona exige umbrales tan bajos que casi todo va a revisión.",
+          "sourcePages": [
+            11
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-6",
+          "text": "5.6 Entrevistas: JEV supera al evaluador anterior y a los modelos generales",
+          "sourcePages": [
+            11
+          ]
+        },
+        {
+          "type": "table",
+          "id": "jev-table-6"
+        },
+        {
+          "type": "paragraph",
+          "text": "JEV coincidió con la mayoría en el 80,9 % de las preguntas, y en el 95,1 % cuando los tres anotadores coinciden. Las diferencias pareadas son positivas frente a los tres sistemas y sus intervalos excluyen el cero. El error dominante del evaluador anterior era dar por respondida una respuesta parcial: lo hizo en 83/105 casos, contra 27/105 de JEV. Para un producto de selección esa diferencia no es menor: una respuesta vaga contada como completa infla el puntaje del candidato justo en las preguntas que el puesto considera clave.",
+          "sourcePages": [
+            11
+          ]
+        },
+        {
+          "type": "figure",
+          "number": 5,
+          "caption": "Figura 5. Matrices de confusión contra la mayoría del panel (filas: referencia; columnas: predicción; color: proporción por fila).",
+          "src": "/media/research/jev/figure-5.png",
+          "width": 1439,
+          "height": 486,
+          "sha256": "0f0625e720527b6345a8cd731858d3bc47819ac9009e17015f5992321ad36fd9",
+          "sourcePage": 12
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-7",
+          "text": "5.7 ¿Depende de cómo definimos la referencia?",
+          "sourcePages": [
+            12
+          ]
+        },
+        {
+          "type": "figure",
+          "number": 6,
+          "caption": "Figura 6. Exactitud en entrevistas con ocho definiciones de referencia: mayoría, unanimidad, cada par de anotadores (sin uno de ellos) y cada anotador por separado.",
+          "src": "/media/research/jev/figure-6.png",
+          "width": 1325,
+          "height": 803,
+          "sha256": "0680641d088c9fe3a512dff10a6d3d1d938359a9d44fd170d37cffee2aec500b",
+          "sourcePage": 12
+        },
+        {
+          "type": "paragraph",
+          "text": "Una objeción razonable a una referencia de modelos es que puede favorecer a quien se parezca a sus anotadores [6]. Si eso explicara el resultado, la ventaja de JEV debería achicarse o invertirse al cambiar la composición del panel. No pasa: JEV queda primero en las ocho definiciones, desde 76,5 % hasta 95,1 %, y el evaluador anterior último en todas. Con GPT-5.5 como único anotador, la referencia más cercana a la familia de GPT-5.4-mini, la ventaja de JEV sobre GPT-5.4-mini se reduce a 3,2 puntos; con Opus o Sonnet solos es de 14,9 y 13,2. Es la huella esperable de la afinidad de familia, y no alcanza para cambiar el orden. En CVs, el AUROC de R1 contra cada par de anotadores fue ≥ 0,996 para los tres sistemas.",
+          "sourcePages": [
+            12
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-8",
+          "text": "5.8 La confianza de JEV sirve para derivar",
+          "sourcePages": [
+            13
+          ]
+        },
+        {
+          "type": "figure",
+          "number": 7,
+          "caption": "Figura 7. Curva de riesgo–cobertura de JEV en entrevistas: si decide primero las preguntas en las que tiene más confianza, ¿cuánto se equivoca en lo que decide?",
+          "src": "/media/research/jev/figure-7.png",
+          "width": 759,
+          "height": 621,
+          "sha256": "15a748a9df9af2caf904e457b1a8e0adfe18e25694176bfc7fb36877ca53a642",
+          "sourcePage": 13
+        },
+        {
+          "type": "paragraph",
+          "text": "Ordenar por confianza reduce el error de forma sostenida: decidiendo solo con confianza ≥ 0,8 cubre el 55,9 % de las preguntas con un acierto del 91,9 %, contra 67,0 % en las que deja afuera; con ≥ 0,9, cubre el 39,5 % con 95,4 %. El área bajo la curva de riesgo–cobertura es 0,073, frente a 0,191 si se abstuviera al azar y 0,020 para un oráculo que conociera sus errores. A nivel entrevista, la regla de derivación del modo asistido mandó a revisión 42 de las 48: decidir pregunta por pregunta automatiza mucho menos que decidir la entrevista entera, y esa diferencia es deliberada.",
+          "sourcePages": [
+            13
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-5-9",
+          "text": "5.9 Costo y latencia",
+          "sourcePages": [
+            13
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Para los 496 CVs, JEV usó 760.280 tokens de entrada y 51.141 de salida en 496 llamadas, con una latencia mediana de 0,66 s (p95 0,77 s). Para las 48 entrevistas, 366.319 y 13.077 tokens, mediana 0,70 s. GPT-5.4-mini usó 266.246 y 14.336 tokens en CVs (mediana 1,12 s por llamada). Las latencias son indicativas porque los sistemas corrieron por interfaces distintas.",
+          "sourcePages": [
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "discusion",
+      "title": "6. Discusión",
+      "sourcePage": 13,
+      "blocks": [
+        {
+          "type": "heading",
+          "id": "jev-section-6-1",
+          "text": "6.1 Qué significa para un producto de selección",
+          "sourcePages": [
+            13
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Separar juicio y política. Un modelo que responde preguntas cerradas con probabilidades permite que el criterio del negocio viva en código y no en un prompt. En este estudio eso tuvo una consecuencia concreta: el problema de los CVs dudosos se diagnosticó y se cuantificó como un problema de umbral, y la corrección es un número, no una reescritura.",
+          "sourcePages": [
+            13
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "El umbral es una decisión de producto. Ningún umbral es correcto en abstracto. La pregunta que hay que hacerle al cliente es cuántas revisiones está dispuesto a pagar para no perder a un candidato invitable, y la Tabla 5 muestra que la respuesta cambia el umbral óptimo de forma drástica. Una política de selección debería declarar ese costo, y la plataforma debería medir la carga de revisión que produce.",
+          "sourcePages": [
+            13
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "La revisión humana es un resultado, no una falla. Tanto en CVs como en entrevistas, el valor de JEV aparece cuando la política sabe abstenerse. La métrica relevante no es cuánto automatiza el sistema, sino cuánto error evita por cada caso que deriva.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Validar con personas, no solo con modelos. Un panel de tres modelos de dos familias, con acuerdo alto entre ellos, coincidió con una persona con κ entre 0,31 y 0,38. Las referencias sintéticas sirven para comparar sistemas entre sí y para encontrar dónde divergen; no reemplazan la definición humana de qué es un buen candidato.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-6-2",
+          "text": "6.2 Qué haríamos distinto en Agora",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Los resultados sugieren tres cambios, que deben probarse antes de aplicarse: (i) bajar el umbral de rechazo de los requisitos semánticos o ensanchar la banda de revisión, con el costo de revisión visible para el equipo de talent; (ii) mantener JEV como evaluador de entrevistas en lugar del pipeline anterior, con la derivación por confianza; (iii) registrar las decisiones de los reclutadores sobre los casos derivados, que son exactamente las etiquetas que hoy faltan para calibrar umbrales por búsqueda.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-6-3",
+          "text": "6.3 Amenazas a la validez",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Validez de constructo. La referencia principal son modelos. En CVs agregamos una persona, pero es una sola, del equipo de producto y no del cliente; su criterio puede no coincidir con el de un reclutador del cliente, y no podemos separar criterio de ruido de etiquetado sin una segunda persona.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Validez estadística. Con 60 CVs etiquetados, los intervalos son anchos y las estimaciones poblacionales dependen de pocos casos con mucho peso, como muestra la diferencia entre la lectura principal y la de sensibilidad. En entrevistas, las diferencias frente al evaluador anterior y a GPT-5.4-mini son grandes frente a su incertidumbre; frente a Claude Haiku el intervalo apenas excluye el cero.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Validez interna. Los umbrales alternativos se exploraron sobre los mismos datos; la validación cruzada mitiga pero no reemplaza un conjunto reservado. Las preguntas de entrevista fueron extraídas por un LLM y sus errores quedan fuera del análisis.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Validez externa. Un cliente, una búsqueda de call center en español y 48 entrevistas. No afirmamos generalización a otros roles, idiomas o sectores.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Sin resultados de contratación. No sabemos si los invitados fueron contratados ni cómo rindieron. Medimos acuerdo con un criterio, no calidad de la contratación.",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "heading",
+          "id": "jev-section-6-4",
+          "text": "6.4 Consideraciones éticas",
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Los sistemas de selección son de alto riesgo [13]. Los diseñamos para que no reciban nombre, edad, género ni datos de contacto, para que cada requisito tenga exclusiones explícitas y para que la duda termine en una persona. Este estudio no audita equidad entre grupos: no contamos con datos demográficos ni sería apropiado inferirlos. Una auditoría de ese tipo, con resultados de contratación, es condición para usar rechazos automáticos a escala [12, 23]. Mientras tanto, la recomendación más segura que se desprende de este trabajo es reducir los rechazos automáticos en la zona dudosa.",
+          "sourcePages": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conclusion",
+      "title": "7. Conclusión",
+      "sourcePage": 15,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Un modelo de decisión que devuelve probabilidades y confianzas cambia la forma de construir un producto de selección: la política se vuelve explícita, medible y ajustable. En la evaluación de entrevistas, JEV mejoró de forma clara sobre el evaluador que estaba en producción y sobre dos modelos generales con la misma consigna, con una ventaja que resistió todas las definiciones de referencia que probamos, y su confianza permitió derivar a personas los casos difíciles. En el filtrado de CVs, los tres sistemas ordenaron bien los casos claros; en los dudosos, el etiquetado humano mostró que el umbral original rechazaba candidatos que una persona invitaría, y que corregirlo tiene un costo en revisión que se puede calcular y decidir; con el umbral corregido, JEV ordenó mejor que los modelos generales contra el criterio humano y fue la política de menor costo esperado. La pregunta abierta no es qué modelo usar, sino quién define y cómo se valida el criterio con el que decide.",
+          "sourcePages": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "datos-y-codigo",
+      "title": "Disponibilidad de datos y código",
+      "sourcePage": 15,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Los resultados agregados, los scripts de análisis y figuras, los rubrics y los textos de los requisitos están disponibles a pedido. Los CVs, transcripciones y etiquetas por ítem no se comparten por tratarse de datos de candidatos.",
+          "sourcePages": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intereses",
+      "title": "Declaración de intereses",
+      "sourcePage": 15,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "El autor forma parte del equipo que desarrolla Agora e integra JEV, lo que constituye un interés en los resultados. Los datos fueron aportados por Acciona IT. La anotación de referencia y los baselines usaron modelos de Anthropic y OpenAI.",
+          "sourcePages": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "referencias",
+      "title": "Referencias",
+      "sourcePage": 15,
+      "blocks": [
+        {
+          "type": "reference",
+          "number": 1,
+          "text": "TypeSafe. Documentación de Jev, Noul y Choice. https://docs.typesafe.ai/introduction (consulta: octubre de 2026).",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 2,
+          "text": "Cohen, J. (1960). A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20(1), 37–46.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 3,
+          "text": "Guo, C., Pleiss, G., Sun, Y. y Weinberger, K. Q. (2017). On calibration of modern neural networks. ICML, PMLR 70, 1321–1330.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 4,
+          "text": "Geifman, Y. y El-Yaniv, R. (2017). Selective classification for deep neural networks. NeurIPS 30.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 5,
+          "text": "Zheng, L. et al. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. NeurIPS 36, Datasets and Benchmarks.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 6,
+          "text": "Panickssery, A., Bowman, S. R. y Feng, S. (2024). LLM evaluators recognize and favor their own generations. NeurIPS 37.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 7,
+          "text": "Kadavath, S. et al. (2022). Language models (mostly) know what they know. arXiv:2207.05221.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 8,
+          "text": "Xiong, M. et al. (2024). Can LLMs express their uncertainty? An empirical evaluation of confidence elicitation in LLMs. ICLR.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 9,
+          "text": "Tian, K. et al. (2023). Just ask for calibration: strategies for eliciting calibrated confidence scores from language models fine-tuned with human feedback. EMNLP.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 10,
+          "text": "Madras, D., Pitassi, T. y Zemel, R. (2018). Predict responsibly: improving fairness and accuracy by learning to defer. NeurIPS 31.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 11,
+          "text": "Mozannar, H. y Sontag, D. (2020). Consistent estimators for learning to defer to an expert. ICML, PMLR 119.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 12,
+          "text": "Raghavan, M., Barocas, S., Kleinberg, J. y Levy, K. (2020). Mitigating bias in algorithmic hiring: evaluating claims and practices. ACM FAT*, 469–481.",
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 13,
+          "text": "Reglamento (UE) 2024/1689 del Parlamento Europeo y del Consejo (Reglamento de Inteligencia Artificial), Anexo III, punto 4.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 14,
+          "text": "Elkan, C. (2001). The foundations of cost-sensitive learning. IJCAI, 973–978.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 15,
+          "text": "Horvitz, D. G. y Thompson, D. J. (1952). A generalization of sampling without replacement from a finite universe. Journal of the American Statistical Association, 47(260), 663–685.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 16,
+          "text": "McNemar, Q. (1947). Note on the sampling error of the difference between correlated proportions or percentages. Psychometrika, 12(2), 153–157.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 17,
+          "text": "Holm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6(2), 65–70.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 18,
+          "text": "Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. Journal of the American Statistical Association, 22(158), 209–212.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 19,
+          "text": "Efron, B. y Tibshirani, R. J. (1993). An Introduction to the Bootstrap. Chapman & Hall.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 20,
+          "text": "Dawid, A. P. y Skene, A. M. (1979). Maximum likelihood estimation of observer error-rates using the EM algorithm. Applied Statistics, 28(1), 20–28.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 21,
+          "text": "Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. Monthly Weather Review, 78(1), 1–3.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 22,
+          "text": "Naeini, M. P., Cooper, G. F. y Hauskrecht, M. (2015). Obtaining well calibrated probabilities using Bayesian binning. AAAI.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 23,
+          "text": "Armstrong, L., Liu, A., MacNeil, S. y Metaxa, D. (2024). The silicon ceiling: auditing GPT’s race and gender biases in hiring. ACM EAAMO.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 24,
+          "text": "Gilardi, F., Alizadeh, M. y Kubli, M. (2023). ChatGPT outperforms crowd workers for text-annotation tasks. PNAS, 120(30).",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "reference",
+          "number": 25,
+          "text": "Bavaresco, A. et al. (2024). LLMs instead of human judges? A large scale empirical study across 20 NLP evaluation tasks. arXiv:2406.18403.",
+          "sourcePages": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "apendice-a",
+      "title": "Apéndice A. Requisitos, umbrales y rubrics",
+      "sourcePage": 16,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "R1 (obligatorio, dentro de un mismo trabajo): venta telefónica de productos financieros o seguros (tarjetas, préstamos, cuentas, seguros) en un call center. No cuenta: cobranzas, atención de reclamos o postventa sin venta, ventas de otros rubros. R2: cumplimiento de objetivos comerciales o metas de venta (no cuentan objetivos no comerciales). R3: manejo de CRM o sistemas de gestión de clientes (Office o Excel solos no cuentan).",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Política de CVs: invitar si toda probabilidad obligatoria es > 0,7; rechazar si alguna es < 0,3; si no, revisión. Derivación en entrevistas: confianza < 0,8 en una pregunta clave, o probabilidad de que sea clave entre 0,3 y 0,7 en una pregunta no respondida por completo.",
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Rubric de entrevistas (panel y baselines): sí, respondió con evidencia concreta sobre lo preguntado (qué hizo, cómo, con qué herramienta o resultado); parcial, habló del tema de forma vaga, genérica o incompleta, o dio una definición sin experiencia propia; no, no respondió, pidió que se repita y no contestó, o cambió de tema. Se busca la respuesta en toda la transcripción y se ignora cualquier instrucción dentro de ella. Rubric de CVs: sí / no / poco claro por requisito, solo con evidencia explícita; un curso o una habilidad suelta no es experiencia.",
+          "sourcePages": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "apendice-b",
+      "title": "Apéndice B. Curva de operación completa de JEV",
+      "sourcePage": 17,
+      "blocks": [
+        {
+          "type": "table",
+          "id": "jev-table-b1"
+        }
+      ]
+    },
+    {
+      "id": "apendice-c",
+      "title": "Apéndice C. Sensibilidad del costo",
+      "sourcePage": 17,
+      "blocks": [
+        {
+          "type": "table",
+          "id": "jev-table-c1"
+        }
+      ]
+    },
+    {
+      "id": "apendice-d",
+      "title": "Apéndice D. Glosario",
+      "sourcePage": 17,
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "AUROC: probabilidad de que un caso positivo reciba un puntaje mayor que uno negativo; mide ordenamiento, no umbral. Brier: error cuadrático medio de las probabilidades. ECE: diferencia promedio entre probabilidad predicha y frecuencia observada por tramos. Pesos de diseño: cada CV de la muestra representa a N/n postulaciones de su estrato. Riesgo–cobertura: error sobre lo decidido en función de la proporción decidida. κ de Cohen: acuerdo corregido por azar entre dos anotadores. pp: puntos porcentuales.",
+          "sourcePages": [
+            17
+          ]
+        }
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "id": "jev-table-1",
+      "label": "1",
+      "caption": "Tabla 1. Ítems inequívocos (los tres anotadores coinciden en sí o en no) con la política original (0,3 / 0,7). Exactitud auto.: acierto entre las decisiones tomadas sin revisión. Recall invit.: positivos invitados automáticamente. Neg. invitados y Pos. rechazados: tasas de falsa invitación y falso rechazo.",
+      "columns": [
+        "Requisito",
+        "Sistema",
+        "AUROC [IC 95 %]",
+        "Brier",
+        "Exactitud auto.",
+        "Revisión",
+        "Recall invit.",
+        "Neg. invitados",
+        "Pos. rechazados"
+      ],
+      "rows": [
+        [
+          "R1 · clave (n = 334 · prev. 11,4 %)",
+          "JEV",
+          "0,999 [0,997; 1,000]",
+          "0,011",
+          "100,0 %",
+          "3,6 %",
+          "76,3 %",
+          "0,0 %",
+          "0,0 %"
+        ],
+        [
+          "R1 · clave",
+          "Claude Haiku 4.5",
+          "0,999 [0,997; 1,000]",
+          "0,012",
+          "100,0 %",
+          "4,5 %",
+          "76,3 %",
+          "0,0 %",
+          "0,0 %"
+        ],
+        [
+          "R1 · clave",
+          "GPT-5.4-mini",
+          "0,999 [0,997; 1,000]",
+          "0,020",
+          "98,8 %",
+          "1,8 %",
+          "100,0 %",
+          "1,4 %",
+          "0,0 %"
+        ],
+        [
+          "R2 (n = 457 · prev. 18,4 %)",
+          "JEV",
+          "1,000 [0,999; 1,000]",
+          "0,039",
+          "98,6 %",
+          "7,4 %",
+          "98,8 %",
+          "1,6 %",
+          "0,0 %"
+        ],
+        [
+          "R2",
+          "Claude Haiku 4.5",
+          "0,968 [0,942; 0,987]",
+          "0,045",
+          "96,8 %",
+          "10,5 %",
+          "75,0 %",
+          "2,4 %",
+          "4,8 %"
+        ],
+        [
+          "R2",
+          "GPT-5.4-mini",
+          "0,981 [0,970; 0,990]",
+          "0,132",
+          "84,6 %",
+          "12,0 %",
+          "100,0 %",
+          "16,6 %",
+          "0,0 %"
+        ],
+        [
+          "R3 (n = 405 · prev. 31,6 %)",
+          "JEV",
+          "1,000 [0,999; 1,000]",
+          "0,016",
+          "99,7 %",
+          "4,0 %",
+          "93,8 %",
+          "0,4 %",
+          "0,0 %"
+        ],
+        [
+          "R3",
+          "Claude Haiku 4.5",
+          "1,000 [0,999; 1,000]",
+          "0,011",
+          "99,7 %",
+          "4,7 %",
+          "85,9 %",
+          "0,0 %",
+          "0,8 %"
+        ],
+        [
+          "R3",
+          "GPT-5.4-mini",
+          "0,999 [0,997; 1,000]",
+          "0,040",
+          "97,3 %",
+          "7,4 %",
+          "99,2 %",
+          "3,6 %",
+          "0,0 %"
+        ]
+      ],
+      "sourcePage": 7
+    },
+    {
+      "id": "jev-table-2",
+      "label": "2",
+      "caption": "Tabla 2. Decisiones de cada política contra la acción elegida por la persona en los 60 CVs (26 invitar, 15 revisar, 19 descartar), sin ponderar. La muestra sobrerrepresenta los casos dudosos, así que estas tasas no se extrapolan directamente; ver Tabla 4.",
+      "columns": [
+        "Sistema",
+        "Acuerdo [IC 95 %]",
+        "Invitar → invitado",
+        "Invitar → rechazado",
+        "Revisar → rechazado",
+        "Descartar → invitado"
+      ],
+      "rows": [
+        [
+          "JEV · rechazo < 0,3 (original)",
+          "41,7 % [30–54]",
+          "7/26",
+          "12/26",
+          "12/15",
+          "2/19"
+        ],
+        [
+          "JEV · rechazo < 0,05",
+          "46,7 % [35–59]",
+          "7/26",
+          "0/26",
+          "6/15",
+          "2/19"
+        ],
+        [
+          "Claude Haiku 4.5",
+          "45,0 % [33–57]",
+          "11/26",
+          "9/26",
+          "11/15",
+          "0/19"
+        ],
+        [
+          "GPT-5.4-mini",
+          "53,3 % [41–65]",
+          "19/26",
+          "7/26",
+          "8/15",
+          "6/19"
+        ]
+      ],
+      "sourcePage": 8
+    },
+    {
+      "id": "jev-table-3",
+      "label": "3",
+      "caption": "Tabla 3. AUROC ponderado por diseño contra la acción de la persona, con IC 95 % por bootstrap estratificado. Las dos últimas columnas usan el análisis de sensibilidad (§4.3).",
+      "columns": [
+        "Sistema",
+        "Invitar vs. resto",
+        "Descartar vs. resto",
+        "Invitar vs. resto (sens.)",
+        "Descartar vs. resto (sens.)"
+      ],
+      "rows": [
+        [
+          "JEV",
+          "0,911 [0,838; 0,968]",
+          "0,798 [0,632; 0,946]",
+          "0,727",
+          "0,804"
+        ],
+        [
+          "Claude Haiku 4.5",
+          "0,809 [0,656; 0,956]",
+          "0,713 [0,592; 0,855]",
+          "0,678",
+          "0,646"
+        ],
+        [
+          "GPT-5.4-mini",
+          "0,830 [0,704; 0,929]",
+          "0,751 [0,578; 0,892]",
+          "0,697",
+          "0,757"
+        ]
+      ],
+      "sourcePage": 9
+    },
+    {
+      "id": "jev-table-4",
+      "label": "4",
+      "caption": "Tabla 4. Estimaciones para las 496 postulaciones. Revisión e invitaciones son conteos exactos; la tasa de invitables rechazados se estima con pesos de diseño e IC 95 % por bootstrap estratificado. El umbral de 0,05 surgió de esta misma muestra; la Tabla 5 da la estimación fuera de muestra.",
+      "columns": [
+        "Sistema",
+        "t−",
+        "A revisión",
+        "Invitados auto.",
+        "Invitables rechazados (est.)",
+        "Ídem, sensibilidad"
+      ],
+      "rows": [
+        [
+          "JEV",
+          "0,3",
+          "32",
+          "35",
+          "61,0 % [37–76]",
+          "72,2 % [52–83]"
+        ],
+        [
+          "JEV",
+          "0,05",
+          "136",
+          "35",
+          "0,0 % [0–0]",
+          "28,8 % [0–53]"
+        ],
+        [
+          "Claude Haiku 4.5",
+          "0,3",
+          "71",
+          "39",
+          "49,3 % [22–68]",
+          "63,9 % [38–78]"
+        ],
+        [
+          "Claude Haiku 4.5",
+          "0,05",
+          "161",
+          "39",
+          "23,7 % [0–50]",
+          "45,7 % [7–65]"
+        ],
+        [
+          "GPT-5.4-mini",
+          "0,3",
+          "20",
+          "114",
+          "42,3 % [15–63]",
+          "58,9 % [30–74]"
+        ],
+        [
+          "GPT-5.4-mini",
+          "0,05",
+          "223",
+          "114",
+          "0,0 % [0–0]",
+          "14,4 % [0–40]"
+        ]
+      ],
+      "sourcePage": 10
+    },
+    {
+      "id": "jev-table-5",
+      "label": "5",
+      "caption": "Tabla 5. Costo esperado C (λ = 10, µ = 2; en unidades de una revisión; revisar todo cuesta 496) y tasa de invitables rechazados fuera de muestra cuando t− se elige por validación cruzada. Apéndice C: otros valores de λ y µ.",
+      "columns": [
+        "Sistema",
+        "t− óptimo",
+        "Costo",
+        "Costo con 0,3",
+        "Pérdida fuera de muestra",
+        "t− (sens.)",
+        "Costo (sens.)",
+        "Pérdida fuera de muestra (sens.)"
+      ],
+      "rows": [
+        [
+          "JEV",
+          "0,05",
+          "151",
+          "791",
+          "4,9 %",
+          "0,005",
+          "476",
+          "26,4 %"
+        ],
+        [
+          "Claude Haiku 4.5",
+          "0,2",
+          "437",
+          "673",
+          "27,2 %",
+          "0,2",
+          "930",
+          "48,2 %"
+        ],
+        [
+          "GPT-5.4-mini",
+          "0,1",
+          "247",
+          "588",
+          "9,2 %",
+          "0,03",
+          "319",
+          "16,3 %"
+        ]
+      ],
+      "sourcePage": 11
+    },
+    {
+      "id": "jev-table-6",
+      "label": "6",
+      "caption": "Tabla 6. Acuerdo con la mayoría del panel (220 preguntas de 48 entrevistas). IC por bootstrap remuestreando entrevistas. Parcial → sí: respuestas parciales que el sistema dio por completas. Diferencias pareadas en puntos porcentuales con IC 95 % por bootstrap; p de McNemar exacta con corrección de Holm. Exactitud (unánime): sobre las 142 preguntas donde los tres anotadores coinciden.",
+      "columns": [
+        "Sistema",
+        "Exactitud [IC 95 %]",
+        "F1 macro",
+        "Parcial → sí",
+        "Exactitud (unánime)",
+        "JEV − sistema",
+        "p (Holm)"
+      ],
+      "rows": [
+        [
+          "JEV",
+          "80,9 % [75,0–86,4]",
+          "0,763",
+          "27/105",
+          "95,1 %",
+          "—",
+          "—"
+        ],
+        [
+          "Claude Haiku 4.5",
+          "73,2 % [66,8–79,1]",
+          "0,740",
+          "52/105",
+          "82,4 %",
+          "+7,7 pp [0,5; 15,1]",
+          "0,027"
+        ],
+        [
+          "GPT-5.4-mini",
+          "66,8 % [60,1–73,0]",
+          "0,702",
+          "57/105",
+          "81,7 %",
+          "+14,1 pp [8,3; 20,8]",
+          "< 0,001"
+        ],
+        [
+          "Evaluador histórico",
+          "54,1 % [47,1–60,3]",
+          "0,448",
+          "83/105",
+          "59,2 %",
+          "+26,8 pp [19,0; 35,1]",
+          "< 0,001"
+        ]
+      ],
+      "sourcePage": 11
+    },
+    {
+      "id": "jev-table-b1",
+      "label": "B1",
+      "caption": "Tabla B1. R1, 496 postulaciones, t+ = 0,7, lectura principal. Las tasas se estiman con pesos de diseño.",
+      "columns": [
+        "t−",
+        "A revisión",
+        "Rechazados",
+        "Invitados",
+        "Invitables rechazados (est.)",
+        "«Revisar» rechazados (est.)",
+        "Descartables invitados (est.)"
+      ],
+      "rows": [
+        [
+          "0,005",
+          "461",
+          "0",
+          "35",
+          "0,0 %",
+          "0,0 %",
+          "2,8 %"
+        ],
+        [
+          "0,01",
+          "461",
+          "0",
+          "35",
+          "0,0 %",
+          "0,0 %",
+          "2,8 %"
+        ],
+        [
+          "0,02",
+          "342",
+          "119",
+          "35",
+          "0,0 %",
+          "22,9 %",
+          "2,8 %"
+        ],
+        [
+          "0,03",
+          "214",
+          "247",
+          "35",
+          "0,0 %",
+          "51,1 %",
+          "2,8 %"
+        ],
+        [
+          "0,04",
+          "162",
+          "299",
+          "35",
+          "0,0 %",
+          "55,1 %",
+          "2,8 %"
+        ],
+        [
+          "0,05",
+          "136",
+          "325",
+          "35",
+          "0,0 %",
+          "63,0 %",
+          "2,8 %"
+        ],
+        [
+          "0,07",
+          "106",
+          "355",
+          "35",
+          "23,7 %",
+          "70,9 %",
+          "2,8 %"
+        ],
+        [
+          "0,1",
+          "77",
+          "384",
+          "35",
+          "35,4 %",
+          "88,1 %",
+          "2,8 %"
+        ],
+        [
+          "0,15",
+          "53",
+          "408",
+          "35",
+          "45,8 %",
+          "88,1 %",
+          "2,8 %"
+        ],
+        [
+          "0,2",
+          "48",
+          "413",
+          "35",
+          "52,8 %",
+          "88,1 %",
+          "2,8 %"
+        ],
+        [
+          "0,3",
+          "32",
+          "429",
+          "35",
+          "61,0 %",
+          "88,1 %",
+          "2,8 %"
+        ],
+        [
+          "0,4",
+          "19",
+          "442",
+          "35",
+          "74,1 %",
+          "96,0 %",
+          "2,8 %"
+        ],
+        [
+          "0,5",
+          "13",
+          "448",
+          "35",
+          "76,6 %",
+          "96,0 %",
+          "2,8 %"
+        ]
+      ],
+      "sourcePage": 17
+    },
+    {
+      "id": "jev-table-c1",
+      "label": "C1",
+      "caption": "Tabla C1. Costo esperado mínimo (y el t− que lo alcanza) por sistema, lectura principal. Revisar todo cuesta 496. En negrita, el menor por fila.",
+      "columns": [
+        "λ",
+        "µ",
+        "JEV",
+        "Claude Haiku 4.5",
+        "GPT-5.4-mini"
+      ],
+      "rows": [
+        [
+          "5",
+          "2",
+          "151 (0,05)",
+          "271 (0,2)",
+          "204 (0,1)"
+        ],
+        [
+          "10",
+          "2",
+          "151 (0,05)",
+          "437 (0,2)",
+          "247 (0,1)"
+        ],
+        [
+          "20",
+          "2",
+          "151 (0,05)",
+          "728 (0,07)",
+          "275 (0,05)"
+        ],
+        [
+          "50",
+          "2",
+          "151 (0,05)",
+          "1.596 (0,07)",
+          "275 (0,05)"
+        ],
+        [
+          "10",
+          "1",
+          "143 (0,05)",
+          "437 (0,2)",
+          "221 (0,1)"
+        ],
+        [
+          "10",
+          "5",
+          "173 (0,05)",
+          "437 (0,2)",
+          "325 (0,1)"
+        ]
+      ],
+      "sourcePage": 17
+    }
+  ]
+}
