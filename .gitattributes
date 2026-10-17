@@ -1,0 +1,3 @@
+# Recorded inputs and the copied gate retain their exact bytes on Windows/Linux.
+src/content/orquestador-sources.json -text
+src/lib/orquestador/caso-guiado.mjs -text
