@@ -7,10 +7,10 @@ export function OriginalWork() {
     <section className="original-work" id="original-work" aria-labelledby="original-work-title">
       <div className="original-work__copy">
         <p className="eyebrow">OWN PROJECT / ORQUESTADOR DE ENTREGABLES</p>
-        <h2 id="original-work-title">A draft needs<br /><span>something behind it.</span></h2>
-        <p>A recurring progress update, with source links, explicit states and a human review step. Follow a recorded local AI run, then try an unsupported claim and watch the gate block it.</p>
+        <h2 id="original-work-title">Your progress update.<br /><span>With the evidence attached.</span></h2>
+        <p>Turn a source packet into a progress draft you can inspect and save. Trace each item to its source, test an unsupported claim, and see what a human still needs to review.</p>
         <div className="original-work__links"><Link className="button-primary" href="/en/orquestador">Read the project case →</Link><a href="https://orquestador-entregables-tomas.vercel.app/?caso=avance" target="_blank" rel="noreferrer">Try the guided demo ↗</a></div>
-        <p className="original-work__note">Public-source snapshot · recorded AI run · browser replay in Spanish</p>
+        <p className="original-work__note">Own project · recorded AI run · inspectable deliverable · English walkthrough / Spanish draft</p>
       </div>
       <Link className="original-work__capture" href="/en/orquestador" aria-label="Open the Orquestador original project case">
         <span>ORQUESTADOR / EVIDENCE → REVIEW</span>

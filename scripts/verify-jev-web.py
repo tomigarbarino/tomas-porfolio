@@ -22,6 +22,7 @@ class StudyHTML(HTMLParser):
         self.figures = []
         self.figure_images = []
         self.original_links = []
+        self.viewer_links = []
         self.references = []
         self.embeds = 0
         self.downloads = []
@@ -51,6 +52,8 @@ class StudyHTML(HTMLParser):
             self.figure_images.append(attrs.get("src"))
         if tag == "a" and "jev-figure__original" in attrs.get("class", "").split():
             self.original_links.append(attrs.get("href"))
+        if tag == "a" and attrs.get("href", "").startswith("/writing/jev/figures/"):
+            self.viewer_links.append(attrs["href"])
         if tag == "li" and attrs.get("id", "").startswith("jev-ref-"):
             self.references.append(attrs["id"])
         if tag == "table":
@@ -119,16 +122,29 @@ def main():
     figures = [block for section in study["sections"] for block in section["blocks"] if block["type"] == "figure"]
     assert page.figure_images == [figure["src"] for figure in styled]
     assert page.original_links == [figure["src"] for figure in figures]
+    assert page.viewer_links == [f'/writing/jev/figures/{figure["number"]}' for figure in styled]
 
     def check_figure(figure):
         with urlopen(base + figure["src"], timeout=30) as response:
             data = response.read()
         assert hashlib.sha256(data).hexdigest() == figure["sha256"]
+        if figure["src"].endswith(".svg"):
+            svg = data.decode()
+            assert '<image' not in svg and 'data:image' not in svg
+            assert 'font-family:Barlow;' in svg and 'font-family:Plex;' in svg
         return {"number": figure["number"], "sha256": figure["sha256"]}
+
+    def check_viewer(path):
+        with urlopen(base + path, timeout=30) as response:
+            document = response.read().decode()
+            assert response.status == 200
+        assert 'Descargar SVG' in document and 'Ajustar al panel' in document and 'noindex' in document
+        return path
 
     with ThreadPoolExecutor(max_workers=4) as executor:
         verified_figures = list(executor.map(check_figure, figures))
         verified_styled = list(executor.map(check_figure, styled))
+        verified_viewers = list(executor.map(check_viewer, page.viewer_links))
     with urlopen(base + report["localPath"], timeout=30) as response:
         pdf = response.read()
         assert response.headers.get_content_type() == "application/pdf"
@@ -136,6 +152,7 @@ def main():
     result = {"base": base, "status": "passed", "nativeSections": len(page.sections), "nativeTables": len(page.tables),
               "tableDataCells": cells, "references": len(page.references), "embeds": page.embeds,
               "allScientificProseRendered": True, "figures": verified_figures, "styledFigures": verified_styled,
+              "vectorViewers": verified_viewers,
               "pdf": {"path": report["localPath"], "pages": report["pages"], "sha256": report["sha256"]}}
     options.output.parent.mkdir(parents=True, exist_ok=True)
     options.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

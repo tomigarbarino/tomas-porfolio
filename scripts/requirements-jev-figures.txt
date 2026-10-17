@@ -1,0 +1,6 @@
+# Offline figure authoring only; no website runtime dependency.
+Pillow==12.3.0
+vtracer==0.6.15
+fonttools[woff]==4.67.0
+brotli==1.2.0
+resvg-py==0.5.0

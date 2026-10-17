@@ -37,20 +37,42 @@ test('all seven original research figures retain their exact extracted bytes', (
   }
 });
 
-test('portfolio variants embed exact source pixels at native size without changing plot geometry', () => {
+test('all seven portfolio figures are genuine vectors with embedded house fonts and source provenance', () => {
   const style = JSON.parse(readFileSync(new URL('../src/content/jev-figure-style.json', import.meta.url)));
   const originals = blocks.filter(block => block.type === 'figure');
   assert.deepEqual(style.figures.map(figure => figure.number), [1, 2, 3, 4, 5, 6, 7]);
   for (const styled of style.figures) {
     const original = originals.find(figure => figure.number === styled.number);
     const svg = readFileSync(new URL(`../public${styled.src}`, import.meta.url), 'utf8');
-    const embedded = Buffer.from(svg.match(/href="data:image\/png;base64,([^"]+)"/)[1], 'base64');
     assert.equal(createHash('sha256').update(svg).digest('hex'), styled.sha256);
-    assert.equal(createHash('sha256').update(embedded).digest('hex'), original.sha256);
     assert.equal(styled.sourceSha256, original.sha256);
-    assert.ok(svg.includes(`<image x="28" y="100" width="${original.width}" height="${original.height}"`));
-    assert.equal(styled.width, original.width + 64);
-    assert.equal(styled.height, original.height + 150);
-    assert.doesNotMatch(svg, /<(script|foreignObject)\b|href="https?:|<fe(GaussianBlur|DisplacementMap|Morphology|ConvolveMatrix)\b/);
+    assert.ok(svg.includes(`viewBox="0 0 ${styled.width} ${styled.height}"`));
+    assert.match(svg, /font-family:Barlow;src:url\(data:font\/woff2;base64,/);
+    assert.match(svg, /font-family:Plex;src:url\(data:font\/woff2;base64,/);
+    assert.match(svg, /<text\b/);
+    assert.match(svg, /<path\b/);
+    assert.match(svg, /SIL OPEN FONT LICENSE/);
+    assert.doesNotMatch(svg, /<(image|script|foreignObject|filter)\b|data:image|href="https?:/);
   }
+  assert.equal(style.rasterEmbedded, false);
+  assert.match(style.provenance, /Raw observations unavailable/);
+  for (const trace of style.traces) {
+    const source = originals[trace.figure - 1];
+    const [left, top, right, bottom] = trace.bounds;
+    assert.ok(left >= 0 && top >= 0 && right <= source.width && bottom <= source.height);
+    assert.ok(trace.paths > 0);
+    assert.match(trace.maskSha256, /^[a-f0-9]{64}$/);
+    assert.ok(trace.sourceRecallWithin1px >= .99);
+    assert.ok(trace.vectorPrecisionWithin1px >= .98);
+  }
+});
+
+test('native confusion matrices retain every published count and denominator', () => {
+  const style = JSON.parse(readFileSync(new URL('../src/content/jev-figure-style.json', import.meta.url)));
+  const matrix = style.figures.find(figure => figure.number === 5);
+  assert.deepEqual(matrix.matrices, [
+    [[97,11,0],[27,77,1],[0,3,4]], [[104,4,0],[52,51,2],[0,1,6]],
+    [[95,13,0],[57,45,3],[0,0,7]], [[103,5,0],[83,10,12],[1,0,6]],
+  ]);
+  for (const rows of matrix.matrices) assert.deepEqual(rows.map(row => row.reduce((a,b) => a+b, 0)), [108,105,7]);
 });

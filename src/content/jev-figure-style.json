@@ -1,74 +1,670 @@
 {
-  "palette": {
-    "ink": "#080909",
-    "cream": "#f2efde",
-    "acid": "#f4ff54",
-    "violet": "#c6a7ff",
-    "pink": "#ff76b9"
-  },
+  "version": 2,
+  "fonts": [
+    "Barlow Condensed Black",
+    "IBM Plex Mono Regular"
+  ],
+  "rasterEmbedded": false,
+  "provenance": "Native workflow/counts; other marks traced from published PNGs. Raw observations unavailable; no statistics recalculated.",
   "figures": [
     {
       "number": 1,
       "src": "/media/research/jev/figure-1-portfolio.svg",
-      "width": 1573,
-      "height": 541,
-      "sha256": "8baaab855f2c6386499c61db36133e90bacb65d5d5d0e9a0cc97f847f1b5adf8",
+      "width": 1440,
+      "height": 620,
+      "sha256": "7e883ba10f39805e82aa5abed5c6033a3625a0e6cdc29973a2bd7c536fc27a7a",
       "sourceSha256": "5ac3399c6796d90eda4a8e7a29d09d30c37b4e42dca185194d8b6d111b2e94af",
-      "mode": "palette-only-with-exterior-frame"
+      "mode": "native-workflow"
     },
     {
       "number": 2,
       "src": "/media/research/jev/figure-2-portfolio.svg",
-      "width": 1601,
-      "height": 668,
-      "sha256": "38b8530639324809b55f81b1ba4030bf6f6089cb0c016628bf9282dc76b0f958",
+      "width": 1440,
+      "height": 665,
+      "sha256": "2c6d29853bb25be465159759fba17571737590c577d33523bf8038d2da7382af",
       "sourceSha256": "1c1a513bba2de3d5b11b1b12945e0ef15e5573411aab721d1fa9619693141da9",
-      "mode": "palette-only-with-exterior-frame"
+      "mode": "published-bar-boundaries",
+      "barSegments": [
+        {
+          "panel": 0,
+          "row": 0,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 210,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 0,
+          "row": 0,
+          "category": 2,
+          "startPixel": 210,
+          "endPixel": 211,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 0,
+          "row": 0,
+          "category": 1,
+          "startPixel": 211,
+          "endPixel": 275,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 0,
+          "row": 1,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 210,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 0,
+          "row": 1,
+          "category": 2,
+          "startPixel": 210,
+          "endPixel": 211,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 0,
+          "row": 1,
+          "category": 1,
+          "startPixel": 211,
+          "endPixel": 275,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 0,
+          "row": 2,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 274,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 0,
+          "row": 2,
+          "category": 1,
+          "startPixel": 274,
+          "endPixel": 275,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 0,
+          "category": 1,
+          "startPixel": 0,
+          "endPixel": 2,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 0,
+          "category": 2,
+          "startPixel": 2,
+          "endPixel": 275,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 1,
+          "category": 1,
+          "startPixel": 0,
+          "endPixel": 5,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 1,
+          "category": 2,
+          "startPixel": 5,
+          "endPixel": 275,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 2,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 3,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 2,
+          "category": 2,
+          "startPixel": 3,
+          "endPixel": 4,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 2,
+          "category": 1,
+          "startPixel": 4,
+          "endPixel": 9,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 1,
+          "row": 2,
+          "category": 2,
+          "startPixel": 9,
+          "endPixel": 275,
+          "sourceWidth": 275
+        },
+        {
+          "panel": 2,
+          "row": 0,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 8,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 0,
+          "category": 2,
+          "startPixel": 8,
+          "endPixel": 9,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 0,
+          "category": 1,
+          "startPixel": 9,
+          "endPixel": 47,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 0,
+          "category": 2,
+          "startPixel": 47,
+          "endPixel": 274,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 1,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 17,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 1,
+          "category": 2,
+          "startPixel": 17,
+          "endPixel": 18,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 1,
+          "category": 1,
+          "startPixel": 18,
+          "endPixel": 118,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 1,
+          "category": 2,
+          "startPixel": 118,
+          "endPixel": 274,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 2,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 130,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 2,
+          "category": 2,
+          "startPixel": 130,
+          "endPixel": 131,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 2,
+          "category": 1,
+          "startPixel": 131,
+          "endPixel": 160,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 2,
+          "row": 2,
+          "category": 2,
+          "startPixel": 160,
+          "endPixel": 274,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 0,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 16,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 0,
+          "category": 2,
+          "startPixel": 16,
+          "endPixel": 17,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 0,
+          "category": 1,
+          "startPixel": 17,
+          "endPixel": 32,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 0,
+          "category": 2,
+          "startPixel": 32,
+          "endPixel": 274,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 1,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 16,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 1,
+          "category": 2,
+          "startPixel": 16,
+          "endPixel": 17,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 1,
+          "category": 1,
+          "startPixel": 17,
+          "endPixel": 89,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 1,
+          "category": 2,
+          "startPixel": 89,
+          "endPixel": 274,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 2,
+          "category": 0,
+          "startPixel": 0,
+          "endPixel": 88,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 2,
+          "category": 1,
+          "startPixel": 88,
+          "endPixel": 89,
+          "sourceWidth": 274
+        },
+        {
+          "panel": 3,
+          "row": 2,
+          "category": 2,
+          "startPixel": 89,
+          "endPixel": 274,
+          "sourceWidth": 274
+        }
+      ]
     },
     {
       "number": 3,
       "src": "/media/research/jev/figure-3-portfolio.svg",
-      "width": 1492,
-      "height": 771,
-      "sha256": "fe553f4c9456cb76100b5f76a2c8ae4a7b1ab47e9b95a39f7e018bed26d7aa77",
+      "width": 1440,
+      "height": 780,
+      "sha256": "1186e8cb2f57ce7f1151ed383323c582b79f3fbdb96513eac8ff3266e94525d6",
       "sourceSha256": "faf6f5d4dab2501fd4702c29556f6d655ce2e1e35da2d683cd7923af53a141ff",
-      "mode": "palette-only-with-exterior-frame"
+      "mode": "traced-published-marks"
     },
     {
       "number": 4,
       "src": "/media/research/jev/figure-4-portfolio.svg",
-      "width": 1004,
-      "height": 839,
-      "sha256": "74efdcbaa74ac5d746837ab31599d0e32127f536cbfca36ca4ff9262ddd7d37d",
+      "width": 1440,
+      "height": 1150,
+      "sha256": "79888a6fef76cae6d58a4d62026b57ee648b0e3f0ea49f13bf5b7169bde45f8f",
       "sourceSha256": "9c4f28310684653f51279d2e6ee962ae1a35cb0201274c045ede74ba68815598",
-      "mode": "palette-only-with-exterior-frame"
+      "mode": "traced-published-marks"
     },
     {
       "number": 5,
       "src": "/media/research/jev/figure-5-portfolio.svg",
-      "width": 1503,
-      "height": 636,
-      "sha256": "fade22c6740ed714faa43884517f9dde41eb8801e38d77a681f3023e01310e45",
+      "width": 1440,
+      "height": 710,
+      "sha256": "2b2f708d04c5e97d2940a4ccb00915ae0561a07dc8b18fe08241b1c115fb9a87",
       "sourceSha256": "0f0625e720527b6345a8cd731858d3bc47819ac9009e17015f5992321ad36fd9",
-      "mode": "palette-only-with-exterior-frame"
+      "mode": "native-published-counts",
+      "matrices": [
+        [
+          [
+            97,
+            11,
+            0
+          ],
+          [
+            27,
+            77,
+            1
+          ],
+          [
+            0,
+            3,
+            4
+          ]
+        ],
+        [
+          [
+            104,
+            4,
+            0
+          ],
+          [
+            52,
+            51,
+            2
+          ],
+          [
+            0,
+            1,
+            6
+          ]
+        ],
+        [
+          [
+            95,
+            13,
+            0
+          ],
+          [
+            57,
+            45,
+            3
+          ],
+          [
+            0,
+            0,
+            7
+          ]
+        ],
+        [
+          [
+            103,
+            5,
+            0
+          ],
+          [
+            83,
+            10,
+            12
+          ],
+          [
+            1,
+            0,
+            6
+          ]
+        ]
+      ]
     },
     {
       "number": 6,
       "src": "/media/research/jev/figure-6-portfolio.svg",
-      "width": 1389,
-      "height": 953,
-      "sha256": "dfe2cd01a780dbdbdee3f216a9df879c64433674c4e1edf6d3c6358c77ca2944",
+      "width": 1440,
+      "height": 968,
+      "sha256": "f59cd1fc7dd211dcb01fab9cbf338451f59d0fd63d8516ea3362498bf1a945b0",
       "sourceSha256": "0680641d088c9fe3a512dff10a6d3d1d938359a9d44fd170d37cffee2aec500b",
-      "mode": "palette-only-with-exterior-frame"
+      "mode": "traced-published-marks",
+      "connectors": [
+        {
+          "sourceY": 46,
+          "sourceStartX": 557,
+          "sourceEndX": 969
+        },
+        {
+          "sourceY": 116,
+          "sourceStartX": 638,
+          "sourceEndX": 1195
+        },
+        {
+          "sourceY": 186,
+          "sourceStartX": 652,
+          "sourceEndX": 1159
+        },
+        {
+          "sourceY": 257,
+          "sourceStartX": 681,
+          "sourceEndX": 1132
+        },
+        {
+          "sourceY": 327,
+          "sourceStartX": 487,
+          "sourceEndX": 1012
+        },
+        {
+          "sourceY": 398,
+          "sourceStartX": 517,
+          "sourceEndX": 942
+        },
+        {
+          "sourceY": 468,
+          "sourceStartX": 460,
+          "sourceEndX": 899
+        },
+        {
+          "sourceY": 538,
+          "sourceStartX": 733,
+          "sourceEndX": 993
+        }
+      ]
     },
     {
       "number": 7,
       "src": "/media/research/jev/figure-7-portfolio.svg",
-      "width": 823,
-      "height": 771,
-      "sha256": "4bf136e6378e1d1cae19f8ff95d2802638f43f05d35e8fbaf7ad7daf60d8bba5",
+      "width": 1440,
+      "height": 1250,
+      "sha256": "9baef2354c9edf07914a29f99c86f4a21a2c258a05031fed5f5b1cd504764475",
       "sourceSha256": "15a748a9df9af2caf904e457b1a8e0adfe18e25694176bfc7fb36877ca53a642",
-      "mode": "palette-only-with-exterior-frame"
+      "mode": "traced-published-marks"
+    }
+  ],
+  "traces": [
+    {
+      "figure": 3,
+      "bounds": [
+        172,
+        80,
+        532,
+        480
+      ],
+      "maskSha256": "4490f0974dce1df9e8108a8ac38197e8805cafd21bc7383a43d15ba64ee8cf34",
+      "paths": 3,
+      "color": "#f2efde",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 3,
+      "bounds": [
+        172,
+        80,
+        532,
+        480
+      ],
+      "maskSha256": "95ba5e1ef60e99b820eeef4acfe7f2d17474b87bbf2e8029efb803f213949a5a",
+      "paths": 46,
+      "color": "#f4ff54",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 0.999624
+    },
+    {
+      "figure": 3,
+      "bounds": [
+        606,
+        80,
+        966,
+        480
+      ],
+      "maskSha256": "3db60a8fcb06178621387cd1117b79f9f1492e0d739dd30d31b068d769dcc563",
+      "paths": 36,
+      "color": "#f2efde",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 3,
+      "bounds": [
+        1039,
+        80,
+        1399,
+        480
+      ],
+      "maskSha256": "073441c7d09a7213f249f026c89eb8f98a30c950a77fc746d14b70d3bf1486d7",
+      "paths": 49,
+      "color": "#f2efde",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 4,
+      "bounds": [
+        135,
+        37,
+        918,
+        561
+      ],
+      "maskSha256": "38851fb8be332b7c8d893572fe0b6bf8f6cc1e1f4037db10c5f3e2a209adc2e3",
+      "paths": 13,
+      "color": "#f4ff54",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 4,
+      "bounds": [
+        135,
+        37,
+        918,
+        561
+      ],
+      "maskSha256": "079cb85cb0a2ba0d38fd1be95e5ee0e572401f13301ce71de66cc5c7720c374e",
+      "paths": 1,
+      "color": "#f2efde",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 4,
+      "bounds": [
+        135,
+        37,
+        918,
+        561
+      ],
+      "maskSha256": "b27d89cd2ed4b231c82bb5998669607fa4c8e00fac0cfdd31166d6f1e925de9b",
+      "paths": 6,
+      "color": "#c6a7ff",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 6,
+      "bounds": [
+        328,
+        23,
+        1282,
+        565
+      ],
+      "maskSha256": "ee54f7d1a1b3e42a79940faf720bfd46bc7a0b92ce89fed34d8f5f2c3dc4d335",
+      "paths": 8,
+      "color": "#ff76b9",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 6,
+      "bounds": [
+        328,
+        23,
+        1282,
+        565
+      ],
+      "maskSha256": "e1d5be57e03c335439e715fb896608f5b2128690293fa573bba2e3a87617b9bc",
+      "paths": 10,
+      "color": "#c6a7ff",
+      "sourceRecallWithin1px": 0.998279,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 6,
+      "bounds": [
+        328,
+        23,
+        1282,
+        565
+      ],
+      "maskSha256": "e69ca8dc2b5d49dda084a4f7fa60ca5fa94b2682cc73d9d2e00504fc5867d1d9",
+      "paths": 8,
+      "color": "#f2efde",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 6,
+      "bounds": [
+        328,
+        23,
+        1282,
+        565
+      ],
+      "maskSha256": "09b21af542047ccbbb6e8a52f8d20085f8865447d5474ee37383426e12f37fd9",
+      "paths": 8,
+      "color": "#f4ff54",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 1.0
+    },
+    {
+      "figure": 7,
+      "bounds": [
+        124,
+        36,
+        738,
+        493
+      ],
+      "maskSha256": "4f448714e74e473ad6b1378c913cadf2393dc09f4ba66b90907022a1873ce0b8",
+      "paths": 1,
+      "color": "#f4ff54",
+      "sourceRecallWithin1px": 1.0,
+      "vectorPrecisionWithin1px": 0.998915
     }
   ]
 }

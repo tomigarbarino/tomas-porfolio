@@ -65,12 +65,12 @@ function Blocks({ blocks }: { blocks: Block[] }) {
     } else if (block.type === "figure") {
       const styled = figureStyle.figures.find(figure => figure.number === block.number)!;
       rendered.push(<figure className="jev-figure" id={`jev-figure-${block.number}`} key={index}>
-        <a href={styled.src} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^Figura \d+\. /, "")}`}>
+        <a href={`/writing/jev/figures/${block.number}`} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^Figura \d+\. /, "")}`}>
           <Image src={styled.src} width={styled.width} height={styled.height} unoptimized alt={block.caption} sizes="(max-width: 900px) 90vw, 980px" />
           <span>Ampliar figura {block.number} ↗</span>
         </a>
         <figcaption><Citations text={block.caption} /></figcaption>
-        {block.number === 3 && <p className="jev-figure__palette-note">En esta versión visual, la barra negra del original se muestra en crema.</p>}
+        <p className="jev-figure__palette-note">{styled.mode === "native-workflow" || styled.mode === "native-published-counts" ? "Redibujado en vector con la tipografía del sitio y el contenido publicado." : "Marcas vectorizadas de la figura publicada; ejes y textos redibujados. Sin recalcular datos."}{block.number === 3 && " La barra negra del original se muestra en crema."}</p>
         <a className="jev-figure__original" href={block.src} target="_blank" rel="noopener noreferrer">Comparar con la figura {block.number} original ↗</a>
       </figure>);
     } else if (block.type === "equation") {

@@ -21,16 +21,15 @@ export default function OrquestadorPage() {
       <main id="orquestador-main" className="orq-case">
         <header className="orq-case__hero">
           <p className="eyebrow">OWN PROJECT / PRODUCT DESIGN + ENGINEERING / 2026</p>
-          <h1>From scattered work<br />to a <span>reviewable draft.</span></h1>
-          <p className="orq-case__intro">Orquestador de entregables turns recurring reporting into a visible workflow: gather sources, select evidence, check claims and prepare a draft for a person to review.</p>
-          <div className="orq-case__actions"><a className="button-primary" href={demo} target="_blank" rel="noreferrer">Try the guided demo ↗</a><a href={repo} target="_blank" rel="noreferrer">Inspect the source ↗</a></div>
-          <p className="orq-case__note">Original personal project. The demo replays a recorded local-model run from public commits. Interface in Spanish; no accounts or model calls needed.</p>
+          <h1>Your next progress update.<br /><span>With the evidence attached.</span></h1>
+          <p className="orq-case__intro">For people who reconstruct the same report every week. Orquestador de entregables turns a source packet into a review draft, keeps each item tied to its evidence, and blocks claims the sources cannot support.</p>
+          <div className="orq-case__actions"><a className="button-primary" href="#orq-demo">Explore the example deliverable ↓</a><a href={repo} target="_blank" rel="noreferrer">Inspect the source ↗</a><a href={demo} target="_blank" rel="noreferrer">Open the standalone demo ↗</a></div>
+          <p className="orq-case__note">Original personal project · public-source example · recorded local-model run. Explore the replay and download its review draft without an account or a live model call.</p>
         </header>
 
-        <figure className="orq-case__figure">
-          <Image src="/media/orquestador/guided-demo.jpg" width={1536} height={730} priority alt="Orquestador guided flow: three linked public commits, evidence control and a draft pending human review" sizes="(max-width: 900px) 94vw, 1200px" />
-          <figcaption>Actual application capture. Public repository snapshot; the linked record includes the original input, model response and measurements.</figcaption>
-        </figure>
+        <dl className="orq-case__promise"><div><dt>Input</dt><dd>A bounded source packet</dd></div><div><dt>Output</dt><dd>A draft you can inspect and save</dd></div><div><dt>Your decision</dt><dd>Review relevance and wording</dd></div></dl>
+
+        <OrquestadorSequencer />
 
         <section className="orq-case__section" aria-labelledby="orq-problem">
           <div><p className="eyebrow">01 / THE PROBLEM</p><h2 id="orq-problem">Reporting is a reconstruction task.</h2></div>
@@ -47,8 +46,6 @@ export default function OrquestadorPage() {
           </ol>
         </section>
 
-        <OrquestadorSequencer />
-
         <section className="orq-case__failure" aria-labelledby="orq-failure">
           <p className="eyebrow">03 / TRY TO BREAK THE CLAIM</p><h2 id="orq-failure">In main ≠ deployed.</h2>
           <p>The demo lets you change one selected item to “deployed.” The source packet does not support that state, so the gate removes the draft and explains what is missing. Restore the original selection to continue.</p>
@@ -60,6 +57,8 @@ export default function OrquestadorPage() {
           <div><p className="eyebrow">04 / ENGINEERING DECISIONS</p><h2 id="orq-engineering">Make the boundary explicit.</h2></div>
           <div><p><b>Constrain before generating.</b> The guided run selects IDs rather than composing arbitrary claims. The final text comes from the selected records. Reference matching alone would not prove the truth of free-form prose.</p><p><b>Share the gate.</b> The CLI replay and browser import the same pure validation module. The existing server reference matcher is also extracted into a browser-safe module without changing its API.</p><p><b>Keep the demo reproducible.</b> Input bytes are tied to the recorded run with SHA-256. Default replay needs no network; a separate explicit command runs local inference. CI runs the full tests, replay, existing smoke flows and static build.</p><p className="orq-case__note">Stack: React, Node.js, Vite, JSON/YAML recipes and a local Ollama capture. The broader local application uses Claude Code; this recorded slice does not claim to validate that full integration.</p></div>
         </section>
+
+        <details className="orq-app-capture"><summary>See the standalone application capture</summary><figure className="orq-case__figure"><Image src="/media/orquestador/guided-demo.jpg" width={1536} height={730} alt="Actual standalone Orquestador interface with three public commits, evidence checks and a draft pending human review" sizes="(max-width: 900px) 94vw, 1200px" /><figcaption>Actual application capture. The portfolio replay above uses the same recorded source packet and validation gate. <a href={demo} target="_blank" rel="noreferrer">Open the standalone demo ↗</a></figcaption></figure></details>
 
         <section className="orq-case__measurement" aria-labelledby="orq-measured">
           <p className="eyebrow">05 / MEASURED ON {metrics.capturedAt.slice(0, 10)}</p><h2 id="orq-measured">One recorded run. Clear limits.</h2>
