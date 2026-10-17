@@ -1,0 +1,74 @@
+{
+  "palette": {
+    "ink": "#080909",
+    "cream": "#f2efde",
+    "acid": "#f4ff54",
+    "violet": "#c6a7ff",
+    "pink": "#ff76b9"
+  },
+  "figures": [
+    {
+      "number": 1,
+      "src": "/media/research/jev/figure-1-portfolio.svg",
+      "width": 1573,
+      "height": 541,
+      "sha256": "8baaab855f2c6386499c61db36133e90bacb65d5d5d0e9a0cc97f847f1b5adf8",
+      "sourceSha256": "5ac3399c6796d90eda4a8e7a29d09d30c37b4e42dca185194d8b6d111b2e94af",
+      "mode": "palette-only-with-exterior-frame"
+    },
+    {
+      "number": 2,
+      "src": "/media/research/jev/figure-2-portfolio.svg",
+      "width": 1601,
+      "height": 668,
+      "sha256": "38b8530639324809b55f81b1ba4030bf6f6089cb0c016628bf9282dc76b0f958",
+      "sourceSha256": "1c1a513bba2de3d5b11b1b12945e0ef15e5573411aab721d1fa9619693141da9",
+      "mode": "palette-only-with-exterior-frame"
+    },
+    {
+      "number": 3,
+      "src": "/media/research/jev/figure-3-portfolio.svg",
+      "width": 1492,
+      "height": 771,
+      "sha256": "fe553f4c9456cb76100b5f76a2c8ae4a7b1ab47e9b95a39f7e018bed26d7aa77",
+      "sourceSha256": "faf6f5d4dab2501fd4702c29556f6d655ce2e1e35da2d683cd7923af53a141ff",
+      "mode": "palette-only-with-exterior-frame"
+    },
+    {
+      "number": 4,
+      "src": "/media/research/jev/figure-4-portfolio.svg",
+      "width": 1004,
+      "height": 839,
+      "sha256": "74efdcbaa74ac5d746837ab31599d0e32127f536cbfca36ca4ff9262ddd7d37d",
+      "sourceSha256": "9c4f28310684653f51279d2e6ee962ae1a35cb0201274c045ede74ba68815598",
+      "mode": "palette-only-with-exterior-frame"
+    },
+    {
+      "number": 5,
+      "src": "/media/research/jev/figure-5-portfolio.svg",
+      "width": 1503,
+      "height": 636,
+      "sha256": "fade22c6740ed714faa43884517f9dde41eb8801e38d77a681f3023e01310e45",
+      "sourceSha256": "0f0625e720527b6345a8cd731858d3bc47819ac9009e17015f5992321ad36fd9",
+      "mode": "palette-only-with-exterior-frame"
+    },
+    {
+      "number": 6,
+      "src": "/media/research/jev/figure-6-portfolio.svg",
+      "width": 1389,
+      "height": 953,
+      "sha256": "dfe2cd01a780dbdbdee3f216a9df879c64433674c4e1edf6d3c6358c77ca2944",
+      "sourceSha256": "0680641d088c9fe3a512dff10a6d3d1d938359a9d44fd170d37cffee2aec500b",
+      "mode": "palette-only-with-exterior-frame"
+    },
+    {
+      "number": 7,
+      "src": "/media/research/jev/figure-7-portfolio.svg",
+      "width": 823,
+      "height": 771,
+      "sha256": "4bf136e6378e1d1cae19f8ff95d2802638f43f05d35e8fbaf7ad7daf60d8bba5",
+      "sourceSha256": "15a748a9df9af2caf904e457b1a8e0adfe18e25694176bfc7fb36877ca53a642",
+      "mode": "palette-only-with-exterior-frame"
+    }
+  ]
+}

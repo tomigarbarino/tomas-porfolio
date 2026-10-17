@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import rawStudy from "@/content/jev-study.json";
+import figureStyle from "@/content/jev-figure-style.json";
 import { JEV_PUBLICATION } from "@/lib/publications";
 import "./jev-study.css";
 
@@ -62,12 +63,15 @@ function Blocks({ blocks }: { blocks: Block[] }) {
     } else if (block.type === "table") {
       rendered.push(<StudyTable id={block.id} key={index} />);
     } else if (block.type === "figure") {
+      const styled = figureStyle.figures.find(figure => figure.number === block.number)!;
       rendered.push(<figure className="jev-figure" id={`jev-figure-${block.number}`} key={index}>
-        <a href={block.src} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^Figura \d+\. /, "")}`}>
-          <Image src={block.src} width={block.width} height={block.height} unoptimized alt={block.caption} sizes="(max-width: 900px) 90vw, 980px" />
+        <a href={styled.src} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^Figura \d+\. /, "")}`}>
+          <Image src={styled.src} width={styled.width} height={styled.height} unoptimized alt={block.caption} sizes="(max-width: 900px) 90vw, 980px" />
           <span>Ampliar figura {block.number} ↗</span>
         </a>
         <figcaption><Citations text={block.caption} /></figcaption>
+        {block.number === 3 && <p className="jev-figure__palette-note">En esta versión visual, la barra negra del original se muestra en crema.</p>}
+        <a className="jev-figure__original" href={block.src} target="_blank" rel="noopener noreferrer">Comparar con la figura {block.number} original ↗</a>
       </figure>);
     } else if (block.type === "equation") {
       rendered.push(<p key={index} className="jev-equation">{block.text}</p>);

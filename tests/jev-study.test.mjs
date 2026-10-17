@@ -36,3 +36,21 @@ test('all seven original research figures retain their exact extracted bytes', (
     assert.equal(bytes.readUInt32BE(20), figure.height);
   }
 });
+
+test('portfolio variants embed exact source pixels at native size without changing plot geometry', () => {
+  const style = JSON.parse(readFileSync(new URL('../src/content/jev-figure-style.json', import.meta.url)));
+  const originals = blocks.filter(block => block.type === 'figure');
+  assert.deepEqual(style.figures.map(figure => figure.number), [1, 2, 3, 4, 5, 6, 7]);
+  for (const styled of style.figures) {
+    const original = originals.find(figure => figure.number === styled.number);
+    const svg = readFileSync(new URL(`../public${styled.src}`, import.meta.url), 'utf8');
+    const embedded = Buffer.from(svg.match(/href="data:image\/png;base64,([^"]+)"/)[1], 'base64');
+    assert.equal(createHash('sha256').update(svg).digest('hex'), styled.sha256);
+    assert.equal(createHash('sha256').update(embedded).digest('hex'), original.sha256);
+    assert.equal(styled.sourceSha256, original.sha256);
+    assert.ok(svg.includes(`<image x="28" y="100" width="${original.width}" height="${original.height}"`));
+    assert.equal(styled.width, original.width + 64);
+    assert.equal(styled.height, original.height + 150);
+    assert.doesNotMatch(svg, /<(script|foreignObject)\b|href="https?:|<fe(GaussianBlur|DisplacementMap|Morphology|ConvolveMatrix)\b/);
+  }
+});

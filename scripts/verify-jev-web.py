@@ -20,6 +20,8 @@ class StudyHTML(HTMLParser):
         self.text = []
         self.sections = []
         self.figures = []
+        self.figure_images = []
+        self.original_links = []
         self.references = []
         self.embeds = 0
         self.downloads = []
@@ -45,6 +47,10 @@ class StudyHTML(HTMLParser):
             self.sections.append(attrs["id"])
         if tag == "figure" and "jev-figure" in attrs.get("class", "").split():
             self.figures.append(attrs["id"])
+        if tag == "img":
+            self.figure_images.append(attrs.get("src"))
+        if tag == "a" and "jev-figure__original" in attrs.get("class", "").split():
+            self.original_links.append(attrs.get("href"))
         if tag == "li" and attrs.get("id", "").startswith("jev-ref-"):
             self.references.append(attrs["id"])
         if tag == "table":
@@ -84,6 +90,7 @@ def main():
     base = options.base_url.rstrip("/")
     study = json.loads((ROOT / "src/content/jev-study.json").read_text(encoding="utf-8"))
     report = json.loads((ROOT / "src/content/jev-report.json").read_text(encoding="utf-8"))
+    styled = json.loads((ROOT / "src/content/jev-figure-style.json").read_text(encoding="utf-8"))["figures"]
     with urlopen(base + "/writing/jev", timeout=30) as response:
         assert response.status == 200
         html = response.read().decode()
@@ -110,6 +117,8 @@ def main():
                 text = re.sub(r"^\d\.\s*", "", text)
             assert normalize(text) in visible, text[:100]
     figures = [block for section in study["sections"] for block in section["blocks"] if block["type"] == "figure"]
+    assert page.figure_images == [figure["src"] for figure in styled]
+    assert page.original_links == [figure["src"] for figure in figures]
 
     def check_figure(figure):
         with urlopen(base + figure["src"], timeout=30) as response:
@@ -119,13 +128,14 @@ def main():
 
     with ThreadPoolExecutor(max_workers=4) as executor:
         verified_figures = list(executor.map(check_figure, figures))
+        verified_styled = list(executor.map(check_figure, styled))
     with urlopen(base + report["localPath"], timeout=30) as response:
         pdf = response.read()
         assert response.headers.get_content_type() == "application/pdf"
     assert hashlib.sha256(pdf).hexdigest() == report["sha256"]
     result = {"base": base, "status": "passed", "nativeSections": len(page.sections), "nativeTables": len(page.tables),
               "tableDataCells": cells, "references": len(page.references), "embeds": page.embeds,
-              "allScientificProseRendered": True, "figures": verified_figures,
+              "allScientificProseRendered": True, "figures": verified_figures, "styledFigures": verified_styled,
               "pdf": {"path": report["localPath"], "pages": report["pages"], "sha256": report["sha256"]}}
     options.output.parent.mkdir(parents=True, exist_ok=True)
     options.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
