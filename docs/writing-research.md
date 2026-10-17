@@ -1,22 +1,41 @@
 # Writing & Research
 
-Authorized scope: add the approved Writing & Research section to the homepage and shared menu, starting with the published JEV paper and retaining the current visual identity.
+## Summary
 
-## Implementation and content
+Work and Writing & Research are independent destinations. The homepage now reads introduction → career story → original work → professional cases → brief writing preview → contact. The Work anchor includes Orquestador first. Agora and Trainly remain professional projects at Flock I+D.
 
-- `lib/publications.ts` holds the public paper URL, original title, publication date and attribution. The existing Agora research component retains its exported URL through that shared source.
-- `WritingResearch.tsx` renders a single publication card after the original-project section and before the career story. It uses the existing condensed display font, mono copy, acid accent and printed-paper treatment, with scoped styles.
-- The card separates the research question, personal authorship and study takeaway. It links to the full publication and the related Agora case, retaining Flock Labs credit. The study is retrospective; its corpus is not an adoption metric, and hiring outcomes were not measured.
-- `SiteHeader.tsx` links to `/#writing` on home and case pages. Responsive labels and header layout keep all existing destinations accessible at narrow widths.
+## User experience
 
-No new route, dependency, tracking, data store, API, account connection or client state is needed. No empty news entries or future publication dates are invented. The original publication remains on its publisher's site.
+`/writing` is a card catalogue. Open the JEV card to find the complete study, reading notes and original publication credit. `/writing/jev` hosts the original 17-page Spanish report, an embedded PDF reader, full-view and download links, followed by English reading notes with expandable margin annotations. The owner explicitly requested the complete research and original document on the portfolio, rather than only an outbound summary.
 
-## Acceptance and verification
+The source PDF is preserved byte-for-byte, including all methods, results, figures, references and appendices. This is an existing public report authored by Tomás Garbarino and published by Flock Labs, not a newly generated or translated report. Its publisher and October 4, 2026 publication date remain credited. The reading notes distinguish retrospective agreement from hiring outcomes and deployed policy. No private candidate records are included.
 
-Homepage contains a server-rendered section headed Writing & Research. The menu reaches it from home and all case routes. The JEV card shows its original title, October 4, 2026 publication date, authorship, summary and source link. Keyboard focus, visible focus indicators, mobile wrapping and absence of page overflow are checked in the browser. Existing case routes, motion controls, CV and original-project access remain available.
+## Page signatures
 
-Run lint, TypeScript and production build; check rendered source, publication URL, desktop/mobile navigation, then verify the exact deployed commit and live path. Record final release evidence locally.
+- Home preserves the explorable desktop and five-stage career story.
+- Agora preserves the evidence dossier and before/after guardrail comparison; research is now a related-reading link, with product implementation evidence retained in the case.
+- Trainly wraps its five-stage explorer in a learning console with previous/next controls and module indicators.
+- Orquestador has a manual four-step evidence sequencer. A deliberate unsupported deployment claim blocks all output; restoration re-enables the original draft.
+- Writing uses an expandable catalogue card; JEV uses a document reader and annotated printout.
 
-October 17, 2026: lint, TypeScript and production build passed. HTTP checks verified the section/date/source in the server-rendered homepage and the shared menu on all three case routes. Browser checks covered keyboard activation/focus on home, navigation from the Agora research case back to the section, the full paper opening on the publisher's site, and layouts at desktop, 800 px, 390 px and 320 px widths without page overflow. The publisher's page confirmed the title, author and October 4 date. No physical-device testing was performed.
+All controls are available without dragging or autoplay. Native disclosures support keyboard and touch. Card motion follows the existing pause and reduced-motion settings. Existing typography, acid, violet, pink, retro windows, cursor and artifact interactions are retained.
 
-Rollback: revert this scoped commit or promote the previous Vercel deployment. No migrations or external publication changes are involved.
+## Technical overview
+
+`SiteHeader.tsx` links to `/writing` independently of `/#work`, sets category-aware `aria-current`, and supplies accurate back links. Home fragment state uses `useSyncExternalStore` with a stable server snapshot. The old `/#writing` and Agora `#research` anchors remain valid. Writing pages are server-rendered; native disclosures need no client JavaScript.
+
+`writing-seo.ts` supplies distinct canonicals, social metadata and collection/article structured data, including a local PDF encoding and citation of the original work. The sitemap includes both routes. `src/content/jev-report.json` records the original public PDF source, page count, size and SHA-256; `public/documents/jev-agora-research.pdf` is the unchanged report.
+
+`OrquestadorSequencer.tsx` uses the saved public source packet and original model selection. The gate is a byte-for-byte copy of the original demo module, documented under `src/lib/orquestador/README.md`; no inference or external write occurs. Tests verify original source-byte integrity, contract rejection, absence of partial drafts and successful restoration. No API, database, dependency, tracking, authentication or migration was added.
+
+## Operational notes
+
+Start the Next production preview after `npm run build`. The PDF is served from the same site; browser-native embedding varies, so open/download links remain visible on every viewport. The reader adds an 806 KB document, loaded lazily. No new model/provider cost occurs.
+
+## Validation
+
+`npm run lint`, `npm test` (9 cases), `npm run typecheck` and `npm run build`. Browser checks covered desktop, 800 px tablet, 390 px and 320 px layouts; no page overflow in the tested views. Keyboard catalogue expansion and annotations, independent active navigation, home sequence and original-work entry, Agora guardrail comparison, Trainly progression, Orquestador valid/failure/restore states and inline full-report rendering were checked. The pause-specific card rule was strengthened after QA found a specificity conflict. Final deployment evidence is recorded separately. PDF verification checks 17 pages, original source hash, readable first/last pages and preserved report code FLOCK-AGO-JEV-001. No physical-device testing is claimed.
+
+## Risks and rollback
+
+Browser PDF support differs; local open/download links provide an alternative. These findings do not establish hiring quality, fairness or a production threshold rollout. Revert the scoped release or promote the previous Vercel deployment to roll back; no data migration is involved.

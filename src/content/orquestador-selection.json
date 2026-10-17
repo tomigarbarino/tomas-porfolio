@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "id": "C1",
+      "estado": "en_main"
+    },
+    {
+      "id": "C2",
+      "estado": "en_main"
+    },
+    {
+      "id": "C3",
+      "estado": "en_main"
+    }
+  ]
+}

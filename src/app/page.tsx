@@ -20,14 +20,16 @@ export default function Home() {
     <MotionPreference>
       <AmbientMotion />
       <ScrollMotion />
-      <a className="skip-link" href="#work">Skip to case studies</a>
+      <a className="skip-link" href="#work">Skip to selected work</a>
       <main id="main">
         <div className="portfolio-backdrop" aria-hidden="true" />
         <Observatory />
-        <OriginalWork />
-        <WritingResearch />
         <OriginStory />
-        <ProductWork />
+        <div id="work" tabIndex={-1} aria-label="Selected work">
+          <OriginalWork />
+          <ProductWork />
+        </div>
+        <WritingResearch />
         <section className="contact-section" data-art-direction="collage" data-drag-boundary id="contact" aria-labelledby="contact-title">
           <div className="contact-label"><p className="eyebrow">NEXT / BUILD SOMETHING USEFUL</p><a href="#top">Back to top ↑</a></div>
           <h2 id="contact-title" data-scroll-depth="-22">A real problem?<br /><span>Let’s work on it.</span></h2>

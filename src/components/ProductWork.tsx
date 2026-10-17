@@ -9,7 +9,7 @@ import "./product-work.css";
 
 export function ProductWork() {
   return (
-    <section id="work" className="pw" aria-labelledby="work-title">
+    <section id="professional-work" className="pw" aria-labelledby="work-title">
       <div className="pw-work-entry">
         <div className="pw-work-overview">
           <header className="pw-work-header">

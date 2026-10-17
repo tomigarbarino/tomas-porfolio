@@ -202,3 +202,13 @@ html[data-motion="paused"] .td-stage-content { transition: none; }
   .td-world .ascii-video, .td-stage-list button { transition: none; }
   .td-stage-content { transition: none; }
 }
+
+.td-console-bar { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; padding:16px; border:1px solid var(--line); border-top:5px solid var(--td-violet); font-size:10px; color:var(--td-violet); }
+.td-console-transport { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding:22px 0; }
+.td-console-transport button { min-height:44px; padding:10px 14px; border:1px solid var(--line); font-size:11px; }
+.td-console-transport button:disabled { opacity:.45; cursor:default; }
+.td-console-transport button:not(:disabled):hover { background:var(--td-violet); color:var(--bg); }
+.td-console-transport > span { display:flex; gap:5px; }
+.td-console-transport i { display:block; width:10px; height:18px; border:1px solid var(--td-violet); }
+.td-console-transport i[data-active="true"] { background:var(--td-violet); }
+@media(max-width:500px) { .td-console-transport > span { width:100%; order:3; justify-content:center; } .td-console-transport button { font-size:10px; padding-inline:9px; } }

@@ -21,7 +21,7 @@ const sections = [
   { id: "overview", label: "Context + role" },
   { id: "decision", label: "The decision" },
   { id: "flow", label: "Product flow" },
-  { id: "research", label: "Published research" },
+  { id: "research", label: "Related research" },
   { id: "experience", label: "Candidate experience" },
   { id: "system", label: "Product system" },
   { id: "next", label: "What comes next" },
@@ -175,7 +175,7 @@ export function AgoraDossier() {
           </section>
 
           <section className="ad-section ad-research-section" id="research" data-drag-boundary aria-labelledby="agora-research-title">
-            <SectionHeading number="04" label="Published research" title={<span id="agora-research-title">How I validate<br />AI decisions.</span>}><p>The published JEV study compares AI evaluations with reference judgments in a retrospective dataset. It is separate from the production incident above.</p></SectionHeading>
+            <SectionHeading number="04" label="Evidence + related reading" title={<span id="agora-research-title">Keep the judgment<br />close to its evidence.</span>}><p>The published JEV study compares AI evaluations with reference judgments in a retrospective dataset. It is separate from the production incident above.</p></SectionHeading>
             <AgoraResearch />
           </section>
 

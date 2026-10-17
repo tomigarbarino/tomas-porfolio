@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { StructuredData } from "@/components/StructuredData";
 import { caseStudyMetadata, caseStudyStructuredData } from "@/lib/seo";
 import metrics from "@/content/orquestador-run.json";
+import { OrquestadorSequencer } from "@/components/OrquestadorSequencer";
 import "@/components/orquestador-case.css";
 
 export const metadata = caseStudyMetadata("orquestador");
@@ -45,6 +46,8 @@ export default function OrquestadorPage() {
             <li><b>04 — Review</b><p>Build the draft from source titles and links. A person still decides relevance and wording. This flow does not send it anywhere.</p></li>
           </ol>
         </section>
+
+        <OrquestadorSequencer />
 
         <section className="orq-case__failure" aria-labelledby="orq-failure">
           <p className="eyebrow">03 / TRY TO BREAK THE CLAIM</p><h2 id="orq-failure">In main ≠ deployed.</h2>

@@ -6,7 +6,7 @@ A portfolio that connects the products I've worked on with the decisions, interf
 
 ## Writing & Research
 
-**[Writing & Research](https://tomas-garbarino.vercel.app/#writing)** starts with my published JEV study: AI interview evaluation, CV decision thresholds and human review in Agora, published at Flock Labs. The homepage includes the research question, authorship, date, takeaway and link to the full paper.
+**[Writing & Research](https://tomas-garbarino.vercel.app/writing)** is an independent catalogue, alongside Work. The [JEV research page](https://tomas-garbarino.vercel.app/writing/jev) hosts the complete original 17-page report, an embedded reader, a PDF download and annotated reading notes. The study covers AI interview evaluation, CV decision thresholds and human review in Agora, with original Flock Labs publication credit. The homepage keeps a brief preview after the work.
 
 ## Original project
 
@@ -60,6 +60,7 @@ The project uses Next.js, React, TypeScript, Tailwind CSS, GSAP, and Lenis. The 
 
 ```sh
 npm run lint
+npm test
 npm run typecheck
 npm run build
 ```
