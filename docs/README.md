@@ -1,5 +1,7 @@
 # Portfolio documentation
 
+- [Writing & Research](writing-research.md): homepage publication card, shared navigation, JEV attribution and responsive validation.
+
 - [Orquestador original project](orquestador-case.md): guided public-source workflow, recorded run, failure gate, own-project positioning and contact paths.
 
 - [Accessibility and AI search audit](accessibility-ai-search-audit.md): WCAG findings and fixes, manual coverage, server-rendered identity/case schema, search validation and remaining limits.

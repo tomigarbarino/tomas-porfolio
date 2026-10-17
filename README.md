@@ -4,6 +4,10 @@ A portfolio that connects the products I've worked on with the decisions, interf
 
 **[Explore the portfolio](https://tomas-garbarino.vercel.app/) · [Download my CV](https://tomas-garbarino.vercel.app/documents/tomas-garbarino-cv-en.pdf) · [Get in touch](https://www.linkedin.com/in/tomas-garbarino/)**
 
+## Writing & Research
+
+**[Writing & Research](https://tomas-garbarino.vercel.app/#writing)** starts with my published JEV study: AI interview evaluation, CV decision thresholds and human review in Agora, published at Flock Labs. The homepage includes the research question, authorship, date, takeaway and link to the full paper.
+
 ## Original project
 
 **[Orquestador de entregables](https://tomas-garbarino.vercel.app/en/orquestador)** — a recurring progress update with public-source evidence, a recorded local AI run, explicit state checks and human review. [Try the guided demo](https://orquestador-entregables-tomas.vercel.app/?caso=avance), including a deliberate unsupported claim that blocks the draft. This is my own project; the professional product contributions below have separate attribution.

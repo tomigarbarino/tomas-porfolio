@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Observatory } from "@/components/Observatory";
 import { OriginalWork } from "@/components/OriginalWork";
+import { WritingResearch } from "@/components/WritingResearch";
 import { ProductWork } from "@/components/ProductWork";
 import { OriginStory } from "@/components/OriginStory";
 import { MotionPreference } from "@/components/MotionPreference";
@@ -24,6 +25,7 @@ export default function Home() {
         <div className="portfolio-backdrop" aria-hidden="true" />
         <Observatory />
         <OriginalWork />
+        <WritingResearch />
         <OriginStory />
         <ProductWork />
         <section className="contact-section" data-art-direction="collage" data-drag-boundary id="contact" aria-labelledby="contact-title">

@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { ArtifactDrag } from "./ArtifactDrag";
+import { JEV_PUBLICATION } from "@/lib/publications";
 import "./agora-research.css";
 
-export const JEV_PAPER_URL = "https://www.flocklabs.ar/research/como-decide-jev-en-agora-probabilidades-umbrales-y-revision-humana";
+export const JEV_PAPER_URL = JEV_PUBLICATION.url;
 
 const results = [
   { id: "jev", label: "JEV", value: "80.9%", interval: "95% CI 75.0–86.4", width: "80.9%" },

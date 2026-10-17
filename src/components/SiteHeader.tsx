@@ -13,6 +13,7 @@ type SiteHeaderProps = {
 
 const navigation = [
   { label: "Case studies", hash: "work" },
+  { label: "Writing & Research", hash: "writing" },
   { label: "Story", hash: "story" },
   { label: "Contact", hash: "contact" },
 ] as const;
@@ -35,7 +36,7 @@ export function SiteHeader({ context = "home", backHref = "/#trainly" }: SiteHea
         <nav className="site-header__navigation" aria-label="Main navigation">
           {navigation.map(item => (
             <HeaderLink context={context} key={item.hash} href={`/#${item.hash}`} className={item.hash === "work" ? "site-header__cases" : undefined}>
-              {item.hash === "work" ? <><span className="site-header__case-label--full">Case studies</span><span className="site-header__case-label--short">Cases</span></> : item.label}
+              {item.hash === "work" ? <><span className="site-header__case-label--full">Case studies</span><span className="site-header__case-label--short">Cases</span></> : item.hash === "writing" ? <span className="site-header__writing-label"><span>Writing &amp;</span>{" "}<span>Research</span></span> : item.label}
             </HeaderLink>
           ))}
           <CVDownloadLink className="site-header__cv">CV <span aria-hidden="true">↓</span></CVDownloadLink>
