@@ -87,7 +87,7 @@ export function PortfolioDialogs({ selected, onDismiss }: Props) {
           <p>Currently at Flock I+D.</p>
           <dl className="profile-grid"><div><dt>Current products</dt><dd>Agora · Product Owner<br />Trainly · Product Engineer</dd></div><div><dt>Opportunities</dt><dd>Product Engineer / Forward Deployed Engineer</dd></div><div><dt>Product status</dt><dd>Agora and Trainly are used by clients and growing.</dd></div></dl>
           <div className="dialog-actions"><a className="button-primary" href="#work" onClick={event => navigate(event, "work")}>View case studies →</a><a href="mailto:tomasgarbarino.dev@gmail.com">Get in touch ↗</a></div>
-          <div className="profile-links"><a href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/tomigarbarino" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          <p><a href="/en/orquestador">Own project: Orquestador — evidence, AI and human review →</a></p><div className="profile-links"><a href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/tomigarbarino" target="_blank" rel="noreferrer">GitHub ↗</a></div>
         </> : <>
           <div className="quest-heading"><p className="eyebrow">A LITTLE CONTEXT. A LITTLE PLAY.</p>{view !== "hub" && <button type="button" onClick={() => setView("hub")}>← All quests</button>}</div>
           <h2 ref={questTitle} tabIndex={-1} id="dialog-title">{view === "hub" ? "Follow a lead.\nOr play a little." : "Connect the loop."}</h2>

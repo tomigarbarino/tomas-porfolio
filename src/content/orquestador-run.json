@@ -1,0 +1,8 @@
+{
+  "capturedAt": "2026-10-17T20:51:08.29Z",
+  "wallMs": 13211,
+  "model": "qwen3.5:4b",
+  "inputTokens": 716,
+  "outputTokens": 85,
+  "sourceHash": "a5151d7fa89c13169c0c1eef9967664fc64ea24fe0f199f04fd6787320bb04d4"
+}

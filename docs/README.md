@@ -1,5 +1,7 @@
 # Portfolio documentation
 
+- [Orquestador original project](orquestador-case.md): guided public-source workflow, recorded run, failure gate, own-project positioning and contact paths.
+
 - [Accessibility and AI search audit](accessibility-ai-search-audit.md): WCAG findings and fixes, manual coverage, server-rendered identity/case schema, search validation and remaining limits.
 - [Secret 404 game](secret-404-game.md): retro packet recovery, footer discovery, keyboard/motion behavior, real 404 routing and verification.
 

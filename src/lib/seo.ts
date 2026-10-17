@@ -33,6 +33,18 @@ const website = {
 } as const;
 
 const cases = {
+  orquestador: {
+    path: "/en/orquestador",
+    name: "Orquestador de entregables",
+    title: "Orquestador — an original evidence-backed workflow project",
+    description: "An original project by Tomás Garbarino: public-source inputs, a recorded local AI run, evidence checks, a blocked unsupported claim and a draft for human review.",
+    shareTitle: "Orquestador — A draft needs something behind it",
+    shareDescription: "Explore an original product engineering project, its guided demo and the evidence behind one recorded local-model run.",
+    image: {
+      url: "/media/orquestador/guided-demo.jpg", width: 1536, height: 730,
+      alt: "Actual Orquestador guided demo with public source evidence and a reviewable draft",
+    },
+  },
   agora: {
     path: "/en/agora",
     name: "Agora",
