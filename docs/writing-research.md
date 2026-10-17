@@ -6,9 +6,9 @@ Work and Writing & Research are independent destinations. The homepage now reads
 
 ## User experience
 
-`/writing` is a card catalogue. Open the JEV card to find the complete study, reading notes and original publication credit. `/writing/jev` hosts the original 17-page Spanish report, an embedded PDF reader, full-view and download links, followed by English reading notes with expandable margin annotations. The owner explicitly requested the complete research and original document on the portfolio, rather than only an outbound summary.
+`/writing` is a card catalogue. Open the JEV card to find the complete study, reading notes and local PDF download. `/writing/jev` hosts the original 17-page Spanish report, an embedded PDF reader, full-view and download links, followed by English reading notes with expandable margin annotations. The owner explicitly requested the complete research and original document on the portfolio, rather than only an outbound summary.
 
-The source PDF is preserved byte-for-byte, including all methods, results, figures, references and appendices. This is an existing public report authored by Tomás Garbarino and published by Flock Labs, not a newly generated or translated report. Its publisher and October 4, 2026 publication date remain credited. The reading notes distinguish retrospective agreement from hiring outcomes and deployed policy. No private candidate records are included.
+The source PDF is preserved byte-for-byte, including all methods, results, figures, references and appendices. This is the existing report authored by Tomás Garbarino, not a newly generated or translated report. The owner clarified that the portal should be its primary home without external publication links or publisher promotion. The pages emphasize personal authorship and retain the October 4, 2026 date. The document itself remains intact; its source metadata is retained for file provenance. The reading notes distinguish retrospective agreement from hiring outcomes and deployed policy. No private candidate records are included.
 
 ## Page signatures
 
@@ -24,7 +24,7 @@ All controls are available without dragging or autoplay. Native disclosures supp
 
 `SiteHeader.tsx` links to `/writing` independently of `/#work`, sets category-aware `aria-current`, and supplies accurate back links. Home fragment state uses `useSyncExternalStore` with a stable server snapshot. The old `/#writing` and Agora `#research` anchors remain valid. Writing pages are server-rendered; native disclosures need no client JavaScript.
 
-`writing-seo.ts` supplies distinct canonicals, social metadata and collection/article structured data, including a local PDF encoding and citation of the original work. The sitemap includes both routes. `src/content/jev-report.json` records the original public PDF source, page count, size and SHA-256; `public/documents/jev-agora-research.pdf` is the unchanged report.
+`writing-seo.ts` supplies distinct canonicals, social metadata and collection/article structured data, including a local PDF encoding and a local reference to the complete report. The sitemap includes both routes. `src/content/jev-report.json` records the original public PDF source, page count, size and SHA-256; `public/documents/jev-agora-research.pdf` is the unchanged report.
 
 `OrquestadorSequencer.tsx` uses the saved public source packet and original model selection. The gate is a byte-for-byte copy of the original demo module, documented under `src/lib/orquestador/README.md`; no inference or external write occurs. Tests verify original source-byte integrity, contract rejection, absence of partial drafts and successful restoration. No API, database, dependency, tracking, authentication or migration was added.
 

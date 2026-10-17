@@ -1,10 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArtifactDrag } from "./ArtifactDrag";
-import { JEV_PUBLICATION } from "@/lib/publications";
 import "./agora-research.css";
-
-export const JEV_PAPER_URL = JEV_PUBLICATION.url;
 
 export function AgoraResearch() {
   return <div className="ajr">

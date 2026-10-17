@@ -61,7 +61,7 @@ const cases = {
       alt: "Agora criterion evidence and human review — actual interface with fictional demo data",
     },
     citation:
-      "https://www.flocklabs.ar/research/como-decide-jev-en-agora-probabilidades-umbrales-y-revision-humana",
+      `${SITE_URL}/writing/jev`,
   },
   trainly: {
     path: "/en/trainly",

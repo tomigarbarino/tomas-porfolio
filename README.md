@@ -6,7 +6,7 @@ A portfolio that connects the products I've worked on with the decisions, interf
 
 ## Writing & Research
 
-**[Writing & Research](https://tomas-garbarino.vercel.app/writing)** is an independent catalogue, alongside Work. The [JEV research page](https://tomas-garbarino.vercel.app/writing/jev) hosts the complete original 17-page report, an embedded reader, a PDF download and annotated reading notes. The study covers AI interview evaluation, CV decision thresholds and human review in Agora, with original Flock Labs publication credit. The homepage keeps a brief preview after the work.
+**[Writing & Research](https://tomas-garbarino.vercel.app/writing)** is an independent catalogue, alongside Work. The [JEV research page](https://tomas-garbarino.vercel.app/writing/jev) hosts the complete original 17-page report, an embedded reader, a PDF download and annotated reading notes. The study covers AI interview evaluation, CV decision thresholds and human review in Agora, authored by Tomás Garbarino. The homepage keeps a brief preview after the work.
 
 ## Original project
 

@@ -1,9 +1,9 @@
-// Public publication metadata, verified against the publisher's page.
+// Study metadata. The portfolio is the primary reading and download destination.
 export const JEV_PUBLICATION = {
-  url: "https://www.flocklabs.ar/research/como-decide-jev-en-agora-probabilidades-umbrales-y-revision-humana",
+  url: "/writing/jev",
+  documentUrl: "/documents/jev-agora-research.pdf",
   title: "Cómo decide JEV en Agora: probabilidades, umbrales y revisión humana",
   publishedAt: "2026-10-04",
   displayDate: "October 4, 2026",
   author: "Tomás Garbarino",
-  publisher: "Flock Labs",
 } as const;
