@@ -1,5 +1,6 @@
 "use client";
 
+import { recordMissionEvent } from "@/lib/visitor-missions";
 import Image from "next/image";
 import Link from "next/link";
 import { useId, useState } from "react";
@@ -18,7 +19,7 @@ export function JevFigureViewer({ figure, caption, original }: { figure: Figure;
     <div className="jev-viewer__toolbar" role="group" aria-label="Ampliación de la figura">
       <button type="button" onClick={() => setZoom(Math.max(1, zoom - .5))} disabled={zoom === 1} aria-label="Reducir figura">−</button>
       <output aria-live="polite" aria-atomic="true">{zoom * 100}%</output>
-      <button type="button" onClick={() => setZoom(Math.min(4, zoom + .5))} disabled={zoom === 4} aria-label="Ampliar figura">+</button>
+      <button type="button" onClick={() => { recordMissionEvent("figure-enlarged"); setZoom(Math.min(4, zoom + .5)); }} disabled={zoom === 4} aria-label="Ampliar figura">+</button>
       <button type="button" onClick={() => setZoom(1)}>Ajustar al panel</button>
       <a href={figure.src} download={`jev-figura-${figure.number}.svg`}>Descargar SVG ↓</a>
     </div>

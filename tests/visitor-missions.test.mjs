@@ -1,71 +1,81 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { missions, answerMission, readCompleted, getMissionSnapshot, saveMissionCompletion, resetMissions, subscribeMissions } from '../src/lib/visitor-missions.ts';
+import { missions, emptyMissionState, applyDiscovery, readMissionState, completedMissions, getMissionSnapshot, recordMissionEvent, trackMission, resetMissions, subscribeMissions } from '../src/lib/visitor-missions.ts';
 import { missions as spanish } from '../src/localized/es/lib/visitor-missions.ts';
 
-test('every visitor mission requires all its decisions, with wrong choices staying on the current step', () => {
+test('discoveries complete missions only through their real interaction checkpoints', () => {
+  let state = emptyMissionState();
   for (const mission of missions) {
-    let step = 0;
-    for (const question of mission.steps) {
-      for (const option of question.options.filter(item => item.id !== question.answer)) {
-        assert.deepEqual(answerMission(mission.id, step, option.id), { accepted: false, step, complete: false });
-      }
-      const result = answerMission(mission.id, step, question.answer);
-      step += 1;
-      assert.deepEqual(result, { accepted: true, step, complete: step === mission.steps.length });
+    for (const checkpoint of mission.checkpoints) {
+      assert.equal(completedMissions(state).includes(mission.id), false);
+      state = applyDiscovery(state, checkpoint.id);
     }
-    assert.equal(answerMission(mission.id, step, mission.steps.at(-1).answer).complete, false);
+    assert.equal(completedMissions(state).includes(mission.id), true);
   }
+  assert.equal(completedMissions(state).length, 5);
 });
 
-test('unknown missions, missing choices and out-of-range steps cannot complete a mission', () => {
-  for (const [id, step, choice] of [['unknown', 0, 'source'], ['loop', -1, 'source'], ['loop', 0.5, 'source'], ['loop', 99, 'source'], ['loop', 0, 'missing']]) {
-    const result = answerMission(id, step, choice);
-    assert.equal(result.accepted, false);
-    assert.equal(result.complete, false);
-    assert.equal(result.step, step);
-  }
+test('route visits, quiz answers, tracking and out-of-order events do not award discoveries', () => {
+  const state = emptyMissionState();
+  for (const event of ['source', 'loop', 'paper', '/writing/jev', 'unknown', 'gate-restored', 'packet-recovered']) assert.equal(applyDiscovery(state, event), state);
+  const blocked = applyDiscovery(state, 'gate-blocked');
+  assert.deepEqual(completedMissions(blocked), []);
+  const restored = applyDiscovery(blocked, 'gate-restored');
+  assert.deepEqual(completedMissions(restored), ['gate']);
+  assert.equal(applyDiscovery(restored, 'gate-restored'), restored);
 });
 
-test('stored progress rejects corrupt data and unknown IDs, and deduplicates completed missions', () => {
-  for (const raw of [null, '', 'broken', '{}', '42', '"loop"', '[null,{}]']) assert.deepEqual(readCompleted(raw), []);
-  assert.deepEqual(readCompleted('["research","loop","loop","retired"]'), ['loop', 'research']);
+test('missions can be discovered without tracking, in any mission order', () => {
+  let state = emptyMissionState();
+  for (const mission of [...missions].reverse()) for (const checkpoint of mission.checkpoints) state = applyDiscovery(state, checkpoint.id);
+  assert.equal(state.active, null);
+  assert.equal(completedMissions(state).length, missions.length);
 });
 
-test('English and Spanish missions share decision rules and progress IDs, with localized destinations', () => {
-  assert.equal(missions.length, 3);
+test('v1 quiz completion and corrupt saved data cannot count as exploration progress', () => {
+  for (const raw of [null, '', 'broken', '{}', '42', '["loop","evidence","research"]', '{"version":1,"events":["menu-fold"]}']) assert.deepEqual(readMissionState(raw), emptyMissionState());
+  const raw = JSON.stringify({ version: 2, active: 'retired', events: ['gate-restored', 'menu-fold', 'menu-fold', null, {}, 'retired', 'gate-blocked'] });
+  assert.deepEqual(readMissionState(raw), { version: 2, active: null, events: ['menu-fold', 'gate-blocked'] });
+  assert.deepEqual(completedMissions(readMissionState(raw)), ['paper']);
+});
+
+test('locale presentation preserves the same discovery rules, IDs and localized destinations', () => {
   missions.forEach((mission, index) => {
-    const translated = spanish[index];
-    assert.equal(translated.id, mission.id);
-    assert.notEqual(translated.title, mission.title);
-    assert.deepEqual(translated.steps.map(step => [step.answer, step.options.map(option => option.id)]), mission.steps.map(step => [step.answer, step.options.map(option => option.id)]));
-    assert.match(translated.href, /^\/es\//);
+    assert.equal(spanish[index].id, mission.id);
+    assert.notEqual(spanish[index].title, mission.title);
+    assert.deepEqual(spanish[index].checkpoints.map(item => item.id), mission.checkpoints.map(item => item.id));
+    assert.match(spanish[index].href, /^\/es(?:\/|#|$)/);
   });
 });
 
-test('completion persists once per mission, reset notifies subscribers, and blocked storage retains in-memory progress', () => {
+test('session progress persists, active mission is optional, duplicates are silent, reset and blocked storage work', () => {
   const events = new EventTarget();
-  const stored = new Map();
-  const storage = { getItem: key => stored.get(key) ?? null, setItem: (key, value) => stored.set(key, value) };
+  const stored = new Map([['tg-visitor-missions-v1', '["loop"]']]);
   const original = globalThis.window;
-  globalThis.window = { sessionStorage: storage, addEventListener: events.addEventListener.bind(events), removeEventListener: events.removeEventListener.bind(events), dispatchEvent: events.dispatchEvent.bind(events) };
+  globalThis.window = { sessionStorage: { getItem: key => stored.get(key) ?? null, setItem: (key, value) => stored.set(key, value) }, addEventListener: events.addEventListener.bind(events), removeEventListener: events.removeEventListener.bind(events), dispatchEvent: events.dispatchEvent.bind(events) };
   let notifications = 0;
   const unsubscribe = subscribeMissions(() => notifications++);
   try {
-    resetMissions();
-    saveMissionCompletion('loop');
-    saveMissionCompletion('loop');
-    saveMissionCompletion('unknown');
-    assert.deepEqual(readCompleted(getMissionSnapshot()), ['loop']);
-    assert.equal([...stored.values()][0], '["loop"]');
+    assert.deepEqual(readMissionState(getMissionSnapshot()), emptyMissionState());
+    trackMission('paper');
+    assert.deepEqual(completedMissions(readMissionState(getMissionSnapshot())), []);
+    assert.equal(readMissionState(getMissionSnapshot()).active, 'paper');
+    recordMissionEvent('menu-fold');
+    recordMissionEvent('menu-fold');
+    recordMissionEvent('unknown');
+    assert.equal(notifications, 2);
+    assert.deepEqual(completedMissions(readMissionState(stored.get('tg-visitor-missions-v2'))), ['paper']);
+    trackMission(null);
+    assert.deepEqual(completedMissions(readMissionState(getMissionSnapshot())), ['paper']);
     globalThis.window.sessionStorage = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
-    saveMissionCompletion('evidence');
-    assert.deepEqual(readCompleted(getMissionSnapshot()), ['loop', 'evidence']);
+    recordMissionEvent('sticker-note');
+    assert.deepEqual(completedMissions(readMissionState(getMissionSnapshot())), ['paper', 'sticker']);
     resetMissions();
-    assert.deepEqual(readCompleted(getMissionSnapshot()), []);
-    assert.equal(notifications, 6);
+    assert.deepEqual(readMissionState(getMissionSnapshot()), emptyMissionState());
+    assert.equal(notifications, 5);
     unsubscribe();
-    saveMissionCompletion('research');
-    assert.equal(notifications, 6);
+    recordMissionEvent('menu-fold');
+    assert.equal(notifications, 5);
+    assert.equal(stored.get('tg-visitor-missions-v1'), '["loop"]');
   } finally { unsubscribe(); globalThis.window = original; }
 });

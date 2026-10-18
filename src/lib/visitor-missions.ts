@@ -1,75 +1,49 @@
 export const missions = [
-  {
-    id: "loop",
-    title: "Connect the learning loop",
-    objective: "Build a three-step path from source material to understanding.",
-    brief: "You are designing a learning experience. Choose what comes next at each step.",
-    steps: [
-      { question: "What starts a learning loop?", answer: "source", options: [{ id: "learn", label: "Learn" }, { id: "source", label: "Source" }, { id: "assess", label: "Assess" }], feedback: "Start with source material. The flow needs something to work from." },
-      { question: "Now help someone use that material.", answer: "learn", options: [{ id: "assess", label: "Assess" }, { id: "publish", label: "Publish" }, { id: "learn", label: "Learn" }], feedback: "Learning comes next: turn the material into an experience someone can use." },
-      { question: "How do you see what they understood?", answer: "assess", options: [{ id: "assess", label: "Assess" }, { id: "publish", label: "Publish" }, { id: "source", label: "Source" }], feedback: "Assessment reveals understanding. Shipping alone does not tell you what someone learned." },
-    ],
-    success: "Source → Learn → Assess. You connected a simplified learning loop inspired by Trainly.",
-    href: "/en/trainly",
-    link: "Explore the Trainly case →",
-  },
-  {
-    id: "evidence",
-    title: "Catch the unsupported claim",
-    objective: "Review an AI draft and decide what the evidence allows you to publish.",
-    brief: "Mission scenario: a source packet records a code change and a passing local test. The AI draft also says the product was deployed to production.",
-    steps: [
-      { question: "Which sentence is supported by this packet?", answer: "local", options: [{ id: "live", label: "The product is live in production." }, { id: "local", label: "The local test passed." }, { id: "clients", label: "Clients already use the product." }], feedback: "A passing local test supports a test result. It does not establish deployment or client use." },
-      { question: "The deployment claim is still in the draft. What should the export gate do?", answer: "block", options: [{ id: "export", label: "Export the entire draft." }, { id: "hide", label: "Hide the warning and continue." }, { id: "block", label: "Block export until the claim is removed or supported." }], feedback: "An unsupported claim must be removed or backed by evidence before the draft can be exported." },
-    ],
-    success: "You kept the claim within the evidence and stopped an unsupported export. Try the working gate in Orquestador next.",
-    href: "/en/orquestador",
-    link: "Try the Orquestador demo →",
-  },
-  {
-    id: "research",
-    title: "Read beyond the headline",
-    objective: "Separate a research finding from a promise the study cannot make.",
-    brief: "JEV reported 80.9% vs 54.1% agreement with historical labels in its main comparison. Your task: choose a defensible interpretation.",
-    steps: [
-      { question: "What does this comparison measure?", answer: "agreement", options: [{ id: "outcomes", label: "A guaranteed improvement in hiring outcomes." }, { id: "agreement", label: "Agreement with the study's historical labels." }, { id: "fairness", label: "Fairness across demographic groups." }], feedback: "Agreement with historical labels is the measured result. Hiring outcomes and demographic fairness require separate evidence." },
-      { question: "What is still needed before using this result for hiring decisions?", answer: "review", options: [{ id: "review", label: "Human review, broader validation and a fairness evaluation." }, { id: "nothing", label: "Nothing: the higher number proves it is ready." }, { id: "automatic", label: "Replace human judgment with the score." }], feedback: "The study is retrospective. Its result does not remove the need for validation, fairness evaluation or human review." },
-    ],
-    success: "You separated an observed result from an unproven outcome. The full JEV research explains the method and its limits.",
-    href: "/writing/jev",
-    link: "Read the JEV research →",
-  },
+  { id: "paper", title: "Something under the paper", objective: "Find a folded corner in the story and reveal what is underneath.", hint: "A digital menu has a corner you can lift. Press it to keep the hidden note open.", href: "/#story-conversations", checkpoints: [{ id: "menu-fold", label: "Lift the menu corner" }] },
+  { id: "sticker", title: "A note behind the sticker", objective: "Find a developer sticker and uncover its hidden note.", hint: "There is one near Trainly and another near the contact details. Press the sticker to pin its note open.", href: "/#trainly", checkpoints: [{ id: "sticker-note", label: "Pin a sticker note open" }] },
+  { id: "gate", title: "Break it. Bring it back.", objective: "Explore the delivery desk. Make the draft disappear, then restore it.", hint: "In Orquestador, try the unsupported deployment claim. Once export is blocked, restore the recorded selection.", href: "/en/orquestador#orq-demo", checkpoints: [{ id: "gate-blocked", label: "Trigger the evidence block" }, { id: "gate-restored", label: "Restore the review draft" }] },
+  { id: "zoom", title: "Beyond the frame", objective: "Find a research figure and take a closer look beyond its frame.", hint: "Open a figure from the JEV study. In the vector viewer, press + to enlarge it.", href: "/writing/jev", checkpoints: [{ id: "figure-enlarged", label: "Enlarge a research figure" }] },
+  { id: "arcade", title: "Lost + Found", objective: "Find the hidden arcade and recover a matching pair of signals.", hint: "Follow the initials at the very bottom of the portfolio. A page that should not exist has something to play.", href: "/#top", checkpoints: [{ id: "arcade-found", label: "Find the secret entrance" }, { id: "packet-recovered", label: "Recover a matching pair" }] },
 ];
 
-export function answerMission(id: string, step: number, choice: string) {
-  const mission = missions.find(item => item.id === id);
-  const current = Number.isInteger(step) && step >= 0 ? mission?.steps[step] : undefined;
-  const accepted = Boolean(current && current.answer === choice);
-  return { accepted, step: accepted ? step + 1 : step, complete: Boolean(accepted && mission && step + 1 === mission.steps.length) };
+export type MissionState = { version: 2; events: string[]; active: string | null };
+export const emptyMissionState = (): MissionState => ({ version: 2, events: [], active: null });
+
+/** Discoveries are recorded only by deliberate interactions, in checkpoint order. */
+export function applyDiscovery(state: MissionState, event: string): MissionState {
+  const mission = missions.find(item => item.checkpoints.some(checkpoint => checkpoint.id === event));
+  const index = mission?.checkpoints.findIndex(checkpoint => checkpoint.id === event) ?? -1;
+  if (!mission || state.events.includes(event) || !mission.checkpoints.slice(0, index).every(checkpoint => state.events.includes(checkpoint.id))) return state;
+  return { ...state, events: [...state.events, event] };
 }
 
-export function readCompleted(raw: string | null): string[] {
+export function readMissionState(raw: string | null): MissionState {
   try {
-    const value: unknown = JSON.parse(raw ?? "null");
-    return Array.isArray(value) ? missions.filter(mission => value.includes(mission.id)).map(mission => mission.id) : [];
-  } catch { return []; }
+    const value = JSON.parse(raw ?? "null");
+    if (!value || value.version !== 2 || !Array.isArray(value.events)) return emptyMissionState();
+    let state = emptyMissionState();
+    for (const event of value.events) if (typeof event === "string") state = applyDiscovery(state, event);
+    return { ...state, active: missions.some(mission => mission.id === value.active) ? value.active : null };
+  } catch { return emptyMissionState(); }
 }
 
-const storageKey = "tg-visitor-missions-v1";
+export function completedMissions(state: MissionState) {
+  return missions.filter(mission => mission.checkpoints.every(checkpoint => state.events.includes(checkpoint.id))).map(mission => mission.id);
+}
+
+const storageKey = "tg-visitor-missions-v2";
 const changeEvent = "tg-missions-changed";
 let snapshot: string | null = null;
 let loaded = false;
 
 export function getMissionSnapshot() {
   if (!loaded) {
-    try { snapshot = window.sessionStorage.getItem(storageKey); } catch { /* Keep progress in memory when storage is unavailable. */ }
+    try { snapshot = window.sessionStorage.getItem(storageKey); } catch { /* Progress still works in memory. */ }
     loaded = true;
   }
   return snapshot;
 }
-
 export function getServerMissionSnapshot() { return null; }
-
 export function subscribeMissions(callback: () => void) {
   const onStorage = (event: StorageEvent) => {
     if (event.key !== storageKey && event.key !== null) return;
@@ -79,22 +53,23 @@ export function subscribeMissions(callback: () => void) {
   };
   window.addEventListener(changeEvent, callback);
   window.addEventListener("storage", onStorage);
-  return () => {
-    window.removeEventListener(changeEvent, callback);
-    window.removeEventListener("storage", onStorage);
-  };
+  return () => { window.removeEventListener(changeEvent, callback); window.removeEventListener("storage", onStorage); };
 }
-
-export function saveMissionCompletion(id: string) {
-  const completed = readCompleted(getMissionSnapshot());
-  writeCompleted([...completed, id]);
+export function recordMissionEvent(event: string) {
+  const state = readMissionState(getMissionSnapshot());
+  const next = applyDiscovery(state, event);
+  if (next !== state) writeState(next);
 }
-
-export function resetMissions() { writeCompleted([]); }
-
-function writeCompleted(ids: string[]) {
-  snapshot = JSON.stringify(readCompleted(JSON.stringify(ids)));
+export function trackMission(id: string | null) {
+  if (id !== null && !missions.some(mission => mission.id === id)) return;
+  writeState({ ...readMissionState(getMissionSnapshot()), active: id });
+}
+export function resetMissions() { writeState(emptyMissionState()); }
+function writeState(state: MissionState) {
+  const next = JSON.stringify(state);
+  if (next === getMissionSnapshot()) return;
+  snapshot = next;
   loaded = true;
-  try { window.sessionStorage.setItem(storageKey, snapshot); } catch { /* The in-memory snapshot still works. */ }
+  try { window.sessionStorage.setItem(storageKey, snapshot); } catch { /* Keep the in-memory snapshot. */ }
   window.dispatchEvent(new Event(changeEvent));
 }

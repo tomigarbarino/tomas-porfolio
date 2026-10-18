@@ -1,5 +1,6 @@
 "use client";
 
+import { recordMissionEvent } from "@/lib/visitor-missions";
 import Image from "next/image";
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import ArtifactDrag from "./ArtifactDrag";
@@ -127,7 +128,7 @@ export function PeelSticker({ art, title, fact, tone = "pink", className = "" }:
             setFocused(false);
             if (!hovered && disclosure === "dismissed") setDisclosure("preview");
           }}
-          onClick={() => setDisclosure(disclosure === "pinned" ? "dismissed" : "pinned")}
+          onClick={() => { if (disclosure !== "pinned") recordMissionEvent("sticker-note"); setDisclosure(disclosure === "pinned" ? "dismissed" : "pinned"); }}
         >
           <span className="peel-sticker__title" id={`${id}-title`}>{title}</span>
           <span className="peel-sticker__backing" aria-hidden="true">

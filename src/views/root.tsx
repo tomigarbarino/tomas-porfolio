@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { MissionTrail } from "@/components/MissionTrail";
 import localFont from "next/font/local";
 import { PersonalCursor } from "@/components/PersonalCursor";
 import { CursorInkTrail } from "@/components/CursorInkTrail";
@@ -52,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${display.variable} ${mono.variable}`}><PersonalCursor /><CursorInkTrail /><CaseStudyPreviewProvider>{children}</CaseStudyPreviewProvider></body>
+      <body className={`${display.variable} ${mono.variable}`}><PersonalCursor /><CursorInkTrail /><CaseStudyPreviewProvider>{children}</CaseStudyPreviewProvider><MissionTrail /></body>
     </html>
   );
 }

@@ -1,6 +1,6 @@
 # Portfolio documentation
 
-- [Visitor missions](visitor-missions.md): optional product challenges, feedback, session progress, bilingual rules and validation.
+- [Visitor missions](visitor-missions.md): portfolio treasure hunt, hidden interactions, optional clues, session progress and bilingual validation.
 
 - [English and Spanish](portfolio-languages.md): site-wide switch, complete bilingual research, translated vectors, static rendering and validation.
 

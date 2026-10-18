@@ -65,7 +65,7 @@ function Blocks({ blocks }: { blocks: Block[] }) {
     } else if (block.type === "figure") {
       const styled = figureStyle.figures.find(figure => figure.number === block.number)!;
       rendered.push(<figure className="jev-figure" id={`jev-figure-${block.number}`} key={index}>
-        <a href={`/writing/jev/figures/${block.number}`} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^(?:Figura|Figure) \d+\. /, "")}`}>
+        <a href={`/writing/jev/figures/${block.number}`} aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^(?:Figura|Figure) \d+\. /, "")}`}>
           <Image src={styled.src} width={styled.width} height={styled.height} unoptimized alt={block.caption} sizes="(max-width: 900px) 90vw, 980px" />
           <span>Ampliar figura {block.number} ↗</span>
         </a>

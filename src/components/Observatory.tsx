@@ -22,8 +22,15 @@ export function Observatory() {
     function openDialog(event: Event) {
       if (event instanceof CustomEvent && (event.detail === "profile" || event.detail === "quests")) setSelected(event.detail);
     }
+    const checkHash = () => { if (window.location.hash === "#missions") setSelected("quests"); };
+    const initial = requestAnimationFrame(checkHash);
+    window.addEventListener("hashchange", checkHash);
     window.addEventListener("tg-portfolio-dialog", openDialog);
-    return () => window.removeEventListener("tg-portfolio-dialog", openDialog);
+    return () => {
+      cancelAnimationFrame(initial);
+      window.removeEventListener("hashchange", checkHash);
+      window.removeEventListener("tg-portfolio-dialog", openDialog);
+    };
   }, []);
 
   function hideWindow(state: "minimized" | "closed") {

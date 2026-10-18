@@ -5,7 +5,7 @@
 .mission-total progress::-webkit-progress-value { background: var(--acid); }
 .mission-total progress::-moz-progress-bar { background: var(--acid); }
 .portfolio-dialog .mission-board { display: grid; gap: 14px; border: 0; }
-.portfolio-dialog .mission-board > button {
+.portfolio-dialog .mission-board > article {
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr);
   gap: 14px;
@@ -17,34 +17,31 @@
   text-align: left;
   transition: transform var(--motion-response) var(--motion-ease);
 }
-.portfolio-dialog .mission-board > button:nth-child(2) { background: var(--fg); }
-.portfolio-dialog .mission-board > button:nth-child(3) { background: var(--pop-pink, #ff76b9); }
-.portfolio-dialog .mission-board > button:is(:hover, :focus-visible) { transform: translateX(4px); }
-.portfolio-dialog .mission-board > button:focus-visible { outline: 2px solid var(--acid); outline-offset: 5px; }
+.portfolio-dialog .mission-board > article:nth-child(2) { background: var(--fg); }
+.portfolio-dialog .mission-board > article:nth-child(3) { background: var(--pop-pink, #ff76b9); }
+.portfolio-dialog .mission-board > article:focus-within { transform: translateX(4px); }
+.portfolio-dialog .mission-board > article:focus-visible { outline: 2px solid var(--acid); outline-offset: 5px; }
 .mission-number { padding-top: 3px; font-size: 11px; }
 .mission-summary { display: grid; gap: 8px; }
-.mission-summary strong { font-family: var(--font-display), sans-serif; font-size: 25px; line-height: 1.1; }
-.mission-summary > span { font-size: 11px; line-height: 1.6; }
+.mission-summary h3 { font-family: var(--font-display), sans-serif; font-size: 25px; line-height: 1.1; }
+.mission-summary > p, .mission-summary details p { font-size: 11px; line-height: 1.7; margin: 0; }
+.mission-summary h3 { margin: 0; }
+.mission-summary details { font-size: 11px; }
+.mission-summary details p { margin-top: 10px; }
+.mission-summary summary { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.mission-summary > a { width: fit-content; min-height: 38px; padding: 8px 0; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+.mission-summary :focus-visible { outline: 2px solid var(--bg); outline-offset: 3px; }
+.mission-checkpoints { list-style: none; padding: 0; margin: 4px 0; font-size: 11px; line-height: 1.8; }
 .mission-summary .mission-state { font-weight: 700; }
-.visitor-mission .mission-brief { border-left: 2px solid var(--pop-violet); padding-left: 16px; margin-bottom: 24px; }
-.visitor-mission .game-progress { grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); margin-bottom: 20px; }
-.visitor-mission .game-progress li { min-height: 60px; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; }
-.visitor-mission .game-progress li[aria-current="step"] { border-style: dashed; border-color: var(--fg); }
-.visitor-mission .mission-step-label { font-size: 11px; color: var(--muted); }
-.visitor-mission h3.mission-question { font-size: clamp(25px, 4vw, 34px); line-height: 1.15; margin: 10px 0 24px; }
-.visitor-mission .game-options { grid-template-columns: 1fr; }
-.visitor-mission .game-options > button { padding: 16px; font-size: 12px; line-height: 1.7; }
-.mission-finish { display: grid; justify-items: start; gap: 24px; font-size: 13px; }
-.mission-finish .game-replay { margin-top: 0; }
 .mission-all-done { color: var(--acid); }
-html[data-motion="paused"] .portfolio-dialog .mission-board > button { transition: none; }
-html[data-motion="paused"] .portfolio-dialog .mission-board > button:is(:hover, :focus-visible) { transform: none; }
+html[data-motion="paused"] .portfolio-dialog .mission-board > article { transition: none; }
+html[data-motion="paused"] .portfolio-dialog .mission-board > article:focus-within { transform: none; }
 @media (max-width: 799px) {
-  .portfolio-dialog .mission-board > button { grid-template-columns: 22px minmax(0, 1fr); padding: 16px 12px; gap: 8px; }
-  .mission-summary strong { font-size: 23px; }
+  .portfolio-dialog .mission-board > article { grid-template-columns: 22px minmax(0, 1fr); padding: 16px 12px; gap: 8px; }
+  .mission-summary h3 { font-size: 23px; }
   .quest-heading { align-items: start; flex-wrap: wrap; gap: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .portfolio-dialog .mission-board > button { transition: none; }
-  .portfolio-dialog .mission-board > button:is(:hover, :focus-visible) { transform: none; }
+  .portfolio-dialog .mission-board > article { transition: none; }
+  .portfolio-dialog .mission-board > article:focus-within { transform: none; }
 }

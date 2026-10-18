@@ -1,5 +1,6 @@
 "use client";
 
+import { recordMissionEvent } from "@/lib/visitor-missions";
 import Link from "next/link";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { PACKET_SIGNALS, createPacketGame, resetPacketGame, selectPacket, shufflePacketDeck } from "@/lib/packet-memory";
@@ -30,7 +31,9 @@ export default function PacketRecoveryGame() {
 
   function reveal(index: number) {
     const firstDeck = game.deck ?? shufflePacketDeck();
-    setGame(current => selectPacket(current, index, firstDeck));
+    const next = selectPacket(game, index, firstDeck);
+    if (next.matched.length > game.matched.length) recordMissionEvent("packet-recovered");
+    setGame(next);
   }
 
   function reset(replay = false) {

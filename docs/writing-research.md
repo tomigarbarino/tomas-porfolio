@@ -48,4 +48,4 @@ Offline authoring: `python scripts/import-jev-study.py` reads only the locked or
 
 ## Risks and rollback
 
-The web study can be read without browser PDF support. Wide tables retain local horizontal scrolling; figures can be enlarged in a new tab. These findings do not establish hiring quality, fairness or a production threshold rollout. Revert the scoped release or promote the previous Vercel deployment to roll back; no data migration is involved.
+The web study can be read without browser PDF support. Wide tables retain local horizontal scrolling; figures open in a dedicated viewer in the same tab, with a direct return to the study. These findings do not establish hiring quality, fairness or a production threshold rollout. Revert the scoped release or promote the previous Vercel deployment to roll back; no data migration is involved.

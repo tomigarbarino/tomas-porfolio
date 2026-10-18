@@ -1,5 +1,6 @@
 "use client";
 
+import { recordMissionEvent } from "@/lib/visitor-missions";
 import { useId, useRef, useState } from "react";
 import { ArtifactDrag } from "./ArtifactDrag";
 import { AsciiVideo } from "./AsciiVideo";
@@ -44,7 +45,7 @@ export function DigitalMenusStory({ active, paused, src, poster }: { active: boo
           onPointerCancel={() => setHovered(false)}
           onFocus={event => { if (event.currentTarget.matches(":focus-visible")) setFocused(true); }}
           onBlur={() => setFocused(false)}
-          onClick={() => setPinned(current => !current)}
+          onClick={() => { if (!pinned) recordMissionEvent("menu-fold"); setPinned(current => !current); }}
           onKeyDown={event => {
             if (event.key !== "Escape" || event.defaultPrevented) return;
             setPinned(false); setHovered(false); setFocused(false);
