@@ -18,6 +18,8 @@
   cursor: default;
   touch-action: pan-y pinch-zoom;
 }
+.move-controls[popover]:not(:popover-open) { display: none; }
+.move-controls[popover]:popover-open { display: block; }
 .move-controls:popover-open:not([data-positioned]) { visibility: hidden; }
 .move-controls__heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; margin: 0 -12px 12px; padding-left: 12px; background: #c6a7ff; color: #080909; }
 .move-controls .move-controls__heading > button { flex: 0 0 44px; min-width: 44px; min-height: 44px; font-size: 24px; line-height: 1; }

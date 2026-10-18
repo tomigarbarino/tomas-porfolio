@@ -4,7 +4,7 @@
 
 Missing routes now use the portfolio's designed retro 404 instead of Next.js's default error screen. Eight packet windows hide four matching signals; recovering them opens `curiosity.txt`, connecting the detour to the portfolio's theme of small experiments becoming real products.
 
-The footer's `TG_` signature links to `/404`. That URL deliberately remains unmatched, so it receives the same real error response as any missing route. The 404 uses the same `SiteHeader` as the case pages, with Case studies, Story, Contact, English CV download, the shared motion control and a return link to the portfolio top. Its header spans the page independently of the game's content gutters so the compact navigation fits on mobile.
+The footer's `TG_` signature links to `/404` or `/es/404`. The global-not-found boundary selects the language root from a proxy-provided URL language header, so both receive the localized game and a real 404 response. The 404 uses the same `SiteHeader` as the case pages, with Case studies, Story, Contact, English CV download, the shared motion control and a return link to the portfolio top. Its header spans the page independently of the game's content gutters so the compact navigation fits on mobile.
 
 ## User experience
 
@@ -16,7 +16,7 @@ The footer's `TG_` signature links to `/404`. That URL deliberately remains unma
 
 ## Technical overview
 
-`src/app/not-found.tsx` is a synchronous server shell with descriptive metadata, heading, explanation and return navigation. Installed Next.js 16.3.8 resolves the root not-found metadata export; built HTTP tests assert the title instead of assuming it. A trial explicit `/404` page calling `notFound()` omitted the useful server shell in its built response, so it was removed.
+`src/views/missing.tsx`, used by the global and route-group not-found boundaries, is a synchronous server shell with descriptive metadata, heading, explanation and return navigation. Installed Next.js 16.3.8 resolves the root not-found metadata export; built HTTP tests assert the title instead of assuming it. A trial explicit `/404` page calling `notFound()` omitted the useful server shell in its built response, so it was removed.
 
 `PacketRecoveryLoader.tsx` dynamically imports the client game with SSR disabled. The normal portfolio does not download the game chunk, and its footer entry disables prefetch. The server 404 remains useful without JavaScript, including the shared navigation and CV download; the optional game shows a loading message and a noscript explanation. There is no video on this view.
 

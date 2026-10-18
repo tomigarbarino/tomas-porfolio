@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { languageAlternates } from "@/i18n/routes";
 import { notFound } from "next/navigation";
 import figures from "@/content/jev-figure-style.json";
 import study from "@/content/jev-study.json";
@@ -6,11 +7,16 @@ import { JevFigureViewer } from "@/components/JevFigureViewer";
 
 type StudyBlock = { type: string; number?: number; caption?: string; src?: string };
 
-export const metadata: Metadata = {
+export async function generateMetadata({ params }: { params: Promise<{ number: string }> }): Promise<Metadata> {
+  const { number } = await params;
+  const path = `/writing/jev/figures/${number}`;
+  return {
+  alternates: { canonical: path, languages: languageAlternates(path) },
   title: "JEV · Vector figure viewer | Tomás Garbarino",
   description: "Explore the JEV research figures at full vector resolution.",
   robots: { index: false, follow: true },
-};
+  };
+}
 export const dynamicParams = false;
 export function generateStaticParams() {
   return figures.figures.map(figure => ({ number: String(figure.number) }));

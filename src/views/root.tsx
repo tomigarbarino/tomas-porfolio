@@ -3,15 +3,17 @@ import localFont from "next/font/local";
 import { PersonalCursor } from "@/components/PersonalCursor";
 import { CursorInkTrail } from "@/components/CursorInkTrail";
 import { CaseStudyPreviewProvider } from "@/components/CaseStudyDirectory";
-import { HOME_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
-import "./globals.css";
+import { HOME_DESCRIPTION, HOME_PATH, SITE_NAME, SITE_URL } from "@/lib/seo";
+import "@/app/globals.css";
+import "@/i18n/localized.css";
+import { languageAlternates } from "@/i18n/routes";
 
 const display = localFont({ src: "../../public/fonts/BarlowCondensed-Black.ttf", variable: "--font-display", weight: "900", display: "swap" });
 const mono = localFont({ src: "../../public/fonts/IBMPlexMono-Regular.ttf", variable: "--font-mono", weight: "400", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
+  alternates: { canonical: HOME_PATH, languages: languageAlternates(HOME_PATH) },
   title: {
     default: "Tomás Garbarino | Product Engineer / Applied AI",
     template: "%s | Tomás Garbarino",
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
   description: HOME_DESCRIPTION,
   authors: [{ name: "Tomás Garbarino" }],
   openGraph: {
-    url: SITE_URL,
+    url: `${SITE_URL}${HOME_PATH}`,
     siteName: SITE_NAME,
     title: "Tomás Garbarino | Product Engineer / Applied AI",
     description:

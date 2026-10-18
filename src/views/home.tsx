@@ -11,7 +11,7 @@ import { ScrollMotion } from "@/components/ScrollMotion";
 import { CVDownloadLink } from "@/components/CVDownloadLink";
 import { StructuredData } from "@/components/StructuredData";
 import { profileStructuredData } from "@/lib/seo";
-import "./portfolio-art-direction.css";
+import "@/app/portfolio-art-direction.css";
 
 export default function Home() {
   return (

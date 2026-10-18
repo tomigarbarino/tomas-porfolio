@@ -2,7 +2,7 @@
 
 ## Current implementation
 
-The canonical case is `/en/trainly`, rendered by the Next.js App Router page at `src/app/en/trainly/page.tsx`. It uses the portfolio's typography, floating header, ASCII backdrop, draggable windows, stickers, cursor and shared motion preference. The aliases `/trainly`, `/trainyl` and `/es/trainly` permanently redirect to the canonical route through `next.config.ts`.
+The canonical case is `/en/trainly`, rendered by the Next.js App Router page at `src/app/(english)/en/trainly/page.tsx`, composing `src/views/trainly.tsx`. It uses the portfolio's typography, floating header, ASCII backdrop, draggable windows, stickers, cursor and shared motion preference. The aliases `/trainly` and `/trainyl` permanently redirect to the English route. `/es/trainly` now renders the complete Spanish case with a reciprocal EN/ES switch; see `portfolio-languages.md`.
 
 The narrative follows company knowledge through a reviewable plan, learning, assessment and manager actions. The central product decision is visible: the AI proposes chapters with source references, and generation stops when conflicting material needs a human decision.
 

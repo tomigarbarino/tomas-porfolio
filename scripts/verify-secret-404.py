@@ -16,9 +16,11 @@ class Shell(HTMLParser):
         self.ids = set()
         self.video_count = 0
         self._title = False
+        self.lang = None
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'html': self.lang = attrs.get('lang')
         if tag == 'title':
             self._title = True
             self.titles.append('')
@@ -51,20 +53,23 @@ def main():
     if not allowed or base.path not in ('', '/') or base.query or base.fragment:
         args_parser.error('Use a local HTTP build or the canonical production HTTPS origin.')
     results = []
-    for route in ('/404', '/off-the-grid', '/en/absent-page'):
+    for route in ('/404', '/off-the-grid', '/en/absent-page', '/es/404', '/es/off-the-grid'):
         client = (http.client.HTTPSConnection if base.scheme == 'https' else http.client.HTTPConnection)(base.netloc, timeout=20)
         try:
             client.request('GET', route)
             response = client.getresponse()
             shell = Shell()
             shell.feed(response.read().decode('utf-8'))
+            spanish = route.startswith('/es/')
+            prefix = '/es' if spanish else ''
             checks = {
+                'document_language': shell.lang == ('es' if spanish else 'en'),
                 'real_404': response.status == 404,
                 'noindex': any('noindex' in robots for robots in shell.robots),
-                'one_descriptive_title': len(shell.titles) == 1 and '404' in shell.titles[0] and 'Off the grid' in shell.titles[0],
+                'one_descriptive_title': len(shell.titles) == 1 and '404' in shell.titles[0] and ('Fuera del mapa' if spanish else 'Off the grid') in shell.titles[0],
                 'server_shell': {'missing-page', 'lost-signals'} <= shell.ids,
-                'return_link': '/' in shell.links,
-                'shared_navigation': {'/#top', '/#work', '/#story', '/#contact'} <= set(shell.links),
+                'return_link': (prefix or '/') in shell.links,
+                'shared_navigation': {prefix + suffix for suffix in ('#top', '#work', '#story', '#contact')} <= set(shell.links) if spanish else {'/#top', '/#work', '/#story', '/#contact'} <= set(shell.links),
                 'cv_download': '/documents/tomas-garbarino-cv-en.pdf' in shell.links,
                 'no_video': shell.video_count == 0,
             }

@@ -1,4 +1,4 @@
-import "./case-loading.css";
+import "@/app/en/case-loading.css";
 
 export default function CaseLoading() {
   return (

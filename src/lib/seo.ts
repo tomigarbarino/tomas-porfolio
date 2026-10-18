@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { languageAlternates } from "@/i18n/routes";
 
+export const HOME_PATH = "/";
+const RESEARCH_PATH = "/writing/jev";
 export const SITE_URL = "https://tomas-garbarino.vercel.app";
 export const SITE_NAME = "Tomás Garbarino — Product Engineer / Applied AI";
 export const PERSON_ID = `${SITE_URL}/#person`;
@@ -61,7 +64,7 @@ const cases = {
       alt: "Agora criterion evidence and human review — actual interface with fictional demo data",
     },
     citation:
-      `${SITE_URL}/writing/jev`,
+      `${SITE_URL}${RESEARCH_PATH}`,
   },
   trainly: {
     path: "/en/trainly",
@@ -88,7 +91,7 @@ export function caseStudyMetadata(key: CaseStudy): Metadata {
   return {
     title: item.title,
     description: item.description,
-    alternates: { canonical: `${SITE_URL}${item.path}` },
+    alternates: { canonical: `${SITE_URL}${item.path}`, languages: languageAlternates(item.path) },
     openGraph: {
       url: `${SITE_URL}${item.path}`,
       siteName: SITE_NAME,
@@ -114,7 +117,7 @@ export const profileStructuredData = {
     {
       "@type": "ProfilePage",
       "@id": `${SITE_URL}/#profile`,
-      url: `${SITE_URL}/`,
+      url: `${SITE_URL}${HOME_PATH}`,
       name: SITE_NAME,
       description: HOME_DESCRIPTION,
       inLanguage: "en",

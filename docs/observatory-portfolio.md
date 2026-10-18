@@ -18,7 +18,7 @@ Agora's illustrative flow measures node rectangles and reconnects edges after dr
 
 ## Technical overview
 
-`src/app/page.tsx` composes the home. `Observatory`, `OriginStory`, `ProductWork` and `AgoraCase` hold the narrative; `TrainlyDossier` supplies `/en/trainly` and `AgoraDossier` supplies `/en/agora`. Product content stays in source files; the site does not call live candidate systems, databases or AI services.
+`src/views/home.tsx` composes the home. Route groups render English and Spanish versions with correct document languages; see `portfolio-languages.md`. `Observatory`, `OriginStory`, `ProductWork` and `AgoraCase` hold the narrative; `TrainlyDossier` supplies `/en/trainly` and `AgoraDossier` supplies `/en/agora`. Product content stays in source files; the site does not call live candidate systems, databases or AI services.
 
 `ArtifactDrag` applies CSS translation and emits bubbling `tg-artifact-move` with `{ x, y }` after applying offsets. `AgoraFlow` coalesces these events with resize/font observations into one measurement frame. It does not run an idle animation loop. Scroll movement of the whole flow shares coordinates with its SVG.
 

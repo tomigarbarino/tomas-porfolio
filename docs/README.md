@@ -1,5 +1,7 @@
 # Portfolio documentation
 
+- [English and Spanish](portfolio-languages.md): site-wide switch, complete bilingual research, translated vectors, static rendering and validation.
+
 - [Writing & Research](writing-research.md): independent catalogue, complete native JEV study, vector charts and zoom viewer, PDF download, annotated reading notes, page signatures and validation.
 
 - [Orquestador original project](orquestador-case.md): output-first delivery desk, downloadable review draft, recorded run, failure gate, own-project positioning and contact paths.

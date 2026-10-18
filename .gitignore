@@ -18,3 +18,8 @@ work/
 .DS_Store
 Thumbs.db
 .vercel
+
+# Compiled locale presentation modules (rebuilt before checks/build).
+src/localized/
+public/media/research/jev/*-portfolio-en.svg
+src/i18n/candidates.json

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useId, useState } from "react";
+import { LanguageSwitch } from "./LanguageSwitch";
 import "./jev-figure-viewer.css";
 
 type Figure = { number: number; src: string; width: number; height: number; mode: string };
@@ -11,7 +12,7 @@ export function JevFigureViewer({ figure, caption, original }: { figure: Figure;
   const [zoom, setZoom] = useState(1);
   const id = useId();
   return <main className="jev-viewer" lang="es">
-    <header><Link href={`/writing/jev#jev-figure-${figure.number}`}>← Volver al estudio</Link><span>JEV / FIGURA {String(figure.number).padStart(2, "0")} / VECTOR</span></header>
+    <header><Link href={`/writing/jev#jev-figure-${figure.number}`}>← Volver al estudio</Link><span>JEV / FIGURA {String(figure.number).padStart(2, "0")} / VECTOR</span><LanguageSwitch /></header>
     <h1>Una mirada más cerca.</h1>
     <p id={`${id}-hint`}>Ampliá la figura y desplazate dentro del panel. Con teclado: enfocá el panel y usá las flechas para recorrerlo.</p>
     <div className="jev-viewer__toolbar" role="group" aria-label="Ampliación de la figura">

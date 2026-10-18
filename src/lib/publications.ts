@@ -2,6 +2,7 @@
 export const JEV_PUBLICATION = {
   url: "/writing/jev",
   documentUrl: "/documents/jev-agora-research.pdf",
+  englishTitle: "How JEV decides in Agora: probabilities, thresholds and human review",
   title: "Cómo decide JEV en Agora: probabilidades, umbrales y revisión humana",
   publishedAt: "2026-10-04",
   displayDate: "October 4, 2026",

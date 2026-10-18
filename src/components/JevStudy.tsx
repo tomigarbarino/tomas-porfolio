@@ -65,7 +65,7 @@ function Blocks({ blocks }: { blocks: Block[] }) {
     } else if (block.type === "figure") {
       const styled = figureStyle.figures.find(figure => figure.number === block.number)!;
       rendered.push(<figure className="jev-figure" id={`jev-figure-${block.number}`} key={index}>
-        <a href={`/writing/jev/figures/${block.number}`} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^Figura \d+\. /, "")}`}>
+        <a href={`/writing/jev/figures/${block.number}`} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar figura ${block.number}: ${block.caption.replace(/^(?:Figura|Figure) \d+\. /, "")}`}>
           <Image src={styled.src} width={styled.width} height={styled.height} unoptimized alt={block.caption} sizes="(max-width: 900px) 90vw, 980px" />
           <span>Ampliar figura {block.number} ↗</span>
         </a>
@@ -95,6 +95,6 @@ export function JevStudy() {
         <Blocks blocks={section.blocks} />
       </section>)}</div>
     </div>
-    <footer className="jev-study__footer"><p>FIN DEL ESTUDIO / DOCUMENTO COMPLETO DISPONIBLE</p><a className="wr-ink-link" href={JEV_PUBLICATION.documentUrl} download>Descargar informe en PDF ↓</a><a href="#jev-guide">Ver notas de lectura en inglés ↓</a></footer>
+    <footer className="jev-study__footer"><p>FIN DEL ESTUDIO / DOCUMENTO COMPLETO DISPONIBLE</p><a className="wr-ink-link" href={JEV_PUBLICATION.documentUrl} download>Descargar informe en PDF ↓</a><a href="#jev-guide">Ver notas de lectura ↓</a></footer>
   </article>;
 }

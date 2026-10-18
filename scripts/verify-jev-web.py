@@ -52,7 +52,7 @@ class StudyHTML(HTMLParser):
             self.figure_images.append(attrs.get("src"))
         if tag == "a" and "jev-figure__original" in attrs.get("class", "").split():
             self.original_links.append(attrs.get("href"))
-        if tag == "a" and attrs.get("href", "").startswith("/writing/jev/figures/"):
+        if tag == "a" and attrs.get("href", "").startswith(("/writing/jev/figures/", "/es/writing/jev/figures/")):
             self.viewer_links.append(attrs["href"])
         if tag == "li" and attrs.get("id", "").startswith("jev-ref-"):
             self.references.append(attrs["id"])
@@ -89,18 +89,21 @@ def main():
     args = argparse.ArgumentParser()
     args.add_argument("--base-url", required=True)
     args.add_argument("--output", type=Path, required=True)
+    args.add_argument("--locale", choices=("en", "es"), default="en")
     options = args.parse_args()
+    prefix = "/es" if options.locale == "es" else ""
+    content = "src/content" if options.locale == "es" else "src/localized/en/content"
     base = options.base_url.rstrip("/")
-    study = json.loads((ROOT / "src/content/jev-study.json").read_text(encoding="utf-8"))
+    study = json.loads((ROOT / f"{content}/jev-study.json").read_text(encoding="utf-8"))
     report = json.loads((ROOT / "src/content/jev-report.json").read_text(encoding="utf-8"))
-    styled = json.loads((ROOT / "src/content/jev-figure-style.json").read_text(encoding="utf-8"))["figures"]
-    with urlopen(base + "/writing/jev", timeout=30) as response:
+    styled = json.loads((ROOT / f"{content}/jev-figure-style.json").read_text(encoding="utf-8"))["figures"]
+    with urlopen(base + prefix + "/writing/jev", timeout=30) as response:
         assert response.status == 200
         html = response.read().decode()
     page = StudyHTML()
     page.feed(html)
     assert page.embeds == 0, "The study must not depend on a PDF embed"
-    assert page.canonical == "https://tomas-garbarino.vercel.app/writing/jev"
+    assert page.canonical == "https://tomas-garbarino.vercel.app" + prefix + "/writing/jev"
     assert page.sections == [f'jev-{section["id"]}' for section in study["sections"]]
     assert page.figures == [f"jev-figure-{n}" for n in range(1, 8)]
     assert page.references == [f"jev-ref-{n}" for n in range(1, 26)]
@@ -122,7 +125,7 @@ def main():
     figures = [block for section in study["sections"] for block in section["blocks"] if block["type"] == "figure"]
     assert page.figure_images == [figure["src"] for figure in styled]
     assert page.original_links == [figure["src"] for figure in figures]
-    assert page.viewer_links == [f'/writing/jev/figures/{figure["number"]}' for figure in styled]
+    assert page.viewer_links == [f'{prefix}/writing/jev/figures/{figure["number"]}' for figure in styled]
 
     def check_figure(figure):
         with urlopen(base + figure["src"], timeout=30) as response:
@@ -138,7 +141,8 @@ def main():
         with urlopen(base + path, timeout=30) as response:
             document = response.read().decode()
             assert response.status == 200
-        assert 'Descargar SVG' in document and 'Ajustar al panel' in document and 'noindex' in document
+        labels = ('Descargar SVG', 'Ajustar al panel') if options.locale == 'es' else ('Download SVG', 'Fit to panel')
+        assert all(label in document for label in labels) and 'noindex' in document
         return path
 
     with ThreadPoolExecutor(max_workers=4) as executor:
@@ -149,7 +153,7 @@ def main():
         pdf = response.read()
         assert response.headers.get_content_type() == "application/pdf"
     assert hashlib.sha256(pdf).hexdigest() == report["sha256"]
-    result = {"base": base, "status": "passed", "nativeSections": len(page.sections), "nativeTables": len(page.tables),
+    result = {"base": base, "locale": options.locale, "status": "passed", "nativeSections": len(page.sections), "nativeTables": len(page.tables),
               "tableDataCells": cells, "references": len(page.references), "embeds": page.embeds,
               "allScientificProseRendered": True, "figures": verified_figures, "styledFigures": verified_styled,
               "vectorViewers": verified_viewers,

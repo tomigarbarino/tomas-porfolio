@@ -4,6 +4,10 @@ A portfolio that connects the products I've worked on with the decisions, interf
 
 **[Explore the portfolio](https://tomas-garbarino.vercel.app/) · [Download my CV](https://tomas-garbarino.vercel.app/documents/tomas-garbarino-cv-en.pdf) · [Get in touch](https://www.linkedin.com/in/tomas-garbarino/)**
 
+## English and Spanish
+
+Use the **EN / ES** switch on any page to keep reading in the other language, including case studies and the full research with translated vector labels. [Leer en español](https://tomas-garbarino.vercel.app/es). The original report and recorded source artifacts keep their original language. See [localization architecture and checks](docs/portfolio-languages.md).
+
 ## Writing & Research
 
 **[Writing & Research](https://tomas-garbarino.vercel.app/writing)** is an independent catalogue, alongside Work. The [JEV research page](https://tomas-garbarino.vercel.app/writing/jev) renders the complete study directly as web text, with all 7 figures, 8 tables, 25 references and appendices. The original 17-page PDF remains available to download, alongside separate annotated reading notes. The study covers AI interview evaluation, CV decision thresholds and human review in Agora, authored by Tomás Garbarino. The homepage keeps a brief preview after the work.

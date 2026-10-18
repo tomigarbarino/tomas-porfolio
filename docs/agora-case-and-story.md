@@ -16,7 +16,7 @@ Candidate artifacts now show the actual application rendered locally with fictio
 
 ## Technical overview
 
-- `src/app/en/agora/page.tsx`: route metadata, canonical URL and Open Graph interface image.
+- `src/views/agora.tsx`: route metadata, canonical URL and Open Graph interface image.
 - `AgoraDossier.tsx` / `agora-dossier.css`: dedicated narrative, event-driven section rail, candidate frames and scoped visual system.
 - `AgoraDecisionReplay.tsx` / `agora-decision-replay.css`: fixed before/after rule states with independent hover, focus and pinned selection; no live evaluation.
 - `AgoraResearch.tsx` / `agora-research.css`: always-visible retrospective comparison, contribution, CV review-load trade-off, method and full-paper link. Shared scroll wrappers and whole-surface drag; no custom animation loop.

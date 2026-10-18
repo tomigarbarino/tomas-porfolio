@@ -14,12 +14,14 @@ class Head(HTMLParser):
         self.canonical = None
         self.description = None
         self.h1 = 0
+        self.languages = {}
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
         if tag == 'html': self.lang = attrs.get('lang')
         if tag == 'link' and attrs.get('rel') == 'canonical': self.canonical = attrs.get('href')
         if tag == 'meta' and attrs.get('name') == 'description': self.description = attrs.get('content')
+        if tag == 'link' and attrs.get('hreflang'): self.languages[attrs['hreflang']] = attrs.get('href')
         if tag == 'h1': self.h1 += 1
 
 
@@ -29,34 +31,40 @@ def main():
     parser.add_argument('--report', default='output/portfolio-design-2027/arena-route-final.json')
     args = parser.parse_args()
     base = urlparse(args.base_url)
-    if base.hostname not in ('localhost', '127.0.0.1') or base.scheme != 'http':
-        parser.error('Use the already-running local HTTP preview.')
+    allowed = (base.hostname in ('localhost', '127.0.0.1') and base.scheme == 'http') or (base.hostname == 'tomas-garbarino.vercel.app' and base.scheme == 'https')
+    if not allowed:
+        parser.error('Use local HTTP or the canonical production HTTPS origin.')
     checks = []
 
     def get(path):
-        connection = http.client.HTTPConnection(base.hostname, base.port or 80, timeout=20)
+        connection = (http.client.HTTPSConnection if base.scheme == 'https' else http.client.HTTPConnection)(base.hostname, base.port or (443 if base.scheme == 'https' else 80), timeout=20)
         connection.request('GET', path)
         response = connection.getresponse()
         result = response.status, dict(response.getheaders()), response.read().decode('utf-8', errors='replace')
         connection.close()
         return result
 
-    for route, target in {'/en': '/', '/es': '/', '/trainly': '/en/trainly', '/es/trainly': '/en/trainly', '/trainyl': '/en/trainly', '/agora': '/en/agora'}.items():
+    for route, target in {'/en': '/', '/trainly': '/en/trainly', '/trainyl': '/en/trainly', '/agora': '/en/agora'}.items():
         status, headers, _ = get(route)
         location = headers.get('Location', headers.get('location'))
         checks.append({'check': route, 'passed': status == 308 and location == target, 'status': status, 'location': location})
-    for route in ('/', '/en/trainly', '/en/agora'):
+    for route in ('/', '/en/trainly', '/en/agora', '/en/orquestador', '/writing', '/writing/jev', '/es', '/es/trainly', '/es/agora', '/es/orquestador', '/es/writing', '/es/writing/jev'):
         status, _, html = get(route)
         head = Head()
         head.feed(html)
         expected = 'https://tomas-garbarino.vercel.app' + (route if route != '/' else '/')
         canonical_matches = (head.canonical or '').rstrip('/') == expected.rstrip('/')
-        checks.append({'check': route + ' metadata', 'passed': status == 200 and head.lang == 'en' and head.h1 == 1 and bool(head.description) and canonical_matches, 'status': status, 'canonical': head.canonical, 'lang': head.lang, 'h1': head.h1})
+        checks.append({'check': route + ' metadata', 'passed': status == 200 and head.lang == ('es' if route == '/es' or route.startswith('/es/') else 'en') and head.h1 == 1 and bool(head.description) and canonical_matches, 'status': status, 'canonical': head.canonical, 'lang': head.lang, 'h1': head.h1})
+        pairs = {'/': '/es', '/en/agora': '/es/agora', '/en/trainly': '/es/trainly', '/en/orquestador': '/es/orquestador', '/writing': '/es/writing', '/writing/jev': '/es/writing/jev'}
+        en = route if route in pairs else next(key for key, value in pairs.items() if value == route)
+        normalize = lambda value: (value or '').rstrip('/')
+        expected_languages = {locale: normalize('https://tomas-garbarino.vercel.app' + path) for locale, path in {'en': en, 'es': pairs[en], 'x-default': en}.items()}
+        checks.append({'check': route + ' language alternates', 'passed': {key: normalize(value) for key, value in head.languages.items()} == expected_languages})
     for route in ('/robots.txt', '/sitemap.xml'):
         status, _, body = get(route)
         valid_content = 'https://tomas-garbarino.vercel.app' in body
         if route == '/sitemap.xml':
-            valid_content = all(f'<loc>https://tomas-garbarino.vercel.app{path}</loc>' in body for path in ('/', '/en/trainly', '/en/agora')) and body.count('<url>') == 3
+            valid_content = all(f'<loc>https://tomas-garbarino.vercel.app{path}</loc>' in body for path in ('/', '/en/trainly', '/en/agora', '/en/orquestador', '/writing', '/writing/jev', '/es', '/es/trainly', '/es/agora', '/es/orquestador', '/es/writing', '/es/writing/jev')) and body.count('<url>') == 12
         checks.append({'check': route, 'passed': status == 200 and valid_content, 'status': status})
     status, _, _ = get('/route-that-does-not-exist')
     checks.append({'check': 'unknown route', 'passed': status == 404, 'status': status})

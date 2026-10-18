@@ -105,7 +105,7 @@
 .td-format-note li { display: flex; gap: 12px; padding: 18px 0; border-top: 1px solid #08090955; font-size: 12px; line-height: 1.8; }
 .td-format-note li > span { font-size: 10px; }
 .td-validation-note { position: relative; margin-bottom: 32px; padding: 54px 28px 28px; color: var(--bg); background: var(--acid); transform: rotate(-1deg); scroll-margin-top: 32px; }
-.td-validation-note > div { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; font-family: var(--font-display),sans-serif; font-size: clamp(32px,4.2vw,64px); }
+.td-validation-note > div { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; font-family: var(--font-display),sans-serif; font-size: clamp(24px,3.5vw,64px); }
 .td-validation-note > div > i { font-family: var(--font-mono),monospace; font-size: 22px; font-style: normal; }
 .td-validation-note > p:last-child { margin-top: 26px; font-size: 12px; line-height: 1.8; }
 .td-architecture { margin-top: 50px; }
@@ -181,7 +181,7 @@ html[data-motion="paused"] .td-stage-content { transition: none; }
   .td-evidence-pair { margin-block: 38px; }
   .td-format-note ul { display: block; }
   .td-validation-note { padding: 54px 18px 24px; }
-  .td-validation-note > div { gap: 9px; font-size: clamp(30px,7vw,44px); }
+  .td-validation-note > div { gap: 9px; font-size: clamp(24px,3.5vw,44px); }
   .td-validation-note > div > i { font-size: 16px; }
   .td-architecture dl, .td-learnings-grid { grid-template-columns: 1fr; }
   .td-status { padding-inline: 24px; }
@@ -212,3 +212,8 @@ html[data-motion="paused"] .td-stage-content { transition: none; }
 .td-console-transport i { display:block; width:10px; height:18px; border:1px solid var(--td-violet); }
 .td-console-transport i[data-active="true"] { background:var(--td-violet); }
 @media(max-width:500px) { .td-console-transport > span { width:100%; order:3; justify-content:center; } .td-console-transport button { font-size:10px; padding-inline:9px; } }
+
+@media (max-width: 599px) {
+  .td-validation-note > div:not([popover]) { display: grid; grid-template-columns: minmax(0,1fr); justify-items: center; gap: 8px; }
+  .td-validation-note > div:not([popover]) > i { transform: rotate(90deg); }
+}

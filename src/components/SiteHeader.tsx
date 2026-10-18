@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
 import { useMotionPreference } from "./MotionPreference";
 import { CVDownloadLink } from "./CVDownloadLink";
+import { LanguageSwitch } from "./LanguageSwitch";
 import "./site-header.css";
 
 type SiteHeaderProps = {
@@ -47,14 +48,14 @@ export function SiteHeader({ context = "home", backHref = "/#work", backLabel = 
           })}
           <CVDownloadLink className="site-header__cv">CV <span aria-hidden="true">↓</span></CVDownloadLink>
         </nav>
-        <button
+        <div className="site-header__tools"><LanguageSwitch /><button
           className="site-header__motion motion-toggle"
           type="button"
           disabled={reducedMotion}
           onClick={() => setPaused(!paused)}
         >
           {reducedMotion ? "Reduced motion" : paused ? "Play motion" : "Pause motion"}
-        </button>
+        </button></div>
       </div>
       {context !== "home" && (
         <Link className="site-header__back" href={backHref}>
