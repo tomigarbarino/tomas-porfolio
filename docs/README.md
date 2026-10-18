@@ -1,5 +1,7 @@
 # Portfolio documentation
 
+- [Visitor missions](visitor-missions.md): optional product challenges, feedback, session progress, bilingual rules and validation.
+
 - [English and Spanish](portfolio-languages.md): site-wide switch, complete bilingual research, translated vectors, static rendering and validation.
 
 - [Writing & Research](writing-research.md): independent catalogue, complete native JEV study, vector charts and zoom viewer, PDF download, annotated reading notes, page signatures and validation.

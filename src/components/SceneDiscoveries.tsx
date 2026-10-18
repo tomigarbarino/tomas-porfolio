@@ -80,7 +80,7 @@ export function SceneDiscoveries({ onPlay }: { onPlay: () => void }) {
           </div>
         </article>;
       })}
-      <button type="button" className="scene-play" aria-label="Explore side quests" onClick={onPlay}><span aria-hidden="true" className="scene-play-plus">✳</span><span>SIDE<br /><strong>QUESTS</strong></span><span className="scene-play-note">a small detour ↗</span></button>
+      <button type="button" className="scene-play" aria-label="Open your missions" onClick={onPlay}><span aria-hidden="true" className="scene-play-plus">✳</span><span>YOUR<br /><strong>MISSIONS</strong></span><span className="scene-play-note">pick a challenge ↗</span></button>
     </div>
   );
 }

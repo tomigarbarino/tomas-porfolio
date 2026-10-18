@@ -107,7 +107,7 @@ html[data-motion="paused"] .project-window .trainly-loop > span:nth-child(3) { t
   .scene-play { position: relative; inset: auto; flex-direction: column; justify-content: center; gap: 8px; min-width: 0; height: 160px; border: 1px dashed #ff76b9; background: #080909e8; transform: none; }
   .scene-play-plus { font-size: 50px; }
   .scene-play > span:nth-child(2) { font-size: 9px; text-align: center; }
-  .scene-play strong { font-size: 28px; }
+  .scene-play strong { font-size: clamp(18px, 5.5vw, 28px); }
   .scene-play-note { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
