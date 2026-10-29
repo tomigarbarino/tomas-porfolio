@@ -12,6 +12,10 @@ Use the **EN / ES** switch on any page to keep reading in the other language, in
 
 **[Writing & Research](https://tomas-garbarino.vercel.app/writing)** is an independent catalogue, alongside Work. The [JEV research page](https://tomas-garbarino.vercel.app/writing/jev) renders the complete study directly as web text, with all 7 figures, 8 tables, 25 references and appendices. The original 17-page PDF remains available to download, alongside separate annotated reading notes. The study covers AI interview evaluation, CV decision thresholds and human review in Agora, authored by Tomás Garbarino. The homepage keeps a brief preview after the work.
 
+## Product engineering profile
+
+The [English profile](https://tomas-garbarino.vercel.app/product-engineering) and [perfil en español](https://tomas-garbarino.vercel.app/es/product-engineering) connect discovery, end-to-end implementation and AI integration to public evidence from Agora, Trainly and the JEV study. The pages identify contribution boundaries and give visitors a direct way to start a project conversation. See [discovery architecture and verification](docs/seo-geo-discoverability.md).
+
 ## Start with the work
 
 | Case | Product problem | My contribution |

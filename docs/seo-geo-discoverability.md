@@ -1,88 +1,76 @@
-# Visibilidad SEO y GEO
+# Descubrimiento del perfil y sus casos
 
-## Resumen
+## Objetivo y alcance
 
-El portfolio entrega HTML completo para la portada y el caso Trainly en español e inglés. Antes de este cambio, cualquier crawler que no ejecutara JavaScript recibía solamente la plantilla vacía de Create React App. Ahora cada URL contiene el texto real, metadata propia, enlaces de idioma y datos estructurados desde la primera respuesta.
+Hacer que el HTML público, la identidad profesional, las URLs y sus equivalencias de idioma sean coherentes para buscadores y asistentes que usan búsqueda. No existe garantía de indexación, aparición, cita ni recomendación. Este trabajo no mide posiciones ni demuestra que un asistente haya incorporado el sitio.
 
-Esto mejora la capacidad de Google, Bing, OAI-SearchBot y otros sistemas de búsqueda para descubrir, interpretar y citar el perfil y el caso de producto. No garantiza posiciones ni citas: esas señales también dependen de indexación, autoridad externa, relevancia y tiempo.
+La aplicación actual usa Next.js App Router, no Create React App ni un script de prerender separado. Los componentes de contenido y la metadata se comparten con las versiones españolas generadas por `scripts/i18n/build.mjs`. Las páginas de perfil de colaboración usan contenido bilingüe explícito. El render final debe verificarse después del build y, tras un eventual despliegue, en la respuesta HTTP pública.
 
-## Experiencia de usuario
+## Rutas canónicas
 
-- `/` mantiene español rioplatense como idioma principal.
-- `/en` es la portada inglesa indexable.
-- `/trainly` es el caso Trainly en español.
-- `/en/trainly` es el caso Trainly en inglés.
-- El selector `ES / EN` navega entre URLs equivalentes y conserva la sección actual cuando existe un hash.
-- `/es`, `/es/trainly` y el alias histórico `/trainyl` redirigen a sus rutas canónicas.
-- El diseño, el movimiento y el comportamiento responsive no cambian.
+| Inglés | Español |
+| --- | --- |
+| `/` | `/es` |
+| `/en/agora` | `/es/agora` |
+| `/en/trainly` | `/es/trainly` |
+| `/en/orquestador` | `/es/orquestador` |
+| `/writing` | `/es/writing` |
+| `/writing/jev` | `/es/writing/jev` |
+| `/product-engineering` | `/es/product-engineering` |
 
-## Descripción técnica
+La portada inglesa es `/`; `/en` redirige allí. Los alias históricos `/agora`, `/trainly` y `/trainyl` redirigen a sus casos en inglés. No deben agregarse como documentos separados al sitemap. Las páginas de figuras son recursos enlazados desde el estudio, no parte de este inventario de páginas principales.
 
-### Renderizado
+`languageAlternates` define equivalencias `en`, `es` y `x-default` (inglés). Next resuelve sus paths contra `metadataBase`; una URL relativa en ese objeto no es por sí misma un fallo. El sitemap incorpora las mismas equivalencias con URLs absolutas y enlaces recíprocos para ambos idiomas. No se agregan fechas `lastmod` sin una fecha real de actualización.
 
-`npm run build` ejecuta primero `react-scripts build` y luego `scripts/prerender-seo.cjs`. El segundo paso usa `react-dom/server` para renderizar el componente real de cada ruta con su idioma correspondiente. No mantiene una copia paralela del contenido: consume `src/i18n/content.ts` y los mismos componentes que usa el navegador.
+## Hallazgos y cambios
 
-`src/index.js` hidrata ese HTML con `hydrateRoot`. Si la aplicación se ejecuta sin prerender, conserva el fallback de `createRoot`.
+- **Rastreo general ya permitido:** `public/robots.txt` contiene `User-agent: *`, `Allow: /` y el sitemap correcto. Se conserva sin cambios. No era necesario agregar bloques específicos de agentes.
+- **Identidad de páginas:** las versiones EN y ES de `ProfilePage` compartían el identificador `/#profile`. Ahora cada versión deriva su identificador de su propia URL. La persona mantiene un único `/#person` en ambos idiomas.
+- **Identidad del sitio:** `WebSite` mantiene `/#website` y declara ambos idiomas. Writing referencia ese mismo identificador, en lugar de describir un sitio desconectado.
+- **Estudio y página de lectura:** el artículo de lectura tiene identificador y `mainEntityOfPage`. La fecha del estudio publicado permanece en el trabajo original incluido; no se inventa una fecha de publicación o modificación para la página que lo presenta.
+- **Atribución:** la metadata del Orquestador lo describe como desafío del AI Day de Flock. Los autores de los casos son autores del relato; `CreativeWork.author` no implica autoría exclusiva de Agora o Trainly.
+- **Perfil para colaboraciones:** `contentPageMetadata` permite metadata propia para las nuevas páginas sin agregar claims ni contenido diferente del visible.
+- **Documentación:** se reemplazaron instrucciones obsoletas sobre CRA, idioma por defecto, cuatro rutas y comandos inexistentes.
 
-### Metadata y entidades
+## Contrato del helper
 
-`src/lib/seo.ts` centraliza:
+```ts
+import { contentPageMetadata } from '@/lib/seo';
 
-- paths canónicos por página e idioma;
-- títulos, descripciones y Open Graph;
-- alternates `es-AR`, `en` y `x-default`;
-- `ProfilePage` con `Person` para la portada;
-- `WebPage` con `SoftwareApplication` y autor para Trainly;
-- actualización de metadata durante navegación cliente.
-
-El contenido estructurado describe solamente información visible o verificable. No agrega métricas de impacto no validadas.
-
-### Crawlers y despliegue
-
-- `public/robots.txt` permite el rastreo general y explicita acceso para `OAI-SearchBot`.
-- `public/sitemap.xml` declara las cuatro URLs y sus equivalencias lingüísticas.
-- `vercel.json` sirve cada documento prerenderizado y elimina el catch-all que hacía responder la portada para cualquier URL.
-
-## Flujo
-
-```mermaid
-flowchart LR
-    Content[src/i18n/content.ts] --> React[Componentes React]
-    Content --> SEO[src/lib/seo.ts]
-    React --> Build[react-scripts build]
-    SEO --> Prerender[scripts/prerender-seo.cjs]
-    Build --> Prerender
-    Prerender --> ES[/]
-    Prerender --> EN[/en]
-    Prerender --> TrainlyES[/trainly]
-    Prerender --> TrainlyEN[/en/trainly]
-    ES --> Hydrate[hydrateRoot + GSAP]
-    EN --> Hydrate
-    TrainlyES --> Hydrate
-    TrainlyEN --> Hydrate
+contentPageMetadata({
+  path: '/product-engineering', // español: /es/product-engineering
+  language: 'en',             // español: es
+  title: profile.title,
+  description: profile.description,
+});
 ```
 
-## Notas operativas
+La página debe proveer su propio título y descripción visibles o fieles al contenido, elegir el path canónico del idioma y renderizar enlaces navegables a sus casos. El helper devuelve canonical absoluto, alternates de ambos idiomas y `x-default`, Open Graph con URL/locale y Twitter. No crea el archivo de ruta, no publica contenido, no inventa una imagen ni reemplaza la metadata de la página.
 
-- Ejecutar `npm run seo:verify` después de cada build. Falla si falta contenido, canonical, schema, idioma, alternates, sitemap o acceso de OAI-SearchBot.
-- Las rutas inglesa y española deben mantenerse en pares.
-- Cualquier nueva página indexable debe agregarse a `scripts/prerender-seo.cjs`, `scripts/verify-seo.cjs`, el sitemap y las reglas de Vercel.
-- Google Search Console y Bing Webmaster Tools requieren verificación desde una cuenta del propietario. No se registran automáticamente desde el repositorio.
-- El dominio propio sigue siendo un posible paso posterior; el sitio continúa usando el alias público actual de Vercel.
+Los nuevos textos de casos sí pasan por el flujo existente de traducción: agregar su traducción revisada al catálogo antes de ejecutar `i18n:build`. No editar directamente `src/localized`.
 
-## Validación
+## Evidencia y límites de los claims
 
-- `npm run type-check`: aprobado.
-- `npm run build`: aprobado; cuatro rutas prerenderizadas.
-- `npm run seo:verify`: aprobado.
-- `npm test -- --watchAll=false --runInBand --passWithNoTests`: aprobado sin tests existentes.
-- Playwright en 1440 px y 390 px: cuatro rutas, selector de idioma, canonicals y `lang` correctos; sin overflow horizontal, imágenes rotas ni errores de consola.
-- Cantidad de texto visible en HTML inicial: entre 4.133 y 4.975 caracteres según la ruta.
+Las pantallas de demo de Agora y Trainly usan datos ficticios. Muestran una interfaz o recorrido, no resultados de clientes. La validación del cambio de Agora fue reportada por el equipo; debe conservar esa atribución. El estudio JEV es retrospectivo y mide acuerdo con referencias; no acredita calidad de contratación, equidad ni el resultado de todos los cambios de producción. Ninguna metadata debe ampliar esos límites.
 
-## Riesgos y próximos pasos
+No se agregan ratings, reviews, premios, métricas de negocio, disponibilidad fija, garantías de entrega ni propiedad individual de productos de Flock. No se crea un tipo de schema especial para asistentes. No se agrega `llms.txt` por rutina.
 
-- La indexación y las citas generativas no son inmediatas ni garantizadas.
-- Registrar el sitio y enviar el sitemap en Google Search Console y Bing Webmaster Tools.
-- Solicitar reindexación de las cuatro URLs después del despliegue.
-- Evaluar un dominio propio para consolidar la identidad y los enlaces externos.
-- Monitorear consultas, impresiones, páginas indexadas y citas en experiencias de IA antes de cambiar el contenido por intuición.
+## Crawlers y fuentes oficiales
+
+[OpenAI: bots](https://developers.openai.com/api/docs/bots) distingue `OAI-SearchBot` (búsqueda), `GPTBot` (entrenamiento) y `ChatGPT-User` (accesos iniciados por usuarios). Permitir búsqueda y permitir entrenamiento son decisiones diferentes. El wildcard actual permite rastreo general; este cambio no amplía ni modifica la política de entrenamiento.
+
+[Google: AI features](https://developers.google.com/search/docs/appearance/ai-features) y [AI optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) mantienen los fundamentos de búsqueda: acceso, contenido útil y enlaces, metadata y datos estructurados coherentes con lo visible. No requieren schema especial de IA; la guía indica que Google no usa `llms.txt` para ese fin.
+
+Un robots permisivo no demuestra ausencia de bloqueos de infraestructura. Tras un despliegue hay que revisar HTTP, posibles protecciones de Vercel/WAF y el HTML que recibe un visitante anónimo. No se han modificado cuentas, Search Console, Bing Webmaster Tools ni configuración de infraestructura.
+
+## Verificación
+
+Ejecutar `node --test tests/discoverability.test.mjs` con las dependencias del proyecto instaladas. El test ejecuta los helpers reales, compara metadata contra el sitemap, verifica equivalencias recíprocas, identidad y atribución. La comprobación española requiere los módulos generados por el flujo i18n existente; se marca como omitida si todavía no existen.
+
+La integración completa debe ejecutar los checks habituales del repositorio, incluida la generación de idiomas y el build. Luego inspeccionar las respuestas renderizadas de cada par: status 200, canonical propio, `html lang`, hreflang recíproco, JSON-LD válido y contenido visible sin depender de interacción. Comprobar también que los alias redirigen y que una URL inexistente devuelve 404. Los tests de fuentes no sustituyen esta verificación HTTP.
+
+Después de un despliegue autorizado, el propietario puede enviar el sitemap a Google Search Console y Bing Webmaster Tools y consultar indexación e impresiones. Registrar consultas y referencias observadas antes de atribuir una mejora a estos cambios. ChatGPT Ads es un canal pago separado: no cambia la elegibilidad orgánica ni garantiza recomendaciones.
+
+## Comprobación de la entrega del 29/10/2026
+
+Typecheck y lint completados sin errores; 30 tests pasaron sin omisiones. El build de producción generó las dos páginas nuevas como HTML estático. La comprobación HTTP local confirmó 200, idioma, canonical, hreflang y JSON-LD en ambas portadas, ambos perfiles, los dos casos de Orquestador y las dos páginas del estudio; robots y sitemap respondieron 200 y una URL desconocida respondió 404. Las páginas nuevas mostraron su llamado a conversar y navegación activa en el idioma correcto. Esto verifica implementación y acceso local, no indexación externa.

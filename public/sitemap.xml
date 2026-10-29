@@ -1,15 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tomas-garbarino.vercel.app/</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/en/trainly</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/en/agora</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/en/orquestador</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/writing</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/writing/jev</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/es</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/es/agora</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/es/trainly</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/es/orquestador</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/es/writing</loc></url>
-  <url><loc>https://tomas-garbarino.vercel.app/es/writing/jev</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/es</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/en/trainly</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/en/trainly" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/trainly" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/en/trainly" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/es/trainly</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/en/trainly" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/trainly" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/en/trainly" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/en/agora</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/en/agora" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/agora" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/en/agora" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/es/agora</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/en/agora" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/agora" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/en/agora" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/en/orquestador</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/en/orquestador" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/orquestador" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/en/orquestador" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/es/orquestador</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/en/orquestador" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/orquestador" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/en/orquestador" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/writing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/writing" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/writing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/writing" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/es/writing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/writing" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/writing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/writing" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/writing/jev</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/writing/jev" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/writing/jev" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/writing/jev" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/es/writing/jev</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/writing/jev" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/writing/jev" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/writing/jev" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/product-engineering</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/product-engineering" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/product-engineering" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/product-engineering" />
+  </url>
+  <url>
+    <loc>https://tomas-garbarino.vercel.app/es/product-engineering</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tomas-garbarino.vercel.app/product-engineering" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tomas-garbarino.vercel.app/es/product-engineering" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tomas-garbarino.vercel.app/product-engineering" />
+  </url>
 </urlset>

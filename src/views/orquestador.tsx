@@ -20,11 +20,11 @@ export default function OrquestadorPage() {
       <SiteHeader context="case" backHref="/#work" />
       <main id="orquestador-main" className="orq-case">
         <header className="orq-case__hero">
-          <p className="eyebrow">OWN PROJECT / PRODUCT DESIGN + ENGINEERING / 2026</p>
+          <p className="eyebrow">FLOCK AI DAY CHALLENGE / PRODUCT DESIGN + ENGINEERING / 2026</p>
           <h1>Your next progress update.<br /><span>With the evidence attached.</span></h1>
           <p className="orq-case__intro">For people who reconstruct the same report every week. Orquestador de entregables turns a source packet into a review draft, keeps each item tied to its evidence, and blocks claims the sources cannot support.</p>
           <div className="orq-case__actions"><a className="button-primary" href="#orq-demo">Explore the example deliverable ↓</a><a href={repo} target="_blank" rel="noreferrer">Inspect the source ↗</a><a href={demo} target="_blank" rel="noreferrer">Open the standalone demo ↗</a></div>
-          <p className="orq-case__note">Original personal project · public-source example · recorded local-model run. Explore the replay and download its review draft without an account or a live model call.</p>
+          <p className="orq-case__note">Built for an AI Day challenge at Flock I+D · public-source example · recorded local-model run. Explore the replay and download its review draft without an account or a live model call.</p>
         </header>
 
         <dl className="orq-case__promise"><div><dt>Input</dt><dd>A bounded source packet</dd></div><div><dt>Output</dt><dd>A draft you can inspect and save</dd></div><div><dt>Your decision</dt><dd>Review relevance and wording</dd></div></dl>

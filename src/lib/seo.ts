@@ -6,7 +6,7 @@ const RESEARCH_PATH = "/writing/jev";
 export const SITE_URL = "https://tomas-garbarino.vercel.app";
 export const SITE_NAME = "Tomás Garbarino — Product Engineer / Applied AI";
 export const PERSON_ID = `${SITE_URL}/#person`;
-const WEBSITE_ID = `${SITE_URL}/#website`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export const HOME_DESCRIPTION =
   "Product Engineer / Applied AI at Flock I+D. Customer discovery, product decisions and hands-on AI for Agora and Trainly. Former Frontend Lead at Batech.";
@@ -31,7 +31,7 @@ const website = {
   "@id": WEBSITE_ID,
   url: `${SITE_URL}/`,
   name: SITE_NAME,
-  inLanguage: "en",
+  inLanguage: ["en", "es"],
   publisher: { "@id": PERSON_ID },
 } as const;
 
@@ -39,8 +39,8 @@ const cases = {
   orquestador: {
     path: "/en/orquestador",
     name: "Orquestador de entregables",
-    title: "Orquestador — an original evidence-backed workflow project",
-    description: "An original project by Tomás Garbarino: public-source inputs, a recorded local AI run, evidence checks, a blocked unsupported claim and a draft for human review.",
+    title: "Orquestador — an AI Day challenge at Flock",
+    description: "A challenge built by Tomás Garbarino for Flock’s AI Day: public-source inputs, a recorded local AI run, evidence checks, a blocked unsupported claim and a draft for human review.",
     shareTitle: "Orquestador — Your progress update, with the evidence attached",
     shareDescription: "Inspect a source-linked progress draft, download the Markdown and test the evidence check in a recorded workflow replay.",
     image: {
@@ -86,6 +86,33 @@ const cases = {
 
 type CaseStudy = keyof typeof cases;
 
+type ContentPageMetadata = {
+  path: string;
+  title: string;
+  description: string;
+  language: "en" | "es";
+};
+
+/** Copy and locale belong to the visible page; this helper adds no claims. */
+export function contentPageMetadata({ path, title, description, language }: ContentPageMetadata): Metadata {
+  const url = `${SITE_URL}${path}`;
+  return {
+    title,
+    description,
+    alternates: { canonical: url, languages: languageAlternates(path) },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: SITE_NAME,
+      type: "website",
+      locale: language === "es" ? "es_AR" : "en_US",
+      alternateLocale: [language === "es" ? "en_US" : "es_AR"],
+    },
+    twitter: { card: "summary", title, description },
+  };
+}
+
 export function caseStudyMetadata(key: CaseStudy): Metadata {
   const item = cases[key];
   return {
@@ -116,7 +143,7 @@ export const profileStructuredData = {
     website,
     {
       "@type": "ProfilePage",
-      "@id": `${SITE_URL}/#profile`,
+      "@id": `${SITE_URL}${HOME_PATH}#profile`,
       url: `${SITE_URL}${HOME_PATH}`,
       name: SITE_NAME,
       description: HOME_DESCRIPTION,

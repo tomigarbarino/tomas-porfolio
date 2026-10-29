@@ -16,6 +16,7 @@ type SiteHeaderProps = {
 
 const navigation = [
   { label: "Work", href: "/#work", hash: "work" },
+  { label: "Profile", href: "/product-engineering", hash: "profile" },
   { label: "Writing & Research", href: "/writing", hash: "writing" },
   { label: "Story", href: "/#story", hash: "story" },
   { label: "Contact", href: "/#contact", hash: "contact" },
@@ -31,7 +32,7 @@ export function SiteHeader({ context = "home", backHref = "/#work", backLabel = 
   const { paused, setPaused, reducedMotion } = useMotionPreference();
   const pathname = usePathname();
   const hash = useSyncExternalStore(subscribeHash, () => window.location.hash.slice(1), () => "");
-  const active = pathname.startsWith("/writing") ? "writing" : context === "case" ? "work" : hash;
+  const active = pathname.startsWith("/product-engineering") ? "profile" : pathname.startsWith("/writing") ? "writing" : context === "case" ? "work" : hash;
 
   return (
     <header className={`site-header site-header--${context}`}>
@@ -43,8 +44,8 @@ export function SiteHeader({ context = "home", backHref = "/#work", backLabel = 
         <nav className="site-header__navigation" aria-label="Main navigation">
           {navigation.map(item => {
             const content = item.hash === "writing" ? <span className="site-header__writing-label"><span>Writing &amp;</span>{" "}<span>Research</span></span> : item.label;
-            const current = active === item.hash ? (item.hash === "writing" ? "page" : "location") : undefined;
-            return context === "home" && item.hash !== "writing" ? <a key={item.hash} href={item.href} aria-current={current}>{content}</a> : <Link key={item.hash} href={item.href} aria-current={current}>{content}</Link>;
+            const current = active === item.hash ? (item.hash === "writing" || item.hash === "profile" ? "page" : "location") : undefined;
+            return context === "home" && item.hash !== "writing" && item.hash !== "profile" ? <a key={item.hash} href={item.href} aria-current={current}>{content}</a> : <Link key={item.hash} href={item.href} aria-current={current}>{content}</Link>;
           })}
           <CVDownloadLink className="site-header__cv">CV <span aria-hidden="true">↓</span></CVDownloadLink>
         </nav>

@@ -1104,5 +1104,12 @@
   "Discovery complete": "Hallazgo completado",
   "On the trail": "Tras la pista",
   "Mission board →": "Tablero de misiones →",
-  "Stop tracking": "Dejar de seguir"
+  "Stop tracking": "Dejar de seguir",
+  "Profile": "Perfil",
+  "FLOCK LABS / 2026": "FLOCK LABS / 2026",
+  "Tomás Garbarino": "Tomás Garbarino",
+  "Orquestador — an AI Day challenge at Flock": "Orquestador — un desafío del AI Day de Flock",
+  "A challenge built by Tomás Garbarino for Flock’s AI Day: public-source inputs, a recorded local AI run, evidence checks, a blocked unsupported claim and a draft for human review.": "Un desafío desarrollado por Tomás Garbarino para el AI Day de Flock: fuentes públicas, una ejecución local de IA registrada, controles de evidencia, una afirmación sin respaldo bloqueada y un borrador para revisión humana.",
+  "FLOCK AI DAY CHALLENGE / PRODUCT DESIGN + ENGINEERING / 2026": "DESAFÍO FLOCK AI DAY / DISEÑO DE PRODUCTO + INGENIERÍA / 2026",
+  "Built for an AI Day challenge at Flock I+D · public-source example · recorded local-model run. Explore the replay and download its review draft without an account or a live model call.": "Desarrollado para un desafío del AI Day de Flock I+D · ejemplo con fuentes públicas · ejecución local del modelo registrada. Explorá la reproducción y descargá el borrador para revisión sin una cuenta ni una llamada al modelo en vivo."
 }

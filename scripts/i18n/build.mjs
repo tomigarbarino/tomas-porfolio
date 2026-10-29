@@ -27,7 +27,7 @@ export function spanishPath(value) {
   if (value === '/') return '/es';
   if (value.startsWith('/#')) return `/es${value.slice(1)}`;
   if (/^\/en(?=\/)/.test(value)) return value.replace(/^\/en/, '/es');
-  if (/^\/writing(?=\/|#|$)/.test(value) || value === '/404') return `/es${value}`;
+  if (/^\/(writing|product-engineering)(?=\/|#|$)/.test(value) || value === '/404') return `/es${value}`;
   return value;
 }
 

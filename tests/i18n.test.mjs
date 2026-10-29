@@ -19,7 +19,7 @@ function numbers(text, locale) {
 }
 
 test('language links round-trip all page families and figure URLs', () => {
-  const pairs = [['/', '/es'], ['/en/agora', '/es/agora'], ['/en/trainly', '/es/trainly'], ['/en/orquestador', '/es/orquestador'], ['/writing', '/es/writing'], ['/writing/jev', '/es/writing/jev'], ['/writing/jev/figures/7', '/es/writing/jev/figures/7'], ['/404', '/es/404']];
+  const pairs = [['/', '/es'], ['/en/agora', '/es/agora'], ['/en/trainly', '/es/trainly'], ['/en/orquestador', '/es/orquestador'], ['/product-engineering', '/es/product-engineering'], ['/writing', '/es/writing'], ['/writing/jev', '/es/writing/jev'], ['/writing/jev/figures/7', '/es/writing/jev/figures/7'], ['/404', '/es/404']];
   for (const [en, es] of pairs) {
     assert.deepEqual(languagePaths(en), { en, es });
     assert.deepEqual(languagePaths(es), { en, es });
