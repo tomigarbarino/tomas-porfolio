@@ -2,6 +2,7 @@
 .pe-intro { max-width: 1000px; padding-bottom: 72px; }
 .pe-intro .eyebrow { color: var(--acid); margin-bottom: 24px; line-height: 1.6; }
 .pe-intro h1 { max-width: 900px; font-family: var(--font-display), sans-serif; font-size: clamp(58px, 7vw, 100px); line-height: .95; font-weight: 900; text-transform: uppercase; }
+.pe-page .pe-intro h1 { hyphens: none; overflow-wrap: normal; }
 .pe-intro h1 > span { color: var(--acid); }
 .pe-lead { max-width: 760px; margin: 26px 0; font-size: clamp(17px, 2vw, 21px); line-height: 1.7; }
 .pe-contact-link, .pe-case__link { display: inline-flex; align-items: center; gap: 16px; min-height: 44px; color: var(--acid); text-underline-offset: 5px; }
