@@ -74,3 +74,5 @@ Después de un despliegue autorizado, el propietario puede enviar el sitemap a G
 ## Comprobación de la entrega del 29/10/2026
 
 Typecheck y lint completados sin errores; 30 tests pasaron sin omisiones. El build de producción generó las dos páginas nuevas como HTML estático. La comprobación HTTP local confirmó 200, idioma, canonical, hreflang y JSON-LD en ambas portadas, ambos perfiles, los dos casos de Orquestador y las dos páginas del estudio; robots y sitemap respondieron 200 y una URL desconocida respondió 404. Las páginas nuevas mostraron su llamado a conversar y navegación activa en el idioma correcto. Esto verifica implementación y acceso local, no indexación externa.
+
+La verificación pública confirmó las 14 URLs canónicas con HTTP 200, idioma, canonical, hreflang y JSON-LD coherentes; robots respondió con rastreo permitido y la URL desconocida mantuvo 404. Ambos perfiles respondieron 200 con HTML completo ante una solicitud con User-Agent OAI-SearchBot. No se verificó una IP de OpenAI ni indexación. En la revisión visual se corrigieron el span heredado del menú móvil y el tamaño del título en pantallas estrechas.

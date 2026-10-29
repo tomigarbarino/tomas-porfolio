@@ -29,4 +29,4 @@
 .pe-contact { border: 1px solid var(--acid); padding: 35px; }
 .pe-contact p { max-width: 720px; margin-bottom: 24px; }
 .pe-page a:focus-visible { outline: 2px solid var(--acid); outline-offset: 5px; }
-@media (max-width: 720px) { .pe-page { padding: 30px 20px 65px; } .pe-intro { padding-bottom: 40px; } .pe-scope dl, .pe-case { grid-template-columns: 1fr; } .pe-scope dl { gap: 24px; } .pe-case { gap: 24px; } .pe-case__image, .pe-paper { max-width: 500px; } .pe-contact { padding: 24px; } .pe-intro h1 { overflow-wrap: anywhere; } }
+@media (max-width: 720px) { .pe-page { padding: 30px 20px 65px; } .pe-intro { padding-bottom: 40px; } .pe-scope dl, .pe-case { grid-template-columns: 1fr; } .pe-scope dl { gap: 24px; } .pe-case { gap: 24px; } .pe-case__image, .pe-paper { max-width: 500px; } .pe-contact { padding: 24px; } .pe-page .pe-intro h1 { font-size: clamp(46px, 13vw, 58px); } }
