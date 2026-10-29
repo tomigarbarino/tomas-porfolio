@@ -17,7 +17,7 @@ export default function OrquestadorPage() {
     <StructuredData data={caseStudyStructuredData("orquestador")} />
     <MotionPreference>
       <a className="skip-link" href="#orquestador-main">Skip to project case</a>
-      <SiteHeader context="case" backHref="/#original-work" />
+      <SiteHeader context="case" backHref="/#work" />
       <main id="orquestador-main" className="orq-case">
         <header className="orq-case__hero">
           <p className="eyebrow">OWN PROJECT / PRODUCT DESIGN + ENGINEERING / 2026</p>
@@ -72,7 +72,7 @@ export default function OrquestadorPage() {
           <div><p>For a team repeating the same reporting work, a scoped pilot would define one format, authorized sources and explicit approval rules. Then measure preparation time, factual corrections and review effort against the current process.</p><p>That is the product engineering work I want to do: turn a real operational problem into a small working system, test its failure modes and make its decisions inspectable.</p><p className="orq-case__note">Still to validate: usefulness with a real team, longer free-form deliverables and deployment evidence across live sources. No adoption, revenue or hours-saved claim is made here.</p></div>
         </section>
 
-        <footer className="orq-case__contact"><p className="eyebrow">A WORKFLOW TO IMPROVE? A PRODUCT TEAM TO JOIN?</p><h2>Let’s make it<br /><span>useful in practice.</span></h2><div className="orq-case__actions"><a className="button-primary" href="mailto:tomasgarbarino.dev@gmail.com?subject=Workflow%20pilot">Discuss a workflow ↗</a><a href="mailto:tomasgarbarino.dev@gmail.com?subject=Product%20engineering%20opportunity">Discuss a product engineering role ↗</a><Link href="/#original-work">Back to portfolio →</Link></div></footer>
+        <footer className="orq-case__contact"><p className="eyebrow">A WORKFLOW TO IMPROVE? A PRODUCT TEAM TO JOIN?</p><h2>Let’s make it<br /><span>useful in practice.</span></h2><div className="orq-case__actions"><a className="button-primary" href="mailto:tomasgarbarino.dev@gmail.com?subject=Workflow%20pilot">Discuss a workflow ↗</a><a href="mailto:tomasgarbarino.dev@gmail.com?subject=Product%20engineering%20opportunity">Discuss a product engineering role ↗</a><Link href="/#work">Back to portfolio →</Link></div></footer>
       </main>
     </MotionPreference>
   </>;

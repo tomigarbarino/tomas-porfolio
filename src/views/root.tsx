@@ -28,13 +28,13 @@ export const metadata: Metadata = {
     description:
       "Real problems. Working systems. Product engineering, frontend and AI integration.",
     type: "website",
-    images: [{ url: "/media/hero-ascii.png", width: 1152, height: 648, alt: "Tomás Garbarino — Observatory portfolio" }],
+    images: [{ url: "/media/portfolio-home-20261029.jpg", width: 1521, height: 667, alt: "Tomás Garbarino — Observatory portfolio" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Tomás Garbarino | Product Engineer / Applied AI",
     description: HOME_DESCRIPTION,
-    images: [{ url: "/media/hero-ascii.png", alt: "Tomás Garbarino — Observatory portfolio" }],
+    images: [{ url: "/media/portfolio-home-20261029.jpg", alt: "Tomás Garbarino — Observatory portfolio" }],
   },
   icons: { icon: "/icon.svg" },
 };
