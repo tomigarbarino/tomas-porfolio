@@ -63,7 +63,7 @@ export function PortfolioDialogs({ selected, onDismiss }: Props) {
           <p>Currently at Flock I+D.</p>
           <dl className="profile-grid"><div><dt>Current products</dt><dd>Agora · Product Owner<br />Trainly · Product Engineer</dd></div><div><dt>Opportunities</dt><dd>Product Engineer / Forward Deployed Engineer</dd></div><div><dt>Product status</dt><dd>Agora and Trainly are used by clients and growing.</dd></div></dl>
           <div className="dialog-actions"><a className="button-primary" href="#work" onClick={event => navigate(event, "work")}>View case studies →</a><a href="mailto:tomasgarbarino.dev@gmail.com">Get in touch ↗</a></div>
-          <p><Link href="/en/orquestador">Own project: Orquestador — evidence, AI and human review →</Link></p><div className="profile-links"><a href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/tomigarbarino" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          <p><Link href="/writing/jev">Read the JEV research →</Link></p><div className="profile-links"><a href="https://www.linkedin.com/in/tomas-garbarino/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/tomigarbarino" target="_blank" rel="noreferrer">GitHub ↗</a></div>
         </> : <VisitorMissions active={selected === "quests"} onDismiss={onDismiss} onNavigate={navigate} />}
       </div>
     </dialog>

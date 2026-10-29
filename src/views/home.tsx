@@ -1,6 +1,5 @@
 import { SecretArcadeLink } from "@/components/SecretArcadeLink";
 import { Observatory } from "@/components/Observatory";
-import { OriginalWork } from "@/components/OriginalWork";
 import { WritingResearch } from "@/components/WritingResearch";
 import { ProductWork } from "@/components/ProductWork";
 import { OriginStory } from "@/components/OriginStory";
@@ -26,7 +25,6 @@ export default function Home() {
         <Observatory />
         <OriginStory />
         <div id="work" tabIndex={-1} aria-label="Selected work">
-          <OriginalWork />
           <ProductWork />
         </div>
         <WritingResearch />

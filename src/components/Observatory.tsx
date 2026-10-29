@@ -49,7 +49,7 @@ export function Observatory() {
         <div className="scene-ink" aria-hidden="true" />
         <SiteHeader context="home" />
         <SceneDiscoveries onPlay={() => setSelected("quests")} />
-        <div className="hero-copy" data-scroll-depth="18"><h1 id="hero-title">Tomás<br />Garbarino.</h1><p><span className="hero-role">Product Engineer / Applied AI</span><br />Real problems. Working systems.</p><p className="hero-contribution">I connect customer discovery, product decisions and hands-on AI implementation.</p><a className="button-primary mobile-case-link" href="#work">Explore selected work →</a><div className="mobile-routes"><a href="#original-work">Own project →</a><button type="button" onClick={() => setSelected("profile")}>Quick profile →</button><a href="#story">Story →</a><button type="button" onClick={() => setSelected("quests")}>Your missions +</button><a href="#contact">Contact ↗</a></div></div>
+        <div className="hero-copy" data-scroll-depth="18"><h1 id="hero-title">Tomás<br />Garbarino.</h1><p><span className="hero-role">Product Engineer / Applied AI</span><br />Real problems. Working systems.</p><p className="hero-contribution">I connect customer discovery, product decisions and hands-on AI implementation.</p><a className="button-primary mobile-case-link" href="#work">Explore selected work →</a><div className="mobile-routes"><a href="/writing/jev">Read the JEV research →</a><button type="button" onClick={() => setSelected("profile")}>Quick profile →</button><a href="#story">Story →</a><button type="button" onClick={() => setSelected("quests")}>Your missions +</button><a href="#contact">Contact ↗</a></div></div>
         {windowState !== "closed" && <Window project="Agora" container={stage} minimized={windowState === "minimized"} onMinimize={() => hideWindow("minimized")} onClose={() => hideWindow("closed")}>
           <div className="hero-case-artifact" role="img" aria-label="Conceptual Agora guardrail: missing requirements go to human review">
             <span className="hero-case-artifact__edition">01 / A REAL PRODUCT DECISION</span>
@@ -61,7 +61,7 @@ export function Observatory() {
           <p className="window-scope">Flock I+D / Product Owner</p>
           <Link className="button-primary" href="/en/agora" prefetch={true}>Read the Agora case →</Link>
         </Window>}
-        <footer className="hero-footer"><a href="#original-work">Own project / Orquestador →</a><a href="#trainly">Trainly / learning &amp; assessment →</a><button type="button" onClick={() => setSelected("profile")}>Quick profile →</button><button type="button" onClick={() => setSelected("quests")}>Your missions +</button><button ref={restore} type="button" className="restore-window" hidden={windowState === "open"} onClick={openWindow}>{windowState === "minimized" ? "Restore Agora ↑" : "Open Agora window +"}</button></footer>
+        <footer className="hero-footer"><a href="/writing/jev">Read the JEV research →</a><a href="#trainly">Trainly / learning &amp; assessment →</a><button type="button" onClick={() => setSelected("profile")}>Quick profile →</button><button type="button" onClick={() => setSelected("quests")}>Your missions +</button><button ref={restore} type="button" className="restore-window" hidden={windowState === "open"} onClick={openWindow}>{windowState === "minimized" ? "Restore Agora ↑" : "Open Agora window +"}</button></footer>
       </div>
       <PortfolioDialogs selected={selected} onDismiss={() => setSelected(null)} />
     </section>

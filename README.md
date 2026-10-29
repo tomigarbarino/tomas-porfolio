@@ -12,10 +12,6 @@ Use the **EN / ES** switch on any page to keep reading in the other language, in
 
 **[Writing & Research](https://tomas-garbarino.vercel.app/writing)** is an independent catalogue, alongside Work. The [JEV research page](https://tomas-garbarino.vercel.app/writing/jev) renders the complete study directly as web text, with all 7 figures, 8 tables, 25 references and appendices. The original 17-page PDF remains available to download, alongside separate annotated reading notes. The study covers AI interview evaluation, CV decision thresholds and human review in Agora, authored by Tomás Garbarino. The homepage keeps a brief preview after the work.
 
-## Original project
-
-**[Orquestador de entregables](https://tomas-garbarino.vercel.app/en/orquestador)** — a recurring progress update with public-source evidence, a recorded local AI run, explicit state checks and human review. [Try the guided demo](https://orquestador-entregables-tomas.vercel.app/?caso=avance), including a deliberate unsupported claim that blocks the draft. This is my own project; the professional product contributions below have separate attribution.
-
 ## Start with the work
 
 | Case | Product problem | My contribution |
@@ -25,6 +21,8 @@ Use the **EN / ES** switch on any page to keep reading in the other language, in
 | **[Batech](https://tomas-garbarino.vercel.app/)** | Turning AI and computer vision capabilities into a SaaS interface. | Built the frontend foundation and grew into frontend leadership. The career story separates my contribution from company footage. |
 
 Agora and Trainly are projects at **Flock I+D**, where I work as a Product Engineer. The full career story is **Minecraft experiments → digital menus offered to restaurants → Hogarth Worldwide → Batech → Flock I+D**.
+
+[Orquestador de entregables](https://tomas-garbarino.vercel.app/en/orquestador) was built for an AI Day challenge at Flock I+D. Its dedicated case remains available as a challenge project, separate from the product work above.
 
 For a quick overview, open **Quick profile** on the site. For the reasoning behind a product flow, open a case study.
 

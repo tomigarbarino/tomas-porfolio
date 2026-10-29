@@ -12,17 +12,12 @@ test('discoveries complete missions only through their real interaction checkpoi
     }
     assert.equal(completedMissions(state).includes(mission.id), true);
   }
-  assert.equal(completedMissions(state).length, 5);
+  assert.equal(completedMissions(state).length, 4);
 });
 
 test('route visits, quiz answers, tracking and out-of-order events do not award discoveries', () => {
   const state = emptyMissionState();
-  for (const event of ['source', 'loop', 'paper', '/writing/jev', 'unknown', 'gate-restored', 'packet-recovered']) assert.equal(applyDiscovery(state, event), state);
-  const blocked = applyDiscovery(state, 'gate-blocked');
-  assert.deepEqual(completedMissions(blocked), []);
-  const restored = applyDiscovery(blocked, 'gate-restored');
-  assert.deepEqual(completedMissions(restored), ['gate']);
-  assert.equal(applyDiscovery(restored, 'gate-restored'), restored);
+  for (const event of ['source', 'loop', 'paper', '/writing/jev', 'unknown', 'gate-blocked', 'gate-restored', 'packet-recovered']) assert.equal(applyDiscovery(state, event), state);
 });
 
 test('missions can be discovered without tracking, in any mission order', () => {
@@ -35,7 +30,7 @@ test('missions can be discovered without tracking, in any mission order', () => 
 test('v1 quiz completion and corrupt saved data cannot count as exploration progress', () => {
   for (const raw of [null, '', 'broken', '{}', '42', '["loop","evidence","research"]', '{"version":1,"events":["menu-fold"]}']) assert.deepEqual(readMissionState(raw), emptyMissionState());
   const raw = JSON.stringify({ version: 2, active: 'retired', events: ['gate-restored', 'menu-fold', 'menu-fold', null, {}, 'retired', 'gate-blocked'] });
-  assert.deepEqual(readMissionState(raw), { version: 2, active: null, events: ['menu-fold', 'gate-blocked'] });
+  assert.deepEqual(readMissionState(raw), { version: 2, active: null, events: ['menu-fold'] });
   assert.deepEqual(completedMissions(readMissionState(raw)), ['paper']);
 });
 
